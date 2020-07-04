@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="dns-prefetch" href="http://swsmile.info">
+  <title>【HTTP】URL总结 | 西维蜀黍 的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="我每天都在使用URL，每天和他打交道。但是，在阅读《HTTP权威指南》后，才发现我对URL的理解是不全面的、碎片化的。">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【HTTP】URL总结">
+<meta property="og:url" content="http://swsmile.info/2017/03/31/【HTTP】URL总结/index.html">
+<meta property="og:site_name" content="西维蜀黍 的博客">
+<meta property="og:description" content="我每天都在使用URL，每天和他打交道。但是，在阅读《HTTP权威指南》后，才发现我对URL的理解是不全面的、碎片化的。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://swsmile.info/2017/03/31/【HTTP】URL总结/assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg">
+<meta property="og:image" content="http://swsmile.info/2017/03/31/【HTTP】URL总结/assets/fc5f46f2-82db-43a7-a793-867a6a40e96f.jpg">
+<meta property="og:updated_time" content="2020-07-04T04:32:24.325Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【HTTP】URL总结">
+<meta name="twitter:description" content="我每天都在使用URL，每天和他打交道。但是，在阅读《HTTP权威指南》后，才发现我对URL的理解是不全面的、碎片化的。">
+<meta name="twitter:image" content="http://swsmile.info/2017/03/31/【HTTP】URL总结/assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.2d7529.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-78769787-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?4481376a6b117446f0ad6f2b9b796afc";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/logo.jpg" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">西维蜀黍</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">🐒 Software engineer | 📷Photographer | 👹Urban explorer</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">所有文章</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">Tag</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">Friends</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+					<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+		        
+					<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">西维蜀黍</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>🐒 Software engineer | 📷Photographer | 👹Urban explorer<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+						<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+			        
+						<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 50%">
+				
+				
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-【HTTP】URL总结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【HTTP】URL总结
+    </h1>
+  
+
+        
+        <a href="/2017/03/31/【HTTP】URL总结/" class="archive-article-date">
+  	<time datetime="2017-03-31T12:37:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>我每天都在使用URL，每天和他打交道。但是，在阅读《HTTP权威指南》后，才发现我对URL的理解是不全面的、碎片化的。</p>
+<a id="more"></a> 
+
+<h1 id="1-URL的历史"><a href="#1-URL的历史" class="headerlink" title="1.URL的历史"></a>1.URL的历史</h1><p>在因特网的历史上<strong>，统一资源定位符（URL，Uniform Resource Locator）</strong>的发明是一个非常基础的步骤。统一资源定位符的语法是一般的，可扩展的。<strong>它存在的目的</strong>，是使用<strong>ASCII代码</strong>的一部分来表示互联网的地址。</p>
+<h1 id="2-URL的构成"><a href="#2-URL的构成" class="headerlink" title="2.URL的构成"></a>2.URL的构成</h1><p>URL提供了一种定位因特网上任意资源的手段，但这些资源是可以通过各种不同的 scheme（比如HTTP、FTP、SMTP）来访问的，因此URL语法会随 scheme 的不同而有所不同。</p>
+<p>这是不是意味着每种不同的 URL scheme 都会有完全不同的语法呢？实际上，不是的。 大部分URL都遵循通用的URL语法，而且不同 URL scheme 的风格和语法都有不少重叠。</p>
+<p>大多数 URL scheme 的 URL 语法都建立在这个由 9 部分构成的通用格式上：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c18" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+<scheme>：//<user>：<password>@<host>：<port>/<path>；<params>?<query>#<frag></frag></query></params></path></port></host></password></user></scheme></pre>
+
+<p>几乎没有哪个 URL 中包含了所有这些组件。<strong>URL 最重要的3个部分是 scheme、host 和 path</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>描 述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Scheme</td>
+<td>访问服务器以获取资源时要使用的某种协议</td>
+<td>无</td>
+</tr>
+<tr>
+<td>User</td>
+<td>某些 Scheme 访问资源时需要的用户名</td>
+<td>匿名</td>
+</tr>
+<tr>
+<td>Password</td>
+<td>用户名后面可能要包含的密码，中间由冒号“:”分割</td>
+<td></td>
+</tr>
+<tr>
+<td>Host</td>
+<td>资源宿主服务器的主机名或 IP 地址</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Port</td>
+<td>资源宿主服务器正在监听的端口号.很多方案都有默认端口号（HTTP 的默认端口号为80）</td>
+<td>每个方案特有</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>服务器上资源的本地名，由一个斜扛“/”将其与前面的 URL 组件分隔开来（稍后会讲到URL路径可以分为若干个段，每段都可以有其特有的组件）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Param</td>
+<td>某些 Scheme 会用这个组件来指定输入参数，格式为名/值对。 URL中可以包含多个 Param 字段，它们相互之间以及与 Param组件 的其余部分组件之间用分号“；”分隔</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>某些 Scheme 会用这个组件传递参数给服务器，或标识查询条件，用字符“？”将 Query组件 与URL的其余部分分隔开</td>
+<td>无</td>
+</tr>
+<tr>
+<td>Fragment</td>
+<td>一些客户端，不会将frag字段传送给服务器，这个字段是在客户端内部（比如浏览器内部）使用的，通过“#”字符将其与URL的其余组件分割开来</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>比如，我们来看看 URL: <a href="http://vww.joes-hardware.com:80/indcx" target="_blank" rel="noopener">http://vww.joes-hardware.com:80/indcx</a>,html ，其scheme是 HTTP， host是<a href="www.joes-hardware.com">www.joes-hardware.com</a> ，Port是 80，Path为/index.html。</p>
+</blockquote>
+<h1 id="3-URL中组件含义"><a href="#3-URL中组件含义" class="headerlink" title="3.URL中组件含义"></a>3.URL中组件含义</h1><h2 id="3-1-scheme-gt-使用什么协议"><a href="#3-1-scheme-gt-使用什么协议" class="headerlink" title="3.1 scheme -&gt; 使用什么协议"></a>3.1 scheme -&gt; 使用什么协议</h2><p>scheme 实际上是规定<strong>如何访问指定资源的</strong>主要标识符，它会告诉负责解析URL的应用程序应该使用什么协议。在我们这个简单的 HTTP URL 中所使用的 scheme 就是 HTTP。</p>
+<p>scheme 必须以一个字母符号开始，由第一个“:”符号将其与URL的其余部分分隔开来。scheme名是<strong>大小写无关的</strong>，因此URL“<a href="http://www.joes-hardware.com" target="_blank" rel="noopener">http://www.joes-hardware.com</a>” 和 “<a href="HTTP://www.jocs-hardware.conT" target="_blank" rel="noopener">HTTP://www.jocs-hardware.conT</a> 是等价的。</p>
+<h2 id="3-2-host-与-port-gt-域名与端口"><a href="#3-2-host-与-port-gt-域名与端口" class="headerlink" title="3.2 host 与 port -&gt; 域名与端口"></a>3.2 host 与 port -&gt; 域名与端口</h2><p>要想在因特网上找到资源，应用程序要知道是哪台机器装载了资源，以及在那台机器的什么地方可以找到能对目标资源进行访问的服务器。URL的 host 和 port 提供了这两组信息。</p>
+<p>Host 组件标识了因特网上能够访问资源的宿主机器。可以用上述主机名（<a href="www.joes-hardware.com">www.joes-hardware.com</a>)，或者IP地址来表示主机名。</p>
+<p>比如，下面两个 URL 就指向同一个资源：</p>
+<ul>
+<li><p>第一个 URL 是通过主机名</p>
+</li>
+<li><p>第二个是通过 IP 地址指向服务器的</p>
+</li>
+</ul>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c56" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+http://www.joes-hardware.com:80/index.html
+http://161.58.228.45:80/index.html</pre>
+
+<p>port 标识了服务器正在监听的网络端口。对下层使用了 TCP 协议的 HTTP 来说，<strong>默认端口号为80</strong>。</p>
+<h2 id="3-3-username-和-password-gt-用户名与密码"><a href="#3-3-username-和-password-gt-用户名与密码" class="headerlink" title="3.3 username 和 password -&gt; 用户名与密码"></a>3.3 username 和 password -&gt; 用户名与密码</h2><p>部分服务器都要求输入 username 和 password 才会允许用户访问数据。比如FTP服务器。这里有几个例子：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c62" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+ftp://ftp.prep.ai.mit.edu/pub/gnu
+​
+ftp://anonymous@ftp.prep.ai.mit.edu/pub/gnu
+​
+http://joe:joespasswd@www.joes-hardwarc.com/sales_info.txt</pre>
+
+<p><strong>第一个例子</strong>中，没有username和password组件，只有标准的方案、主机和路径。如果某应用程序使用的URL方案要求输入username和password，比如FTP，但用户没有提供，它通常会插入一个默认的用户名和密码。比如，如果向浏览器提供一个FTP URL，但没有指定用户名和密码，它就会<strong>插入anonymous (匿名用户）作为你的用户名，并发送一个默认的密码</strong>（Internet Explorer会发送IEUser，Netscape Navigator則会发送 mozilla）。</p>
+<p><strong>第二个例子</strong>中，显示了一个指定为anonymous的用户名。这个用户名与主机组件组合在一起，看起来就像E-mail地址一样。字符“@”将用户和密码组件与URL的其余部分分隔开来。</p>
+<p><strong>第三个例子</strong>中，指定了用户名（joe）和密码（joespasswd），两者之间由字符“:”分隔。</p>
+<h2 id="3-4-path-gt-路径"><a href="#3-4-path-gt-路径" class="headerlink" title="3.4 path -&gt; 路径"></a>3.4 path -&gt; 路径</h2><p>URL的 path 说明了资源位于服务器的什么地方。路径通常很像一个分级的文件系统路径。比如：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c73" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+http://www.joes-hardware.com:80/seasonal/index-fall.html </pre>
+
+<p>这个URL中的 Path 为<code>/seasonal/index-fall.html</code>，很像UNIX文件系统中的文件系统路径。路径是服务器定位资源时所需的信息。可以用字符“/”将HTTP URL的路径组件划分成一些路径段（path segment）（还是与UNIX文件系统中的文件路径类似）。每个路径段都有自己的参数（param）组件。</p>
+<h2 id="3-5-param-gt-参数"><a href="#3-5-param-gt-参数" class="headerlink" title="3.5 param -&gt; 参数"></a>3.5 param -&gt; 参数</h2><p>对很多方案来说，只有简单的主机名和到达对象的路径是不够的。除了服务器正在监听的端口，以及是否能够通过用户名和密码访问资源外，很多协议都还需要更多的信息才能工作。</p>
+<p>负责解析URL的应用程序需要这些协议参数来访问资源。否则，被请求的服务器可能就不会为请求提供服务，或者更糟糕的是，提供错误的服务。比如，像FTP这样的协议，有两种传输模式，二进制和文本形式。你肯定不希望以文本形式来传送二进制图片，这样的话，二进制图片可能会变得一团糟。</p>
+<p>为了向应用程序提供它们所需的输入参数，以便正确地与服务器进行交互，URL中有一个参数组件。这个组件就是URL中的名值对列表，由<strong>字符“;”将其与URL的其余部分（以及各名值对）分隔开来。在每个param组内部，用字符“=”来区分key和value</strong>。它们为应用程序提供了访问资源所需的所有附加信息。比如：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c83" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+ftp://prep.ai.mit.edu/pub/gnu;type=d </pre>
+
+<p>在这个例子中，有一个参数typc=d，参数名为type,值为d。</p>
+<p>如前所述，HTTP URL的路径组件可以分成若干路径段。每段都可以有自己的参数。比如：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c88" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+http://www.joes-hardware.com/hammers;sale=false/index.html;graphics=true</pre>
+
+<p>这个例子就有两个路径段，hammers和index.html。hammers路径段（<code>sale=false</code>）有参数sale，其值为 false。index.html段（<code>graphics=true</code>）有参数 graphics，其值为 true。</p>
+<h2 id="3-6-quiery（quirystring）-gt-查询条件"><a href="#3-6-quiery（quirystring）-gt-查询条件" class="headerlink" title="3.6 quiery（quirystring） -&gt; 查询条件"></a>3.6 quiery（quirystring） -&gt; 查询条件</h2><p>很多资源，比如数据库服务，都是可以通过提问题或进行査询来缩小所请求资源类型范围的。</p>
+<p>假设Joe的五金商店在数据库中维护着一个未售货物的淸单，并可以对淸单进行査询，以判断产品是否有货，那就可以用下列URL来査询Web数据库网关，看看编号为12731的条目是否有货：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c96" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+http://www.joes-hardware.com/inventory-check.cgi?itein=1273l</pre>
+
+<p>除了有些不合规则的字符需要特别处理之外（某些字符需要URL编码），对査询组件的格式没什么要求。按照常规，很多服务器都希望査询字符串以一系列“名/值”对的形式出现，<strong>名值对之间用字符“&amp;”分隔</strong>：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c99" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+http://www.joes-hardware.com/inventory-check.cgi?item=12731&color=blue</pre>
+
+<p>在这个例子中，査询组件有两个名/值对：item=12731和color=blue。</p>
+<h2 id="3-7-frag-gt-片段"><a href="#3-7-frag-gt-片段" class="headerlink" title="3.7 frag -&gt; 片段"></a>3.7 frag -&gt; 片段</h2><p>有些资源类型，比如HTML，除了资源级之外，还可以做进一步的划分。比如，对一个带有章节的大型文本文档来说，资源的URL会指向整个文本文档，但我们更期望的是，提供一种方式使能够<strong>指向到资源中某些章节或位置</strong>。</p>
+<p>为了引用部分资源或资源的一个片段，URL支持使用片段（frag）组件来表示一个资源内部的片段。比如，URL可以指向HTML文档中一个特定的图片或小节。</p>
+<p>片段在URL的最右边，最前面以一个字符‘#’将其与其他组件区分。比如：</p>
+<pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c108" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+http://www.joes-hardware.eom/tools.html#drills</pre>
+
+<p>在这个例子中，片段drills引用了五金商店Web服务器上页面/tools.html中的一个部分。这部分的名字叫做drills。</p>
+<p>HTTP服务器通常只处理在URL中除 Frag 以外的元素，因此客户端也不能将 Frag 组件传送给服务器（参考下图）。但是，浏览器会记录下此前的Frag值，当从服务器获得了整个资源之后，浏览器会把该Frag值填充到URL中，并根据 Frag 来显示你感兴趣的那部分资源。</p>
+<p><img src="assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg" alt=""></p>
+<h1 id="4-理解URL构成的意义"><a href="#4-理解URL构成的意义" class="headerlink" title="4.理解URL构成的意义"></a>4.理解URL构成的意义</h1><p>在日常开发中，我们可能会碰到以下需求：</p>
+<ul>
+<li><p>从一个URL中提取出host</p>
+</li>
+<li><p>从一个URL中提取出querystring中的所有元素</p>
+</li>
+</ul>
+<p>我们可以根据URL格式的定义，从<code>://</code>后，可能包含[User:Password@] ，也可能不包含，所以可以以URL字符串中是否包含“@”字符做为判断是否包含[User:Password@] ，如果包含那“@”之后就是host（当然还要考虑host后的param和querystring），具体思路就不展开了。当然，你也可以用正则表达式来提取，但是你仍然需要参考URL的标准格式定义。</p>
+<p>更全面与详细的URL定义与约定，你可以查询RFC。</p>
+<h1 id="5-URL、URN、URI-区别"><a href="#5-URL、URN、URI-区别" class="headerlink" title="5.URL、URN、URI 区别"></a>5.URL、URN、URI 区别</h1><h3 id="5-1-定义"><a href="#5-1-定义" class="headerlink" title="5.1 定义"></a>5.1 定义</h3><p><strong>URN（Uniform Resource Name）</strong>：唯一标识一个实体的标识符，但不给出实体的位置。<br><strong>URI（Uniform Resource Identifier）</strong>：是一个紧凑的字符串用来标示抽象或物理资源的标识符。<br><strong>URL（Uniform Resource Locator）</strong>：除了确定一个资源外，还提供一种定位该资源的标识符。</p>
+<h3 id="5-2-关系"><a href="#5-2-关系" class="headerlink" title="5.2 关系"></a>5.2 关系</h3><p>以下这种图足以概括三者的关系：<br><img src="assets/fc5f46f2-82db-43a7-a793-867a6a40e96f.jpg" alt=""></p>
+<p><strong>概括的来说</strong>，URL 和 URN 都是 URI，但是 URI 不一定是 URL 或者 URN。</p>
+<p><strong>具体来说：</strong></p>
+<p><strong>URL</strong>是URI的一种，不仅标识了Web 资源，还指定了操作或者获取方式，同时指出了主要访问机制和网络位置。一个恰当的比喻，一个人的住址是一个URL，通过这个URL你可以准确找到这个人（根据URL可以准确获取到某个 Web 资源）。</p>
+<p><strong>URN</strong>是URI的一种，用特定命名空间的名字标识资源。可以用URN来唯一标识一个实体，可以在不知道其网络位置及访问方式的情况下讨论资源。一个恰当的比喻，书籍的ISBN码或产品在系统内的序列号是一个URN，尽管没有告诉你用什么方式或者到什么地方去找到目标，但是你有足够的信息来检索到它。</p>
+<h3 id="5-3-注意"><a href="#5-3-注意" class="headerlink" title="5.3 注意"></a>5.3 注意</h3><p>我们经常使用的URI不是严格技术意义上的URL。例如，你需要的文件在<code>files.hp.com</code>。 这是 URI，但不是 URL，因为未指定确定的 scheme、port 及 path。</p>
+<p>因此你去<code>http://files.hp.com</code> 和<code>[ftp://files.hp.com](ftp://files.hp.com/)</code>，可能得到完全不同的内容。</p>
+<p>所以，用 URI 吧，这样你通常技术上是正确的，URL可不一定。最后“URL”这个术语正在被弃用。</p>
+<h1 id="6-URL编码"><a href="#6-URL编码" class="headerlink" title="6.URL编码"></a>6.URL编码</h1><h3 id="6-1-产生URL编码的原因"><a href="#6-1-产生URL编码的原因" class="headerlink" title="6.1 产生URL编码的原因"></a>6.1 产生URL编码的原因</h3><h5 id="（1）-使URL中可存在其他语言的字符"><a href="#（1）-使URL中可存在其他语言的字符" class="headerlink" title="（1） 使URL中可存在其他语言的字符"></a>（1） 使URL中可存在其他语言的字符</h5><p>默认的计算机系统字符集通常都倾向于以英语为中心。从历史上来看，很多计算机应用程序使用的都是<strong>US-ASCII字符集</strong>。US-ASCII使用7位二进制码来表示英文打字机提供的大多数按键和少数用于文本格式和硬件通知的不可打印控制字符。</p>
+<p>由于US-ASCII的历史悠久，所以其可移植性很好。但是，虽然美国用户使用起来很便捷，它却并不支持有其他语言的字符存在。这意味着，在URL中不能包含除其他语言的字符，例如中文。</p>
+<p>因此，需要设立一种转义机制，用US-ASCII字符集的有限子集对任意字符值进行编码，从而实现<strong>在URL中可以包含全世界范围内各种各样的语言</strong>。</p>
+<h5 id="（2）使URL中存在的某些字符不存在歧义"><a href="#（2）使URL中存在的某些字符不存在歧义" class="headerlink" title="（2）使URL中存在的某些字符不存在歧义"></a>（2）使URL中存在的某些字符不存在歧义</h5><p>例如在URL中存在 query 字符串，query 字符串中存在<code>key=value</code>这样的参数对，键值对之间以<code>“&amp;”</code>符号分隔，例如<code>a=a1&amp;b=b1&amp;c=c1&amp;d=d1</code>。</p>
+<p>但是如果某个参数对的value中包括了“=”或“&amp;”字符等<strong>具有特殊含义的字符</strong>，就会产生<strong>歧义</strong>（比如，query 字符串为：<strong>a=a&amp;1</strong> &amp; b=b1 &amp; c=c1 &amp; d=d1，我们原本期望<code>a=a&amp;1</code>，而实际上去被理解成了<code>a=a</code>），这就会造成服务器在解析整个 query 字符串时出错。</p>
+<p>因此，对于一些有<strong>特殊含义的字符</strong>，我们需要进行转义。</p>
+<h3 id="6-2-哪些字符需要编码"><a href="#6-2-哪些字符需要编码" class="headerlink" title="6.2 哪些字符需要编码"></a>6.2 哪些字符需要编码</h3><p><strong>那么问题来了，哪些字符需要编码？且如何编码？</strong></p>
+<blockquote>
+<p><strong>RFC3986文档规定，URL中只允许包含英文字母（a-z or A-Z）、数字（0-9）、-_.~4个特殊字符以及所有保留字符。</strong></p>
+</blockquote>
+<p>RFC3986文档对URL的编解码问题做出了详细的建议，指出了哪些字符需要被编码才不会引起URL语义的转变，以及对为什么这些字符需要编码做出了相应的解释。</p>
+<p>为了避幵安全字符集表示法带来的限制，人们设计了一种<strong>编码机制</strong>，用来在URL中表示各种不安全的字符。这种编码机制就是通过一种“转义”表示法来表示<strong>非US-ASCII字符集中可表示的大小写字母和数字</strong>、<strong>不安全字符</strong>和<strong>保留字符</strong>，这种转义表示法<strong>包含一个百分号（％)</strong>，后面跟着两个<strong>表示字符ASCII码的十六进制数</strong>，所以通常 URL 编码又称为<strong>百分号编码</strong>。</p>
+<p><strong>接下来我们来明确，哪些字符需要编码：</strong></p>
+<h3 id="（1）保留字符"><a href="#（1）保留字符" class="headerlink" title="（1）保留字符"></a>（1）保留字符</h3><p>如第3节 URL中组件含义中描述到，URL由若干组件组成，有一些字符是用于<strong>分隔不同URL组件</strong>（:/@;?#）。如:“//”用于分隔 scheme 和 host，“：”用于区分 host 和 port，等等。还有一些字符用于在<strong>特定组件中起到分隔作用</strong>，我们统称这些字符为<strong>保留字符</strong>。比如“；”**在 param 组件中分隔各个元素，“&amp;”在 query组件中分隔各个元素。</p>
+<p>RFC3986中指定了以下字符为<strong>保留字符</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>!</th>
+<th>*</th>
+<th>‘</th>
+<th>(</th>
+<th>)</th>
+<th>:</th>
+<th>;</th>
+<th>@</th>
+<th>&amp;</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>=</td>
+<td>+</td>
+<td>$</td>
+<td>,</td>
+<td>/</td>
+<td>?</td>
+<td>#</td>
+<td>[</td>
+<td>]</td>
+</tr>
+</tbody></table>
+<p><strong>当普通数据中包括上述特殊字符时，需要对其进行URL编码，否则就会歧义。</strong>例如上面的例子，我们本希望表达URL 的 query 组件为：<strong>a=a&amp;1</strong>&amp;b=b1&amp;c=c1&amp;d=d1，但是这是错误的！而正确的方式应该是将a&amp;1进行URL编码，为：<strong>a=a%261</strong>&amp;b=b1&amp;c=c1&amp;d=d1。</p>
+<h3 id="（2）不安全字符"><a href="#（2）不安全字符" class="headerlink" title="（2）不安全字符"></a>（2）不安全字符</h3><p>还有一些字符，当他们直接放在 URL中的时候，可能会引起解析程序的歧义。这些字符被视为<strong>不安全字符</strong>。</p>
+<p><strong>对于不安全字符，我们需要将其进行URL编码后才能放置在 URL 中。</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>空格</strong></th>
+<th><strong>URL 在传输的过程，或者用户在排版的过程，或者文本处理程序在处理 URL 的过程，都有可能引入无关紧要的空格，或者将那些有意义的空格给去掉</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>引号以及&lt;&gt;</strong></td>
+<td><strong>引号和尖括号通常用于在普通文本中起到分隔 URL 的作用</strong></td>
+</tr>
+<tr>
+<td><strong>#</strong></td>
+<td><strong>通常用于表示书签或者锚点</strong></td>
+</tr>
+<tr>
+<td><strong>%</strong></td>
+<td><strong>百分号本身用作对不安全字符进行编码时使用的特殊字符，因此本身需要编码</strong></td>
+</tr>
+<tr>
+<td><strong>{}^[]`~</strong></td>
+<td><strong>某一些网关或者传输代理会篡改这些字符</strong></td>
+</tr>
+</tbody></table>
+<h4 id="需要记住："><a href="#需要记住：" class="headerlink" title="需要记住："></a>需要记住：</h4><ul>
+<li><p><strong>合法字符出现在URL中时，对其编码和不编码都是一样的。比如“a”，无论是<a href="http://www.111.com/list?query=a" target="_blank" rel="noopener">http://www.111.com/list?query=a</a>，还是<a href="http://www.111.com/list?query=b" target="_blank" rel="noopener">http://www.111.com/list?query=%62</a> 都是一样的。</strong></p>
+</li>
+<li><p><strong>但是，如果<code>保留字符</code>或 <code>不安全字符</code>出现在 URL 的普通数据中，且未对其进行 URL 编码，则会产生歧义。</strong></p>
+</li>
+<li><p><strong>因此，一个经过 URL 编码的 URL，只有普通英文字符、数字和保留字符存在。</strong></p>
+</li>
+</ul>
+<h3 id="6-3-如何编码"><a href="#6-3-如何编码" class="headerlink" title="6.3 如何编码"></a>6.3 如何编码</h3><p><strong>我们来讨论一下如何进行 URL编码：</strong></p>
+<p><strong>对于<code>ASCII字符集</code>中的字符</strong>，用不用百分号表示均可。比如，<a href="http://www.111.com/list?query=a" target="_blank" rel="noopener">http://www.111.com/list?query=a</a>，和<a href="http://www.111.com/list?query=b" target="_blank" rel="noopener">http://www.111.com/list?query=%62</a> 均是正确的。</p>
+<p><strong>对于不存在于<code>ASCII字符集</code>中的字符</strong>，需要用<strong>ASCII字符集的超集</strong>（比如UTF-8）来表示，且再加上“%”。 例如“Url编码”，使用UTF-8编码得到的字节是<code>0x55 0x72 0x6C 0xE7 0xBC 0x96 0xE7 0xA0 0x81</code>，由于前三个字节存在于ASCII字符集中，因此这三个字节可以用“Url”直接表示。最终经过URL编码则为“Url%E7%BC%96%E7%A0%81” ./当然，如果你用”%55%72%6C%E7%BC%96%E7%A0%81”也是可以的。</p>
+<hr>
+<p><strong>需要强调的是，URL编码是一种通过“转义”表示法来表示非US-ASCII字符集中字符的编码机制，但URL编码本身其实未定义“如何用US-ASCII字符集来表示非US-ASCII字符集中字符”。</strong></p>
+<p>举个例子，我希望对<code>大大傻</code>进行URL编码，我既可以用UTF-8的方式，也可以用GB2312的方式（当然也还可以用别的）。</p>
+<ul>
+<li>如果用UTF-8的编码方式，进行URL编码后是<code>%e5%a4%a7%e5%a4%a7%e5%82%bb</code>（“大”对应的UTF8编码是<code>0xE5 0xA4 0xA7</code>，“傻”对应的UTF8编码是<code>0xE5 0x82 0xBB</code>）</li>
+<li>如果用GB2312的编码方式，进行URL编码后是<code>%b4%f3%b4%f3%c9%b5</code>（“大”对应的GB2312编码是<code>0xB4 0xF3</code>，“傻”对应的GB2312编码是<code>0xC9 0xB5</code>）</li>
+</ul>
+<p><strong>可以发现，URL编码本质只是一种使用<code>%</code>来转义非US-ASCII字符集中字符的机制，但是具体使用不同的编码方式进行URL编码，得到的结果是不同的。</strong></p>
+<p><strong>但是，有时我们会默认URL编码中的编码方式是UTF-8，而不去显式的约定（因为，这也是URL编码的最佳实践编码方式）。</strong></p>
+<h1 id="7-参考"><a href="#7-参考" class="headerlink" title="7.参考"></a>7.参考</h1><ul>
+<li>《HTTP权威指南》</li>
+<li><a href="http://www.cnblogs.com/leaven/archive/2012/07/12/2588746.html" target="_blank" rel="noopener">url 编码（percentcode 百分号编码）</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier" target="_blank" rel="noopener">Wikipedia Uniform Resource Identifier</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/HTTP/" class="article-tag-list-link color5">HTTP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+   
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/03/31/【JavaScript】JavaScript定时器深入解析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【JavaScript】 JavaScript定时器深入解析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/13/【VMware】VMware12中安装macOSSierra10-12-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【VMware】 VMware12中安装macOS Sierra 10.12.3</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
+  
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 西维蜀黍
+    	</div>
+      	<div class="footer-right">
+      		
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true,
+		showTags: true
+	}
+</script>
+
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),m=e(75),g=r(m),w=e(70);l(),(0,w.addLoadEvent)(function(){g.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),m=x[f],g=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&g&&void 0!==g[a],s&&a in x||(l=s?g[a]:e[a],x[a]=d&&"function"!=typeof g[a]?e[a]:h&&s?i(l,r):b&&g[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&m&&!m[a]&&u(m,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,m,g,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=m==h,M=!1,A=t.prototype,T=A[p]||A[v]||m&&A[m],L=T||j(m),N=m?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,m)if(O={values:E?L:j(h),keys:g?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),m=e(10),g=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),m(t),n=w(n,!0),m(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){m(t);for(var e,r=b(n=g(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=g(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(g(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:g(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.2d7529.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">Tag</a></li>
+      
+        
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">Friends</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Architectural Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Architecture</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ArchitectureDesign</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Design Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Distributed System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Django</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Operating System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Node.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Operating Systems</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/en/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My English Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/oj/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My OJ Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/gym/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>西维蜀黍的健身 Blog</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+</body>
+</html>

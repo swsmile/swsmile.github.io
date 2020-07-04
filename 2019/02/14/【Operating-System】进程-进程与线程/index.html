@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="dns-prefetch" href="http://swsmile.info">
+  <title>【Operating System】进程 - 进程与线程 | 西维蜀黍 的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="进程（Process）进程的概念进程（Process）是操作系统管理资源的基本单元。 一个进程对应有一块（内存）地址空间（address space），进程可以对这块自己的地址空间进行任意的读写，这块地址空间中包括可以执行的程序（executable program）代码区、数据区（program’s data）和栈（stack）。 同时，操作系统会维护一个进程表（process table），进">
+<meta name="keywords" content="Operating System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Operating System】进程 - 进程与线程">
+<meta property="og:url" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/index.html">
+<meta property="og:site_name" content="西维蜀黍 的博客">
+<meta property="og:description" content="进程（Process）进程的概念进程（Process）是操作系统管理资源的基本单元。 一个进程对应有一块（内存）地址空间（address space），进程可以对这块自己的地址空间进行任意的读写，这块地址空间中包括可以执行的程序（executable program）代码区、数据区（program’s data）和栈（stack）。 同时，操作系统会维护一个进程表（process table），进">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190122171020849.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190213114909356.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202171450904.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202205856075.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202212244135.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202214223407.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202221846481.png">
+<meta property="og:updated_time" content="2020-07-04T04:32:24.391Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Operating System】进程 - 进程与线程">
+<meta name="twitter:description" content="进程（Process）进程的概念进程（Process）是操作系统管理资源的基本单元。 一个进程对应有一块（内存）地址空间（address space），进程可以对这块自己的地址空间进行任意的读写，这块地址空间中包括可以执行的程序（executable program）代码区、数据区（program’s data）和栈（stack）。 同时，操作系统会维护一个进程表（process table），进">
+<meta name="twitter:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190122171020849.png">
+  
+    <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.2d7529.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-78769787-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?4481376a6b117446f0ad6f2b9b796afc";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/logo.jpg" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">西维蜀黍</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">🐒 Software engineer | 📷Photographer | 👹Urban explorer</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">所有文章</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">Tag</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">Friends</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+					<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+		        
+					<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">西维蜀黍</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>🐒 Software engineer | 📷Photographer | 👹Urban explorer<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+						<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+			        
+						<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 50%">
+				
+				
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-【Operating-System】进程-进程与线程" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【Operating System】进程 - 进程与线程
+    </h1>
+  
+
+        
+        <a href="/2019/02/14/【Operating-System】进程-进程与线程/" class="archive-article-date">
+  	<time datetime="2019-02-14T04:01:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="进程（Process）"><a href="#进程（Process）" class="headerlink" title="进程（Process）"></a>进程（Process）</h1><h2 id="进程的概念"><a href="#进程的概念" class="headerlink" title="进程的概念"></a>进程的概念</h2><p>进程（Process）是操作系统管理资源的基本单元。</p>
+<p>一个进程对应有一块<strong>（内存）地址空间（address space）</strong>，进程可以对这块自己的地址空间进行任意的读写，这块地址空间中包括可以执行的程序（executable program）代码区、数据区（program’s data）和栈（stack）。</p>
+<p>同时，操作系统会维护一个<strong>进程表（process table）</strong>，进程表是一个数组，用于管理当前系统中所有的进程。</p>
+<a id="more"></a> 
+
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>在操作系统中，有三种状态：</p>
+<ul>
+<li><strong>运行（Running）</strong>：在这一刻使用CPU。</li>
+<li><strong>就绪（Ready）</strong>：可以被运行（runnable），只是暂时地被停止以让其他进程运行。</li>
+<li><strong>阻塞（Blocked）</strong>：不能被运行直到一些依赖的外部事件发生。</li>
+</ul>
+<p>运行（Running）和就绪（Ready）是类似的，只是处于就绪情况时，暂时地没有可用的CPU时间片。当CPU有可用的时间片时，进程调度器（Process Schuduler）会将这个进程从就绪态切换为运行态。</p>
+<p>阻塞（Blocked）与上面两种状态有本质上的不同，即使这时CPU空闲没有其他任务，这个进程也由于要等待依赖事件的发生而不能被运行。</p>
+<h2 id="进程状态状态机（State-machine）"><a href="#进程状态状态机（State-machine）" class="headerlink" title="进程状态状态机（State machine）"></a>进程状态状态机（State machine）</h2><p>下图是这三种状态变化的状态机（State Machine）：</p>
+<p><img src="assets/image-20190122171020849.png" alt="image-20190122171020849"></p>
+<h3 id="状态迁移1"><a href="#状态迁移1" class="headerlink" title="状态迁移1"></a>状态迁移1</h3><p>当一个进程读取管道（pipe）或者特定文件，且此时还没有完成数据的获取时，进程会自动从运行态切换为阻塞态（发生状态迁移1）。</p>
+<h3 id="状态迁移2和状态迁移3"><a href="#状态迁移2和状态迁移3" class="headerlink" title="状态迁移2和状态迁移3"></a>状态迁移2和状态迁移3</h3><p>状态迁移2和状态迁移3由<strong>进程调度器（Process Scheduler）</strong>触发，进程调度器是操作系统的一部分，而进程调度器对进程来说是透明的（进程不会意思到它的存在）。</p>
+<p>当进程调度器认为一个正在运行的进程已经执行了足够长的时间，是时候到其他进程来占用CPU时间了，进程调度器就会将这个进程从运行态切换为就绪态（发生状态迁移2）。</p>
+<p>类似的，当进程调度器认为是时候让这个进程来重新获得CPU了，进程调度器就会将这个进程从就绪态切换为运行态（发生状态迁移3）。</p>
+<h3 id="状态迁移4"><a href="#状态迁移4" class="headerlink" title="状态迁移4"></a>状态迁移4</h3><p>当依赖的外部数据到达，进程就会从阻塞态切换为就绪态（发生状态迁移4）。如果此时CPU空闲，进程就会紧接着从就绪态切换为运行态（发生状态迁移3）。</p>
+<h1 id="进程的调度（Process-Scheduling）"><a href="#进程的调度（Process-Scheduling）" class="headerlink" title="进程的调度（Process Scheduling）"></a>进程的调度（Process Scheduling）</h1><p>在不同的场景中，需要的调度算法是不同的。这些场景可以被分类为：</p>
+<ul>
+<li>批处理（batch）系统</li>
+<li>交互型（interactive）系统</li>
+<li>实时（real-time）系统</li>
+</ul>
+<h1 id="进程间的通信（Interprocess-Communication-IPC）"><a href="#进程间的通信（Interprocess-Communication-IPC）" class="headerlink" title="进程间的通信（Interprocess Communication, IPC）"></a>进程间的通信（Interprocess Communication, IPC）</h1><h2 id="潜在的进程间通信问题"><a href="#潜在的进程间通信问题" class="headerlink" title="潜在的进程间通信问题"></a>潜在的进程间通信问题</h2><h3 id="死锁（Deadlock）"><a href="#死锁（Deadlock）" class="headerlink" title="死锁（Deadlock）"></a>死锁（Deadlock）</h3><p>当两个进程同时占用多个被共享的资源时，就可能出现死锁。比如，A线程等待着B线程向其发送数据，而同时B线程也等待着A线程向其发送数据，此时就产生了<strong>死锁（Deadlock）</strong>。</p>
+<h3 id="数据不一致性（Data-Inconsistency）"><a href="#数据不一致性（Data-Inconsistency）" class="headerlink" title="数据不一致性（Data Inconsistency）"></a>数据不一致性（Data Inconsistency）</h3><p>当共享数据区同时被不同的进程修改时，数据不一致性就会发生，这也可以称为<strong>竞态条件/竞争条件（race condition）</strong>。竞<strong>斥</strong>条件是需要被避免的，否则程序会出现不按预期执行的情况。对应地，这个共享存储区被称为<strong>竞态资源（Race Resources）</strong>。</p>
+<p>而修改竞态资源（共享数据区）的代码块，就称为<strong>临界区（critical section）</strong>。</p>
+<h2 id="共享缓存问题（Shared-Buffer-Problem）"><a href="#共享缓存问题（Shared-Buffer-Problem）" class="headerlink" title="共享缓存问题（Shared Buffer Problem）"></a>共享缓存问题（Shared Buffer Problem）</h2><p>共享缓存问题（Shared Buffer Problem）是一个典型的数据不一致性（Data Inconsistency）例子。</p>
+<p>一天，爸爸发现儿子的账号里只有100美元，于是决定存入50美元给儿子。而正在此时，儿子正在取钱，他打算取20美元（取钱后账号应该剩80美元）。</p>
+<p><img src="assets/image-20190213114909356.png" alt="image-20190213114909356"></p>
+<p>由于爸爸和儿子的操作同时进行，而且进行操作账号时没锁（Lock），最终可能出现他们操作之后，账号的余额为150美元。</p>
+<p><strong>使用汇编语言来描述这个过程：</strong></p>
+<p><img src="assets/image-20190202171450904.png" alt="image-20190202171450904"></p>
+<p>我们需要引入<strong>互斥（mutual exclusion）机制</strong>，以避免多个进程同时进入临界区，最终避免<strong>数据不一致性（Data Inconsistency）</strong>的发生。</p>
+<p>互斥机制从本质来说，是一种同步（synchronization）机制。</p>
+<h3 id="进程间通信方式"><a href="#进程间通信方式" class="headerlink" title="进程间通信方式"></a>进程间通信方式</h3><p>进程间通信可以通过以下几种方式：</p>
+<ul>
+<li>数据传输（Data transfer）<ul>
+<li>管道（pipe）：管道是一种半双工的通信方式，数据只能单向流动，联系一个进程的输出和另一个进程的输入。写入在管道的尾部，读出在管道的头部。管道只能传送无格式的字节流。</li>
+<li>套接字（socket）：也是进程间的通信机制，与其它通信机制不同的是，它可以用于不同机器间的进程通信。</li>
+</ul>
+</li>
+<li>共享内存（Shared memory）</li>
+<li>消息通信（Message comunication）<ul>
+<li>消息队列（message queue）</li>
+<li>操作系统提供的信息通信：send()/receive()</li>
+<li>信号（Signal）</li>
+<li>信号量（semaphores）和管程（monitors）</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程互斥机制（Mutual-Exclusion-Facilities）"><a href="#进程互斥机制（Mutual-Exclusion-Facilities）" class="headerlink" title="进程互斥机制（Mutual Exclusion Facilities）"></a>进程互斥机制（Mutual Exclusion Facilities）</h3><p>为了解决上面的死锁或数据不一致问题，我们需要引入同步机制，</p>
+<h4 id="基于硬件的解决方案"><a href="#基于硬件的解决方案" class="headerlink" title="基于硬件的解决方案"></a>基于硬件的解决方案</h4><ul>
+<li>禁止中断（Disabling Interrupts）：仅仅适用于单 CPU 系统，不适用于多 CPU 或多核系统；</li>
+<li>TSL 指令（The TSL Instruction）：TSL 表示 Test and Set Lock，TSL 指令从指令集支持层面保证了“检查-占锁”动作的原子性。TSL 指令的不足在于需要让进程进入忙等待（busy waiting）。</li>
+<li>XCHG 指令</li>
+</ul>
+<h4 id="基于软件的解决方案"><a href="#基于软件的解决方案" class="headerlink" title="基于软件的解决方案"></a>基于软件的解决方案</h4><ul>
+<li>LockOne锁</li>
+<li>LockTwo算法</li>
+<li>Peterson 算法</li>
+<li>Bakery 算法</li>
+<li>Dekker 算法</li>
+</ul>
+<h2 id="各种同步机制的实现方法"><a href="#各种同步机制的实现方法" class="headerlink" title="各种同步机制的实现方法"></a>各种同步机制的实现方法</h2><ul>
+<li>信号量（Semaphores）：基于 TSL 或 XCHG 指令实现。</li>
+<li>互斥锁（mutexes）：为信号量的特例，即二元信号量（Binary semaphores）。<ul>
+<li>基于 TSL 或 XCHG 指令实现；</li>
+<li>实现了多进程/线程的互斥（mutual exclusion）访问，即在任一时刻，只能有一个进程/线程进入临界区状态（critical section）。</li>
+</ul>
+</li>
+<li>自旋锁（Spinlock）：也是一种实现互斥（mutual exclusion）的方式，相比于互斥锁（Mutex）会在因无法进入临界区而进入阻塞状态，因而放弃CPU，自旋锁则是不断循环并测试锁的状态（紧密循环（tight loop）），这样就一直占着CPU，这个过程也称为忙等待（busy waiting）。</li>
+<li>管程（Monitor）：基于 TSL 或 XCHG 指令实现。</li>
+</ul>
+<h1 id="线程（Thread）"><a href="#线程（Thread）" class="headerlink" title="线程（Thread）"></a>线程（Thread）</h1><h2 id="为什么要有线程"><a href="#为什么要有线程" class="headerlink" title="为什么要有线程"></a>为什么要有线程</h2><p>如果非要问为什么需要线程，还不如问为什么需要进程中还有其它的进程。这些进程中包含的其它迷你进程（Miniprocess），就是线程。</p>
+<p> 线程之所以说是迷你进程，是因为线程和进程有很多相似之处，比如线程和进程的状态都有运行，就绪，阻塞状态。</p>
+<hr>
+<p>我们希望在一个应用程序中，多个任务能同时运行。他们其中的某些任务可能时不时会被阻塞。通过将这样的应用程序分解成多个串行（sequential）的线程，能够使它们伪并行（quasi-parallel）地运行。</p>
+<p>这里讨论的上下文有一个前置条件，我们的CPU是单核单线程的。因此，在某一瞬间只有一个进程或其中的一个线程被运行。然而，通过拆分CPU时间片来做到“并行”。所以我们成为伪并行（quasi-parallel）。</p>
+<hr>
+<p>我们希望有一种并行实体（Parallel entity），能够共享内存空间，且它又比进程要轻量（它们被创建/销毁时的成本低），这时线程就诞生了。</p>
+<p>总结来说，线程的好处如下：</p>
+<ol>
+<li>在很多程序中，需要多个线程互相同步或互斥地并行完成工作，将这些工作分解到不同的线程中去无疑简化了编程模型。</li>
+<li>线程相比进程来说，更加的轻量，所以线程的创建和销毁的代价远远小于对应进程的操作（10到100倍）。</li>
+<li>线程提高了性能，虽然线程宏观上是并行的，但微观上却是串行。从CPU角度而言，线程并无法提升性能，但如果某些线程涉及到等待资源（比如I/O，等待输入）时，多线程允许进程中的其它线程继续执行而不是整个进程被阻塞，因此提高了CPU的利用率，最终提升了性能。</li>
+<li>在多CPU或多核的情况下，使用线程不仅仅在宏观上并行，在微观上也是并行的。</li>
+</ol>
+<hr>
+<p>下面我们来看一个具体的例子：</p>
+<p>就拿我写博客的LiveWriter来说，LiveWriter需要监听我打字输入的状态，还需要每隔5分钟对草稿进行自动保存。假设如果这个进程只有一个线程的话，那么当对草稿进行保存时，因为此时需要访问硬盘，而访问硬盘的时间线程是阻塞状态的，这时我的任何输入都会没有响应，这种用户体验是无法接受的，或许我们可以通过键盘或者鼠标的输入去中断保存草稿的过程，但这种方案也并不讨好。而使用多线程，每个线程仅仅需要处理自己那一部分应该完成的任务，而不用去关心和其它线程的冲突。因此简化了编程模型。如下图所示。</p>
+<p><img src="assets/image-20190202205856075.png" alt="image-20190202205856075"></p>
+<p>这里值得注意的是，上面的两个线程如果改成两个进程，那么达不到所要的效果，<strong>因为进程有自己独立的内存地址空间，而线程共享进程的内存地址空间。</strong></p>
+<h2 id="经典的线程模型"><a href="#经典的线程模型" class="headerlink" title="经典的线程模型"></a>经典的线程模型</h2><p>一个进程模型通常包含两个事务：资源的组织（grouping）和执行（execution）。在过去没有线程的操作系统中，资源的组织和执行都是由进程统一完成的。换句话说，完成一个任务所用到的数据资源和这个任务的执行都由一个进程管理。</p>
+<p>当引入线程后，对于资源执行的管理粒度更细了，即进程对完成一个任务所用到的数据资源进行管理（通过存储在同一块内存区域）；而由进程中的线程来负责具体资源的执行，线程共享资源的组织（即一个进程中的多个线程均可访问进程的资源）。</p>
+<p>线程，是每一个进程中执行的一个条线。线程虽然共享进程中的大多数资源，但线程也需要自己的一些资源，比如：用于标识下一条执行指令的程序计数器（Program Counter），一些容纳局部变量的寄存器（Register），以及用于记录执行历史的栈（Stack）。</p>
+<p><strong>总而言之：进程是组织资源的最小单位，而线程是安排CPU执行的最小单位。</strong></p>
+<p>我们来看一个例子，在 (a) 中，有三个进程，每个进程拥有自己的内存地址空间（address space）和一个单独的线程；而在 (b) 中，只有一个进程，这个进程中包含三个线程，且这三个线程共享同一块内存地址空间。</p>
+<p><img src="assets/image-20190202212244135.png" alt="image-20190202212244135"></p>
+<p><strong>每一个进程和线程所独自占有的资源如下所示：</strong></p>
+<ul>
+<li>进程占有的资源<ul>
+<li>内存地址空间（Address space）</li>
+<li>全局变量（Global variables）</li>
+<li>打开的文件（Open files）</li>
+<li>子进程（Child processes）</li>
+<li>等待的警告（Pending alarms）</li>
+<li>信号量和信号吹程序（Signals and signal handlers）</li>
+<li>账户信息（Accounting information）</li>
+</ul>
+</li>
+<li>线程占有的资源<ul>
+<li>程序计数器（Program counter）</li>
+<li>寄存器（Registers）</li>
+<li>栈（Stack）</li>
+<li>状态 （State）</li>
+</ul>
+</li>
+</ul>
+<p>线程与进程拥有完全相同的状态：运行（running）、阻塞（blocked）、就绪（ready）和停止（terminated）。</p>
+<p>另外，每一个线程都拥有独立的栈（stack），如下图所示。在栈中，包含多个frame，每一个frame都对应一个被调用但未被返回的方法。在每一个frame中，包含这个方法的局部变量表（local variables）和这个方法的返回地址。</p>
+<p><img src="assets/image-20190202214223407.png" alt="image-20190202214223407"></p>
+<h2 id="操作系统实现线程的几种方式"><a href="#操作系统实现线程的几种方式" class="headerlink" title="操作系统实现线程的几种方式"></a>操作系统实现线程的几种方式</h2><h3 id="在用户空间中实现线程"><a href="#在用户空间中实现线程" class="headerlink" title="在用户空间中实现线程"></a>在用户空间中实现线程</h3><p>若在用户空间（User Space）中实现线程，对内核而言，只存在包含一个单线程的进程。</p>
+<p>这样的做法最大的好处在于当操作系统不支持线程时，我们仍然可以通过库函数（Library）来支持多线程。事实上，仍然有部分现代操作系统并不支持线程。</p>
+<p>在这种模式下，在每一个进程中，都有一个自己进行管理的线程表（thread table）。</p>
+<p>另外，在用户空间中实现线程还有一个好处，就是每一个进程都拥有定制化的线程调度算法。</p>
+<p> 有好处就有坏处，这种模式最致命的缺点也是由于操作系统不知道线程的存在，因此当一个进程中的某一个线程进行系统调用时，比如缺页中断而导致线程阻塞，此时操作系统会阻塞整个进程，即使这个进程中其它线程还在工作。还有一个问题是假如进程中一个线程长时间不释放CPU，因为用户空间并没有时钟中断机制，会导致此进程中的其它线程得不到CPU而持续等待。</p>
+<h3 id="在操作系统内核中实现线程"><a href="#在操作系统内核中实现线程" class="headerlink" title="在操作系统内核中实现线程"></a>在操作系统内核中实现线程</h3><p>若在操作系统内核（Kernel）中实现线程，内核会为每个进程维护一张线程表（thread table），以跟踪这个进程中所有线程的状态（比如有线程被销毁或新的线程被创建了）。在线程表中，每一行记录了每一个线程的寄存器、线程状态等信息。</p>
+<p>在这种模式下，所有可能阻塞线程的调用都以系统调用（System Call）的方式实现，相比在用户空间下实现线程造成阻塞的运行时调用成本会高出很多。当一个线程阻塞时，操作系统可以选择将CPU交给同一进程中的其它线程，或是其它进程中的线程，而在用户空间下实现线程时，调度只能在本进程中执行，直到操作系统剥夺了当前进程的CPU。</p>
+<p>因为在内核模式下实现进程的成本更高，一个比较好的做法是另线程回收利用，当一个线程需要被销毁时，仅仅是修改标记位，而不是直接销毁其内容，当一个新的线程需要被创建时，也同样修改被“销毁”的线程其标记位即可。</p>
+<p>这种模式下同样还是有一些弊端，比如接收系统信号的单位是进程，而不是线程，那么由进程中的哪一个线程接收系统信号呢？如果使用了表来记录，那么多个线程注册则通过哪一个线程处理系统信号？</p>
+<h3 id="混合模式"><a href="#混合模式" class="headerlink" title="混合模式"></a>混合模式</h3><p>还有一种实现方式是将上面两种模式进行混合，用户空间中进程管理自己的线程，操作系统内核中有一部分内核级别的线程，如下图所示。</p>
+<p><img src="assets/image-20190202221846481.png" alt="image-20190202221846481"></p>
+<p>在这种模式下，操作系统只能看到内核线程。用户空间线程基于操作系统线程运行。因此，程序员可以决定使用多少用户空间线程以及操作系统线程，这无疑具有更大的灵活性。而用户空间线程的调度和前面所说的在用户空间下执行实现线程是一样的，同样可以自定义实现。</p>
+<h1 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h1><blockquote>
+<p> 谈了这么多，我们来总结一下进程与线程的区别。</p>
+</blockquote>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>进程是运行着的程序，是系统进行资源分配的一个独立单位。进程之间相互独立，多个进程的内部数据和状态都是完全独立的；而同一进程的线程之间共享数据段（全局变量），但是每个线程有自己的程序计数器和栈。</p>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>线程是进程的一部分，是 CPU 调度和分派的基本单位，也是比进程更小的能独立运行的基本单位，线程基本不拥有系统资源，只拥有一点在运行中必不可少的资源（程序计数器，一组寄存器和栈），但是它可以和进程的其它线程共享一个进程所拥有的全部资源。每个线程有自己的栈（Stack），而共用主进程的堆（Heap）。</p>
+<p>一个进程异常退出不会引起另外的进程运行异常；但是线程若异常退出一般是会引起整个进程奔溃。</p>
+<p>而且，创建/撤销/切换进程的开销远大于线程的（创建线程比创建进程快10~100倍）。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li>《Modern Operating System 4th》</li>
+<li>操作系统中的进程与线程 - <a href="https://www.cnblogs.com/CareySon/archive/2012/05/04/ProcessAndThread.html" target="_blank" rel="noopener">https://www.cnblogs.com/CareySon/archive/2012/05/04/ProcessAndThread.html</a></li>
+<li>进程，线程，协程与并行，并发 - <a href="https://www.jianshu.com/p/f11724034d50" target="_blank" rel="noopener">https://www.jianshu.com/p/f11724034d50</a></li>
+<li>4.1. Interprocess Communication - <a href="http://faculty.salina.k-state.edu/tim/ossg/IPC_sync/ipc.html" target="_blank" rel="noopener">http://faculty.salina.k-state.edu/tim/ossg/IPC_sync/ipc.html</a></li>
+<li>操作系统（四）：进程互斥 - <a href="http://blog.forec.cn/2016/11/24/os-concepts-4/" target="_blank" rel="noopener">http://blog.forec.cn/2016/11/24/os-concepts-4/</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Operating System</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/OperatingSystem/" class="article-tag-list-link color1">OperatingSystem</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+   
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/02/17/【Operating-System】并发控制（Concurrency Control）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【并发控制】乐观并发控制（Optimistic Concurrency Control）与悲观并发控制（Pessimistic Concurrency Control）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/14/【Operating-System】系统调用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Operating System】系统调用</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
+  
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 西维蜀黍
+    	</div>
+      	<div class="footer-right">
+      		
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true,
+		showTags: true
+	}
+</script>
+
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),m=e(75),g=r(m),w=e(70);l(),(0,w.addLoadEvent)(function(){g.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),m=x[f],g=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&g&&void 0!==g[a],s&&a in x||(l=s?g[a]:e[a],x[a]=d&&"function"!=typeof g[a]?e[a]:h&&s?i(l,r):b&&g[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&m&&!m[a]&&u(m,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,m,g,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=m==h,M=!1,A=t.prototype,T=A[p]||A[v]||m&&A[m],L=T||j(m),N=m?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,m)if(O={values:E?L:j(h),keys:g?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),m=e(10),g=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),m(t),n=w(n,!0),m(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){m(t);for(var e,r=b(n=g(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=g(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(g(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:g(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.2d7529.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">Tag</a></li>
+      
+        
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">Friends</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Architectural Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Architecture</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ArchitectureDesign</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Design Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Distributed System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Django</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Operating System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Node.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Operating Systems</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/en/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My English Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/oj/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My OJ Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/gym/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>西维蜀黍的健身 Blog</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+</body>
+</html>
