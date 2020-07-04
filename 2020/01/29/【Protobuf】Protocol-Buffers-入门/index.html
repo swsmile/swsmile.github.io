@@ -356,7 +356,7 @@ var _hmt = _hmt || [];
 <td>object of class</td>
 </tr>
 </tbody></table>
-<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><h2 id="test-proto"><a href="#test-proto" class="headerlink" title="test.proto"></a>test.proto</h2><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;  //指定版本，必须要写（proto3、proto2）  </span><br><span class="line">package proto;</span><br><span class="line"></span><br><span class="line">enum FOO </span><br><span class="line">&#123; </span><br><span class="line">    X = 0; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">//message是固定的。UserInfo是类名，可以随意指定，符合规范即可</span><br><span class="line">message UserInfo&#123;</span><br><span class="line">    string message = 1;   //消息</span><br><span class="line">    int32 length = 2;    //消息大小</span><br><span class="line">    int32 cnt = 3;      //消息计数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><h2 id="test-proto"><a href="#test-proto" class="headerlink" title="test.proto"></a>test.proto</h2><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>;  <span class="comment">//指定版本，必须要写（proto3、proto2）  </span></span><br><span class="line"><span class="keyword">package</span> proto;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">FOO</span> </span></span><br><span class="line"><span class="class"></span>&#123; </span><br><span class="line">    X = <span class="number">0</span>; </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//message是固定的。UserInfo是类名，可以随意指定，符合规范即可</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">UserInfo</span></span>&#123;</span><br><span class="line">    <span class="built_in">string</span> <span class="class"><span class="keyword">message</span> = 1;   //消息</span></span><br><span class="line"><span class="class">    <span class="title">int32</span> length = 2;    //消息大小</span></span><br><span class="line"><span class="class">    int32 cnt = 3;      //消息计数</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="client-protobuf-go"><a href="#client-protobuf-go" class="headerlink" title="client_protobuf.go"></a>client_protobuf.go</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"bufio"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"net"</span></span><br><span class="line">    <span class="string">"os"</span></span><br><span class="line">    	stProto <span class="string">"proto"</span></span><br><span class="line">    <span class="string">"time"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//protobuf编解码库,下面两个库是相互兼容的，可以使用其中任意一个</span></span><br><span class="line">    <span class="string">"github.com/golang/protobuf/proto"</span></span><br><span class="line">    <span class="comment">//"github.com/gogo/protobuf/proto"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    strIP := <span class="string">"localhost:6600"</span></span><br><span class="line">    <span class="keyword">var</span> conn net.Conn</span><br><span class="line">    <span class="keyword">var</span> err error</span><br><span class="line"></span><br><span class="line">    <span class="comment">//连接服务器</span></span><br><span class="line">    <span class="keyword">for</span> conn, err = net.Dial(<span class="string">"tcp"</span>, strIP); err != <span class="literal">nil</span>; conn, err = net.Dial(<span class="string">"tcp"</span>, strIP) &#123;</span><br><span class="line">        fmt.Println(<span class="string">"connect"</span>, strIP, <span class="string">"fail"</span>)</span><br><span class="line">        time.Sleep(time.Second)</span><br><span class="line">        fmt.Println(<span class="string">"reconnect..."</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(<span class="string">"connect"</span>, strIP, <span class="string">"success"</span>)</span><br><span class="line">    <span class="keyword">defer</span> conn.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//发送消息</span></span><br><span class="line">    cnt := <span class="number">0</span></span><br><span class="line">    sender := bufio.NewScanner(os.Stdin)</span><br><span class="line">    <span class="keyword">for</span> sender.Scan() &#123;</span><br><span class="line">        cnt++</span><br><span class="line">        stSend := &amp;stProto.UserInfo&#123;</span><br><span class="line">            Message: sender.Text(),</span><br><span class="line">            Length:  *proto.Int(<span class="built_in">len</span>(sender.Text())),</span><br><span class="line">            Cnt:     *proto.Int(cnt),</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//protobuf编码</span></span><br><span class="line">        pData, err := proto.Marshal(stSend)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="built_in">panic</span>(err)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//发送</span></span><br><span class="line">        conn.Write(pData)</span><br><span class="line">        <span class="keyword">if</span> sender.Text() == <span class="string">"stop"</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -595,11 +595,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,10 +623,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -636,6 +632,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,11 +707,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,11 +743,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -831,11 +831,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -847,11 +847,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -859,11 +859,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

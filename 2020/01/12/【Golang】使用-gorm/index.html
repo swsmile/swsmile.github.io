@@ -285,7 +285,7 @@ var _hmt = _hmt || [];
 <h2 id="记录未找到错误"><a href="#记录未找到错误" class="headerlink" title="记录未找到错误"></a>记录未找到错误</h2><p>RecordNotFound，GORM提供了处理 <code>RecordNotFound</code> 错误的快捷方式。如果有多个错误，它将逐一检查这些错误是否为 <code>RecordNotFound</code> 错误。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 检查是否为 RecordNotFound 错误</span></span><br><span class="line">db.Where(<span class="string">"name = ?"</span>, <span class="string">"hello world"</span>).First(&amp;user).RecordNotFound()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> db.Model(&amp;user).Related(&amp;credit_card).RecordNotFound() &#123;</span><br><span class="line">  <span class="comment">// 未找到记录</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> err := db.Where(<span class="string">"name = ?"</span>, <span class="string">"jinzhu"</span>).First(&amp;user).Error; gorm.IsRecordNotFoundError(err) &#123;</span><br><span class="line">  <span class="comment">// 未找到记录</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="Potential-Error"><a href="#Potential-Error" class="headerlink" title="Potential Error"></a>Potential Error</h1><h2 id="错误-1-sql-unknown-driver-“mysql”"><a href="#错误-1-sql-unknown-driver-“mysql”" class="headerlink" title="错误 1 - sql: unknown driver “mysql”"></a>错误 1 - sql: unknown driver “mysql”</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql: unknown driver <span class="string">"mysql"</span> (forgotten <span class="keyword">import</span>?)</span><br><span class="line"><span class="built_in">panic</span>: runtime error: invalid memory address or <span class="literal">nil</span> pointer dereference [recovered]</span><br><span class="line">        <span class="built_in">panic</span>: runtime error: invalid memory address or <span class="literal">nil</span> pointer dereference</span><br><span class="line">[signal SIGSEGV: segmentation violation code=<span class="number">0x1</span> addr=<span class="number">0x20</span> pc=<span class="number">0x10dd1f</span>1]</span><br></pre></td></tr></table></figure>
+<h1 id="Potential-Error"><a href="#Potential-Error" class="headerlink" title="Potential Error"></a>Potential Error</h1><h2 id="错误-1-sql-unknown-driver-“mysql”"><a href="#错误-1-sql-unknown-driver-“mysql”" class="headerlink" title="错误 1 - sql: unknown driver “mysql”"></a>错误 1 - sql: unknown driver “mysql”</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql: unknown driver <span class="string">"mysql"</span> (forgotten <span class="keyword">import</span>?)</span><br><span class="line"><span class="built_in">panic</span>: runtime error: invalid memory address or <span class="literal">nil</span> pointer dereference [recovered]</span><br><span class="line">        <span class="built_in">panic</span>: runtime error: invalid memory address or <span class="literal">nil</span> pointer dereference</span><br><span class="line">[signal SIGSEGV: segmentation violation code=<span class="number">0x1</span> addr=<span class="number">0x20</span> pc=<span class="number">0x10dd1f1</span>]</span><br></pre></td></tr></table></figure>
 
 <h3 id="solution"><a href="#solution" class="headerlink" title="solution"></a>solution</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>(</span><br><span class="line">“database/sql”</span><br><span class="line"><span class="comment">// 引入数据库驱动注册及初始化</span></span><br><span class="line">	_ <span class="string">"github.com/go-sql-driver/mysql"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
@@ -515,11 +515,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,10 +543,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -556,6 +552,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,11 +627,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,11 +663,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,11 +751,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,11 +767,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -779,11 +779,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
