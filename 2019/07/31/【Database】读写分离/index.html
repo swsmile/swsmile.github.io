@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="读写分离（Read/Write Splitting）+ 主从复制（Master-slave Replication）读写分离（Read/Write Splitting）的基本思想：让集群中的主数据库负责增（insert）、删（delete）和改（update）事务操作，而集群中的从数据库负责查询操作（select）；并且，数据库后台会自动将因在主数据库中进行的事务操作导致的数据变更，同步到集群中的">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/31/【Database】读写分离/assets/image-20190712223317174.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712223317174.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Database】读写分离（Read&#x2F;Write Splitting）">
 <meta name="twitter:description" content="读写分离（Read/Write Splitting）+ 主从复制（Master-slave Replication）读写分离（Read/Write Splitting）的基本思想：让集群中的主数据库负责增（insert）、删（delete）和改（update）事务操作，而集群中的从数据库负责查询操作（select）；并且，数据库后台会自动将因在主数据库中进行的事务操作导致的数据变更，同步到集群中的">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/31/【Database】读写分离/assets/image-20190712223317174.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712223317174.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -214,7 +214,7 @@ var _hmt = _hmt || [];
       
         <h1 id="读写分离（Read-Write-Splitting）-主从复制（Master-slave-Replication）"><a href="#读写分离（Read-Write-Splitting）-主从复制（Master-slave-Replication）" class="headerlink" title="读写分离（Read/Write Splitting）+ 主从复制（Master-slave Replication）"></a>读写分离（Read/Write Splitting）+ 主从复制（Master-slave Replication）</h1><p><strong>读写分离（Read/Write Splitting）</strong>的基本思想：让集群中的主数据库负责增（insert）、删（delete）和改（update）事务操作，而集群中的从数据库负责查询操作（select）；并且，数据库后台会自动将因在主数据库中进行的事务操作导致的数据变更，同步到集群中的各个从数据库中。</p>
 <p>MySQL的主从复制和MySQL的读写分离两者有着紧密联系，首先部署主从复制，只有主从复制完了，才能在此基础上进行数据的读写分离。简单来说，读写分离就是只在主服务器上写，只在从服务器上读，基本的原理是让主数据库处理事务性查询，而从数据库处理select查询。当业务量非常大时，一台服务器的性能无法满足需求，就可以通过配置主从复制实现写分离来分摊负载，避免因负载太高而造成无法及时响应请求。</p>
-<p><img src="assets/image-20190712223317174.png" alt="image-20190712223317174"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712223317174.png" alt="image-20190712223317174"></p>
 <p>读写分离的方式，扩展了数据库对读数据的处理能力，但写能力并没有任何提升。</p>
 <p>而且，数据库中单表的数据量是有限制的，当数据库中单表的数据量到达一定程度后，数据库的性能会显著下降。</p>
 <h2 id="使用原因"><a href="#使用原因" class="headerlink" title="使用原因"></a>使用原因</h2><p>大部分互联网业务读多写少，数据库的读往往最先成为性能瓶颈，如果希望：</p>
@@ -572,11 +572,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,15 +676,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,15 +688,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,11 +712,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,11 +724,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

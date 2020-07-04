@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="动机 一个对象可能会拥有不同的状态，且可在运行时（runtime）在这几个状态之间切换； 当这个对象与外界交互时，他的状态就可能发生变化，并在不同状态之间切换； 当在状态变化时，对象可表现出不同的行为（以体现状态变化后的影响）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】行为类模式-状态模式-State-Pattern/assets/image-20190430160322027.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190430160322027.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Design Pattern】行为类模式 -- 状态模式 (State Pattern)">
 <meta name="twitter:description" content="动机 一个对象可能会拥有不同的状态，且可在运行时（runtime）在这几个状态之间切换； 当这个对象与外界交互时，他的状态就可能发生变化，并在不同状态之间切换； 当在状态变化时，对象可表现出不同的行为（以体现状态变化后的影响）。">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】行为类模式-状态模式-State-Pattern/assets/image-20190430160322027.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190430160322027.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -242,7 +242,7 @@ var _hmt = _hmt || [];
 <li>一个或多个具体的状态角色（Concrete State），且实现了状态接口；</li>
 <li>状态上下文角色，以允许调用者指定特定的状态；</li>
 </ul>
-<h4 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h4><p><img src="assets/image-20190430160322027.png" alt="image-20190430160322027"></p>
+<h4 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h4><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190430160322027.png" alt="image-20190430160322027"></p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><h5 id="环境角色类"><a href="#环境角色类" class="headerlink" title="环境角色类"></a>环境角色类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;</span><br><span class="line">    <span class="comment">//持有一个State类型的对象实例</span></span><br><span class="line">    <span class="keyword">private</span> State state;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setState</span><span class="params">(State state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.state = state;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户感兴趣的接口方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">(String sampleParameter)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//转调state来处理</span></span><br><span class="line">        state.handle(sampleParameter);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="抽象状态类"><a href="#抽象状态类" class="headerlink" title="抽象状态类"></a>抽象状态类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">State</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 状态对应的处理</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(String sampleParameter)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -618,11 +618,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,15 +722,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,15 +734,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,11 +758,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,11 +770,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

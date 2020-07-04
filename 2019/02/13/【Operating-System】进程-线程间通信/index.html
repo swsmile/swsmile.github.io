@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="需求一个进程（process）可以创建了多个子进程（child processes），而这些子进程又可以创建子子进程，最终，就形成了一个进程树，如下图所示：  这些相关联的子进程可能需要进行相互通讯以同步状态，这就涉及到进程间通信（Interprocess Communication, IPC）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213105945644.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190211111057616.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190211122708521.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213130610657.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213111556995.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213131334352.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213105945644.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190211111057616.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190211122708521.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213130610657.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213111556995.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213131334352.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.391Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Operating System】进程 - 进程&#x2F;线程间通信">
 <meta name="twitter:description" content="需求一个进程（process）可以创建了多个子进程（child processes），而这些子进程又可以创建子子进程，最终，就形成了一个进程树，如下图所示：  这些相关联的子进程可能需要进行相互通讯以同步状态，这就涉及到进程间通信（Interprocess Communication, IPC）。">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213105945644.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213105945644.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>一个<strong>进程（process）</strong>可以创建了多个<strong>子进程（child processes）</strong>，而这些子进程又可以创建子子进程，最终，就形成了一个进程树，如下图所示：</p>
-<p><img src="assets/image-20190213105945644.png" alt="image-20190213105945644"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213105945644.png" alt="image-20190213105945644"></p>
 <p>这些相关联的子进程可能需要进行相互通讯以同步状态，这就涉及到<strong>进程间通信（Interprocess Communication, IPC）</strong>。</p>
 <a id="more"></a> 
 
@@ -267,7 +267,7 @@ var _hmt = _hmt || [];
 <p>举个例子，在多任务打印缓存处理器（print spooler）的工作场景中，当一个进程希望打印一个文件时，它会将这个文件的名称输入到一个特定的缓存处理器目录（spooler directory）中。打印机守护进程（printer daemon）会周期性地检查缓存处理器目录中是否存在任何文件名，当存在时，则打印他们，并且将这个文件名从目录中移除。</p>
 <p>假设这个缓存处理器目录可以容纳无限个文件名，文件名索引从0开始。同时，有两个共享变量，<code>out</code>表示下一个需要打印的文件的索引，而<code>in</code>表示下一个在目录中的空位索引。这两个共享变量存储在一个文件中，这个文件可以被任何的进程所访问。</p>
 <p>在某一时刻，空位0到3位空（这意味着这四个文件已经被打印了），空位4到6不为空（这意味着这三个文件等待着被打印）。此时，进程A和进程B都分别想添加一个文件到目录中。</p>
-<p><img src="assets/image-20190211111057616.png" alt="image-20190211111057616"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190211111057616.png" alt="image-20190211111057616"></p>
 <p>进程 A 读取 <code>in</code> 的值（值为7），并存储到本地变量 <code>next_free_slot</code>  中。此时，正好进程 A 用完了它的CPU时间片，于是进程调度器将 CPU 让给进程 B 。进程 B 也读取 <code>in</code> 的值（值为7），并也存储到本地变量 <code>next_free_slot</code>  中。</p>
 <p>进程 B 继续运行，它将要打印文件的名称存储到目录的索引为 7 的空位中，并且更新 <code>in</code> 的值为 8 ，此后它去执行去其他任务。</p>
 <p>最终，当又轮到了进程 A 继续执行时，它要打印文件的名称存储到目录的索引为 7 的空位中，这个操作会抹去进程 B 之前存储在那里的文件名。紧接着，进程 A 更新 <code>in</code> 的值为 8 。</p>
@@ -281,7 +281,7 @@ var _hmt = _hmt || [];
 <p>如果我们可以阻止多个进程同时进入临界区，就可以避免竞态条件（Race Conditions）。</p>
 <hr>
 <p>我们用一个例子来说明多个进程进入临界区的情况。</p>
-<p><img src="assets/image-20190211122708521.png" alt="image-20190211122708521"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190211122708521.png" alt="image-20190211122708521"></p>
 <ul>
 <li>在 T1 时刻，进程 A 进入临界区；</li>
 <li>稍后，在 T2 时刻，进程 B 尝试进入临界区，但是失败了，因为在任一时刻我们只允许有最多一个进程处于临界区；</li>
@@ -389,18 +389,18 @@ var _hmt = _hmt || [];
 <h1 id="同步屏障（Barriers）"><a href="#同步屏障（Barriers）" class="headerlink" title="同步屏障（Barriers）"></a>同步屏障（Barriers）</h1><p><strong>同步屏障（Barriers）</strong>也是一个同步机制（synchronization mechanism），通常服务于一组进程（而不是一对生产者-消费者类型的进程组）。</p>
 <p>在有的应用中，我们会将程序划分为多个阶段（phase），只有当是所有进程就准备完毕可以进入下一个阶段时，所有进程才一起进入下一个阶段。</p>
 <p>为此，我们在每个阶段的末尾引入屏障（Barrier）。当一个进程达到屏障时，则会被阻塞，直到其他进程也都全部达到屏障时才恢复就绪态，如下图所示：</p>
-<p><img src="assets/image-20190213130610657.png" alt="image-20190213130610657"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213130610657.png" alt="image-20190213130610657"></p>
 <h1 id="潜在的进程间通信问题"><a href="#潜在的进程间通信问题" class="headerlink" title="潜在的进程间通信问题"></a>潜在的进程间通信问题</h1><h2 id="死锁（Deadlock）"><a href="#死锁（Deadlock）" class="headerlink" title="死锁（Deadlock）"></a>死锁（Deadlock）</h2><p>当两个进程同时占用多个被共享的资源时，就可能出现死锁。比如，A线程等待着B线程向其发送数据，而同时B线程也等待着A线程向其发送数据，此时就产生了死锁（Deadlock）。</p>
 <h2 id="数据不一致性（Data-Inconsistency）"><a href="#数据不一致性（Data-Inconsistency）" class="headerlink" title="数据不一致性（Data Inconsistency）"></a>数据不一致性（Data Inconsistency）</h2><p>当共享数据区同时被不同的进程修改时，数据不一致性就会发生，这也可以称为<strong>竞态条件/竞争条件（race condition）</strong>。竞<strong>斥</strong>条件是需要被避免的，否则程序会出现不按预期执行的情况。对应地，这个共享存储区被称为<strong>竞态资源（Race Resources）</strong>。</p>
 <p>而修改竞态资源（共享数据区）的代码块，就称为临界区（critical section）。</p>
 <p>比如，一天爸爸发现儿子的账号里只有100美元，于是决定存入50美元给儿子。而正在此时，儿子正在取钱，他打算取20美元（取钱后账号应该剩80美元）。</p>
 <p>由于爸爸和儿子的操作同时进行，而且进行操作账号时没锁（Lock），最终可能出现他们操作之后，账号的余额为150美元。</p>
 <p><strong>使用汇编语言来描述这个过程：</strong></p>
-<p><img src="assets/image-20190213111556995.png" alt="image-20190213111556995"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213111556995.png" alt="image-20190213111556995"></p>
 <p>因此，我们需要引入互斥（mutual exclusion）机制，以避免多个进程同时进入临界区，最终避免数据不一致性（Data Inconsistency）的发生。</p>
 <p>互斥机制从本质来说，是一种同步（synchronization）机制。</p>
 <h1 id="经典的-IPC-问题"><a href="#经典的-IPC-问题" class="headerlink" title="经典的 IPC 问题"></a>经典的 IPC 问题</h1><h2 id="哲学家就餐问题（The-Dining-Philosophers-Problem）"><a href="#哲学家就餐问题（The-Dining-Philosophers-Problem）" class="headerlink" title="哲学家就餐问题（The Dining Philosophers Problem）"></a>哲学家就餐问题（The Dining Philosophers Problem）</h2><p>问题：5个哲学家坐在一个圆桌，每个哲学家都有一份意大利面，而意大利面非常滑，因此每个哲学家需要两个叉子来吃它。在每两份意大利面之间都有一个叉子，如下所示：</p>
-<p><img src="assets/image-20190213131334352.png" alt="image-20190213131334352"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213131334352.png" alt="image-20190213131334352"></p>
 <p>每位哲学家的生活只包括两个状态，吃或者思考。当一个哲学家足够饿时，他会尝试获得他左边和右边的叉子，一次拿一个（以任何的顺序）。如果他成功获得了两个叉子，他就会吃一会儿，然后放下叉子，继续思考。</p>
 <p>问题在于，如何设计一个程序使得每个哲学家在任何时间都可以做他想做的，而不会被相互阻塞。</p>
 <h2 id="读者-写者问题（The-Readers-and-Writers-Problem）"><a href="#读者-写者问题（The-Readers-and-Writers-Problem）" class="headerlink" title="读者-写者问题（The Readers and Writers Problem）"></a>读者-写者问题（The Readers and Writers Problem）</h2><p>在一个航班预定系统中，多个进程可以同时从数据库中获取信息，但是当一个进程正在写入数据库时，所有的进程都不能进行信息读取。</p>
@@ -773,11 +773,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -877,15 +877,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -893,15 +889,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -913,11 +913,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -925,11 +925,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

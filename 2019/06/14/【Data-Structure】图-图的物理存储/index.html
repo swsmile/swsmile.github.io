@@ -16,18 +16,18 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="图的顺序存储方法 - 邻接矩阵（Adjacency Matrix）使用数组存储图时，需要使用两个数组，一个数组存放图中顶点本身的数据（一维数组），另外一个数组用于存储各顶点之间的关系（二维数组）。  如果只是存储图中包含的顶点，使用一维数组就足够了； 然而，我们还需要存储顶点之间的关系，因此要记录每个顶点和其它所有顶点之间的关系，所以需要使用二维数组。  这个二维数组称为邻接矩阵（Adjacenc">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/image-20190827155615406.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/image-20190827155644555.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/2-1Z106140Q33H.gif">
-<meta property="og:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/2-1Z106140S61c.gif">
-<meta property="og:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/2-1Z106140U0J3.gif">
-<meta property="og:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/2-1Z10614093LF.gif">
-<meta property="og:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/2-1Z10H10U6236.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190827155615406.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190827155644555.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z106140Q33H.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z106140S61c.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z106140U0J3.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z10614093LF.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z10H10U6236.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.288Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】图（Graph） - 图的物理存储">
 <meta name="twitter:description" content="图的顺序存储方法 - 邻接矩阵（Adjacency Matrix）使用数组存储图时，需要使用两个数组，一个数组存放图中顶点本身的数据（一维数组），另外一个数组用于存储各顶点之间的关系（二维数组）。  如果只是存储图中包含的顶点，使用一维数组就足够了； 然而，我们还需要存储顶点之间的关系，因此要记录每个顶点和其它所有顶点之间的关系，所以需要使用二维数组。  这个二维数组称为邻接矩阵（Adjacenc">
-<meta name="twitter:image" content="http://swsmile.info/2019/06/14/【Data-Structure】图-图的物理存储/assets/image-20190827155615406.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190827155615406.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -230,11 +230,11 @@ var _hmt = _hmt || [];
 <hr>
 <p>存储方式的不同，指的是：在使用二维数组存储图中顶点之间的关系时，如果顶点之间存在边或弧，在相应位置用 1 表示，反之用 0 表示；如果使用二维数组存储网中顶点之间的关系，顶点之间如果有边或者弧的存在，在数组的相应位置存储其权值；反之用 0 表示。</p>
 <h2 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h2><p>我们来看一个无向图的实例，下图的左图就是一个无向图：</p>
-<p><img src="assets/image-20190827155615406.png" alt="image-20190827155615406"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190827155615406.png" alt="image-20190827155615406"></p>
 <p>对于<strong>无向图</strong>来说，二维数组构成的邻接矩阵，实际上是<strong>对称矩阵</strong>。因此，在存储时就可以采用压缩存储的方式存储下三角或者上三角。</p>
 <p>通过二阶矩阵，可以直观地计算出各个顶点的度，为该行（或该列）非 0 值的和。例如，第一行有两个 1，说明 V1 有两个边，所以度为 2。</p>
 <h2 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h2><p>我们再来看一个有向图的样例，如下图所示的左图：</p>
-<p><img src="assets/image-20190827155644555.png" alt="image-20190827155644555"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190827155644555.png" alt="image-20190827155644555"></p>
 <p>例如，arcs[0][1] = 1 ，证明从 V1 到 V2 有弧存在。且通过邻接矩阵，可以很轻松得知各顶点的出度和入度，出度为该行非 0 值的和，入度为该列非 0 值的和。例如，V1 的出度为 2 （因为第二行中有两个 1 ），为 2 ； V1 的入度为 1 （第二列中只有一个 1 ）。</p>
 <a id="more"></a> 
 
@@ -254,12 +254,12 @@ var _hmt = _hmt || [];
 <h3 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h3><p>邻接表存储图的实现方式是，给图中的各个顶点独自建立一个链表，用节点存储该顶点，用链表中其他节点存储各自的邻接点。</p>
 <p>与此同时，为了便于管理这些链表，通常会将所有链表的头节点存储到数组中（也可以用链表存储）。也正因为各个链表的头节点存储的是各个顶点，因此各链表在存储临界点数据时，仅需存储该邻接顶点位于数组中的位置下标即可。</p>
 <p>例如，下图中的有向图，其对应的邻接表如下所示：</p>
-<p><img src="assets/2-1Z106140Q33H.gif" alt="é»æ¥è¡¨å­å¨æåå¾"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z106140Q33H.gif" alt="é»æ¥è¡¨å­å¨æåå¾"></p>
 <p>拿顶点 V1 来说，与其相关的邻接点分别为 V2 和 V3，因此存储 V1 的链表中存储的是 V2 和 V3 在数组中的位置下标 1 和 2。</p>
 <p>从上图中可以看出，存储各顶点的节点结构分为两部分，<strong>数据域</strong>和<strong>指针域</strong>。数据域用于存储顶点数据信息，指针域用于链接下一个节点，如下图所示：</p>
-<p><img src="assets/2-1Z106140S61c.gif" alt="é»æ¥è¡¨èç¹ç»æ"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z106140S61c.gif" alt="é»æ¥è¡¨èç¹ç»æ"></p>
 <p>在实际应用中，除了上图这种节点结构外，对于用链接表存储网（边或弧存在权）结构，还需要节点存储权的值，因此需使用下图中的节点结构：</p>
-<p><img src="assets/2-1Z106140U0J3.gif" alt="é»æ¥è¡¨å­å¨ç½ç»æä½¿ç¨çèç¹"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z106140U0J3.gif" alt="é»æ¥è¡¨å­å¨ç½ç»æä½¿ç¨çèç¹"></p>
 <h3 id="邻接表计算顶点的出度和入度"><a href="#邻接表计算顶点的出度和入度" class="headerlink" title="邻接表计算顶点的出度和入度"></a>邻接表计算顶点的出度和入度</h3><p>使用邻接表计算<strong>无向图</strong>中顶点的入度和出度会非常简单，只需从数组中找到该顶点然后统计此链表中节点的数量即可。</p>
 <p>而使用邻接表存储<strong>有向图</strong>时，通常各个顶点的链表中存储的都是以该顶点为弧尾的邻接点，因此通过统计各顶点链表中的节点数量，只能计算出该顶点的<strong>出度</strong>，而无法计算该顶点的入度。</p>
 <p>对于利用邻接表求某顶点的入度，有两种方式：</p>
@@ -267,12 +267,12 @@ var _hmt = _hmt || [];
 <li>遍历整个邻接表中的节点，统计数据域与该顶点所在数组位置下标相同的节点数量，即为该顶点的<strong>入度</strong>；</li>
 <li>建立一个逆邻接表，该表中的各顶点链表专门用于存储以此顶点为弧头的所有顶点在数组中的位置下标。比如说，建立一张上图a) 对应的逆邻接表，如下图所示：</li>
 </ol>
-<p><img src="assets/2-1Z10614093LF.gif" alt="逆邻接表示意图"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z10614093LF.gif" alt="逆邻接表示意图"></p>
 <p>对于具有 n 个顶点和 e 条边的无向图，邻接表中需要存储 n 个头结点和 2e 个表结点。在图中边或者弧稀疏的时候，使用邻接表要比前一节介绍的邻接矩阵更加节省空间。</p>
 <h1 id="图的链式存储方法-十字链表"><a href="#图的链式存储方法-十字链表" class="headerlink" title="图的链式存储方法 - 十字链表"></a>图的链式存储方法 - 十字链表</h1><p>与邻接表不同，十字链表法仅适用于存储有向图和有向网。不仅如此，十字链表法还改善了邻接表计算图中顶点入度较为麻烦的问题。</p>
 <p>十字链表存储有向图（网）的方式与邻接表有一些相同，都以图（网）中各顶点为首元节点建立多条链表，同时为了便于管理，还将所有链表的首元节点存储到同一数组（或链表）中。</p>
 <p>其中，建立一个链表，用于存储顶点的首元节点的结构如下图所示：</p>
-<p><img src="assets/2-1Z10H10U6236.gif" alt="åå­é¾è¡¨ä¸­é¦åèç¹ç»æç¤ºæå¾"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Z10H10U6236.gif" alt="åå­é¾è¡¨ä¸­é¦åèç¹ç»æç¤ºæå¾"></p>
 <p>从上图可以看出，首元节点中有一个数据域和两个指针域（分别用 firstin 和 firstout 表示）：</p>
 <ul>
 <li>firstin 指针用于连接以当前顶点为弧头的其他顶点构成的链表；</li>
@@ -633,11 +633,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,15 +737,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,15 +749,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -773,11 +773,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -785,11 +785,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

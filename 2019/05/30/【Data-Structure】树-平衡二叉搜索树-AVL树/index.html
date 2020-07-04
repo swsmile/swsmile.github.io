@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="AVL 树在 1962 年，俄罗斯数学家 G. M. Andel’son-Vel-skii 和 E. M. Landis 发明了第一种自平衡二叉搜索树，叫做 AVL 树。AVL 树必须维持如下平衡条件，对每个节点 n：节点 n 的左子树的高度与右子树的高度的差至多是 1。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-平衡二叉搜索树-AVL树/assets/020003061529262.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-平衡二叉搜索树-AVL树/assets/020003293717522.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-平衡二叉搜索树-AVL树/assets/1060770-20180101093648159-375323042.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-平衡二叉搜索树-AVL树/assets/1060770-20180101093432081-566287437.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-平衡二叉搜索树-AVL树/assets/v2-87a56e51198a22d6d81390b301a462a6_hd.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-平衡二叉搜索树-AVL树/assets/1060770-20180101093456596-607740582.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/020003061529262.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/020003293717522.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093648159-375323042.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093432081-566287437.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-87a56e51198a22d6d81390b301a462a6_hd.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093456596-607740582.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】平衡二叉搜索树 - AVL树">
 <meta name="twitter:description" content="AVL 树在 1962 年，俄罗斯数学家 G. M. Andel’son-Vel-skii 和 E. M. Landis 发明了第一种自平衡二叉搜索树，叫做 AVL 树。AVL 树必须维持如下平衡条件，对每个节点 n：节点 n 的左子树的高度与右子树的高度的差至多是 1。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-平衡二叉搜索树-AVL树/assets/020003061529262.gif">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/020003061529262.gif">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -222,19 +222,19 @@ var _hmt = _hmt || [];
 
 <p>节点的左子树或者右子树的高度可以通过上面描述的步骤来计算。如果节点仅有一个子节点，则无子节点侧的高度为 -1。</p>
 <p>下图展示了概念上 AVL 树节点的两侧子树高度需要保持的关系。</p>
-<p><img src="assets/020003061529262.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/020003061529262.gif" alt="img"></p>
 <p>下面是一些二叉搜索树。节点中的数字代表着节点的值，左右两侧的数字代表着左右子树的高度。其中树（a）和树（b）是合法的 AVL 树，而树（c）和树（d）则不合法，因为树中不是所有的节点都满足 AVL 的平衡性质要求。</p>
-<p><img src="assets/020003293717522.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/020003293717522.gif" alt="img"></p>
 <h2 id="AVL-树的平衡"><a href="#AVL-树的平衡" class="headerlink" title="AVL 树的平衡"></a>AVL 树的平衡</h2><p>当创建一棵 AVL 树时，难点在于如何保证 AVL 的平衡性质要求，而不用关注对树的具体操作。</p>
 <p>也就是说，无论是向树添加节点还是删除节点，最重要的事情就是保持树的平衡。AVL 树通过 “<strong>旋转操作（rotations）</strong>“ 来保持树的平衡。旋转操作可以重塑树的拓扑结构来恢复树的平衡，更重要的是，重塑后的树依然符合二叉搜索树的性质要求。</p>
 <p>当向一棵 AVL 树中插入一个新的节点时，需要经过两阶段的过程。首先，插入新节点的操作将使用与向 BST 树中插入新节点时使用的相同的查找算法。新的节点将做为一个叶子节点被添加到树中合适的位置，以满足 BST 的性质要求。在添加完节点后，将导致树的结构可能已经违背 AVL 树的性质要求。所以在第二个阶段中，将遍历访问路径，来检查每个节点左右子树高度。如果存在某节点的左右子树的高度差大于 1 时，则需要使用旋转操作来处理。</p>
 <h2 id="平衡二叉树的修正机制"><a href="#平衡二叉树的修正机制" class="headerlink" title="平衡二叉树的修正机制"></a>平衡二叉树的修正机制</h2><p>当我们计算出某个结点的平衡因子的绝对值超过1时， 我们就要对其进行修正， 即通过平衡化的处理，使得不平衡的二叉树重新变得平衡。</p>
 <h2 id="平衡化操作的四种情况"><a href="#平衡化操作的四种情况" class="headerlink" title="平衡化操作的四种情况"></a>平衡化操作的四种情况</h2><p>AVL在构造的时候失衡以及平衡处理的方式包括以下四种：</p>
-<h3 id="LL失衡-右旋（Zig）"><a href="#LL失衡-右旋（Zig）" class="headerlink" title="LL失衡 - 右旋（Zig）"></a>LL失衡 - 右旋（Zig）</h3><p><img src="assets/1060770-20180101093648159-375323042.png" alt="img"></p>
-<h3 id="RR失衡-左旋（Zag）"><a href="#RR失衡-左旋（Zag）" class="headerlink" title="RR失衡 - 左旋（Zag）"></a>RR失衡 - 左旋（Zag）</h3><p><img src="assets/1060770-20180101093432081-566287437.png" alt="img"></p>
-<h3 id="LR失衡-先左旋后右旋（Zig-zag）"><a href="#LR失衡-先左旋后右旋（Zig-zag）" class="headerlink" title="LR失衡 - 先左旋后右旋（Zig-zag）"></a>LR失衡 - 先左旋后右旋（Zig-zag）</h3><p><img src="assets/v2-87a56e51198a22d6d81390b301a462a6_hd.jpg" alt="img"></p>
+<h3 id="LL失衡-右旋（Zig）"><a href="#LL失衡-右旋（Zig）" class="headerlink" title="LL失衡 - 右旋（Zig）"></a>LL失衡 - 右旋（Zig）</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093648159-375323042.png" alt="img"></p>
+<h3 id="RR失衡-左旋（Zag）"><a href="#RR失衡-左旋（Zag）" class="headerlink" title="RR失衡 - 左旋（Zag）"></a>RR失衡 - 左旋（Zag）</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093432081-566287437.png" alt="img"></p>
+<h3 id="LR失衡-先左旋后右旋（Zig-zag）"><a href="#LR失衡-先左旋后右旋（Zig-zag）" class="headerlink" title="LR失衡 - 先左旋后右旋（Zig-zag）"></a>LR失衡 - 先左旋后右旋（Zig-zag）</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-87a56e51198a22d6d81390b301a462a6_hd.jpg" alt="img"></p>
 <h3 id="RL失衡-先右旋后左旋（Zag-zig）"><a href="#RL失衡-先右旋后左旋（Zag-zig）" class="headerlink" title="RL失衡 - 先右旋后左旋（Zag-zig）"></a>RL失衡 - 先右旋后左旋（Zag-zig）</h3><p>第四种情况与第三种情况类似，为RL失衡，处理方式是先右旋后左旋（Zag-zig）。</p>
-<h2 id="平衡动图"><a href="#平衡动图" class="headerlink" title="平衡动图"></a>平衡动图</h2><p><img src="assets/1060770-20180101093456596-607740582.gif" alt="img"></p>
+<h2 id="平衡动图"><a href="#平衡动图" class="headerlink" title="平衡动图"></a>平衡动图</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093456596-607740582.gif" alt="img"></p>
 <p>这里我们可以很明显地看到平衡二叉树的优势所在： 使得查找的平均深度降低， 优化各个API的性能开销。</p>
 <p>平衡二叉树和普通二叉搜索树区别主要在于动态方法（put,delete) ，而它们的静态方法（get,min,max,floor,ceiling, rank,select）基本是相同的。</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
@@ -576,11 +576,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,15 +680,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,15 +692,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,11 +716,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -728,11 +728,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -16,18 +16,18 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="线索二叉树（Threaded Binary Tree）通过观察二叉链表，我们发现，不管二叉树的形态如何，空链域的个数总是多于非空链域的个数。准确的说，有n个结点的二叉链表共有2n个链域，非空链域为n-1个，但其中的空链域却有n+1个。如下图所示。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190528154443580.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190529110515358.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190529110710041.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190529111126600-2.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190529113310017.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190529113620031.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190529113710086.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190528154443580.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529110515358.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529110710041.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529111126600-2.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529113310017.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529113620031.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529113710086.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】线索二叉树（Threaded Binary Tree）">
 <meta name="twitter:description" content="线索二叉树（Threaded Binary Tree）通过观察二叉链表，我们发现，不管二叉树的形态如何，空链域的个数总是多于非空链域的个数。准确的说，有n个结点的二叉链表共有2n个链域，非空链域为n-1个，但其中的空链域却有n+1个。如下图所示。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/28/【Data-Structure】树-线索二叉树/assets/image-20190528154443580.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190528154443580.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -221,7 +221,7 @@ var _hmt = _hmt || [];
         <h1 id="线索二叉树（Threaded-Binary-Tree）"><a href="#线索二叉树（Threaded-Binary-Tree）" class="headerlink" title="线索二叉树（Threaded Binary Tree）"></a>线索二叉树（Threaded Binary Tree）</h1><p>通过观察二叉链表，我们发现，不管二叉树的形态如何，空链域的个数总是多于非空链域的个数。准确的说，有n个结点的二叉链表共有2n个链域，非空链域为n-1个，但其中的空链域却有n+1个。如下图所示。</p>
 <a id="more"></a> 
 
-<p><img src="assets/image-20190528154443580.png" alt="image-20190528154443580"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190528154443580.png" alt="image-20190528154443580"></p>
 <p>这样，我们可以通过利用二叉链表中的空指针域，来存放指向结点在某种遍历次序下的前趋和后继结点的指针（这种附加的指针称为 “<strong>线索</strong>“ ），这种加上了线索的二叉链表称为<strong>线索链表（Threaded Linked List）</strong>，相应的二叉树称为<strong>线索二叉树（Threaded Binary Tree）</strong>。</p>
 <h3 id="为什么要建立线索二叉树"><a href="#为什么要建立线索二叉树" class="headerlink" title="为什么要建立线索二叉树"></a>为什么要建立线索二叉树</h3><p>有了二叉树不就足够了吗？那为什么还要弄个线索二叉树出来呢？</p>
 <p>在原来的二叉链表中，如果想查找一个结点的左、右孩子节点非常容易。比如，在上图中，我们想查找节点B的左、右孩子节点（分别是节点D和节点E），我们只需要根据节点B中记录的两个链域，即可找到。</p>
@@ -230,25 +230,25 @@ var _hmt = _hmt || [];
 <p>根据线索性质的不同，线索二叉树可分为<strong>前序线索二叉树</strong>、<strong>中序线索二叉树</strong>和<strong>后序线索二叉树三种</strong>。比如，若对二叉树进行<strong>中序遍历</strong>，则所得的线索二叉树称为<strong>中序线索二叉树</strong>，线索链表称为为<strong>中序线索链表</strong>。</p>
 <h1 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h1><p>如图，以中序二叉树为例，我们可以把这颗二叉树中所有结点的空左指针域（lchild域），改为指向当前结点的前驱结点（灰色箭头表示），把空右指针域（rchild域），改为指向当前结点的后继结点（绿色箭头表示）。我们把指向前驱结点和后继结点的指针叫做<strong>线索 ，下图中这个加上线索的二叉树就称之为线索二叉树</strong>。</p>
 <p>注意，对这个二叉树采用中序遍历时，访问节点的次序为：D B E A F C G。</p>
-<p><img src="assets/image-20190529110515358.png" alt="image-20190529110515358"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529110515358.png" alt="image-20190529110515358"></p>
 <h3 id="线索二叉树结点结构"><a href="#线索二叉树结点结构" class="headerlink" title="线索二叉树结点结构"></a>线索二叉树结点结构</h3><p>如果只是在原二叉树的基础上利用空结点，那么就存在着这么一个问题：我们如何知道某一结点的lchild是指向他的左孩子还是指向前驱结点？rchild是指向右孩子还是后继结点？显然我们要对他的指向增设标志来加以区分。</p>
 <p>因此，我们在每一个结点都增设两个标志域<strong>LTag</strong>和<strong>RTag</strong>，它们只存放0或1的布尔型变量，占用的空间很小。于是结点的结构如下图所示。</p>
-<p><img src="assets/image-20190529110710041.png" alt="image-20190529110710041"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529110710041.png" alt="image-20190529110710041"></p>
 <p>其中：</p>
 <ul>
 <li>LTag为0时，表示该一结点的lchild指向该结点的左孩子，为1时指向该结点的前驱结点；</li>
 <li>RTag为0时，表示该一结点的rchild指向该结点的右孩子，为1时指向该结点的后继结点。</li>
 </ul>
 <p>因此实际的中序线索链表如下所示：</p>
-<p><img src="assets/image-20190529111126600-2.jpg" alt="assets:image-20190529111126600"></p>
-<h1 id="二叉树的线索化"><a href="#二叉树的线索化" class="headerlink" title="二叉树的线索化"></a>二叉树的线索化</h1><p><img src="assets/image-20190529113310017.png" alt="image-20190529113310017"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529111126600-2.jpg" alt="assets:image-20190529111126600"></p>
+<h1 id="二叉树的线索化"><a href="#二叉树的线索化" class="headerlink" title="二叉树的线索化"></a>二叉树的线索化</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529113310017.png" alt="image-20190529113310017"></p>
 <p>对普通二叉树以某种次序遍历使其成为线索二叉树的过程就叫做<strong>线索化</strong>。因为前驱和后继结点只有在二叉树的遍历过程中才能得到，所以线索化的具体过程就是在<strong>二叉树的遍历中修改空指针</strong>。</p>
 <h1 id="增设头结点"><a href="#增设头结点" class="headerlink" title="增设头结点"></a>增设头结点</h1><p>线索化后的二叉树，就如同操作一个双向链表。于是我们想到为二叉树增设一个头结点，这样就和双向链表一样，即能够从第一个结点正向开始遍历，也可以从最后一个结点逆向遍历。我们将其称之为<strong>双向线索链表</strong>。</p>
 <p>这样定义的好处是既可以从第一个结点起顺后继进行遍历，也可以从最后一个结点起顺前驱进行遍历。</p>
-<p><img src="assets/image-20190529113620031.png" alt="image-20190529113620031"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529113620031.png" alt="image-20190529113620031"></p>
 <p>如上图，在线索二叉链表上添加一个head结点，并令其lchild域的指针指向二叉树的根结点(A)，其rchild域的指针指向中序遍历访问的最后一个结点(G)。同样地，二叉树中序序列的第一个结点中，lchild域指针指向头结点，中序序列的最后一个结点rchild域指针也指向头结点。</p>
 <p>于是从头结点开始，我们既可以从第一个结点顺后继结点遍历，也可以从最后一个结点起顺前驱遍历。就和双链表一样。</p>
-<p><img src="assets/image-20190529113710086.png" alt="image-20190529113710086"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190529113710086.png" alt="image-20190529113710086"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>数据结构和算法系列15 线索二叉树 - <a href="https://www.cnblogs.com/mcgrady/p/3320413.html" target="_blank" rel="noopener">https://www.cnblogs.com/mcgrady/p/3320413.html</a></li>
 <li>线索二叉树 - <a href="https://www.cnblogs.com/zhuyf87/archive/2012/11/03/2752722.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhuyf87/archive/2012/11/03/2752722.html</a></li>
@@ -588,11 +588,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,15 +692,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -708,15 +704,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -728,11 +728,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -740,11 +740,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

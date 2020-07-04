@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="问题在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】一致性哈希/assets/image-20190712211415274.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】一致性哈希/assets/image-20190712214558623.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】一致性哈希/assets/image-20190712215154697.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】一致性哈希/assets/image-20190712215548549.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】一致性哈希/assets/image-20190712215700352.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】一致性哈希/assets/image-20190712215757981.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712211415274.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712214558623.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215154697.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215548549.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215700352.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215757981.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】一致性哈希（Consistent Hashing）">
 <meta name="twitter:description" content="问题在了解一致性哈希算法之前，最好先了解一下缓存中的一个应用场景，了解了这个应用场景之后，再来理解一致性哈希算法，就容易多了，也更能体现出一致性哈希算法的优点。">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/12/【Distributed-System】一致性哈希/assets/image-20190712211415274.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712211415274.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -227,7 +227,7 @@ var _hmt = _hmt || [];
 <p>原始的做法是<strong>对缓存项的键进行哈希</strong>，将hash后的结果对缓存服务器的数量进行取模操作，通过取模后的结果，决定缓存项将会缓存在哪一台服务器上。</p>
 <hr>
 <p>这样说可能不太容易理解，我们举例说明，仍然以刚才描述的场景为例，假设我们使用图片名称作为访问图片的key，假设图片名称是不重复的，那么，我们可以使用公式：<strong>hash(图片名称) % N</strong>，以计算出图片应该存放在哪台服务器上。</p>
-<p><img src="assets/image-20190712211415274.png" alt="image-20190712211415274"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712211415274.png" alt="image-20190712211415274"></p>
 <p>因为图片的名称是不重复的，所以，当我们对同一个图片名称做相同的哈希计算时，得出的结果应该是不变的，如果我们有3台服务器，使用哈希后的结果对3求余，那么余数一定是0、1或者2，没错，正好与我们之前的服务器编号相同：</p>
 <ul>
 <li>如果求余的结果为0， 我们就把当前图片名称对应的图片缓存在0号服务器上；</li>
@@ -252,25 +252,25 @@ var _hmt = _hmt || [];
 <h3 id="负载（Load）"><a href="#负载（Load）" class="headerlink" title="负载（Load）"></a><strong>负载（Load）</strong></h3><p>负载问题实际上是从另一个角度看待分散性问题。既然不同的终端可能将相同的内容映射到不同的缓冲区中，那么对于一个特定的缓冲区而言，也可能被不同的用户映射为不同的内容。与分散性一样，这种情况也是应当避免的，因此好的哈希算法应能够尽量降低缓冲的负荷。</p>
 <h3 id="平滑性（Smoothness）"><a href="#平滑性（Smoothness）" class="headerlink" title="平滑性（Smoothness）"></a><strong>平滑性（Smoothness）</strong></h3><p>平滑性是指缓存服务器的数目平滑改变和缓存对象的平滑改变是一致的。</p>
 <h2 id="一致性哈希算法（Consistent-Hashing）-1"><a href="#一致性哈希算法（Consistent-Hashing）-1" class="headerlink" title="一致性哈希算法（Consistent Hashing）"></a>一致性哈希算法（Consistent Hashing）</h2><p>一致性哈希算法（Consistent Hashing）最早在论文《<a href="https://link.juejin.im?target=http%3A%2F%2Fdl.acm.org%2Fcitation.cfm%3Fid%3D258660" target="_blank" rel="noopener">Consistent Hashing and Random Trees: Distributed Caching Protocols for Relieving Hot Spots on the World Wide Web</a>》中被提出。简单来说，一致性哈希将整个哈希值空间组织成一个虚拟的圆环，如假设某哈希函数H的值空间为0-2^32-1（即哈希值是一个32位无符号整形），整个哈希空间环如下：</p>
-<p><img src="assets/image-20190712214558623.png" alt="image-20190712214558623"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712214558623.png" alt="image-20190712214558623"></p>
 <p>整个空间按顺时针方向组织。0和232-1在零点中方向重合。</p>
 <p>下一步，将各个缓存服务器使用Hash算法（一般情况下对机器的hash计算是采用机器的IP或者机器唯一的别名作为输入值），以将它们映射到环中（以确定每台缓存服务器在哈希环上的位置），以顺时针的方向计算。</p>
 <p>接下来，对数据的key使用相同的Hash函数计算出哈希值，以确定此数据在环上的位置，从此位置沿环顺时针“行走”，第一台遇到的服务器就是该数据所存储到的服务器。</p>
 <p>例如我们有Object A、Object B、Object C、Object D四个数据对象，同时，有四台缓存服务器 Node A、Node B、Node C、Node D。</p>
 <p>经过哈希计算后，在环空间上的位置如下（即数据A会被存储到Node A上，B被存储到Node B上，C被存储到Node C上，D被存储到Node D上）：</p>
-<p><img src="assets/image-20190712215154697.png" alt="image-20190712215154697"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215154697.png" alt="image-20190712215154697"></p>
 <hr>
 <p>现假设Node C不幸宕机，显然，<strong>对象A、B、D不会受到影响，只有C对象被重定位到Node D</strong>。</p>
 <p>一般地，在一致性哈希算法中，如果一台服务器不可用，则受影响的数据仅仅是此服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它不会受到影响。</p>
 <hr>
 <p>如果在系统中增加一台服务器Node X，如下图所示：</p>
-<p><img src="assets/image-20190712215548549.png" alt="image-20190712215548549"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215548549.png" alt="image-20190712215548549"></p>
 <p>此时对象Object A、B、D不受影响，只有对象C需要重定位到新的Node X 。一般的，在一致性哈希算法中，如果增加一台服务器，则受影响的数据仅仅是新服务器到其环空间中前一台服务器（即沿着逆时针方向行走遇到的第一台服务器）之间数据，其它数据也不会受到影响。</p>
 <p>综上所述，一致性哈希算法对于节点的增减都只需重定位环空间中的一小部分数据，具有较好的容错性和可扩展性。</p>
 <h1 id="数据倾斜问题"><a href="#数据倾斜问题" class="headerlink" title="数据倾斜问题"></a>数据倾斜问题</h1><p>一致性哈希算法在服务节点太少时，容易因为节点分部不均匀而造成数据倾斜问题。例如系统中只有两台服务器，其环分布如下：</p>
-<p><img src="assets/image-20190712215700352.png" alt="image-20190712215700352"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215700352.png" alt="image-20190712215700352"></p>
 <p>此时必然造成大量数据集中到Node A上，而只有极少量会定位到Node B上。为了解决这种数据倾斜问题，一致性哈希算法引入了虚拟节点机制，即对每一个服务节点计算多个哈希，每个计算结果位置都放置一个此服务节点，称为虚拟节点。具体做法可以在服务器ip或主机名的后面增加编号来实现。例如上面的情况，可以为每台服务器计算三个虚拟节点，于是可以分别计算 “Node A#1”、“Node A#2”、“Node A#3”、“Node B#1”、“Node B#2”、“Node B#3”的哈希值，于是形成六个虚拟节点：</p>
-<p><img src="assets/image-20190712215757981.png" alt="image-20190712215757981"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712215757981.png" alt="image-20190712215757981"></p>
 <p>同时数据定位算法不变，只是多了一步虚拟节点到实际节点的映射，例如定位到“Node A#1”、“Node A#2”、“Node A#3”三个虚拟节点的数据均定位到Node A上。这样就解决了服务节点少时数据倾斜的问题。在实际应用中，通常将虚拟节点数设置为32甚至更大，因此即使很少的服务节点也能做到相对均匀的数据分布。</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>每天进步一点点——五分钟理解一致性哈希算法(consistent hashing) - <a href="https://blog.csdn.net/cywosp/article/details/23397179" target="_blank" rel="noopener">https://blog.csdn.net/cywosp/article/details/23397179</a></li>
@@ -613,11 +613,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,15 +717,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,15 +729,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,11 +753,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -765,11 +765,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

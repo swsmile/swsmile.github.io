@@ -16,18 +16,18 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Background - 认证（Authentication）通过后记下 Cookie使用postman模拟接口测试的时候，一般都是需要先认证（Authentication）才可以后续业务测试的，否则直接调用接口会报错“Please Login First”。每一个接口用例都去新增一个cookie值太麻烦了，因为都是一样的，所有就想着有没有一种方法可以在进行认证后（同时得到了 cookie），之后">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019130549350.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019130716330.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019130804819.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019132833564.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019133247840.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019133421577.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019133504880.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019130549350.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019130716330.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019130804819.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019132833564.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019133247840.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019133421577.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019133504880.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Software Testing】Postman 中的 Cookies 设置">
 <meta name="twitter:description" content="Background - 认证（Authentication）通过后记下 Cookie使用postman模拟接口测试的时候，一般都是需要先认证（Authentication）才可以后续业务测试的，否则直接调用接口会报错“Please Login First”。每一个接口用例都去新增一个cookie值太麻烦了，因为都是一样的，所有就想着有没有一种方法可以在进行认证后（同时得到了 cookie），之后">
-<meta name="twitter:image" content="http://swsmile.info/2019/10/19/【Software-Testing】Postman-中-Cookies-设置/assets/image-20191019130549350.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019130549350.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -222,10 +222,10 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <h1 id="方法-1-愚蠢的-Manual-Inject"><a href="#方法-1-愚蠢的-Manual-Inject" class="headerlink" title="方法 1 - 愚蠢的 Manual Inject"></a>方法 1 - 愚蠢的 Manual Inject</h1><h2 id="完成认证（Authentication）"><a href="#完成认证（Authentication）" class="headerlink" title="完成认证（Authentication）"></a>完成认证（Authentication）</h2><p>我们需要先调用特定的 HTTP 认证接口，通常需要输入账号和密码（当前也可以是其他相对更复杂的认证机制，比如 OAuth2）。最终我们就得到了一个 token，它存在 Cookie 中：</p>
-<p><img src="assets/image-20191019130549350.png" alt="image-20191019130549350"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019130549350.png" alt="image-20191019130549350"></p>
 <p>进到 Postman中，我们来设置一下这个 Cookie：</p>
-<p><img src="assets/image-20191019130716330.png" alt="image-20191019130716330"></p>
-<p><img src="assets/image-20191019130804819.png" alt="image-20191019130804819"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019130716330.png" alt="image-20191019130716330"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019130804819.png" alt="image-20191019130804819"></p>
 <p>此后，每次访问这个域（127.0.0.1）时，都会带上这个 Cookie。</p>
 <h1 id="方法-2-More-Automatic-Way"><a href="#方法-2-More-Automatic-Way" class="headerlink" title="方法 2 - More Automatic Way"></a>方法 2 - More Automatic Way</h1><h2 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h2><p>下载以下工具：</p>
 <ul>
@@ -238,16 +238,16 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ /Users/wei.shi/Downloads/InterceptorBridge_MacOS_1.0.0/install_host</span><br><span class="line">Native messaging host com.postman.postmanapp <span class="keyword">for</span> <span class="string">'Postman Native App &lt; &gt; Interceptor integration'</span> has been installed.</span><br><span class="line">$ /Users/wei.shi/Downloads/InterceptorBridge_MacOS_1.0.0/nativeserver-MacOS</span><br></pre></td></tr></table></figure>
 
 <p>打开 Postman：</p>
-<p><img src="assets/image-20191019132833564.png" alt="image-20191019132833564"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019132833564.png" alt="image-20191019132833564"></p>
 <p>当显示”INTERCEPTOR CONNETED“时，意味着Postman 已经成功通过 Interceptor Bridge 与 Chrome extension Postman Interceptor建立连接了。</p>
 <p>我们添加好要测试的 domain，并打开 Capture Cookies 开关。</p>
 <p>此后，每次使用Postman发出 HTTP 请求时，Postman 都可以获取到在 Chrome 中的已经存在的 Cookies。</p>
 <h2 id="Show-Time"><a href="#Show-Time" class="headerlink" title="Show Time"></a>Show Time</h2><p>我们先在 Chrome 中完成认证（登录）：</p>
-<p><img src="assets/image-20191019133247840.png" alt="image-20191019133247840"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019133247840.png" alt="image-20191019133247840"></p>
 <p>类似地，对应的HTTP Response 中会包含一个 Set-Cookie 域，这就是我们想要的东西。</p>
-<p><img src="assets/image-20191019133421577.png" alt="image-20191019133421577"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019133421577.png" alt="image-20191019133421577"></p>
 <p>我们再去Postman 中发一个请求，可以看到，Postman 会自动帮我们带上这个名为 token 的 Cookie：</p>
-<p><img src="assets/image-20191019133504880.png" alt="image-20191019133504880"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191019133504880.png" alt="image-20191019133504880"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="Procedures"><a href="#Procedures" class="headerlink" title="Procedures"></a>Procedures</h3><p>每次测试前：</p>
 <ul>
 <li>启动 Interceptor Bridge：</li>
@@ -596,11 +596,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -700,15 +700,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,15 +712,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -736,11 +736,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,11 +748,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

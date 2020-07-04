@@ -16,19 +16,19 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="矩阵数据结构中，提供针对某些特殊矩阵的压缩存储结构。 这里所说的特殊矩阵，主要分为以下两类：  含有大量相同数据元素的矩阵，比如对称矩阵； 含有大量 0 元素的矩阵，比如稀疏矩阵、上（下）三角矩阵；  针对以上两类矩阵，数据结构的压缩存储思想是：矩阵中的相同数据元素（包括元素 0）只存储一个。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/2-1Q216124303E1.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/2-1Q21612441W47.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/2-1Q2161244403J.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/2-1Q216124455E1.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/image-20190524122547722.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/image-20190524122735893.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/image-20190524123042305.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/image-20190524123104072.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q216124303E1.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q21612441W47.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q2161244403J.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q216124455E1.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524122547722.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524122735893.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524123042305.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524123104072.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】矩阵">
 <meta name="twitter:description" content="矩阵数据结构中，提供针对某些特殊矩阵的压缩存储结构。 这里所说的特殊矩阵，主要分为以下两类：  含有大量相同数据元素的矩阵，比如对称矩阵； 含有大量 0 元素的矩阵，比如稀疏矩阵、上（下）三角矩阵；  针对以上两类矩阵，数据结构的压缩存储思想是：矩阵中的相同数据元素（包括元素 0）只存储一个。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/24/【Data-Structure】矩阵/assets/2-1Q216124303E1.gif">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q216124303E1.gif">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -228,21 +228,21 @@ var _hmt = _hmt || [];
 <p>针对以上两类矩阵，数据结构的压缩存储思想是：<strong>矩阵中的相同数据元素（包括元素 0）只存储一个</strong>。</p>
 <a id="more"></a> 
 
-<h1 id="对称矩阵"><a href="#对称矩阵" class="headerlink" title="对称矩阵"></a>对称矩阵</h1><p><img src="assets/2-1Q216124303E1.gif" alt="å¯¹ç§°ç©éµç¤ºæå¾"></p>
+<h1 id="对称矩阵"><a href="#对称矩阵" class="headerlink" title="对称矩阵"></a>对称矩阵</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q216124303E1.gif" alt="å¯¹ç§°ç©éµç¤ºæå¾"></p>
 <p>上图的矩阵中，数据元素沿主对角线对应相等，这类矩阵称为<strong>对称矩阵</strong>。</p>
 <p>矩阵中有两条对角线，其中图 1 中的对角线称为<strong>主对角线</strong>，另一条从左下角到右上角的对角线为<strong>副对角线</strong>。对称矩阵指的是各数据元素沿主对角线对称的矩阵。</p>
 <p>结合数据结构压缩存储的思想，我们可以使用一维数组存储对称矩阵。由于矩阵中沿对角线两侧的数据相等，因此<strong>数组中只需存储对角线一侧（包含对角线）的数据即可</strong>。</p>
 <p>对称矩阵的实现过程是，若存储下三角中的元素，只需将各元素所在的行标 i 和列标 j （矩阵中元素的行标和列标都从 1 开始）代入下面的公式：</p>
-<p><img src="assets/2-1Q21612441W47.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q21612441W47.gif" alt="img"></p>
 <p>存储上三角的元素要将各元素的行标 i 和列标 j 代入另一个公式：</p>
-<p><img src="assets/2-1Q2161244403J.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q2161244403J.gif" alt="img"></p>
 <p>最终求得的 k 值即为该元素存储到数组中的位置。</p>
 <p>例如，在数组 skr[6] 中存储上图中的对称矩阵，则矩阵的压缩存储状态如下图所示（存储上三角和下三角的结果相同）：</p>
-<p><img src="assets/2-1Q216124455E1.gif" alt="å¯¹ç§°ç©éµçåç¼©å­å¨ç¤ºæå¾"></p>
-<h1 id="上（下）三角矩阵"><a href="#上（下）三角矩阵" class="headerlink" title="上（下）三角矩阵"></a>上（下）三角矩阵</h1><p><img src="assets/image-20190524122547722.png" alt="image-20190524122547722"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q216124455E1.gif" alt="å¯¹ç§°ç©éµçåç¼©å­å¨ç¤ºæå¾"></p>
+<h1 id="上（下）三角矩阵"><a href="#上（下）三角矩阵" class="headerlink" title="上（下）三角矩阵"></a>上（下）三角矩阵</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524122547722.png" alt="image-20190524122547722"></p>
 <p>如上图所示，主对角线下的数据元素全部相同的矩阵为上三角矩阵（上图 a)），主对角线上元素全部相同的矩阵为下三角矩阵（上图 b)）。</p>
 <p>对于这类特殊的矩阵，压缩存储的方式是：上（下）三角矩阵采用对称矩阵的方式存储上（下）三角的数据（元素 0 不用存储）。</p>
-<h1 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h1><p><img src="assets/image-20190524122735893.png" alt="image-20190524122735893"></p>
+<h1 id="稀疏矩阵"><a href="#稀疏矩阵" class="headerlink" title="稀疏矩阵"></a>稀疏矩阵</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524122735893.png" alt="image-20190524122735893"></p>
 <p>如上图所示，如果矩阵中分布有大量的元素 0，即非 0 元素非常少，这类矩阵称为<strong>稀疏矩阵</strong>。</p>
 <p>压缩存储稀疏矩阵的方法是：<strong>只存储矩阵中的非 0 元素</strong>，与前面的存储方法不同，稀疏矩阵非 0 元素的存储需同时存储该元素所在矩阵中的行标和列标。</p>
 <p>例如，存储上图中的稀疏矩阵，需存储以下信息：</p>
@@ -268,9 +268,9 @@ var _hmt = _hmt || [];
 <li>矩阵中各非 0 元素的值，以及所在矩阵中的行标和列标；</li>
 <li>矩阵的总行数和总列数；</li>
 </ul>
-<p><img src="assets/image-20190524123042305.png" alt="image-20190524123042305"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524123042305.png" alt="image-20190524123042305"></p>
 <p>例如，上图是一个稀疏矩阵，若对其进行压缩存储，矩阵中各非 0 元素的存储状态如下图所示：</p>
-<p><img src="assets/image-20190524123104072.png" alt="image-20190524123104072"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524123104072.png" alt="image-20190524123104072"></p>
 <p>上图的数组中，存储的是三元组（即由 3 部分数据组成的集合），组中数据分别表示（行标，列标，元素值）。</p>
 <blockquote>
 <p>注意，这里矩阵的行标和列标都从 1 开始。</p>
@@ -612,11 +612,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,15 +716,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,15 +728,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -752,11 +752,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,11 +764,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

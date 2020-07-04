@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="为什么要分代？分代的垃圾回收策略，是基于这样一个事实：不同的对象的生命周期是不一样的。 因此，不同生命周期的对象可以采取不同的收集方式，以便提高回收效率。 在Java程序运行的过程中，会产生大量的对象，其中有些对象是与业务信息相关，比如Http请求中的Session对象、线程、Socket连接，这类对象跟业务直接挂钩，因此生命周期比较长。但是还有一些对象，主要是程序运行过程中生成的临时变量，这些对">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】垃圾回收-分代垃圾回收/assets/image-20190326101652634.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】垃圾回收-分代垃圾回收/assets/20180830102728115.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326101652634.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20180830102728115.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.339Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】垃圾回收 - 分代垃圾回收">
 <meta name="twitter:description" content="为什么要分代？分代的垃圾回收策略，是基于这样一个事实：不同的对象的生命周期是不一样的。 因此，不同生命周期的对象可以采取不同的收集方式，以便提高回收效率。 在Java程序运行的过程中，会产生大量的对象，其中有些对象是与业务信息相关，比如Http请求中的Session对象、线程、Socket连接，这类对象跟业务直接挂钩，因此生命周期比较长。但是还有一些对象，主要是程序运行过程中生成的临时变量，这些对">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/26/【Java】垃圾回收-分代垃圾回收/assets/image-20190326101652634.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326101652634.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,7 +219,7 @@ var _hmt = _hmt || [];
 <p>试想，在不进行对象存活时间区分的情况下，每次垃圾回收都是对整个堆空间进行回收，花费时间相对会长。同时，因为每次回收都需要遍历所有存活对象，但实际上，对于生命周期长的对象而言，这种遍历是没有效果的，因为可能进行了很多次遍历，但是他们依旧存在。</p>
 <p>因此，分代垃圾回收采用分治的思想，进行代的划分，把不同生命周期的对象放在不同代上，不同代上采用最适合它的垃圾回收方式进行回收。</p>
 <h1 id="如何分代？"><a href="#如何分代？" class="headerlink" title="如何分代？"></a>如何分代？</h1><p>如图所示，虚拟机中的共划分为三个代：<strong>新生代（Young Generation）</strong>、<strong>老年代（Tenured Generation）</strong>和<strong>持久代（Permanent Generation）</strong>。其中持久代主要存放的是Java类的类信息，与垃圾收集要收集的Java对象关系不大。新生代和老年代的划分是对垃圾收集影响比较大的。</p>
-<p><img src="assets/image-20190326101652634.png" alt="image-20190326101652634"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326101652634.png" alt="image-20190326101652634"></p>
 <a id="more"></a> 
 
 <h2 id="新生代（Young-Generation）"><a href="#新生代（Young-Generation）" class="headerlink" title="新生代（Young Generation）"></a>新生代（Young Generation）</h2><p>所有新生成的对象首先都是放在新生代的。新生代的目标就是尽可能快速的收集掉那些生命周期短的对象。</p>
@@ -232,7 +232,7 @@ var _hmt = _hmt || [];
 <h2 id="持久代（Permanent-Generation）"><a href="#持久代（Permanent-Generation）" class="headerlink" title="持久代（Permanent Generation）"></a><strong>持久代（Permanent Generation）</strong></h2><p>持久代对垃圾回收没有显著影响，但是有些应用可能动态生成或者调用一些class，例如Hibernate等，在这种时候需要设置一个比较大的持久代空间来存放这些运行过程中新增的类。持久代大小通过<code>-XX:MaxPermSize=&lt;N&gt;</code>进行设置。</p>
 <p>注意，在 JDK 1.8中移除整个永久代，取而代之的是一个叫元空间（Metaspace）的区域（永久代使用的是JVM的堆内存空间，而元空间使用的是物理内存，直接受到本机的物理内存限制</p>
 <h1 id="什么情况下触发垃圾回收"><a href="#什么情况下触发垃圾回收" class="headerlink" title="什么情况下触发垃圾回收"></a>什么情况下触发垃圾回收</h1><p>由于对象进行了分代处理，因此垃圾回收区域、时间也不一样。GC有两种类型：<strong>Young GC（Minor GC）</strong>和<strong>Full GC（Major GC）</strong>。</p>
-<p><img src="assets/20180830102728115.png" alt="20180830102728115"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20180830102728115.png" alt="20180830102728115"></p>
 <hr>
 <p>针对HotSpot VM的实现，它里面的GC其实准确分类只有两大种：</p>
 <ul>
@@ -596,11 +596,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -700,15 +700,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,15 +712,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -736,11 +736,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,11 +748,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

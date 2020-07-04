@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="思路 设置固定空桶数 将数据放到对应的空桶中 将每个不为空的桶进行排序 拼接不为空的桶中的数据，得到结果  步骤演示假设一组数据（长度为20）为 1[63,157,189,51,101,47,141,121,157,156,194,117,98,139,67,133,181,13,28,109]  现在需要按5个分桶，进行桶排序，实现步骤如下:  找到数组中的最大值194和最小值13，然后根据桶数">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/30/【Algorithm】排序算法-桶排序/assets/demo_js_algorithmSort_bucketSort_1.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/30/【Algorithm】排序算法-桶排序/assets/f8qu6.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/demo_js_algorithmSort_bucketSort_1.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/f8qu6.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm】排序算法 - 桶排序（Bucket Sort）">
 <meta name="twitter:description" content="思路 设置固定空桶数 将数据放到对应的空桶中 将每个不为空的桶进行排序 拼接不为空的桶中的数据，得到结果  步骤演示假设一组数据（长度为20）为 1[63,157,189,51,101,47,141,121,157,156,194,117,98,139,67,133,181,13,28,109]  现在需要按5个分桶，进行桶排序，实现步骤如下:  找到数组中的最大值194和最小值13，然后根据桶数">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/30/【Algorithm】排序算法-桶排序/assets/demo_js_algorithmSort_bucketSort_1.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/demo_js_algorithmSort_bucketSort_1.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -233,9 +233,9 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <p><strong>步骤图示：</strong></p>
-<p><img src="assets/demo_js_algorithmSort_bucketSort_1.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/demo_js_algorithmSort_bucketSort_1.png" alt="img"></p>
 <p><strong>动画：</strong></p>
-<p><img src="assets/f8qu6.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/f8qu6.gif" alt="img"></p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] intArr = &#123;<span class="number">47</span>, <span class="number">85</span>, <span class="number">10</span>, <span class="number">45</span>, <span class="number">16</span>, <span class="number">34</span>, <span class="number">67</span>, <span class="number">80</span>, <span class="number">34</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">99</span>&#125;;</span><br><span class="line">    <span class="comment">//int[] intArr = &#123;21,11,33,70,5,25,65,55&#125;;</span></span><br><span class="line">    System.out.println(<span class="string">"Original array- "</span> + Arrays.toString(intArr));</span><br><span class="line">    bucketSort(intArr, <span class="number">10</span>);</span><br><span class="line">    System.out.println(<span class="string">"Sorted array after bucket sort- "</span> + Arrays.toString(intArr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bucketSort</span><span class="params">(<span class="keyword">int</span>[] intArr, <span class="keyword">int</span> noOfBuckets)</span></span>&#123;</span><br><span class="line">    <span class="comment">// Create bucket array</span></span><br><span class="line">    List&lt;Integer&gt;[] buckets = <span class="keyword">new</span> List[noOfBuckets];</span><br><span class="line">    <span class="comment">// Associate a list with each index </span></span><br><span class="line">    <span class="comment">// in the bucket array         </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; noOfBuckets; i++)&#123;</span><br><span class="line">        buckets[i] = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Assign numbers from array to the proper bucket</span></span><br><span class="line">    <span class="comment">// by using hashing function</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num : intArr)&#123;</span><br><span class="line">        <span class="comment">//System.out.println("hash- " + hash(num));</span></span><br><span class="line">        buckets[hash(num)].add(num);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// sort buckets</span></span><br><span class="line">    <span class="keyword">for</span>(List&lt;Integer&gt; bucket : buckets)&#123;</span><br><span class="line">        Collections.sort(bucket);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// Merge buckets to get sorted array</span></span><br><span class="line">    <span class="keyword">for</span>(List&lt;Integer&gt; bucket : buckets)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : bucket)&#123;</span><br><span class="line">            intArr[i++] = num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A very simple hash function</span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(<span class="keyword">int</span> num)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num/<span class="number">10</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h1><p>桶排序最好情况下使用线性时间O(n)。事实上，<strong>桶排序算法的总时间复杂度，取决与对各个桶之间数据进行排序的时间复杂度，</strong>因为其它部分的时间复杂度都为O(n)。</p>
@@ -586,11 +586,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -690,15 +690,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,15 +702,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,11 +726,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,11 +738,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

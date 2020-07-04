@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="动机 希望表达具有层次结构（部分-整体，part-whole）的实体 对调用者来说，叶子元素和复合元素都是一样的">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-组合模式-Composite-Pattern/assets/b4cca7d5-5aa7-4e17-a44c-ad3f4c577eaf.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-组合模式-Composite-Pattern/assets/de034536-0fdf-48fd-ba18-1db6015cf852.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-组合模式-Composite-Pattern/assets/698c8170-12cc-423a-8886-018e72a5b0cb.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/b4cca7d5-5aa7-4e17-a44c-ad3f4c577eaf.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/de034536-0fdf-48fd-ba18-1db6015cf852.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/698c8170-12cc-423a-8886-018e72a5b0cb.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.301Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Design Pattern】结构类模式 -- 组合模式 (Composite Pattern)">
 <meta name="twitter:description" content="动机 希望表达具有层次结构（部分-整体，part-whole）的实体 对调用者来说，叶子元素和复合元素都是一样的">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-组合模式-Composite-Pattern/assets/b4cca7d5-5aa7-4e17-a44c-ad3f4c577eaf.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/b4cca7d5-5aa7-4e17-a44c-ad3f4c577eaf.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -229,15 +229,15 @@ var _hmt = _hmt || [];
 </ul>
 <p>对调用者来说，叶子元素和复合元素都是一样的，或者说，调用者可以将树叶构件角色和树枝构件角色都看做是<strong>基本元素（Component）</strong>。</p>
 <p>当形成树状结构时，他们的关系可以呈以下结构：</p>
-<p><img src="assets/b4cca7d5-5aa7-4e17-a44c-ad3f4c577eaf.png" alt=""></p>
-<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><p><img src="assets/de034536-0fdf-48fd-ba18-1db6015cf852.jpg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/b4cca7d5-5aa7-4e17-a44c-ad3f4c577eaf.png" alt=""></p>
+<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/de034536-0fdf-48fd-ba18-1db6015cf852.jpg" alt=""></p>
 <h1 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h1><p>组合模式的实现根据所实现接口的区别分为两种形式，分别称为安全模式和透明模式。组合模式可以不提供父对象的管理方法，但组合模式必须在合适的地方提供子对象的管理方法（诸如：add()、remove()、getChild()等）。</p>
 <h2 id="透明方式"><a href="#透明方式" class="headerlink" title="透明方式"></a><strong>透明方式</strong></h2><p>作为第一种选择，在Component里面声明所有的用来管理子类对象的方法，包括add()、remove()，以及getChild()方法。 这样做的好处是所有的构件类都有相同的接口。在客户端看来，树叶类对象与合成类对象的区别起码在接口层次上消失了，客户端可以同等同的对待所有的对象。这 就是透明形式的组合模式。</p>
 <p>这个选择的缺点是不够安全，因为树叶类对象和合成类对象在本质上是有区别的。树叶类对象不可能有下一个层次的对象，因此add()、remove()以及getChild()方法没有意义，是在编译时期不会出错，而只会在运行时期才会出错。</p>
 <h2 id="安全方式"><a href="#安全方式" class="headerlink" title="安全方式"></a><strong>安全方式</strong></h2><p>第二种选择是在Composite类里面声明所有的用来管理子类对象的方法。这样的做法是安全的做法，因为树叶类型的对象根本就没有管理子类对象的方法，因此，如果客户端对树叶类对象使用这些方法时，程序会在编译时期出错。</p>
 <p>这个选择的缺点是不够透明，因为树叶类和合成类将具有不同的接口。</p>
 <p>这两个形式各有优缺点，需要根据软件的具体情况做出取舍决定。</p>
-<h1 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h1><h2 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h2><p><img src="assets/698c8170-12cc-423a-8886-018e72a5b0cb.png" alt=""></p>
+<h1 id="例子1"><a href="#例子1" class="headerlink" title="例子1"></a>例子1</h1><h2 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/698c8170-12cc-423a-8886-018e72a5b0cb.png" alt=""></p>
 <h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><h3 id="基本元素（Base-Component）-Shape-java"><a href="#基本元素（Base-Component）-Shape-java" class="headerlink" title="基本元素（Base Component）- Shape.java"></a>基本元素（Base Component）- Shape.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(String fillColor)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="叶子元素（Leaf）-Triangle-java"><a href="#叶子元素（Leaf）-Triangle-java" class="headerlink" title="叶子元素（Leaf）- Triangle.java"></a>叶子元素（Leaf）- Triangle.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Triangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">(String fillColor)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Drawing Triangle with color "</span>+fillColor);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -610,11 +610,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,15 +714,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +726,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,11 +750,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,11 +762,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

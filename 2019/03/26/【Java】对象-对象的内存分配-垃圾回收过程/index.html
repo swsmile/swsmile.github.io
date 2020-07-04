@@ -16,18 +16,18 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="对象的内存分配 - 垃圾回收过程1 对象分配到新生代区域中所有new出来的对象都会最先分配到新生代区域中，两个survivor区域初始化是为空的。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326121804469.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326121844543.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326122002580.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326122154553.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326122359587.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326122502721.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326122542147.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326121804469.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326121844543.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122002580.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122154553.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122359587.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122502721.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122542147.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】对象的内存分配 - 垃圾回收过程">
 <meta name="twitter:description" content="对象的内存分配 - 垃圾回收过程1 对象分配到新生代区域中所有new出来的对象都会最先分配到新生代区域中，两个survivor区域初始化是为空的。">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/26/【Java】对象-对象的内存分配-垃圾回收过程/assets/image-20190326121804469.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326121804469.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -221,23 +221,23 @@ var _hmt = _hmt || [];
         <h1 id="对象的内存分配-垃圾回收过程"><a href="#对象的内存分配-垃圾回收过程" class="headerlink" title="对象的内存分配 - 垃圾回收过程"></a>对象的内存分配 - 垃圾回收过程</h1><h3 id="1-对象分配到新生代区域中"><a href="#1-对象分配到新生代区域中" class="headerlink" title="1 对象分配到新生代区域中"></a>1 对象分配到新生代区域中</h3><p>所有new出来的对象都会最先分配到新生代区域中，两个survivor区域初始化是为空的。</p>
 <a id="more"></a> 
 
-<p><img src="assets/image-20190326121804469.png" alt="image-20190326121804469"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326121804469.png" alt="image-20190326121804469"></p>
 <h3 id="2-触发-Minor-GC"><a href="#2-触发-Minor-GC" class="headerlink" title="2 触发 Minor GC"></a>2 触发 Minor GC</h3><p>当eden区域满了之后，就引发一次 minor garbage collection(Minor GC)。</p>
-<p><img src="assets/image-20190326121844543.png" alt="image-20190326121844543"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326121844543.png" alt="image-20190326121844543"></p>
 <h3 id="3-移动到-S0-Survivor-Space"><a href="#3-移动到-S0-Survivor-Space" class="headerlink" title="3 移动到 S0 Survivor Space"></a>3 移动到 S0 Survivor Space</h3><p>当在进行minor garbage collection(Minor GC)后，存活下来的对象就会被移动到S0 survivor space。</p>
-<p><img src="assets/image-20190326122002580.png" alt="image-20190326122002580"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122002580.png" alt="image-20190326122002580"></p>
 <h3 id="4-再次触发-Minor-GC"><a href="#4-再次触发-Minor-GC" class="headerlink" title="4 再次触发 Minor GC"></a>4 再次触发 Minor GC</h3><p>当eden区域又填满的时候，又会发生下一次的Minor GC，存活的对象会被移动到survivor区域，而未存活对象会被直接删除。</p>
 <p>但是，不同的是，在这次的垃圾回收中，存活对象和之前的survivor中的对象都会被移动到S1 survivor space中。</p>
 <p>一旦所有对象都被移动到s1中，那么s0和Eden中的对象就会被清除。</p>
 <p>仔细观察图中的对象，数字表示经历的垃圾收集的次数。目前我们已经有不同的年龄对象了。</p>
-<p><img src="assets/image-20190326122154553.png" alt="image-20190326122154553"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122154553.png" alt="image-20190326122154553"></p>
 <h3 id="5-循环触发-Minor-GC"><a href="#5-循环触发-Minor-GC" class="headerlink" title="5 循环触发 Minor GC"></a>5 循环触发 Minor GC</h3><p>当eden区域又填满的时候，就会再次触发 Minor GC，从而重复步骤4中的操作，以清除需要回收的对象，并且又切换一次survivor区域，所有存活的对象都被移动至S0。Eden和S1区域中的对象被清除。</p>
-<p><img src="assets/image-20190326122359587.png" alt="image-20190326122359587"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122359587.png" alt="image-20190326122359587"></p>
 <h3 id="6-移动到老年代"><a href="#6-移动到老年代" class="headerlink" title="6 移动到老年代"></a>6 移动到老年代</h3><p>重复以上步骤，并一直记录对象的年龄。</p>
 <p>当有对象的年龄到达一定的阈值的时候，就将新生代中的对象移动到老年代中。在本例中，这个阈值为8。</p>
-<p><img src="assets/image-20190326122502721.png" alt="image-20190326122502721"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122502721.png" alt="image-20190326122502721"></p>
 <h3 id="7-重复以上"><a href="#7-重复以上" class="headerlink" title="7 重复以上"></a>7 重复以上</h3><p>接下来垃圾收集器就会不断重复以上步骤，不断的进行对象的清除和年代的移动。</p>
-<p><img src="assets/image-20190326122542147.png" alt="image-20190326122542147"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190326122542147.png" alt="image-20190326122542147"></p>
 <p>我们观察上述过程可以发现，大部分的垃圾收集过程都是在新生代进行的，直到老年代中的内存不够用了才会发起一次 major GC，会进行标记和整理压缩。</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>《深入理解Java虚拟机》</li>
@@ -577,11 +577,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,15 +681,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,15 +693,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,11 +717,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

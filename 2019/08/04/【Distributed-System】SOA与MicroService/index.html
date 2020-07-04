@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="要知道，我们对 SOA 概念的理解其实是在不断的变化。  SOA（Service Oriented Architecture，服务导向架构）从最初的 SOA 概念来说，SOA 主要为了解决一个大系统中不同子系统的相互操作性（interopearability），即为了实现这个大系统，我们希望能够复用已经存在或者说已经开发好的小系统（它们可能基于不同的编程语言，甚至运行在不同的操作系统下）。因此，">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Distributed-System】SOA与MicroService/assets/image-20190804215635384.png">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Distributed-System】SOA与MicroService/assets/image-20190804215656112.png">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Distributed-System】SOA与MicroService/assets/image-20190804215836088.png">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Distributed-System】SOA与MicroService/assets/image-20190804221041495.png">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Distributed-System】SOA与MicroService/assets/image-20190731223214598.png">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Distributed-System】SOA与MicroService/assets/image-20190804222019214.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215635384.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215656112.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215836088.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804221041495.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223214598.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804222019214.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】SOA 与 MicroServices">
 <meta name="twitter:description" content="要知道，我们对 SOA 概念的理解其实是在不断的变化。  SOA（Service Oriented Architecture，服务导向架构）从最初的 SOA 概念来说，SOA 主要为了解决一个大系统中不同子系统的相互操作性（interopearability），即为了实现这个大系统，我们希望能够复用已经存在或者说已经开发好的小系统（它们可能基于不同的编程语言，甚至运行在不同的操作系统下）。因此，">
-<meta name="twitter:image" content="http://swsmile.info/2019/08/04/【Distributed-System】SOA与MicroService/assets/image-20190804215635384.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215635384.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -242,15 +242,15 @@ var _hmt = _hmt || [];
 <li>来自Postgresql，Python和Java，跑在Linux和Solaris的</li>
 </ol>
 <p>在下图，每条不同宽度或者样式的线表示了app之间的调用</p>
-<p><img src="assets/image-20190804215635384.png" alt="image-20190804215635384"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215635384.png" alt="image-20190804215635384"></p>
 <p>如果你觉得上面这种情况你还可以勉强维护，那下面这种情况呢？</p>
-<p><img src="assets/image-20190804215656112.png" alt="image-20190804215656112"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215656112.png" alt="image-20190804215656112"></p>
 <p>你可以处理400个吗？2000个怎么样？每个应用都有自己独特的生态系统，都需要用10个物理服务器或者设备跑在上面。所以，就好比有2万个移动的群体散落在大陆上，并且有着各自的技术的或者文化的边界。 所有这些群体彼此之间需要不断的，持续的交换信息，聊天，一刻也停不下来。</p>
 <p>对这种情况，有个很好的名字，叫一团糟。</p>
 <a id="more"></a> 
 
 <h3 id="使用SOA架构，用ESB提供服务"><a href="#使用SOA架构，用ESB提供服务" class="headerlink" title="使用SOA架构，用ESB提供服务"></a>使用SOA架构，用ESB提供服务</h3><p>当你理解系统并不直接交换信息，理解什么是服务，那么现在你可以开始使用ESB了。</p>
-<p><img src="assets/image-20190804215836088.png" alt="image-20190804215836088"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215836088.png" alt="image-20190804215836088"></p>
 <p>ESB的工作就是提供和调用集成系统的服务。使用了ESB，在大多情况下，每个系统和ESB之间，只需要定义一个访问方法，一个接口。如果这样，像上面的表一样，你有8个系统，就会有16个接口（1个方向1个）需要被创建、维护、管理和关注。</p>
 <p>如果没有ESB，你就需要56个接口需要去思考和处理。（假设每个系统都需要跟其他系统对话）少了40个接口意味着少花时间和金钱。这就是你周末不用那么神经紧张的原因之一。</p>
 <p>基于这个事实，你应该迫切地考虑需要引进ESB。</p>
@@ -259,7 +259,7 @@ var _hmt = _hmt || [];
 <p>再后来，我们又由了<strong>微服务（Microservices）</strong>的概念。</p>
 <p>这个词本身起源于2011年5月在威尼斯附近举行的软件架构师研讨会。他们第一次使用“微服务”这个术语来描述参与者看到的一个共同的架构风格，其中许多参会者都在探索相似的内容。2012年5月，同一个团队决定将“微服务”作为最合适的名称。然而实际上，微软、亚马逊、Netflix和Facebook等主要的科技公司已经在微服务架构方面工作了十多年。</p>
 <p>乍一看，微服务架构似乎谈论的是与SOA相同的事情。不过，如果引用微软服务领域的先驱Martin Flower的话，他曾经说过，“我们应该把SOA看作微服务的超集”。</p>
-<p><img src="assets/image-20190804221041495.png" alt="image-20190804221041495"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804221041495.png" alt="image-20190804221041495"></p>
 <table>
 <thead>
 <tr>
@@ -319,9 +319,9 @@ var _hmt = _hmt || [];
 <p>微服务和SOA都是这样背景下的产物，并没有一个权威的定义，来说明它们各自包含了什么东西，使用什么的方法进行系统的构建。但是，还是可以从最大的范围来对比它们的不同，当我们今天说出这两个概念时，其区别往往没有那么大，但SOA是有一定的历史了，在历史上的SOA往往意味着更多的东西，而这些是现在很多人在做架构设计时不会采用的。</p>
 <h2 id="SOA到微服务"><a href="#SOA到微服务" class="headerlink" title="SOA到微服务"></a>SOA到微服务</h2><p>从SOA到微服务架构的迁移，最典型的例子就是将一个单体（Monolithic）应用重构为一个 Microservices 应用。</p>
 <p>在单体（Monolithic）应用中，所有的功能打包在一个 WAR包里，基本没有外部依赖（除了容器），部署在一个JEE容器（Tomcat，JBoss，WebLogic）里，包含了 DO/DAO，Service，UI等所有逻辑。</p>
-<p><img src="assets/image-20190731223214598.png" alt="image-20190731223214598"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223214598.png" alt="image-20190731223214598"></p>
 <p>而在基于微服务的架构（Microservice Architecture）中，系统中的子系统是这样的。微服务的目的是有效的拆分应用，实现敏捷开发和部署。</p>
-<p><img src="assets/image-20190804222019214.png" alt="image-20190804222019214"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804222019214.png" alt="image-20190804222019214"></p>
 <h2 id="微服务的优势"><a href="#微服务的优势" class="headerlink" title="微服务的优势"></a>微服务的优势</h2><p>完全独立的微服务组件有助于实现完全自主的所有权，带来以下优势：</p>
 <ul>
 <li><p>敏捷性和生产力：开发微服务的团队可以完全理解代码库。他们可以在快得多的周期中与其他组件独立地构建、部署和测试代码库。因为微服务组件只是网络上的另一个组件，所以您可以采用最适合所需功能的语言或框架来编写它，并采用最合适的持久性机制。</p>
@@ -675,11 +675,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -779,15 +779,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -795,15 +791,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,11 +815,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -827,11 +827,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

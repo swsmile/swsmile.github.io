@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="ThreadLocal 类通常情况下，我们创建的非局部变量是可以被任何一个线程访问并修改的。而使用 ThreadLocal 创建的变量只能被当前线程访问，其他线程则无法访问和修改。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/27/【Java】多线程-ThreadLocal/assets/image-20190227095701910.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190227095701910.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.342Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】多线程 - ThreadLocal">
 <meta name="twitter:description" content="ThreadLocal 类通常情况下，我们创建的非局部变量是可以被任何一个线程访问并修改的。而使用 ThreadLocal 创建的变量只能被当前线程访问，其他线程则无法访问和修改。">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/27/【Java】多线程-ThreadLocal/assets/image-20190227095701910.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190227095701910.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -230,7 +230,7 @@ var _hmt = _hmt || [];
 <h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><p>即：线程A与线程B在 ThreadLocal 共享实例中保存的整型变量是各自独立的，互不相干，只要在每个线程内部使用 set 方法赋值，然后在线程内部使用 get 方法就能取到对应的值。</p>
 <p>由于在不同线程中 ThreadLocal 实例的 hashCode 是相同的，说明不同线程访问的均是同一个  ThreadLocal 实例。</p>
 <h1 id="ThreadLocal-原理"><a href="#ThreadLocal-原理" class="headerlink" title="ThreadLocal 原理"></a>ThreadLocal 原理</h1><p>既然每个访问 ThreadLocal 变量的线程都有自己的一个“本地”实例副本。一个可能的方案是 ThreadLocal 维护一个 Map，键是 Thread，值是它在该 Thread 内的实例。线程通过该 ThreadLocal 的 get() 方案获取实例时，只需要以线程为键，从 Map 中找出对应的实例即可。该方案如下图所示：</p>
-<p><img src="assets/image-20190227095701910.png" alt="image-20190227095701910"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190227095701910.png" alt="image-20190227095701910"></p>
 <p>该方案可满足上文提到的每个线程内一个独立备份的要求。每个新线程访问该 ThreadLocal 时，需要向 Map 中添加一个映射，而每个线程结束时，应该清除该映射。这里就有两个问题：</p>
 <ul>
 <li>增加线程与减少线程均需要写 Map，故需保证该 Map 线程安全。虽然从ConcurrentHashMap的演进看Java多线程核心技术一文介绍了几种实现线程安全 Map 的方式，但它或多或少都需要锁来保证线程的安全性。</li>
@@ -598,11 +598,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,15 +702,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,15 +714,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,11 +738,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,11 +750,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

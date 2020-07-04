@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景在了解赫夫曼树之前，我们首先先介绍一些基础概念。 路径路径是指在一棵树中，从一个节点到另一个节点之间的分支构成的通路。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-哈夫曼树/assets/Jietu20190611-211647.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-哈夫曼树/assets/1060770-20180117231448537-1408176767.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-哈夫曼树/assets/1060770-20180117231519896-459287945.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-哈夫曼树/assets/1060770-20180117231555412-1315284149.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-哈夫曼树/assets/1060770-20180117231626740-1383924626.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-哈夫曼树/assets/1060770-20180117231649896-1722470520.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190611-211647.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231448537-1408176767.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231519896-459287945.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231555412-1315284149.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231626740-1383924626.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231649896-1722470520.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】哈夫曼树（Huffman Tree）">
 <meta name="twitter:description" content="背景在了解赫夫曼树之前，我们首先先介绍一些基础概念。 路径路径是指在一棵树中，从一个节点到另一个节点之间的分支构成的通路。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/30/【Data-Structure】树-哈夫曼树/assets/Jietu20190611-211647.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190611-211647.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -222,14 +222,14 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <p>如从节点8到节点1的路径如下图所示：</p>
-<p><img src="assets/Jietu20190611-211647.jpg" alt="这里写图片描述"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190611-211647.jpg" alt="这里写图片描述"></p>
 <h3 id="路径长度"><a href="#路径长度" class="headerlink" title="路径长度"></a>路径长度</h3><p><strong>路径长度</strong>指的是路径上分支的数目，在上图中，路径长度为2。</p>
 <h3 id="结点的度"><a href="#结点的度" class="headerlink" title="结点的度"></a>结点的度</h3><p><strong>结点的度</strong>指的是二叉树结点的分支数目， 如果某个结点没有孩子结点，即没有分支，那么它的度是0；如果有一个孩子结点， 那么它的度数是1；如果既有左孩子也有右孩子， 那么这个结点的度是2。</p>
 <h3 id="节点的权"><a href="#节点的权" class="headerlink" title="节点的权"></a>节点的权</h3><p><strong>节点的权</strong>指的是为树中的每一个节点赋予的一个非负的值，如上图中每一个节点中的值就是对应节点的权。</p>
 <h3 id="节点的带权路径长度"><a href="#节点的带权路径长度" class="headerlink" title="节点的带权路径长度"></a>节点的带权路径长度</h3><p><strong>节点的带权路径长度</strong>指的是从根节点到该节点之间的路径长度与该节点权的乘积：如上图中，对于1节点的带权路径长度为：2。</p>
 <h3 id="树的带权路径长度"><a href="#树的带权路径长度" class="headerlink" title="树的带权路径长度"></a>树的带权路径长度</h3><p><strong>树的带权路径长度</strong>指的是所有叶子节点的带权路径长度之和。</p>
 <h3 id="扩充二叉树"><a href="#扩充二叉树" class="headerlink" title="扩充二叉树"></a>扩充二叉树</h3><p>对于一颗已有的二叉树， 如果我们为它添加一系列新结点， 使得它原有的所有结点的度都为2，那么我们就得到了一颗扩充二叉树， 如下图所示：</p>
-<p><img src="assets/1060770-20180117231448537-1408176767.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231448537-1408176767.png" alt="img"></p>
 <p>其中原有的结点叫做<strong>内结点（非叶子结点）</strong>， 新增的结点叫做<strong>外结点（叶子结点）</strong>。</p>
 <p>我们可以得出： 外结点数 = 内结点数 + 1</p>
 <p>并进一步得出： 总结点数 = 2 × 外结点数 -1</p>
@@ -240,10 +240,10 @@ var _hmt = _hmt || [];
 <p>显然， 我们大致的思路是： 如果一个数据结点搜索频率越高，就让它分布在离根结点越近的地方，也即从根结点走到该结点经过的路径长度越短。 这样就能从整体上优化整颗树的性能。</p>
 <p>频率是个细化的量，这里我们用一个更加标准的一个词描述它——“<strong>权值</strong>”。</p>
 <p>综上， 我们为扩充二叉树的外结点（叶子结点）定义两条属性： <strong>权值（w）</strong>和<strong>路径长度（l）</strong>。同时规定<strong>带权路径长度（WPL）</strong>为扩充二叉树的外结点的权值和路径长度乘积之和：</p>
-<p><img src="assets/1060770-20180117231519896-459287945.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231519896-459287945.png" alt="img"></p>
 <h1 id="哈夫曼树（最优二叉树，Huffman-Tree）"><a href="#哈夫曼树（最优二叉树，Huffman-Tree）" class="headerlink" title="哈夫曼树（最优二叉树，Huffman Tree）"></a>哈夫曼树（最优二叉树，Huffman Tree）</h1><p>由n个权值构造一颗有n个叶子结点的二叉树， 则其中<strong>带权路径长度WPL最小</strong>的二叉树， 就是<strong>哈夫曼树（Huffman Tree）**</strong>，或者叫做<strong>最优二叉树</strong>。</p>
 <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>例如下图中对a, b, c：</p>
-<p><img src="assets/1060770-20180117231555412-1315284149.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231555412-1315284149.png" alt="img"></p>
 <ul>
 <li>对a: WPL = 7×2 + 5×2 + 2×2 + 4×2 = 36；</li>
 <li>对b: WPL = 7×3 + 5×3 + 2×1 + 4×2 = 46;</li>
@@ -251,7 +251,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>c中WPL最小， 可以验证， 它就是哈夫曼树， 而a和b都不是哈夫曼树。</p>
 <p>对于同一组权值的叶结点， 构成的哈夫曼树可以有多种形态， 但是最小WPL值是唯一的。</p>
-<p><img src="assets/1060770-20180117231626740-1383924626.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231626740-1383924626.png" alt="img"></p>
 <h3 id="赫夫曼树的构建"><a href="#赫夫曼树的构建" class="headerlink" title="赫夫曼树的构建"></a>赫夫曼树的构建</h3><p>构建过程分四步：</p>
 <ol>
 <li>根据给定的n个权值{w1, w2, w3 … wn }构成n棵二叉树的集合， 每棵二叉树都只包含一个结点；</li>
@@ -260,7 +260,7 @@ var _hmt = _hmt || [];
 <li>重复2和3，直到集合中的树只剩下一棵为止， 剩下的这颗树就是我们要求得的赫夫曼树。</li>
 </ol>
 <p>如下图所示：</p>
-<p><img src="assets/1060770-20180117231649896-1722470520.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180117231649896-1722470520.png" alt="img"></p>
 <h1 id="哈夫曼编码（Huffman-Coding）"><a href="#哈夫曼编码（Huffman-Coding）" class="headerlink" title="哈夫曼编码（Huffman Coding）"></a>哈夫曼编码（Huffman Coding）</h1><p>哈夫曼编码是哈夫曼树的一个应用。</p>
 <p>哈夫曼编码（Huffman Coding）是一种编码方式，也称为“赫夫曼编码”，是David A. Huffman1952年发明的一种构建极小多余编码的方法。<br>在计算机数据处理中，霍夫曼编码使用<strong>变长编码表</strong>对源符号进行编码，出现频率较高的源符号采用较短的编码，出现频率较低的符号采用较长的编码，使编码之后的字符串字符串的平均长度 、期望值降低，以达到<strong>无损压缩数据</strong>的目的。<br>举个例子，现在我们有一字符串：</p>
 <blockquote>
@@ -696,11 +696,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,15 +800,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -816,15 +812,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,11 +836,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -848,11 +848,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

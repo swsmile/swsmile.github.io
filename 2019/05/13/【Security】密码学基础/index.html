@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景 Alice和Bob是谁？ 讨论密码学时，我们为了方便起见，通常会使用Alice和Bob这两个名字。他们可以使枯燥的密码学命题变得更加有趣一些。大家公认，Ron Rivest在1977年介绍RSA密码系统的论文中，首次使用了这两个名字。 此后，又有其他一些名字进入了密码学文化。比如，一名具备窃听能力的攻击者叫Eve，一位能妨碍网络流量的主动攻击者叫 Mallory。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/13/【Security】密码学基础/assets/image-20190510124452399.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/13/【Security】密码学基础/assets/image-20190510131023904.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190510124452399.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190510131023904.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.411Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Security】密码学基础">
 <meta name="twitter:description" content="背景 Alice和Bob是谁？ 讨论密码学时，我们为了方便起见，通常会使用Alice和Bob这两个名字。他们可以使枯燥的密码学命题变得更加有趣一些。大家公认，Ron Rivest在1977年介绍RSA密码系统的论文中，首次使用了这两个名字。 此后，又有其他一些名字进入了密码学文化。比如，一名具备窃听能力的攻击者叫Eve，一位能妨碍网络流量的主动攻击者叫 Mallory。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/13/【Security】密码学基础/assets/image-20190510124452399.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190510124452399.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,7 +224,7 @@ var _hmt = _hmt || [];
 <h1 id="对称加密（symmetric-encryption）-私钥加密（private-key-cryptography）"><a href="#对称加密（symmetric-encryption）-私钥加密（private-key-cryptography）" class="headerlink" title="对称加密（symmetric encryption）/私钥加密（private-key cryptography）"></a>对称加密（symmetric encryption）/私钥加密（private-key cryptography）</h1><p><strong>对称加密（symmetric encryption）</strong>又称私钥加密（private-key cryptography），是一种混淆算法，能够让数据在非安全信道上进行安全通信。</p>
 <p>为了保证通信安全，Alice和Bob首先得到双方都认可的加密算法和密钥。当Alice需要向Bob发送数据时，她使用这个密钥加密数据。Bob使用相同的密钥解密。</p>
 <p>Eve能够访问信道，所以可以看到加密数据；但因为没有密钥，所以看不到原始数据。Alice和Bob只要能保证密钥安全，就能一直安全地通信，如下图所示。</p>
-<p><img src="assets/image-20190510124452399.png" alt="image-20190510124452399"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190510124452399.png" alt="image-20190510124452399"></p>
 <h5 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h5><p>讨论加密时通常会使用到三个术语：<strong>明文（plaintext，即原始数据）</strong>、<strong>密钥（cipher， 用于加密）</strong>和<strong>密文（ciphertext，即加密后的数据）</strong>。</p>
 <p>对称加密可以追溯到上千年以前。比如，加密时将字母表中的每个字母替换成其他字母，解 密时反向操作，这就是代替密码加密。在这个例子中，不存在密钥；安全性取决于保守加密方法 的秘密。那就是最早的算法的例子。随着时间的流逝，我们采用了另一种方法。它是依照19世纪 的一位密码破解专家Auguste Kerckhoffs的观察结果发展而来的 。</p>
 <blockquote>
@@ -248,7 +248,7 @@ var _hmt = _hmt || [];
 <li>对称加密不能用于访问安全数据的无人系统。因为使用相同的密钥可以反转整个过程， 这样的系统出现任何问题都会影响到存储在系统中的所有数据。</li>
 </ul>
 <p><strong>非对称加密（asymmetric encryption）</strong>又称为<strong>公钥加密（public key cryptography）</strong>，它是另一 种方法，使用两个密钥，而不是一个；其中一个密钥是私密的，另一个是公开的。顾名思义，一 个密钥用于私人，另一个密钥将会被所有人共享。这两个密钥之间存在一些特殊的数学关系，使 得密钥具备一些有用的特性。如果你利用某人的公钥加密数据，那么只有他们对应的私钥能够解 密，如下图所示。</p>
-<p><img src="assets/image-20190510131023904.png" alt="image-20190510131023904"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190510131023904.png" alt="image-20190510131023904"></p>
 <p>从另一个方面讲，如果某人用私钥加密数据，任何人都可以利用对应的公钥 解开消息。后面这种操作不提供机密性，但可以用作数字签名。</p>
 <p>非对称加密使得大规模团体的安全通信大幅简化。假设你可以广泛并且安全地分享你的公钥，那么任何人都可以向你发送消息，只有你可以阅读。如果他们使用各自的私钥签名，你还可以精确地知道消息出自何人之手。</p>
 <p>虽然公钥密码的属性非常有趣，但它却非常缓慢，不适用于数据量大的场景。因此，它往往 被部署于进行身份验证和共享秘密的协商，这些秘密后续将用于快速的对称加密。</p>
@@ -608,11 +608,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,15 +712,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -728,15 +724,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,11 +748,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,11 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

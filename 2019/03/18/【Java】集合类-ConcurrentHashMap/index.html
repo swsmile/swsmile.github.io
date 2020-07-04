@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="出现背景1 线程不安全的HashMap因为多线程环境下，使用Hashmap进行put操作会引起死循环（infinite loop），导致CPU利用率接近100%（【Java】集合类 - HashMap 的并发问题），所以在并发情况下不能使用HashMap。 2 效率低下的HashTable容器HashTable容器使用synchronized来保证线程安全，但在线程竞争激烈的情况下HashTabl">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/18/【Java】集合类-ConcurrentHashMap/assets/1024555-20170514173954488-1353945142.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/18/【Java】集合类-ConcurrentHashMap/assets/1024555-20170514174100832-1891630860.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/18/【Java】集合类-ConcurrentHashMap/assets/image005.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/03/18/【Java】集合类-ConcurrentHashMap/assets/image-20190313161007940.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170514173954488-1353945142.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170514174100832-1891630860.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image005.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190313161007940.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】集合类 - ConcurrentHashMap">
 <meta name="twitter:description" content="出现背景1 线程不安全的HashMap因为多线程环境下，使用Hashmap进行put操作会引起死循环（infinite loop），导致CPU利用率接近100%（【Java】集合类 - HashMap 的并发问题），所以在并发情况下不能使用HashMap。 2 效率低下的HashTable容器HashTable容器使用synchronized来保证线程安全，但在线程竞争激烈的情况下HashTabl">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/18/【Java】集合类-ConcurrentHashMap/assets/1024555-20170514173954488-1353945142.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170514173954488-1353945142.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -217,20 +217,20 @@ var _hmt = _hmt || [];
       
         <h1 id="出现背景"><a href="#出现背景" class="headerlink" title="出现背景"></a>出现背景</h1><h2 id="1-线程不安全的HashMap"><a href="#1-线程不安全的HashMap" class="headerlink" title="1 线程不安全的HashMap"></a>1 线程不安全的HashMap</h2><p>因为多线程环境下，使用Hashmap进行put操作会引起<strong>死循环（infinite loop）</strong>，导致CPU利用率接近100%（<a href="https://swsmile.info/2019/03/14/[Java]集合类-HashMap的并发问题/">【Java】集合类 - HashMap 的并发问题</a>），所以在并发情况下不能使用HashMap。</p>
 <h2 id="2-效率低下的HashTable容器"><a href="#2-效率低下的HashTable容器" class="headerlink" title="2 效率低下的HashTable容器"></a>2 效率低下的HashTable容器</h2><p>HashTable容器使用synchronized来保证线程安全，但在线程竞争激烈的情况下HashTable的效率非常低下。</p>
-<p><img src="assets/1024555-20170514173954488-1353945142.png" alt="1024555-20170514173954488-1353945142"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170514173954488-1353945142.png" alt="1024555-20170514173954488-1353945142"></p>
 <a id="more"></a> 
 
 <p>因为当一个线程访问HashTable的同步方法时，其他线程访问HashTable的同步方法时，可能会进入阻塞或轮询状态。如线程1使用put进行添加元素，线程2不但不能使用put方法添加元素，并且也不能使用get方法来获取元素，所以竞争越激烈效率越低。</p>
 <p>对于Hashtable而言，synchronized是针对整张Hash表的，即每次锁住整张表让线程独占。相当于所有线程进行读写时都去竞争一把锁，导致效率非常低下。</p>
 <h2 id="3-ConcurrentHashMap的锁分段技术"><a href="#3-ConcurrentHashMap的锁分段技术" class="headerlink" title="3 ConcurrentHashMap的锁分段技术"></a>3 ConcurrentHashMap的锁分段技术</h2><p>HashTable容器在竞争激烈的并发环境下表现出效率低下的原因，是因为所有访问HashTable的线程都必须竞争同一把锁。</p>
-<p><img src="assets/1024555-20170514174100832-1891630860.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170514174100832-1891630860.png" alt="img"></p>
 <p>那假如容器里有多把锁，每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效的提高并发访问效率，这就是ConcurrentHashMap所使用的<strong>锁分段技术</strong>。</p>
 <p>即首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。 另外，ConcurrentHashMap可以做到读取数据不加锁，并且其内部的结构可以让其在进行写操作的时候能够将锁的粒度保持地尽量地小，不用对整个ConcurrentHashMap加锁。</p>
-<h1 id="ConcurrentHashMap的内部结构"><a href="#ConcurrentHashMap的内部结构" class="headerlink" title="ConcurrentHashMap的内部结构"></a>ConcurrentHashMap的内部结构</h1><p><img src="assets/image005.jpg" alt="å¾ 3.ConcurrentHashMap çç»æç¤ºæå¾ï¼"></p>
+<h1 id="ConcurrentHashMap的内部结构"><a href="#ConcurrentHashMap的内部结构" class="headerlink" title="ConcurrentHashMap的内部结构"></a>ConcurrentHashMap的内部结构</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image005.jpg" alt="å¾ 3.ConcurrentHashMap çç»æç¤ºæå¾ï¼"></p>
 <p>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。</p>
 <p>Segment继承了ReentrantLock，所以它就是一种<strong>可重入锁（Reentrant Lock）</strong>。在ConcurrentHashMap，一个Segment就是一个子哈希表，Segment里维护了一个HashEntry数组，并发环境下，对于不同Segment的数据进行操作是不用考虑锁竞争的。</p>
 <p>一个ConcurrentHashMap里包含一个Segment数组，Segment的结构和HashMap类似，是一种数组和链表结构， 一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素， 每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。</p>
-<p><img src="assets/image-20190313161007940.png" alt="image-20190313161007940"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190313161007940.png" alt="image-20190313161007940"></p>
 <p>从上面的结构我们可以了解到，ConcurrentHashMap定位一个元素的过程需要进行两次Hash操作，第一次Hash定位到Segment，第二次Hash定位到元素所在的链表的头部。</p>
 <p>因此，这一种结构的带来的副作用是Hash的过程要比普通的HashMap要长，但是带来的好处是写操作的时候可以只对元素所在的Segment进行加锁即可，不会影响到其他的Segment，</p>
 <p>这样，在最理想的情况下，ConcurrentHashMap可以最高同时支持Segment数量大小的写操作（刚好这些写操作都非常平均地分布在所有的Segment上），所以，通过这一种结构，ConcurrentHashMap的并发能力可以大大的提高。</p>
@@ -575,11 +575,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,15 +679,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,15 +691,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,11 +715,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -727,11 +727,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

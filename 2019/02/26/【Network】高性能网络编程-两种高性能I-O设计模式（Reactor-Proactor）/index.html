@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景一般情况下，I/O 复用机制需要事件多路分离器（event demultiplexor）。 事件多路分离器的作用，即将那些读写事件源分发（dispatch）给各读写事件处理者（event handlers），就像送快递的在楼下喊：谁的什么东西送了，快来拿吧。因为事件多路分离器同时承担事件分发的智能，因此也称为分发者（dispatcher）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/26/【Network】高性能网络编程-两种高性能I-O设计模式（Reactor-Proactor）/assets/200048bgll2l41w72174ot.jpeg">
-<meta property="og:image" content="http://swsmile.info/2019/02/26/【Network】高性能网络编程-两种高性能I-O设计模式（Reactor-Proactor）/assets/200650wun9j9ghkgk7ngna.jpeg">
-<meta property="og:image" content="http://swsmile.info/2019/02/26/【Network】高性能网络编程-两种高性能I-O设计模式（Reactor-Proactor）/assets/200759gg777fr7v7wzcr7r.jpeg">
-<meta property="og:image" content="http://swsmile.info/2019/02/26/【Network】高性能网络编程-两种高性能I-O设计模式（Reactor-Proactor）/assets/201251i0om3mro9wtcxrty.jpeg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/200048bgll2l41w72174ot.jpeg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/200650wun9j9ghkgk7ngna.jpeg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/200759gg777fr7v7wzcr7r.jpeg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/201251i0om3mro9wtcxrty.jpeg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】两种高性能I&#x2F;O设计模式（Reactor&#x2F;Proactor）">
 <meta name="twitter:description" content="背景一般情况下，I/O 复用机制需要事件多路分离器（event demultiplexor）。 事件多路分离器的作用，即将那些读写事件源分发（dispatch）给各读写事件处理者（event handlers），就像送快递的在楼下喊：谁的什么东西送了，快来拿吧。因为事件多路分离器同时承担事件分发的智能，因此也称为分发者（dispatcher）。">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/26/【Network】高性能网络编程-两种高性能I-O设计模式（Reactor-Proactor）/assets/200048bgll2l41w72174ot.jpeg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/200048bgll2l41w72174ot.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -235,7 +235,7 @@ var _hmt = _hmt || [];
 <p>客人将需要的菜告诉服务员，然后服务员就可以立刻去服务下一个人了，这样是不是能够有效利用服务员的资源？</p>
 <p>其实这就是基于事件的解决方案，“<strong>做好之后放到14桌</strong>”其实就是回调函数。</p>
 <h1 id="Reactor-模型"><a href="#Reactor-模型" class="headerlink" title="Reactor 模型"></a>Reactor 模型</h1><h2 id="经典的-Reactor-单线程模型"><a href="#经典的-Reactor-单线程模型" class="headerlink" title="经典的 Reactor 单线程模型"></a>经典的 Reactor 单线程模型</h2><p>经典的 Reactor 单线程模型如下所示：</p>
-<p><img src="assets/200048bgll2l41w72174ot.jpeg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/200048bgll2l41w72174ot.jpeg" alt=""></p>
 <p>在Reactor模式中，包含如下角色：</p>
 <ul>
 <li><strong>Reactor</strong>：将I/O事件发派给对应的Handler</li>
@@ -257,7 +257,7 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="Reactor-多线程模型"><a href="#Reactor-多线程模型" class="headerlink" title="Reactor 多线程模型"></a>Reactor 多线程模型</h2><p>Rector 多线程模型与单线程模型最大的区别就是有一组 NIO 线程来处理 I/O 操作。</p>
 <p>经典Reactor模式中，尽管一个线程可同时监控多个请求（Channel），但是所有读/写请求以及对新连接请求的处理都在同一个线程中处理，无法充分利用多CPU的优势，同时读/写操作也会阻塞对新连接请求的处理。因此可以引入多线程，并行处理多个读/写操作，如下图所示。</p>
-<p><img src="assets/200650wun9j9ghkgk7ngna.jpeg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/200650wun9j9ghkgk7ngna.jpeg" alt=""></p>
 <p>Reactor 多线程模型的特点如下：</p>
 <ul>
 <li>有专门一个NIO线程——Acceptor线程用于监听服务端，接收客户端的TCP 连接请求。 </li>
@@ -277,7 +277,7 @@ var _hmt = _hmt || [];
 <p>Acceptor 接收到客户端 TCP连接请求并处理完成后（可能包含接入认证等），将新创建的 SocketChannel 注册到 I/O 线程池（sub reactor 线程池） 的某 I/O 线程上， 由它负责 SocketChannel 的读写和编解码工作。Acceptor 线程池仅仅用于客户端的登录、 握手和安全认证，一旦链路建立成功，就将链路注册到后端 subReactor 线程池 的 I/O 线程上，由 I/O 线程负责后续的 I/O 操作。</p>
 <p>Netty中使用的Reactor模式，引入了多Reactor，也即一个主Reactor负责监控所有的连接请求，多个子Reactor负责监控并处理读/写请求，减轻了主Reactor的压力，降低了主Reactor压力太大而造成的延迟。<br>并且每个子Reactor分别属于一个独立的线程，每个成功连接后的Channel的所有操作由同一个线程处理。这样保证了同一请求的所有状态和上下文在同一个线程中，避免了不必要的上下文切换，同时也方便了监控请求响应状态。</p>
 <p>主从Reactor模式示意图如下所示：</p>
-<p><img src="assets/200759gg777fr7v7wzcr7r.jpeg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/200759gg777fr7v7wzcr7r.jpeg" alt=""></p>
 <p>多Reactor示例代码如下所示。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NIOServer</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(NIOServer<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    Selector selector = Selector.open();</span><br><span class="line">    ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line">    serverSocketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">    serverSocketChannel.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">1234</span>));</span><br><span class="line">    serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">    <span class="keyword">int</span> coreNum = Runtime.getRuntime().availableProcessors();</span><br><span class="line">    Processor[] processors = <span class="keyword">new</span> Processor[coreNum];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; processors.length; i++) &#123;</span><br><span class="line">      processors[i] = <span class="keyword">new</span> Processor();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (selector.select() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      Set&lt;SelectionKey&gt; keys = selector.selectedKeys();</span><br><span class="line">      <span class="keyword">for</span> (SelectionKey key : keys) &#123;</span><br><span class="line">        keys.remove(key);</span><br><span class="line">        <span class="keyword">if</span> (key.isAcceptable()) &#123;</span><br><span class="line">          ServerSocketChannel acceptServerSocketChannel = (ServerSocketChannel) key.channel();</span><br><span class="line">          SocketChannel socketChannel = acceptServerSocketChannel.accept();</span><br><span class="line">          socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line">          LOGGER.info(<span class="string">"Accept request from &#123;&#125;"</span>, socketChannel.getRemoteAddress());</span><br><span class="line">          Processor processor = processors[(<span class="keyword">int</span>) ((index++) % coreNum)];</span><br><span class="line">          processor.addChannel(socketChannel);</span><br><span class="line">          processor.wakeup();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -290,7 +290,7 @@ var _hmt = _hmt || [];
 <p>然后把这个事件传给事先注册的 Handler（事件处理函数或者回调函数），由后者来做实际的读写操作。</p>
 <p>其中的读写操作都需要应用程序同步操作，所以 Reactor 是非阻塞同步网络模型。</p>
 <p>如果把 I/O 操作改为异步，即交给操作系统来完成就能进一步提升性能，这就是异步网络模型 Proactor。</p>
-<p><img src="assets/201251i0om3mro9wtcxrty.jpeg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/201251i0om3mro9wtcxrty.jpeg" alt=""></p>
 <p><strong>Proactor 是和异步 I/O 相关的，详细方案如下：</strong></p>
 <ul>
 <li>Proactor Initiator 创建 Proactor 和 Handler 对象，并将 Proactor 和 Handler 都通过 AsyOptProcessor（Asynchronous Operation Processor）注册到内核；</li>
@@ -671,11 +671,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,15 +775,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,15 +787,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -811,11 +811,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -823,11 +823,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

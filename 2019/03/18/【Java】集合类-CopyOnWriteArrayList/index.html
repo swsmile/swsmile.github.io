@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景CopyOnWriteArrayList容器是Collections.synchronizedList(List list)的替代方案。 CopyOnWriteArrayList在某些情况下具有更好的性能（读操作远多于写操作时）。在传统的使用 synchronized 关键字以保证互斥操作的实现中（比如 Vector），通常会把读操作进行加锁，因而任一时刻只能有一个读线程能够获得锁，所以其他的">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/18/【Java】集合类-CopyOnWriteArrayList/assets/1024555-20170521150621182-1289355418.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170521150621182-1289355418.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】集合类 - CopyOnWriteArrayList">
 <meta name="twitter:description" content="背景CopyOnWriteArrayList容器是Collections.synchronizedList(List list)的替代方案。 CopyOnWriteArrayList在某些情况下具有更好的性能（读操作远多于写操作时）。在传统的使用 synchronized 关键字以保证互斥操作的实现中（比如 Vector），通常会把读操作进行加锁，因而任一时刻只能有一个读线程能够获得锁，所以其他的">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/18/【Java】集合类-CopyOnWriteArrayList/assets/1024555-20170521150621182-1289355418.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170521150621182-1289355418.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -229,7 +229,7 @@ var _hmt = _hmt || [];
 
 <h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><p>CopyOnWriteArrayList 允许在写操作的同时进行读操作，因而大大提高了读操作的性能，因此很适合读多写少的应用场景，比如<strong>白名单，黑名单，商品类目的访问和更新场景</strong>，而不适合内存敏感以及对实时性要求很高的场景。</p>
 <p>CopyOnWriteArrayList容器允许并发读，读操作是无锁的，性能较高。至于写操作，比如向容器中添加一个元素，<strong>则首先将当前容器复制一份，然后在新副本上执行写操作，结束之后再将原容器的引用指向新容器。</strong></p>
-<p><img src="assets/1024555-20170521150621182-1289355418.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20170521150621182-1289355418.png" alt="img"></p>
 <h2 id="优缺点分析"><a href="#优缺点分析" class="headerlink" title="优缺点分析"></a><strong>优缺点分析</strong></h2><p>了解了CopyOnWriteArrayList的实现原理，分析它的优缺点及使用场景就很容易了。</p>
 <p><strong>优点：</strong></p>
 <p>读操作性能很高，因为无需任何同步措施，比较适用于<strong>读多写少</strong>的并发场景。Java的list在遍历时，若中途有别的线程对list容器进行修改，则会抛出<strong>ConcurrentModificationException</strong>异常。而CopyOnWriteArrayList由于其”读写分离”的思想，遍历和修改操作分别作用在不同的list容器，所以在使用迭代器进行遍历时候，也就不会抛出ConcurrentModificationException异常了</p>
@@ -577,11 +577,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,15 +681,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,15 +693,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,11 +717,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

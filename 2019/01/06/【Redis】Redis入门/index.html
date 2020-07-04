@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="关于Redis 完全基于内存，绝大部分请求是纯粹的内存操作，非常快速。数据存在内存中，类似于HashMap，HashMap的优势就是查找和操作的时间复杂度都是O(1)； 数据结构简单，对数据操作也简单，Redis中的数据结构是专门进行设计的； 采用单线程，避免了不必要的上下文切换和竞争条件，也不存在多进程或者多线程导致的切换而消耗 CPU，不用去考虑各种锁的问题，不存在加锁释放锁操作，没有因为可能">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/01/06/【Redis】Redis入门/assets/image-20190106125524696.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/06/【Redis】Redis入门/assets/image-20190106125858580.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/06/【Redis】Redis入门/assets/7c54de21-e2ff-402e-bc42-4037de1c1592.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/06/【Redis】Redis入门/assets/485fdf34-ccf8-4185-97c6-17374ee719a0.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/06/【Redis】Redis入门/assets/f7d170a3-e446-4a64-ac2d-cb95028f81a8.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190106125524696.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190106125858580.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/7c54de21-e2ff-402e-bc42-4037de1c1592.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/485fdf34-ccf8-4185-97c6-17374ee719a0.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/f7d170a3-e446-4a64-ac2d-cb95028f81a8.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.407Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Redis】Redis 入门">
 <meta name="twitter:description" content="关于Redis 完全基于内存，绝大部分请求是纯粹的内存操作，非常快速。数据存在内存中，类似于HashMap，HashMap的优势就是查找和操作的时间复杂度都是O(1)； 数据结构简单，对数据操作也简单，Redis中的数据结构是专门进行设计的； 采用单线程，避免了不必要的上下文切换和竞争条件，也不存在多进程或者多线程导致的切换而消耗 CPU，不用去考虑各种锁的问题，不存在加锁释放锁操作，没有因为可能">
-<meta name="twitter:image" content="http://swsmile.info/2019/01/06/【Redis】Redis入门/assets/image-20190106125524696.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190106125524696.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -246,12 +246,12 @@ var _hmt = _hmt || [];
 <li>当被监听的套接字准备好执行连接应答（accept）、读取（read）、写入（write）、关闭（close）等操作时，与操作相对应的文件事件就会产生，这时文件事件处理器就会调用套接字之前关联好的事件处理器来处理这些事件。</li>
 </ul>
 <p>虽然文件事件处理器以单线程方式运行，但通过使用I/O多路复用程序来监听多个套接字，文件事件处理器既实现了高性能的网络通信模型，又可以很好地与Redis服务器中其他同样以单线程方式运行的模块进行对接，这保持了 Redis 内部单线程设计的简单性。</p>
-<h3 id="文件事件处理器"><a href="#文件事件处理器" class="headerlink" title="文件事件处理器"></a>文件事件处理器</h3><p><img src="assets/image-20190106125524696.png" alt="image-20190106125524696"></p>
+<h3 id="文件事件处理器"><a href="#文件事件处理器" class="headerlink" title="文件事件处理器"></a>文件事件处理器</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190106125524696.png" alt="image-20190106125524696"></p>
 <p>上图展示了文件事件处理器的四个组成部分：套接字、I/O多路复用程序、文件事件分派器（dispatcher），以及亊件处理器。</p>
 <p>文件事件是对套接字操作的抽象，每当一个套接字准备好执行连接应答 (accept)、写人、读取、关闭等操作时，就会产生一个文件亊件。因为一个服务器通常会连接多个套接字，所以多个文件事件有可能会并发地出现。</p>
 <p>I/O多路复用程序负责监听多个套接字，并向文件事件分派器传送那些产生了事件的套接字。</p>
 <p>尽管多个文件事件可能会并发地出现，但I/O多路复用程序总是会将所有产生事件的套接字都放到一个队列里面，然后通过这个队列，以有序（sequentially)、同步 (synchronously)、每次一个套接字的方式向文件事件分派器传送套接字。当上一个套接字产 生的事件被处理完毕之后（该套接字为事件所关联的亊件处理器执行完毕），I/O多路复用 程序才会继续向文件事件分派器传送下一个套接字，如下图所示。</p>
-<p><img src="assets/image-20190106125858580.png" alt="image-20190106125858580"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190106125858580.png" alt="image-20190106125858580"></p>
 <p>文件事件分派器接收I/O多路复用程序传来的套接字，并根据套接宇产生的事件的类 型，调用相应的車件处理器。</p>
 <p>服务器会为执行不同任务的套接宇关联不同的事件处理器，这些处理器是一个个函数， 它们定义了某个事件发生时，服务器应该执行的动作。</p>
 <h3 id="I-O多路复用程序的实现"><a href="#I-O多路复用程序的实现" class="headerlink" title="I/O多路复用程序的实现"></a>I/O多路复用程序的实现</h3><p>Redis的I/O多路复用程序的所有功能都是通过包装常见的select、epoll、evport 和kqueue这些I/O多路复用函数库来实现的，每个I/O多路复用函数库在Redis源码中都 对应一个单独的文件，比如ae_select.c、ae epoll.c、ae_kqueue.c,诸如此类。</p>
@@ -275,12 +275,12 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="文章信息"><a href="#文章信息" class="headerlink" title="文章信息"></a>文章信息</h2><p>文章包括标题、作者、赞数等信息，在关系型数据库中很容易构建一张表来存储这些信息，在 Redis 中可以使用 HASH 来存储每种信息以及其对应的值的映射。</p>
 <p>Redis 没有关系型数据库中的表这一概念来将同种类型的数据存放在一起，而是使用命名空间的方式来实现这一功能。键名的前面部分存储命名空间，后面部分的内容存储 ID，通常使用 : 来进行分隔。例如下面的 HASH 的键名为 article:92617，其中 article 为命名空间，ID 为 92617。</p>
-<p><img src="assets/7c54de21-e2ff-402e-bc42-4037de1c1592.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/7c54de21-e2ff-402e-bc42-4037de1c1592.png" alt="img"></p>
 <h2 id="点赞功能"><a href="#点赞功能" class="headerlink" title="点赞功能"></a>点赞功能</h2><p>当有用户为一篇文章点赞时，除了要对该文章的 votes 字段进行加 1 操作，还必须记录该用户已经对该文章进行了点赞，防止用户点赞次数超过 1。可以建立文章的已投票用户集合来进行记录。</p>
 <p>为了节约内存，规定一篇文章发布满一周之后，就不能再对它进行投票，而文章的已投票集合也会被删除，可以为文章的已投票集合设置一个一周的过期时间就能实现这个规定。</p>
-<p><img src="assets/485fdf34-ccf8-4185-97c6-17374ee719a0.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/485fdf34-ccf8-4185-97c6-17374ee719a0.png" alt="img"></p>
 <h2 id="对文章进行排序"><a href="#对文章进行排序" class="headerlink" title="对文章进行排序"></a>对文章进行排序</h2><p>为了按发布时间和点赞数进行排序，可以建立一个文章发布时间的有序集合和一个文章点赞数的有序集合。（下图中的 score 就是这里所说的点赞数；下面所示的有序集合分值并不直接是时间和点赞数，而是根据时间和点赞数间接计算出来的）</p>
-<p><img src="assets/f7d170a3-e446-4a64-ac2d-cb95028f81a8.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/f7d170a3-e446-4a64-ac2d-cb95028f81a8.png" alt="img"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>《Redis入门指南》</li>
 <li>《Redis设计与实现》</li>
@@ -633,11 +633,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,15 +737,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,15 +749,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -773,11 +773,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -785,11 +785,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

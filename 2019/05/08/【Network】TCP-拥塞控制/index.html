@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="TCP的拥塞控制（Congestion Handling）拥塞（Congestion）：即对资源的需求超过了可用的资源。若网络中许多资源同时供应不足，网络的性能就要明显变坏，整个网络的吞吐量随之负荷的增大而下降。 拥塞控制（Congestion Handling）：防止过多的数据注入到网络中，最终避免网络中的路由器或链路过载。拥塞控制所要做的都有一个前提：网络能够承受现有的网络负荷。拥塞控制是一个">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】TCP-拥塞控制/assets/image-20190508105541118.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】TCP-拥塞控制/assets/image-20190508105720429.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】TCP-拥塞控制/assets/image-20190508105731500.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】TCP-拥塞控制/assets/image-20190508110645113.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】TCP-拥塞控制/assets/image-20190508113017726.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508105541118.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508105720429.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508105731500.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508110645113.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508113017726.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】TCP 的拥塞控制（Congestion Handling）">
 <meta name="twitter:description" content="TCP的拥塞控制（Congestion Handling）拥塞（Congestion）：即对资源的需求超过了可用的资源。若网络中许多资源同时供应不足，网络的性能就要明显变坏，整个网络的吞吐量随之负荷的增大而下降。 拥塞控制（Congestion Handling）：防止过多的数据注入到网络中，最终避免网络中的路由器或链路过载。拥塞控制所要做的都有一个前提：网络能够承受现有的网络负荷。拥塞控制是一个">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/08/【Network】TCP-拥塞控制/assets/image-20190508105541118.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508105541118.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -231,7 +231,7 @@ var _hmt = _hmt || [];
 <h3 id="慢开始算法"><a href="#慢开始算法" class="headerlink" title="慢开始算法"></a>慢开始算法</h3><p>当发送方主机开始发送数据时，如果立即大量数据字节注入到网络，那么就有可能引起网络拥塞，因为现在并不清楚网络的负荷情况。</p>
 <p>因此，较好的方法是先探测一下，即由小到大逐渐增大发送窗口，也就是说，发送方主机由小到大逐渐增大拥塞窗口数值。</p>
 <p>通常在刚刚开始发送报文段时，发送方主机先把拥塞窗口（cwnd）设置为一个最大报文段（MSS）的数值。而在每收到一个对已发送报文段的确认（本质上是一个ACK报文段）后，把拥塞窗口增加至多一个MSS的数值。用这样的方法逐步增大发送方的拥塞窗口（cwnd） ，可以使分组注入到网络的速率更加合理。</p>
-<p><img src="assets/image-20190508105541118.png" alt="image-20190508105541118"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508105541118.png" alt="image-20190508105541118"></p>
 <p>每经过一个传输轮次，拥塞窗口（cwnd）就加倍。一个传输轮次所经历的时间其实就是往返时间RTT。不过“传输轮次”更加强调：把拥塞窗口（cwnd）所允许发送的报文段都连续发送出去，并收到了对已发送的最后一个字节的确认。</p>
 <p>另，慢开始的“慢”并不是指cwnd的增长速率慢，而是指在TCP开始发送报文段时先设置cwnd=1，使得发送方在开始时只发送一个报文段（目的是试探一下当前网络的拥塞情况），然后再逐渐增大cwnd。</p>
 <p>为了防止拥塞窗口（cwnd）增长过大引起网络拥塞，还需要设置一个慢开始门限（ssthresh）状态变量。</p>
@@ -242,10 +242,10 @@ var _hmt = _hmt || [];
 <li>当 cwnd = ssthresh 时，既可使用慢开始算法，也可使用拥塞控制避免算法。</li>
 </ul>
 <h3 id="拥塞避免算法"><a href="#拥塞避免算法" class="headerlink" title="拥塞避免算法"></a>拥塞避免算法</h3><p>让拥塞窗口cwnd缓慢地增大，即每经过一个传输轮次（一个传输轮次等于一个往返时间RTT），就把发送方的拥塞窗口cwnd加1，而不是加倍。这样拥塞窗口cwnd按线性规律缓慢增长，比慢开始算法的拥塞窗口增长速率缓慢得多。</p>
-<p><img src="assets/image-20190508105720429.png" alt="image-20190508105720429"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508105720429.png" alt="image-20190508105720429"></p>
 <p>无论在慢开始阶段还是在拥塞避免阶段，只要发送方判断网络出现拥塞（其判断依据是没有收到确认），就要把慢开始门限（ssthresh）设置为出现拥塞时的发送方窗口值的一半（但不能小于2）。然后把拥塞窗口cwnd重新设置为1，执行慢开始算法。这样做的目的就是要迅速减少主机发送到网络中的分组数，使得发生拥塞的路由器有足够时间把队列中积压的分组处理完毕。</p>
 <p>如下图，用具体数值说明了上述拥塞控制的过程。现在发送窗口的大小和拥塞窗口一样大。</p>
-<p><img src="assets/image-20190508105731500.png" alt="image-20190508105731500"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508105731500.png" alt="image-20190508105731500"></p>
 <ol>
 <li>当TCP连接进行初始化时，把拥塞窗口（cwnd）值置为1。前面已说过，为了便于理解，图中的窗口单位不使用字节而使用报文段的个数。慢开始门限（ssthresh）的初始值设置为16个报文段，即 cwnd = 16 。</li>
 <li>在执行慢开始算法时，把拥塞窗口（cwnd）值的初始值为1。以后发送方每收到一个对已发送报文段的确认ACK报文段后，就把拥塞窗口值加1，然后开始下一轮的传输（图中横坐标为传输轮次）。因此拥塞窗口（cwnd）值随着传输轮次按指数规律增长。当拥塞窗口（cwnd）值增长到慢开始门限值（ssthresh）时（即当cwnd=16时），就改为执行拥塞控制算法，此后拥塞窗口（cwnd）值按线性规律增长。</li>
@@ -254,7 +254,7 @@ var _hmt = _hmt || [];
 <p>强调：“拥塞避免”并非指完全能够避免了拥塞。利用以上的措施要完全避免网络拥塞还是不可能的。“拥塞避免”是说在拥塞避免阶段将拥塞窗口控制为按线性规律增长，<strong>使网络比较不容易出现拥塞。</strong></p>
 <h3 id="快重传（Fast-retransmit）"><a href="#快重传（Fast-retransmit）" class="headerlink" title="快重传（Fast retransmit）"></a>快重传（Fast retransmit）</h3><p>快重传算法首先要求：接收方每收到一个失序的报文段后，就立即发出一个重复确认（为的是使发送方尽早知道有报文段没有到达接收方），而不要等到自己发送数据时才进行捎带确认。</p>
 <p>如果数据发送方连续收到3个或3个以上重复的ACK，会判定此报文段丢失，并进行重新传递，而不会等待RTO（Retransmission Timeout，重传超时时间），这就叫做快速重传。</p>
-<p><img src="assets/image-20190508110645113.png" alt="image-20190508110645113"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508110645113.png" alt="image-20190508110645113"></p>
 <p>接收方收到了M1和M2后都分别发出了确认。现在假定接收方没有收到M3但接着收到了M4。</p>
 <p>显然，接收方不能确认M4，因为M4是收到的失序报文段。根据 可靠传输原理，接收方可以什么都不做，也可以在适当时机发送一次对M2的确认。</p>
 <p>但按照快重传算法的规定，接收方应及时发送对M2的重复确认，这样做可以让 发送方及早知道报文段M3没有到达接收方。发送方接着发送了M5和M6。接收方收到这两个报文后，也还要再次发出对M2的重复确认。这样，发送方共收到了 接收方的四个对M2的确认，其中后三个都是重复确认。</p>
@@ -265,7 +265,7 @@ var _hmt = _hmt || [];
 <li>当发送方连续收到三个重复确认，就执行“乘法减小”算法，把慢开始门限ssthresh减半。</li>
 <li>与慢开始不同之处是，现在不执行慢开始算法（即拥塞窗口cwnd现在不设置为1），而是把cwnd值设置为慢开始门限ssthresh减半后的数值，然后开始执行拥塞避免算法（“加法增大”），使拥塞窗口缓慢地线性增大。</li>
 </ul>
-<p><img src="assets/image-20190508113017726.png" alt="image-20190508113017726"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190508113017726.png" alt="image-20190508113017726"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>关于 TCP/IP，必知必会的十个问题 - <a href="https://juejin.im/post/598ba1d06fb9a03c4d6464ab#heading-28" target="_blank" rel="noopener">https://juejin.im/post/598ba1d06fb9a03c4d6464ab#heading-28</a></li>
 </ul>
@@ -603,11 +603,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,15 +707,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,15 +719,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,11 +743,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,11 +755,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

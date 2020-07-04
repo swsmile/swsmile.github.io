@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="栈（Stack）栈（Stack），是一种有序特殊的线性表，只允许在有序的线性数据集合的一端（称为堆栈顶端，top）进行加入（push）数据和移除（pop）数据的运算。因而按照后进先出（LIFO, Last In First Out）的原理运作。 栈的基本操作创建栈，判空，入栈，出栈，获取栈顶元素等，注意栈不支持对指定位置进行删除，插入。  其实非常好理解，我们将栈可以看成一个箱子：  往箱子里面放">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/16/【Data-Structure】栈-栈/assets/image-20190517095836121.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/16/【Data-Structure】栈-栈/assets/image-20190517104026310.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/16/【Data-Structure】栈-栈/assets/image-20190517103956676.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/16/【Data-Structure】栈-栈/assets/image-20190517104245576.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/16/【Data-Structure】栈-栈/assets/20161127171742066.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517095836121.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517104026310.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517103956676.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517104245576.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20161127171742066.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】栈（Stack）">
 <meta name="twitter:description" content="栈（Stack）栈（Stack），是一种有序特殊的线性表，只允许在有序的线性数据集合的一端（称为堆栈顶端，top）进行加入（push）数据和移除（pop）数据的运算。因而按照后进先出（LIFO, Last In First Out）的原理运作。 栈的基本操作创建栈，判空，入栈，出栈，获取栈顶元素等，注意栈不支持对指定位置进行删除，插入。  其实非常好理解，我们将栈可以看成一个箱子：  往箱子里面放">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/16/【Data-Structure】栈-栈/assets/image-20190517095836121.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517095836121.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
       
         <h1 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h1><p>栈（Stack），是一种有序特殊的线性表，只允许在有序的线性数据集合的一端（称为堆栈顶端，top）进行加入（push）数据和移除（pop）数据的运算。因而按照<strong>后进先出（LIFO, Last In First Out）</strong>的原理运作。</p>
 <p>栈的基本操作创建栈，判空，入栈，出栈，获取栈顶元素等，注意栈不支持对指定位置进行删除，插入。</p>
-<p><img src="assets/image-20190517095836121.png" alt="image-20190517095836121"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517095836121.png" alt="image-20190517095836121"></p>
 <p>其实非常好理解，我们将栈可以<strong>看成一个箱子</strong>：</p>
 <ul>
 <li>往箱子里面放东西叫做入栈（push）；</li>
@@ -241,22 +241,22 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SeqStack</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt;,<span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">5413303117698554397L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 栈顶指针,-1代表空栈</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> top=-<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 容量大小默认为10</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> capacity=<span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 存放元素的数组</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> T[] array;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeqStack</span><span class="params">(<span class="keyword">int</span> capacity)</span></span>&#123;</span><br><span class="line">        array = (T[]) <span class="keyword">new</span> Object[capacity];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SeqStack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        array= (T[]) <span class="keyword">new</span> Object[<span class="keyword">this</span>.capacity];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//.......省略其他代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="peek"><a href="#peek" class="headerlink" title="peek()"></a>peek()</h2><p>获取栈顶元素值的peek操作过程如下图（未删除只获取值）： </p>
-<p><img src="assets/image-20190517104026310.png" alt="image-20190517104026310"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517104026310.png" alt="image-20190517104026310"></p>
 <p><strong>实现</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 获取栈顶元素的值,不删除</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> T <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(isEmpty())</span><br><span class="line">         <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">     <span class="keyword">return</span> array[top];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="push"><a href="#push" class="headerlink" title="push()"></a>push()</h2><p>从栈添加元素的过程如下（更新栈顶top指向）： </p>
-<p><img src="assets/image-20190517103956676.png" alt="image-20190517103956676"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517103956676.png" alt="image-20190517103956676"></p>
 <p><strong>实现</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 添加元素,从栈顶(数组尾部)插入</span></span><br><span class="line"><span class="comment"> * 容量不足时，需要扩容</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> data</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T data)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//判断容量是否充足</span></span><br><span class="line">    <span class="keyword">if</span>(array.length==size)</span><br><span class="line">        ensureCapacity(size*<span class="number">2</span>+<span class="number">1</span>);<span class="comment">//扩容</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//从栈顶添加元素</span></span><br><span class="line">    array[++top]=data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="pop"><a href="#pop" class="headerlink" title="pop()"></a>pop()</h2><p>栈弹出栈顶元素的过程如下（删除并获取值）： </p>
-<p><img src="assets/image-20190517104245576.png" alt="image-20190517104245576"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190517104245576.png" alt="image-20190517104245576"></p>
 <p><strong>实现</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 从栈顶(顺序表尾部)删除</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="meta">@Override</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> T <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(isEmpty())</span><br><span class="line">         <span class="keyword">new</span> EmptyStackException();</span><br><span class="line">     size--;</span><br><span class="line">     <span class="keyword">return</span> array[top--];</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="链式栈（Linked-Stack）的设计"><a href="#链式栈（Linked-Stack）的设计" class="headerlink" title="链式栈（Linked Stack）的设计"></a>链式栈（Linked Stack）的设计</h1><p>了解完顺序栈，我们接着来看看链式栈，所谓的链式栈（Linked Stack），就是采用链式存储结构的栈，由于我们操作的是栈顶一端，因此这里采用单链表（不带头结点）作为基础，直接实现栈的添加，获取，删除等主要操作即可。其操作过程如下图： </p>
-<p><img src="assets/20161127171742066.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20161127171742066.png" alt="img"></p>
 <p>从图可以看出，无论是插入还是删除直接操作的是链表头部也就是栈顶元素，因此我们只需要使用不带头结点的单链表即可。代码实现如下</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedStack</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">Stack</span>&lt;<span class="title">T</span>&gt; ,<span class="title">Serializable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1911829302658328353L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Node&lt;T&gt; top;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> size;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedStack</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.top=<span class="keyword">new</span> Node&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> top==<span class="keyword">null</span> || top.data==<span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(T data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (data==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> StackException(<span class="string">"data can\'t be null"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.top==<span class="keyword">null</span>)&#123;<span class="comment">//调用pop()后top可能为null</span></span><br><span class="line">            <span class="keyword">this</span>.top=<span class="keyword">new</span> Node&lt;&gt;(data);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.top.data==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.top.data=data;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">           Node&lt;T&gt; p=<span class="keyword">new</span> Node&lt;&gt;(data,<span class="keyword">this</span>.top);</span><br><span class="line">            top=p;<span class="comment">//更新栈顶</span></span><br><span class="line">        &#125;</span><br><span class="line">        size++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">peek</span><span class="params">()</span>  </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException(<span class="string">"Stack empty"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> top.data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(isEmpty())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> EmptyStackException(<span class="string">"Stack empty"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        T data=top.data;</span><br><span class="line">        top=top.next;</span><br><span class="line">        size--;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//测试</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        LinkedStack&lt;String&gt; sl=<span class="keyword">new</span> LinkedStack&lt;&gt;();</span><br><span class="line">        sl.push(<span class="string">"A"</span>);</span><br><span class="line">        sl.push(<span class="string">"B"</span>);</span><br><span class="line">        sl.push(<span class="string">"C"</span>);</span><br><span class="line">        <span class="keyword">int</span> length=sl.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            System.out.println(<span class="string">"sl.pop-&gt;"</span>+sl.pop());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -658,11 +658,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,15 +762,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -778,15 +774,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -798,11 +798,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -810,11 +810,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

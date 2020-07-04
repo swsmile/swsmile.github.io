@@ -16,22 +16,22 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="软硬件层面的同步/异步硬件在现代操作系统中，I/O是一种与外围设备（peripherals）进行数据交换的方式，I/O包括读或写数据到磁盘/SSD中，或通过网络发送/接收数据，显示信息到显示器上，接收鼠标或键盘的输入。 因此，我们通常说的I/O，不仅仅只限于磁盘文件的读写。*nix将计算机抽象了一番，磁盘文件、硬件、套接字等几乎所有计算机资源都被抽象为了文件。 实现硬件层面异步的机制称为硬件中断（">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181026115812035.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181031115934620.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181031120327041.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181031124616771.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181031120327041.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181031124616771-all.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181031120644458.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181031120706114.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181030115144862.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181104210714835.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181025121410324.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181026115812035.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031115934620.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120327041.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031124616771.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120327041.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031124616771-all.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120644458.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120706114.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181030115144862.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181104210714835.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181025121410324.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Operating System】I&#x2F;O - 同步、异步与阻塞、非阻塞I&#x2F;O问题">
 <meta name="twitter:description" content="软硬件层面的同步/异步硬件在现代操作系统中，I/O是一种与外围设备（peripherals）进行数据交换的方式，I/O包括读或写数据到磁盘/SSD中，或通过网络发送/接收数据，显示信息到显示器上，接收鼠标或键盘的输入。 因此，我们通常说的I/O，不仅仅只限于磁盘文件的读写。*nix将计算机抽象了一番，磁盘文件、硬件、套接字等几乎所有计算机资源都被抽象为了文件。 实现硬件层面异步的机制称为硬件中断（">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/assets/image-20181026115812035.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181026115812035.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -240,9 +240,9 @@ var _hmt = _hmt || [];
 <li>操作系统请求设备驱动提供的API来完成I/O操作</li>
 <li>不同的硬件设备对应不同的设备驱动，这些设备驱动知道如何让特定的硬件设备完成特定的I/O操作</li>
 </ul>
-<p><img src="assets/image-20181026115812035.png" alt="image-20181026115812035"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181026115812035.png" alt="image-20181026115812035"></p>
 <h1 id="I-O模型"><a href="#I-O模型" class="headerlink" title="I/O模型"></a>I/O模型</h1><h2 id="阻塞I-O模型（Blocking-I-O-Model）"><a href="#阻塞I-O模型（Blocking-I-O-Model）" class="headerlink" title="阻塞I/O模型（Blocking I/O Model）"></a>阻塞I/O模型（Blocking I/O Model）</h2><p>操作系统内核<strong>对于I/O只有两种方式：阻塞与非阻塞</strong>。在调用阻塞I/O时，用户线程需要等待 I/O操作完全完成（等待数据被拷贝到内核空间的缓冲区（buffer），数据从内核缓冲区被拷贝到用户线程对应的用户空间缓冲区）后，才能得到结果（内核返回数据给用户线程），如下图所示：</p>
-<p><img src="assets/image-20181031115934620.png" alt="image-20181031115934620"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031115934620.png" alt="image-20181031115934620"></p>
 <p><strong>具体来说：</strong></p>
 <ul>
 <li><strong>系统调用</strong>：用户线程调用<code>read()</code>这个系统调用（System Call）；</li>
@@ -260,7 +260,7 @@ var _hmt = _hmt || [];
 <li>采用<strong>异步编程（Asynchronous Programming）</strong>：异步编程必须依赖于操作系统提供的异步I/O系统调用，或者由软件中间件抽象后提供的异步API（比如Node.js）。当I/O操作真正完成时（已经将期望的数据复制到内存用户态中），内核通过回调函数（callback）或信号量的方式通知应用程序。</li>
 </ul>
 <h2 id="非阻塞I-O模型（Nonblocking-I-O-Model）"><a href="#非阻塞I-O模型（Nonblocking-I-O-Model）" class="headerlink" title="非阻塞I/O模型（Nonblocking I/O Model）"></a>非阻塞I/O模型（Nonblocking I/O Model）</h2><p>为了提高性能， 内核提供了非阻塞I/O。如图所示：</p>
-<p><img src="assets/image-20181031120327041.png" alt="image-20181031120327041"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120327041.png" alt="image-20181031120327041"></p>
 <p><strong>具体来分析：</strong></p>
 <ul>
 <li><strong>系统调用</strong>：用户线程设置此I/O为非阻塞操作，并调用<code>read()</code>这个系统调用（System Call）。</li>
@@ -284,7 +284,7 @@ var _hmt = _hmt || [];
 <p>当这些文件描述符对应的I/O操作中任何一个（或多个同时）数据准备完成（数据已经被拷贝至内核空间）时，内核或主动通知用户线程并返回控制流。</p>
 <p>Linux提供了三种方式来实现I/O多路复用模型：<code>select</code>、<code>poll</code>和<code>epoll</code>方法。关于这几种I/O多路复用模型的区别，在<a href="[https://swsmile.info/2019/01/19/%E3%80%90Linux%E3%80%91Linux%E4%B8%AD%E7%9A%84%E8%BD%AE%E8%AF%A2%E6%8A%80%E6%9C%AF/](https://swsmile.info/2019/01/19/[Linux]Linux中的轮询技术/)">【Linux】Linux 中的 I/O 轮询技术 </a>中进行了详细的讨论。</p>
 <p>我们以<code>select</code>为例，I/O多路复用模型如下图所示：</p>
-<p><img src="assets/image-20181031124616771.jpg" alt="image-20181031124616771"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031124616771.jpg" alt="image-20181031124616771"></p>
 <p><strong>具体来分析：</strong></p>
 <ul>
 <li>调用<code>read()</code>系统调用：用户线程以非阻塞的方式发起一个I/O操作。注意，这里<code>read()</code>系统调用可以被非阻塞的调用多次以触发多个I/O操作。</li>
@@ -293,9 +293,9 @@ var _hmt = _hmt || [];
 </ul>
 <hr>
 <p>之所以说”I/O多路复用模型是非阻塞I/O模型的延伸“，是因为在传统的非阻塞I/O模型中，一次<code>read()</code>系统调用只能探测到<strong>一个I/O操作</strong>的数据是否已经准备完成了。在这个过程中，虽然不断调用<code>read()</code>的过程是非阻塞的，但是当数据准备完成时（数据已经被拷贝至内核空间），再次调用<code>read()</code>以将数据从内核空间拷贝至用户空间的过程是阻塞的。下图描述了这个过程：</p>
-<p><img src="assets/image-20181031120327041.png" alt="image-20181031120327041"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120327041.png" alt="image-20181031120327041"></p>
 <p>而前面也提到了，<strong>I/O多路复用模型允许用户线程可以阻塞地同时等待多个文件描述符对应的I/O操作</strong>。事实上，Linux中的<code>select</code>、<code>poll</code>和<code>epoll</code>三种轮询实现对应的轮询系统调用，都会阻塞用户线程，若下图所示：</p>
-<p><img src="assets/image-20181031124616771-all.jpg" alt="image-20181031124616771-all"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031124616771-all.jpg" alt="image-20181031124616771-all"></p>
 <p>因此，将I/O多路复用模型与最朴素的非阻塞I/O模型进行对比，从底层实现来说，前者已经将轮询操作从由用户线程负责转移到了由内核负责。</p>
 <hr>
 <p><strong>注意，<code>select</code>、<code>poll</code>和<code>epoll</code>均只是不同的轮询技术的实现。因此，在轮询之前，用户线程已经通过非阻塞的系统调用发起了I/O操作。而<code>select</code>、<code>poll</code>和<code>epoll</code>本身既不包括非阻塞地发起I/O操作这个过程，也不包括数据已经准备完成后，用户线程发起<code>read()</code>去读取去数据（以将数据从内核空间拷贝至用户空间）的过程。</strong></p>
@@ -305,7 +305,7 @@ var _hmt = _hmt || [];
 <h3 id="多线程调用阻塞I-O模型（Multithreading-with-blocking-I-O-Model）"><a href="#多线程调用阻塞I-O模型（Multithreading-with-blocking-I-O-Model）" class="headerlink" title="多线程调用阻塞I/O模型（Multithreading with blocking I/O Model）"></a>多线程调用阻塞I/O模型（Multithreading with blocking I/O Model）</h3><p>另外，看起来，使用多线程调用阻塞I/O与I/O多路复用很类似。即，在这两个模型中，从“用户线程发起系统调用到数据被准备完成并被复制到内核空间”和“数据从内核空间被复制到用户空间”的这两个过程中，用户线程均是被阻塞的。</p>
 <p>而且对于<strong>I/O多路复用</strong>，在轮询结束后，每一次<code>read()</code>调用都只能执行一个I/O操作，因此调用<code>select()</code>后需要多次调用<code>read()</code>。而多线程调用阻塞I/O使用多线程（一个文件描述符对应一个线程）来同时调用阻塞I/O，则当任何一个线程完成了<code>select()</code>后，可以立即调用对应的<code>read()</code>。因此，多个文件描述符对应的<code>read()</code>调用可以被同时（concurrently）进行。</p>
 <p>看起来<strong>I/O多路复用</strong>似乎一无是处。而事实上，在多线程调用阻塞I/O时，CPU的利用率不高，因为CPU需要进行大量的线程上下文切换（线程被I/O阻塞后进行休眠状态，当I/O完成后，该线程从休眠变为活跃状态）。</p>
-<h2 id="信号驱动-I-0-模型（Signal-Driven-I-O-Model）"><a href="#信号驱动-I-0-模型（Signal-Driven-I-O-Model）" class="headerlink" title="信号驱动 I/0 模型（Signal-Driven I/O Model）"></a>信号驱动 I/0 模型（Signal-Driven I/O Model）</h2><p><img src="assets/image-20181031120644458.png" alt="image-20181031120644458"></p>
+<h2 id="信号驱动-I-0-模型（Signal-Driven-I-O-Model）"><a href="#信号驱动-I-0-模型（Signal-Driven-I-O-Model）" class="headerlink" title="信号驱动 I/0 模型（Signal-Driven I/O Model）"></a>信号驱动 I/0 模型（Signal-Driven I/O Model）</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120644458.png" alt="image-20181031120644458"></p>
 <ul>
 <li>调用<code>sigaction()</code>系统调用：用户线程开启信号驱动 I/0，并调用<code>sigaction()</code>系统调用来初始化信号处理程序（Signal Handler）</li>
 <li>系统调用立刻返回：当调用<code>sigaction()</code>系统调用后，该系统调用会被内核立刻返回，此后用户线程不会被阻塞</li>
@@ -316,7 +316,7 @@ var _hmt = _hmt || [];
 <h2 id="异步-I-O-模型（Asynchronous-I-O-Model）"><a href="#异步-I-O-模型（Asynchronous-I-O-Model）" class="headerlink" title="异步 I/O 模型（Asynchronous I/O Model）"></a>异步 I/O 模型（Asynchronous I/O Model）</h2><p>异步 I/O（Asynchronous I/O） 即AIO，也可称为POSIX AIO。</p>
 <p>在《Unix网络编程》一书中对同步IO和异步IO的定义是这样的：<strong>An asynchronous I/O operation does not cause the requesting process to be blocked.</strong></p>
 <p><strong>即，请求 I/O 操作的进程不会被异步 I/O 操作阻塞。因此，异步 I/O 一定是非阻塞的</strong>。异步I/O通常与事件通知（Event Notification）关联。</p>
-<p><img src="assets/image-20181031120706114.png" alt="image-20181031120706114"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120706114.png" alt="image-20181031120706114"></p>
 <p><strong>过程：</strong></p>
 <ul>
 <li>发起系统调用：用户线程发起<code>aio_read()</code>（POSIX的异步I/O函数名称总是以<code>aio_</code>或<code>lio_</code>开头）系统调用后，内核会立即返回控制流给用户线程</li>
@@ -325,7 +325,7 @@ var _hmt = _hmt || [];
 <h3 id="信号驱动-I-0-模型与异步I-O模型的区别"><a href="#信号驱动-I-0-模型与异步I-O模型的区别" class="headerlink" title="信号驱动 I/0 模型与异步I/O模型的区别"></a>信号驱动 I/0 模型与异步I/O模型的区别</h3><p><strong>信号驱动 I/0 模型与异步I/O模型的区别</strong>在于，前者在当数据被拷贝到内核空间后就通知用户线程（此后还要经历将数据拷贝至用户空间的过程），而后者会在数据被拷贝至用户空间后才通知用户线程（此时，数据对用户程序而言，已经可用）。因此，对后者来说，在数据从内核空间拷贝至用户空间的过程，用户线程是被阻塞的；而对前者来说，用户线程在整个I/O操作过程中，没有发生任何阻塞。因此，异步I/O可以提高吞吐量、缩短响应时间。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>比较以上五种模型（阻塞I/O模型、非阻塞I/O模型、I/O多路复用模型、信号驱动 I/0 模型和异步I/O模型）。只有在异步I/O模型中，在数据从内核空间拷贝至用户空间的过程，用户线程是不被阻塞的（而在前四种模型中，都是被阻塞的）。</p>
 <p>再次强调，非阻塞I/O跟阻塞I/O的本质差别在于，当用户线程发起系统调用（System Call）后，控制流是否会被系统内核立即返回。若会被立即返回，则为非阻塞I/O。</p>
-<p><img src="assets/image-20181030115144862.png" alt="image-20181030115144862"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181030115144862.png" alt="image-20181030115144862"></p>
 <h2 id="POSIX中的I-O调用方法"><a href="#POSIX中的I-O调用方法" class="headerlink" title="POSIX中的I/O调用方法"></a>POSIX中的I/O调用方法</h2><table>
 <thead>
 <tr>
@@ -373,14 +373,14 @@ var _hmt = _hmt || [];
 <li>非阻塞I/O并不意味着真个I/O过程中，用户线程没有发生任何阻塞。事实上，在调用<code>select()</code>和<code>poll()</code>时，均会发生阻塞；而且，在轮询完成后，将数据从内存空间复制到用户空间的过程中，也同样会发生阻塞</li>
 </ul>
 <p>而有的blog（如 <a href="https://www.ibm.com/developerworks/cn/linux/l-async/" target="_blank" rel="noopener">使用异步 I/O 大大提高应用程序的性能</a>）中认为所有的I/O多路模型（包括<code>select</code>、<code>poll</code>和<code>epoll</code>）均属于异步I/O， 且属于异步阻塞 I/O。如下图所示：</p>
-<p><img src="assets/image-20181104210714835.png" alt="image-20181104210714835"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181104210714835.png" alt="image-20181104210714835"></p>
 <p>个人不是非常赞同这种分类。因为从操作系统角度而言，在I/O多路模型中，虽然内核会将数据已经被准备完成的I/O操作对应的文件描述符放到一个”已完成“集合中。但对于应用程序而言，仍然需要进行轮询操作（而不是在I/O操作完成后，应用程序得到主动的通知，并触发相应的事件回调）。因此，个人认为I/O多路模型仍然应归属到同步模型。</p>
 <p>然而，<strong>通过中间件通过线程池+I/O多路模型，可”模拟“出异步</strong>。Node就是一个典型的例子。即对应Node应用程序而言，完全是异步的（一个I/O操作被触发后，当数据被拷贝到用户态时，开发者声明的回调函数回被自动触发）。之所以称之为”模拟的异步“，是从其层依赖的操作系统系统调用而言的，即Node底层依赖的操作系统系统调用并不是异步的，而是线程池+I/O多路模型。</p>
 <h1 id="现实的异步I-O"><a href="#现实的异步I-O" class="headerlink" title="现实的异步I/O"></a>现实的异步I/O</h1><p>现实比理想要骨感一些，但是要达成异步I/O的目标，并非难事。前面我们将场景限定在了单线程的状况下，多线程的方式会是另一番风景。</p>
 <p>通过让部分线程进行阻塞I/O或者非阻塞I/O加轮询技术来完成数据获取，<strong>让一个线程进行计算处理，通过线程之间的通信将I/O得到的数据进行传递，这就轻松实现了“异步I/O”</strong>。</p>
 <p>这种“异步I/O”不能称之为严格意义上的异步I/O。因为严格意义上的异步，工作线程是不会因为I/O而被阻塞的，因此它在发起I/O请求后，仍然可以去做其他事情。</p>
 <p>而从用户线程的角度说，这是异步I/O。然而，对应内核或者CPU而言，无论是采用阻塞还是非阻塞的方式，都没有将CPU资源利用最大化。这是相较于真正意义上的异步I/O而言，因为，前者开启了多线程，这增加了CPU资源的耗费；而后者在此基础之上，还需要进行轮询操作，更加增加了CPU资源的耗费。</p>
-<p><img src="assets/image-20181025121410324.png" alt="image-20181025121410324"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181025121410324.png" alt="image-20181025121410324"></p>
 <p>glibc的AIO便是典型的线程池模拟异步I/O。然而遗憾的是，它存在一些难以忍受的缺陷和 bug，不推荐采用。libev的作者Marc Alexander Lehmann重新实现了一个异步I/O的库：libeio。<strong>libeio 实质上依然是采用线程池与阻塞I/O模拟异步I/O</strong>。</p>
 <h1 id="边缘触发AIO（Edge-triggered-AIO）与水平触发-AIO-（level-triggered-AIO）"><a href="#边缘触发AIO（Edge-triggered-AIO）与水平触发-AIO-（level-triggered-AIO）" class="headerlink" title="边缘触发AIO（Edge-triggered AIO）与水平触发 AIO （level-triggered AIO）"></a>边缘触发AIO（Edge-triggered AIO）与水平触发 AIO （level-triggered AIO）</h1><h3 id="边缘触发AIO（Edge-triggered-AIO）"><a href="#边缘触发AIO（Edge-triggered-AIO）" class="headerlink" title="边缘触发AIO（Edge-triggered AIO）"></a>边缘触发AIO（Edge-triggered AIO）</h3><h3 id="水平触发-AIO（level-triggered-AIO）"><a href="#水平触发-AIO（level-triggered-AIO）" class="headerlink" title="水平触发 AIO（level-triggered AIO）"></a>水平触发 AIO（level-triggered AIO）</h3><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>《Unix Network Programming, Volume 1: The Sockets Networking API: Sockets Networking API》</li>
@@ -728,11 +728,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -832,15 +832,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -848,15 +844,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -868,11 +868,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -880,11 +880,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

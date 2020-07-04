@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="动机 完成一项任务可以有多种不同的方法，每一种方法都可称为一个策略。在特定环境下，我们可以根据不同的需求和具体的环境来决定采用哪一个策略来完成特定的任务； 在软件开发中也是类似的，我们可以使用不同的策略来实现一项功能。比如排序，可以采用快排（Quick Sort），插入排序（Insert Sort）或选择排序（Selection Sort）等等。这些不同的排序算法都能实现排序功能，只是他们进行排序">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/assets/9fe82ef3-3895-4055-a88c-9a98a4ba05c6.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/assets/72b9056c-01ba-4838-a05c-969399eac3fc.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/assets/image-20190409214141717.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/assets/image-20190409214321293.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/9fe82ef3-3895-4055-a88c-9a98a4ba05c6.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/72b9056c-01ba-4838-a05c-969399eac3fc.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190409214141717.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190409214321293.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.303Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Design Pattern】行为类模式 -- 策略模式 (Strategy Pattern)">
 <meta name="twitter:description" content="动机 完成一项任务可以有多种不同的方法，每一种方法都可称为一个策略。在特定环境下，我们可以根据不同的需求和具体的环境来决定采用哪一个策略来完成特定的任务； 在软件开发中也是类似的，我们可以使用不同的策略来实现一项功能。比如排序，可以采用快排（Quick Sort），插入排序（Insert Sort）或选择排序（Selection Sort）等等。这些不同的排序算法都能实现排序功能，只是他们进行排序">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/assets/9fe82ef3-3895-4055-a88c-9a98a4ba05c6.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/9fe82ef3-3895-4055-a88c-9a98a4ba05c6.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -237,13 +237,13 @@ var _hmt = _hmt || [];
 <li>一个或多个具体的策略实现类（Concrete Strategy），且实现了策略接口</li>
 <li>一个策略上下文对象，以允许调用者指定特定的策略</li>
 </ul>
-<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><p><img src="assets/9fe82ef3-3895-4055-a88c-9a98a4ba05c6.png" alt=""></p>
+<h2 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/9fe82ef3-3895-4055-a88c-9a98a4ba05c6.png" alt=""></p>
 <h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><h2 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h2><ul>
 <li>定义一个策略接口（Strategy Interface），这个接口定义的策略类的行为</li>
 <li>定义一个或多个具体的实现策略类（Concrete Strategy），这些类均实现了策略接口</li>
 <li>定义一个策略上下文对象，其中包含<code>setter</code>和<code>getter</code>方法用于指定一个具体的实现策略类</li>
 </ul>
-<h2 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h2><p><img src="assets/72b9056c-01ba-4838-a05c-969399eac3fc.jpg" alt=""></p>
+<h2 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/72b9056c-01ba-4838-a05c-969399eac3fc.jpg" alt=""></p>
 <h2 id="SortingStrategy-java"><a href="#SortingStrategy-java" class="headerlink" title="SortingStrategy.java"></a>SortingStrategy.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">SortingStrategy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] numbers)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="SelectionSort-java"><a href="#SelectionSort-java" class="headerlink" title="SelectionSort.java"></a>SelectionSort.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectionSort</span> <span class="keyword">implements</span> <span class="title">SortingStrategy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] numbers)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Selection Sort!"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> i, j, first, temp;</span><br><span class="line">        <span class="keyword">for</span> (i = numbers.length - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            first = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (j = <span class="number">1</span>; j &lt;= i; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (numbers[j] &gt; numbers[first])</span><br><span class="line">                    first = j;</span><br><span class="line">            &#125;</span><br><span class="line">            temp = numbers[first];</span><br><span class="line">            numbers[first] = numbers[i];</span><br><span class="line">            numbers[i] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        System.out.println(Arrays.toString(numbers));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -276,10 +276,10 @@ var _hmt = _hmt || [];
 <li>CardLayout</li>
 </ul>
 <p>其类图如下：</p>
-<p><img src="assets/image-20190409214141717.png" alt="image-20190409214141717"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190409214141717.png" alt="image-20190409214141717"></p>
 <h2 id="Swing中的Border"><a href="#Swing中的Border" class="headerlink" title="Swing中的Border"></a>Swing中的Border</h2><p>在任何一个Swing构件上都可以画上边框(Border)，比如panel、button等，而Swing库提供了很多的边框类型，包括bevel、line、titled以及CompoundBorder类等，Swing构件的基类是JComponent类，而这个类负责为Swing构件画上边框。</p>
 <p>JComponent类实现了paintBorder()方法，并且保持一个私有的对边框对象的引用。由于Border是一个接口而不是具体类，因此，这个引用可以指向任何实现了Border借口的边框对象。其类图如下：</p>
-<p><img src="assets/image-20190409214321293.png" alt="image-20190409214321293"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190409214321293.png" alt="image-20190409214321293"></p>
 <h1 id="在什么情况下使用策略模式"><a href="#在什么情况下使用策略模式" class="headerlink" title="在什么情况下使用策略模式"></a>在什么情况下使用策略模式</h1><ol>
 <li>如果在一个系统里面有许多类，他们之间的区别仅仅在于他们的行为，那么使用策略模式可以动态地让一个对象在许多行为中选择一种行为。</li>
 <li>一个系统需要动态的在几种算法中选择一种。那么这些算法可以包装到一个个的具体算法里面，而这些具体算法类都是一个抽象算法类的子类。换言之，这些具体算法类均有统一的接口，由于多态性原则，客户端可以选择使用任何一个具体算法类，并只持有一个数据类型是抽象算法类的对象。</li>
@@ -626,11 +626,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +730,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,15 +742,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -766,11 +766,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -778,11 +778,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

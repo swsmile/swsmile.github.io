@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="在构建 Docker 容器时，应该尽量想办法获得体积更小的镜像，因为传输和部署体积较小的镜像速度更快。 但 RUN 语句总是会创建一个新层，而且在生成镜像之前还需要使用很多中间文件，在这种情况下，该如何获得体积更小的镜像呢？">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Docker】减小Docker镜像体积/assets/d4a73968c4c8f18a9ee89733292430f4.gif">
-<meta property="og:image" content="http://swsmile.info/2019/08/04/【Docker】减小Docker镜像体积/assets/bbcb27ba8cc85a4d8b9f84ae623011ad.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/d4a73968c4c8f18a9ee89733292430f4.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bbcb27ba8cc85a4d8b9f84ae623011ad.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Docker】减小 Docker 镜像体积">
 <meta name="twitter:description" content="在构建 Docker 容器时，应该尽量想办法获得体积更小的镜像，因为传输和部署体积较小的镜像速度更快。 但 RUN 语句总是会创建一个新层，而且在生成镜像之前还需要使用很多中间文件，在这种情况下，该如何获得体积更小的镜像呢？">
-<meta name="twitter:image" content="http://swsmile.info/2019/08/04/【Docker】减小Docker镜像体积/assets/d4a73968c4c8f18a9ee89733292430f4.gif">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/d4a73968c4c8f18a9ee89733292430f4.gif">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -225,7 +225,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu</span><br><span class="line">RUN apt-get update</span><br><span class="line">RUN apt-get install vim</span><br></pre></td></tr></table></figure>
 
 <p>从 Docker 1.10 开始，COPY、ADD 和 RUN 语句会向镜像中添加新层。前面的示例创建了两个层而不是一个。</p>
-<p><img src="assets/d4a73968c4c8f18a9ee89733292430f4.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/d4a73968c4c8f18a9ee89733292430f4.gif" alt="img"></p>
 <p>镜像的层就像 Git 的提交（commit）一样。</p>
 <p>Docker 的层用于保存镜像的上一版本和当前版本之间的差异。就像 Git 的提交一样，如果你与其他存储库或镜像共享它们，就会很方便。</p>
 <p>实际上，当你向注册表请求镜像时，只是下载你尚未拥有的层。这是一种非常高效地共享镜像的方式。</p>
@@ -261,7 +261,7 @@ var _hmt = _hmt || [];
 
 <p>Dockerfile 的第一部分创建了三个层，然后这些层被合并并复制到第二个阶段。在第二阶段，镜像顶部又添加了额外的两个层，所以总共是三个层。</p>
 <p>﻿</p>
-<p><img src="assets/bbcb27ba8cc85a4d8b9f84ae623011ad.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bbcb27ba8cc85a4d8b9f84ae623011ad.gif" alt="img"></p>
 <p>现在来验证一下。首先，构建容器：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t node-multi-stage .</span><br></pre></td></tr></table></figure>
 
@@ -711,11 +711,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,15 +815,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -831,15 +827,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -851,11 +851,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -863,11 +863,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

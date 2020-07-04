@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="磁盘构造硬盘中一般会有多个盘片（platter）组成，每个盘片包含两个面，每个盘面都对应地有一个读/写磁头（head）。受到硬盘整体体积和生产成本的限制，盘片数量都受到限制，一般都在5片以内。盘片的编号自下向上从0开始，如最下边的盘片的两个盘面分别编号为0面和1面，再上一个盘片的两个盘面就分别编号为2面和3面。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/09/【Operating-System】IO-磁盘I-O相关概念/assets/image-20190709125447958.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/09/【Operating-System】IO-磁盘I-O相关概念/assets/image-20190709125511087.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/09/【Operating-System】IO-磁盘I-O相关概念/assets/image-20190709140129153.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190709125447958.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190709125511087.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190709140129153.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.388Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Operating System】I&#x2F;O - 磁盘I&#x2F;O相关概念">
 <meta name="twitter:description" content="磁盘构造硬盘中一般会有多个盘片（platter）组成，每个盘片包含两个面，每个盘面都对应地有一个读/写磁头（head）。受到硬盘整体体积和生产成本的限制，盘片数量都受到限制，一般都在5片以内。盘片的编号自下向上从0开始，如最下边的盘片的两个盘面分别编号为0面和1面，再上一个盘片的两个盘面就分别编号为2面和3面。">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/09/【Operating-System】IO-磁盘I-O相关概念/assets/image-20190709125447958.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190709125447958.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -215,14 +215,14 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="磁盘构造"><a href="#磁盘构造" class="headerlink" title="磁盘构造"></a>磁盘构造</h1><p>硬盘中一般会有多个<strong>盘片（platter）</strong>组成，每个盘片包含两个面，每个盘面都对应地有一个<strong>读/写磁头（head）</strong>。受到硬盘整体体积和生产成本的限制，盘片数量都受到限制，一般都在5片以内。盘片的编号自下向上从0开始，如最下边的盘片的两个盘面分别编号为0面和1面，再上一个盘片的两个盘面就分别编号为2面和3面。</p>
-<p><img src="assets/image-20190709125447958.png" alt="image-20190709125447958"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190709125447958.png" alt="image-20190709125447958"></p>
 <a id="more"></a> 
 
 <p>下图显示的是一个盘面，盘面中一圈圈灰色同心圆为一条条<strong>磁道（track）</strong>，从圆心向外画直线，可以将磁道划分为若干个弧段，每个磁道上一个弧段被称之为一个<strong>扇区（sector）</strong>。在下图中，绿色部分为其中的一个扇区。</p>
 <p>扇区是磁盘中最小的物理存储单位。通常情况下每个扇区的大小是512字节（由于磁盘的大小不断提高，因此部分容量较大的新硬盘的扇区的大小被设置为4096字节，比如 4T 大小的移动硬盘）。</p>
-<p><img src="assets/image-20190709125511087.png" alt="image-20190709125511087"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190709125511087.png" alt="image-20190709125511087"></p>
 <p>硬盘通常由重叠的一组<strong>盘片（platter）</strong>构成，每个盘面都被划分为数目相等的磁道，并从外缘的“0”开始编号，具有相同编号的磁道形成一个圆柱，称之为磁盘的<strong>柱面（cylinder）</strong>。磁盘的柱面数与一个盘面上的磁道数是相等的。由于每个盘面都有自己的磁头，因此，盘面数等于总的磁头数。 如下图：</p>
-<p><img src="assets/image-20190709140129153.png" alt="image-20190709140129153"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190709140129153.png" alt="image-20190709140129153"></p>
 <h1 id="扇区（Sector）和磁盘块（Block）"><a href="#扇区（Sector）和磁盘块（Block）" class="headerlink" title="扇区（Sector）和磁盘块（Block）"></a>扇区（Sector）和磁盘块（Block）</h1><h2 id="扇区（Sector）"><a href="#扇区（Sector）" class="headerlink" title="扇区（Sector）"></a>扇区（Sector）</h2><p>物理层面：一个磁盘由大到小按层次分为<strong>磁盘组合 -&gt; 单个磁盘 -&gt; 某一盘面（platter）/磁头（head） -&gt; 某一磁道（track） -&gt; 某一扇区（Sector）</strong>。</p>
 <p>前面已经提到了，<strong>扇区（Sector）</strong>，顾名思义，每个磁盘有多条同心圆似的<strong>磁道（track）</strong>，磁道被分割成多个部分。每部分的弧长加上到圆心的两个半径，恰好形成一个扇形，所以叫做扇区。</p>
 <h2 id="磁盘块（Block）"><a href="#磁盘块（Block）" class="headerlink" title="磁盘块（Block）"></a>磁盘块（Block）</h2><p>逻辑层面： 磁盘块，或者直接称为块（Block），块是虚拟出来的，<strong>是操作系统中最小的逻辑存储单位。操作系统与磁盘打交道的最小单位是磁盘块。</strong></p>
@@ -575,11 +575,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,15 +679,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,15 +691,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,11 +715,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -727,11 +727,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

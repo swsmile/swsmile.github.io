@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="1.问题yum -y install ntp将ntpd安装完成后，systemctl enable ntpd将 ntpd 设置为开机启动。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/04/25/【Linux】CentOS7-RedHat7-NTP服务无法开机自启动/assets/93ea1680-efbd-487a-9d3c-31f3108f81cb.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/25/【Linux】CentOS7-RedHat7-NTP服务无法开机自启动/assets/0197a5b4-094b-4947-afc7-8bd5bffff653.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/93ea1680-efbd-487a-9d3c-31f3108f81cb.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/0197a5b4-094b-4947-afc7-8bd5bffff653.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Linux】CentOS7&#x2F;RedHat7 NTP服务无法开机自启动">
 <meta name="twitter:description" content="1.问题yum -y install ntp将ntpd安装完成后，systemctl enable ntpd将 ntpd 设置为开机启动。">
-<meta name="twitter:image" content="http://swsmile.info/2017/04/25/【Linux】CentOS7-RedHat7-NTP服务无法开机自启动/assets/93ea1680-efbd-487a-9d3c-31f3108f81cb.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/93ea1680-efbd-487a-9d3c-31f3108f81cb.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,12 +219,12 @@ var _hmt = _hmt || [];
 <p><strong>检查ntpd是否被设置为自动开机启动：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status ntpd</span><br></pre></td></tr></table></figure>
 
-<p><strong>重启后，看到 ntpd 已经被设置成自动开机启动了。但事实上，在开机后，启动并未成功。</strong><br><img src="assets/93ea1680-efbd-487a-9d3c-31f3108f81cb.png" alt=""></p>
+<p><strong>重启后，看到 ntpd 已经被设置成自动开机启动了。但事实上，在开机后，启动并未成功。</strong><br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/93ea1680-efbd-487a-9d3c-31f3108f81cb.png" alt=""></p>
 <h1 id="2-解决"><a href="#2-解决" class="headerlink" title="2.解决"></a>2.解决</h1><p><strong>引起这个问题常见的原因有可能是系统上安装了一个与 ntpd 相冲突的工具：<code>chrony</code>。</strong></p>
 <p>检查 chronyd 是否被设置为开机自动启动：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status chronyd</span><br></pre></td></tr></table></figure>
 
-<p>下图可以看到，chronyd 确实被设置为开机自动启动了：<br><img src="assets/0197a5b4-094b-4947-afc7-8bd5bffff653.png" alt=""></p>
+<p>下图可以看到，chronyd 确实被设置为开机自动启动了：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/0197a5b4-094b-4947-afc7-8bd5bffff653.png" alt=""></p>
 <p><strong>禁止 chronyd 开机启动：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable chronyd</span><br></pre></td></tr></table></figure>
 
@@ -562,11 +562,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -666,15 +666,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,15 +678,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,11 +702,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,11 +714,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

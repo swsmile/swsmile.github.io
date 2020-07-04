@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="我们来介绍一下与锁相关的几个概念。  可重入锁（Reentrant Lock） 可中断锁（Interruptable Lock） 可限时锁（Timed Lock） 公平锁（fair locking）和非公平锁（unfair locking） 读写锁（Read-Write Lock） 自旋锁（Spin Lock） 适应性自旋锁（Adaptive Spinning Lock） 偏向锁（Biased L">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/01/【Lock】锁的几种特性/assets/83b3f85e.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/83b3f85e.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Lock】锁的几种特性">
 <meta name="twitter:description" content="我们来介绍一下与锁相关的几个概念。  可重入锁（Reentrant Lock） 可中断锁（Interruptable Lock） 可限时锁（Timed Lock） 公平锁（fair locking）和非公平锁（unfair locking） 读写锁（Read-Write Lock） 自旋锁（Spin Lock） 适应性自旋锁（Adaptive Spinning Lock） 偏向锁（Biased L">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/01/【Lock】锁的几种特性/assets/83b3f85e.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/83b3f85e.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -267,7 +267,7 @@ var _hmt = _hmt || [];
 <p>在这种情况中，尝试获取锁的线程一直处于活跃状态，但是并没有执行任何有效的任务，因此使用自旋锁（Spin Lock）会造成<strong>忙等待（busy-waiting）</strong>。</p>
 <p>其实，自旋锁与互斥锁（Mutexes）比较类似，它们都是为了解决对某项资源的互斥使用。无论是互斥锁，还是自旋锁，在任何时刻，最多只能有一个保持者，也就说，在任何时刻最多只能有一个执行单元获得锁。但是两者在调度机制上略有不同。对于互斥锁，如果资源已经被占用，资源申请者只能进入睡眠状态。但是自旋锁不会引起调用者睡眠，如果自旋锁已经被别的执行单元保持，调用者就一直循环在那里看是否该自旋锁的保持者已经释放了锁，”自旋”一词就是因此而得名。</p>
 <h2 id="自旋锁的实现原理"><a href="#自旋锁的实现原理" class="headerlink" title="自旋锁的实现原理"></a>自旋锁的实现原理</h2><p>自旋锁基于CAS实现，AtomicInteger中调用unsafe进行自增操作的源码中的do-while循环就是一个自旋操作，如果修改数值失败则通过循环来执行自旋，直至修改成功。</p>
-<p><img src="assets/83b3f85e.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/83b3f85e.png" alt="img"></p>
 <h2 id="自旋锁应用场景"><a href="#自旋锁应用场景" class="headerlink" title="自旋锁应用场景"></a>自旋锁应用场景</h2><p>互斥同步最大的问题在于阻塞的实现，挂起和恢复线程的操作都分别需要进行内核态（kernel mode）与用户态（user mode）的一次转换，这给操作系统的并发带来了很大压力。</p>
 <p>同时，虚拟机开发团队注意到很多应用上，<strong>共享数据的锁定状态只会持续很短一段时间，为了这段时间去挂起和恢复线程不值得</strong>。</p>
 <p>所以我们可以让线程稍微等一下，而不放弃处理器的执行时间，看看持有锁的线程是否很快就释放了锁。这样的实现就是让线程执行一个循环（自旋），这就是自旋锁了。</p>
@@ -651,11 +651,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,15 +755,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,15 +767,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,11 +791,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -803,11 +803,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

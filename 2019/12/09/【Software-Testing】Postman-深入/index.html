@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Environment环境变量 (Environment Variable) Globals (Global Variable)ScriptPre-request scripts在遇到有依赖的接口时，比如需要登录或者需要从前一个接口的结果中获取参数时，我们往往需要在该请求前先发送一下所依赖的请求，我们可以在Pre-request script中使用pm.sendRequest实现。 或者">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/12/09/【Software-Testing】Postman-深入/assets/image-20191210194020103.png">
-<meta property="og:image" content="http://swsmile.info/2019/12/09/【Software-Testing】Postman-深入/assets/image-20191210113915089.png">
-<meta property="og:image" content="http://swsmile.info/2019/12/09/【Software-Testing】Postman-深入/assets/basic-auth.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/12/09/【Software-Testing】Postman-深入/assets/basic-auth-encoded.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191210194020103.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191210113915089.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/basic-auth.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/basic-auth-encoded.jpg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.412Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Software Testing】Postman 深入">
 <meta name="twitter:description" content="Environment环境变量 (Environment Variable) Globals (Global Variable)ScriptPre-request scripts在遇到有依赖的接口时，比如需要登录或者需要从前一个接口的结果中获取参数时，我们往往需要在该请求前先发送一下所依赖的请求，我们可以在Pre-request script中使用pm.sendRequest实现。 或者">
-<meta name="twitter:image" content="http://swsmile.info/2019/12/09/【Software-Testing】Postman-深入/assets/image-20191210194020103.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191210194020103.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
 <h3 id="发送GET请求"><a href="#发送GET请求" class="headerlink" title="发送GET请求"></a>发送GET请求</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> url = <span class="string">'http://115.28.108.130:5000/api/user/getToken/?appid=136425'</span>;</span><br><span class="line"><span class="comment">// 发送get请求</span></span><br><span class="line">pm.sendRequest(url, <span class="function"><span class="keyword">function</span> (<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err ? err : res.text());  <span class="comment">// 控制台打印请求文本</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>可以配合 <code>pm.environment.set(key:value)</code> 来将响应中的数据保存到环境变量中以供本次请求使用。<br>示例（使用请求前脚本获取token并使用）：</p>
-<p><img src="assets/image-20191210194020103.png" alt="image-20191210194020103"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191210194020103.png" alt="image-20191210194020103"></p>
 <h3 id="发送表单格式Post请求"><a href="#发送表单格式Post请求" class="headerlink" title="发送表单格式Post请求"></a>发送表单格式Post请求</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造一个登录请求</span></span><br><span class="line"><span class="keyword">const</span> loginRequest = &#123;</span><br><span class="line">    url: <span class="string">'http://115.28.108.130:5000/api/user/login/'</span>,</span><br><span class="line">    method: <span class="string">"POST"</span>,</span><br><span class="line">    body: &#123;</span><br><span class="line">        mode: <span class="string">'urlencoded'</span>,  <span class="comment">// 模式为表单url编码模式</span></span><br><span class="line">        urlencoded: <span class="string">'name=张三&amp;password=123456'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送请求</span></span><br><span class="line">pm.sendRequest(loginRequest, <span class="function"><span class="keyword">function</span> (<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err ? err : res.text());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <p>输出信息可以通过点击Postman菜单栏 -&gt;view-&gt; Show Postman Console，打开控制台查看（先打开控制台，再发送请求）。</p>
@@ -239,16 +239,16 @@ var _hmt = _hmt || [];
 <p><a href="https://github.com/acquia/http-hmac-postman" target="_blank" rel="noopener">https://github.com/acquia/http-hmac-postman</a></p>
 <p><a href="https://gist.github.com/DinoChiesa/75796b27828cf8e15c91" target="_blank" rel="noopener">https://gist.github.com/DinoChiesa/75796b27828cf8e15c91</a></p>
 <h1 id="Authorization（授权）-Authentication（认证）"><a href="#Authorization（授权）-Authentication（认证）" class="headerlink" title="Authorization（授权）/ Authentication（认证）"></a>Authorization（授权）/ Authentication（认证）</h1><h2 id="Inheriting-auth"><a href="#Inheriting-auth" class="headerlink" title="Inheriting auth"></a>Inheriting auth</h2><h2 id="Specifying-authorization-details"><a href="#Specifying-authorization-details" class="headerlink" title="Specifying authorization details"></a>Specifying authorization details</h2><h3 id="API-Key"><a href="#API-Key" class="headerlink" title="API Key"></a>API Key</h3><p>可以将一对 key-value添加在 Header 或者Query Params中。</p>
-<img src="assets/image-20191210113915089.png" alt="image-20191210113915089" style="zoom:80%;">
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191210113915089.png" alt="image-20191210113915089" style="zoom:80%;">
 
 <h3 id="Bearer-token"><a href="#Bearer-token" class="headerlink" title="Bearer token"></a>Bearer token</h3><p>添加之后，Postman 会在 Header 中增加一个 key-value，其中 key 为 authorization，value 为Bearer JpywakNgvqVesTzBSeQ3scZewOj0oP</p>
 <h3 id="Basic-auth"><a href="#Basic-auth" class="headerlink" title="Basic auth"></a>Basic auth</h3><p>Basic authentication involves sending a verified username and password with your request. In the request <strong>Authorization</strong> tab, select <strong>Basic Auth</strong> from the <strong>Type</strong> dropdown list.</p>
-<p><img src="assets/basic-auth.jpg" alt="Basic Auth"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/basic-auth.jpg" alt="Basic Auth"></p>
 <p>Enter your API login details in the <strong>Username</strong> and <strong>Password</strong> fields—for additional security you can store these in variables.</p>
 <p>Click <strong>Preview Request</strong> to see how Postman will append your basic auth details to the request. In the request <strong>Headers</strong>, you will see that the Authorization header is being passed a Base64 encoded string representing your username and password values, appended to the text “Basic “ as follows:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Basic &lt;Base64 encoded username and password&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/basic-auth-encoded.jpg" alt="Basic Auth Encoded"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/basic-auth-encoded.jpg" alt="Basic Auth Encoded"></p>
 <h3 id="Digest-auth"><a href="#Digest-auth" class="headerlink" title="Digest auth"></a>Digest auth</h3><h3 id="OAuth-1-0"><a href="#OAuth-1-0" class="headerlink" title="OAuth 1.0"></a>OAuth 1.0</h3><h1 id="Mock-Server"><a href="#Mock-Server" class="headerlink" title="Mock Server"></a>Mock Server</h1><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>Authorization - <a href="https://learning.getpostman.com/docs/postman/sending-api-requests/authorization/" target="_blank" rel="noopener">https://learning.getpostman.com/docs/postman/sending-api-requests/authorization/</a></li>
 <li>Postman Sandbox API reference - <a href="https://learning.getpostman.com/docs/postman/scripts/postman-sandbox-api-reference/" target="_blank" rel="noopener">https://learning.getpostman.com/docs/postman/scripts/postman-sandbox-api-reference/</a></li>
@@ -589,11 +589,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -693,15 +693,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -709,15 +705,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -741,11 +741,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

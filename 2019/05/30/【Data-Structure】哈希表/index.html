@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="哈希表（Hash table）哈希表（Hash table，也叫散列表），是根据键（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做散列函数（Hash function），存放元素的数组称做散列表（Hash table）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】哈希表/assets/312300343319616.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】哈希表/assets/image-20190531152927592.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】哈希表/assets/image-20190531153832273.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】哈希表/assets/image-20190531153859965.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】哈希表/assets/image-20190531153938764.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/30/【Data-Structure】哈希表/assets/image-20190531154003681.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/312300343319616.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531152927592.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531153832273.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531153859965.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531153938764.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531154003681.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】哈希表（Hash table）">
 <meta name="twitter:description" content="哈希表（Hash table）哈希表（Hash table，也叫散列表），是根据键（Key）而直接访问在内存存储位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做散列函数（Hash function），存放元素的数组称做散列表（Hash table）。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/30/【Data-Structure】哈希表/assets/312300343319616.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/312300343319616.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -242,7 +242,7 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">GetHashCode</span><span class="params">(string str)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] s = str.ToCharArray();</span><br><span class="line">    <span class="keyword">int</span> hash = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> skip = Math.Max(<span class="number">1</span>, s.Length / <span class="number">8</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.Length; i+=skip)</span><br><span class="line">    &#123;</span><br><span class="line">        hash = s[i] + (<span class="number">31</span> * hash);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hash;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>但是，对于某些情况，不同的字符串会产生相同的哈希值，这就是所谓的<strong>哈希冲突（Hash Collisions）</strong>，比如下面的四个字符串：</p>
-<p><img src="assets/312300343319616.jpg" alt="hash code collision"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/312300343319616.jpg" alt="hash code collision"></p>
 <p>如果我们按照每8个字符取哈希的话，就会得到一样的哈希值。</p>
 <h1 id="哈希冲突（Hash-Collisions）"><a href="#哈希冲突（Hash-Collisions）" class="headerlink" title="哈希冲突（Hash Collisions）"></a>哈希冲突（Hash Collisions）</h1><p>哈希冲突（Hash Collisions），也叫做哈希碰撞，意思是两个或者多个 key 映射到了哈希表的同一个位置。</p>
 <p><strong>处理哈希冲突的方式有两种：避免和解决，即冲突避免机制（Collision Avoidance）和冲突解决机制（Collision Resolution）。</strong></p>
@@ -266,7 +266,7 @@ var _hmt = _hmt || [];
 <p>二度哈希的工作原理如下：</p>
 <p>有一个包含一组哈希函数 H1…Hn 的集合。当需要从哈希表中添加或获取元素时，首先使用哈希函数 H1。如果导致冲突，则尝试使用 H2，以此类推，直到 Hn。所有的哈希函数都与 H1 十分相似，不同的是它们选用的乘法因子（multiplicative factor）。</p>
 <h3 id="单独链表法（Separate-Chaining）"><a href="#单独链表法（Separate-Chaining）" class="headerlink" title="单独链表法（Separate Chaining）"></a><strong>单独链表法（Separate Chaining）</strong></h3><p><strong>链接技术（chaining）</strong>将采用额外的数据结构来处理冲突，其将哈希表中每个位置（slot）都映射到了一个链表。当冲突发生时，冲突的元素将被添加到桶（bucket）列表中，而每个桶都包含了一个链表以存储相同哈希的元素。</p>
-<p><img src="assets/image-20190531152927592.png" alt="image-20190531152927592"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531152927592.png" alt="image-20190531152927592"></p>
 <p>上图中的哈希表包含了 14 个桶（bucket）。如果一个新的元素要被添加至哈希表中，将会被添加至其 Key 的哈希所对应的桶中。如果在相同位置已经有一个元素存在了，则将会将新元素添加到列表的前面。</p>
 <p>使用链接技术添加元素的操作涉及到哈希计算和链表操作，但其仍为常量，渐进时间为 O(1)。而进行查询和删除操作时，其平均时间取决于元素的数量和桶（bucket）的数量。具体的说就是运行时间为 O(n/m)，这里 n 为元素的总数量，m 是桶的数量。但通常对哈希表的实现几乎总是使 n = O(m)，也就是说，元素的总数绝不会超过桶的总数，所以 O(n/m) 也变成了常量 O(1)。</p>
 <h1 id="Rehash"><a href="#Rehash" class="headerlink" title="Rehash"></a>Rehash</h1><p>很多语言或者工具包哈希表的内部实现都使用了两个数组，其中一个作为备用。如果当前哈希表的负载因子（元素个数/哈希表容量大小）过大或者过小时，就需要将数据切换到备用数组里面，这个过程就是 rehash。</p>
@@ -274,11 +274,11 @@ var _hmt = _hmt || [];
 <p>Rehash 过程也很有讲究，这个过程不应该影响当前系统的运行，所以比较推崇的一种方法是渐进式 rehash。渐进式 rehash 的主要思想是在 rehash 阶段对于新的写请求，并不会写入老的哈希表里面，而是直接写入到新的哈希表里；对于读请求，优先读取新的哈希表，如果不存在，则去读老的的哈希表同时将这条数据迁移到新的哈希表里面来。</p>
 <p>Rehash 有一个问题需要讨论一下：如何鉴定 rehash 阶段的开始与结束？开始很简单，每次写操作或者定期检测一下负载因子，当满足条件则开始 rehash。那么如何鉴定结束呢？一种比较常规的方法是定期检测，但是这涉及到很多问题，比如如何界定检测的时间粒度。另一种是记录下迁移过程。还是以 Redis 为例来说明，Redis 使用的是 1.2 介绍的哈希表元素作为链表头不存储元素的方式，这样数据迁移的时候只需要从原链表将节点删除，然后插入到新的哈希表对应的位置就好了。同时哈希表结构有一个字段记录了老的哈希表残留的数据，这样我们只需要检测这个变量（代价很小）就知道 rehash 有没有完成了。</p>
 <p>rehash 过程如下图所示（来自 《Redis 设计与实现》）：</p>
-<p><img src="assets/image-20190531153832273.png" alt="image-20190531153832273"></p>
-<p><img src="assets/image-20190531153859965.png" alt="image-20190531153859965"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531153832273.png" alt="image-20190531153832273"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531153859965.png" alt="image-20190531153859965"></p>
 <p>迁移索引 1 和 2 上的过程图略去。</p>
-<p><img src="assets/image-20190531153938764.png" alt="image-20190531153938764"></p>
-<p><img src="assets/image-20190531154003681.png" alt="image-20190531154003681"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531153938764.png" alt="image-20190531153938764"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531154003681.png" alt="image-20190531154003681"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>Wikipedia 散列表 - <a href="https://zh.wikipedia.org/wiki/哈希表" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/%E5%93%88%E5%B8%8C%E8%A1%A8</a></li>
 <li>十一、从头到尾解析Hash表算法 - <a href="https://blog.csdn.net/v_JULY_v/article/details/6256463" target="_blank" rel="noopener">https://blog.csdn.net/v_JULY_v/article/details/6256463</a></li>
@@ -620,11 +620,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,15 +724,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -740,15 +736,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,11 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,11 +772,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

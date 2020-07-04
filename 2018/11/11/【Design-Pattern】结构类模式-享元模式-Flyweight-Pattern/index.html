@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="1 动机通过尽可能共享对象中的数据来实现对内存的最小化使用，这就是享元模式的动机。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】结构类模式-享元模式-Flyweight-Pattern/assets/51b934f0-a293-4324-91c9-5784c240d614.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】结构类模式-享元模式-Flyweight-Pattern/assets/59ea3721-b1eb-4a0d-bf4f-40e9c57890c2.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】结构类模式-享元模式-Flyweight-Pattern/assets/2e183df2-de68-4bf0-b9ff-95f12b1f6649.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/51b934f0-a293-4324-91c9-5784c240d614.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/59ea3721-b1eb-4a0d-bf4f-40e9c57890c2.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2e183df2-de68-4bf0-b9ff-95f12b1f6649.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.300Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Design Pattern】结构类模式 -- 享元模式 (Flyweight Pattern)">
 <meta name="twitter:description" content="1 动机通过尽可能共享对象中的数据来实现对内存的最小化使用，这就是享元模式的动机。">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】结构类模式-享元模式-Flyweight-Pattern/assets/51b934f0-a293-4324-91c9-5784c240d614.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/51b934f0-a293-4324-91c9-5784c240d614.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -241,7 +241,7 @@ var _hmt = _hmt || [];
 <li><strong>享元工厂角色（FlyweightFactory）</strong>：负责创建与管理享元角色。当调用者通过享元工厂获取一个享元对象时，享元工厂需要检查系统是否已经有一个已经存在的享元对象。如果有，则直接提供这个享元对象给调用者。若无，享元工厂则需要先创建一个享元对象（并将具体享元角色的实例存储于<strong>享元池（Flyweight Pool）</strong>中），再提供给调用者。</li>
 </ul>
 <p><strong>享元模式的核心在于享元工厂类</strong>，享元工厂提供了一个用于存储享元对象的享元池。当调用者需要某个享元对象时，享元工厂会先从享元池中获取，若不在，则会新实例化一个享元对象，并在享元池中增加该对象，并返回给用户。</p>
-<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="assets/51b934f0-a293-4324-91c9-5784c240d614.jpg" alt=""></p>
+<h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/51b934f0-a293-4324-91c9-5784c240d614.jpg" alt=""></p>
 <h5 id="抽象享元角色类"><a href="#抽象享元角色类" class="headerlink" title="抽象享元角色类"></a>抽象享元角色类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Flyweight</span> </span>&#123;</span><br><span class="line">    <span class="comment">//一个示意性方法，参数state是外蕴状态</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String state)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="具体享元角色类"><a href="#具体享元角色类" class="headerlink" title="具体享元角色类"></a>具体享元角色类</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteFlyweight</span> <span class="keyword">implements</span> <span class="title">Flyweight</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Character intrinsicState = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造函数，内蕴状态作为参数传入</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> state</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteFlyweight</span><span class="params">(Character state)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.intrinsicState = state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 外蕴状态作为参数传入方法中，改变方法的行为，</span></span><br><span class="line"><span class="comment">     * 但是并不改变对象的内蕴状态。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">(String state)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        System.out.println(<span class="string">"Intrinsic State = "</span> + <span class="keyword">this</span>.intrinsicState);</span><br><span class="line">        System.out.println(<span class="string">"Extrinsic State = "</span> + state);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -254,7 +254,7 @@ var _hmt = _hmt || [];
 <p>当客户端需要单纯享元对象的时候，需要调用享元工厂的factory()方法，并传入所需的单纯享元对象的内蕴状态，由工厂方法产生所需要的享元对象。</p>
 <h5 id="调用者"><a href="#调用者" class="headerlink" title="调用者"></a>调用者</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        FlyweightFactory factory = <span class="keyword">new</span> FlyweightFactory();</span><br><span class="line">        Flyweight fly = factory.factory(<span class="keyword">new</span> Character(<span class="string">'a'</span>));</span><br><span class="line">        fly.operation(<span class="string">"First Call"</span>);</span><br><span class="line"></span><br><span class="line">        fly = factory.factory(<span class="keyword">new</span> Character(<span class="string">'b'</span>));</span><br><span class="line">        fly.operation(<span class="string">"Second Call"</span>);</span><br><span class="line"></span><br><span class="line">        fly = factory.factory(<span class="keyword">new</span> Character(<span class="string">'a'</span>));</span><br><span class="line">        fly.operation(<span class="string">"Third Call"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="5-示例"><a href="#5-示例" class="headerlink" title="5 示例"></a>5 示例</h1><h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="assets/59ea3721-b1eb-4a0d-bf4f-40e9c57890c2.png" alt=""></p>
+<h1 id="5-示例"><a href="#5-示例" class="headerlink" title="5 示例"></a>5 示例</h1><h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/59ea3721-b1eb-4a0d-bf4f-40e9c57890c2.png" alt=""></p>
 <h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><ul>
 <li>Shape接口：享元接口，图形接口</li>
 <li>Line类：享元对象</li>
@@ -273,7 +273,7 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.awt.BorderLayout;</span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"><span class="keyword">import</span> java.awt.Container;</span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.JButton;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JFrame;</span><br><span class="line"><span class="keyword">import</span> javax.swing.JPanel;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DrawingClient</span> <span class="keyword">extends</span> <span class="title">JFrame</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">1350200437285282550L</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> WIDTH;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> HEIGHT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ShapeType shapes[] = &#123; ShapeType.LINE, ShapeType.OVAL_FILL,ShapeType.OVAL_NOFILL &#125;;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Color colors[] = &#123; Color.RED, Color.GREEN, Color.YELLOW &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DrawingClient</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.WIDTH=width;</span><br><span class="line">        <span class="keyword">this</span>.HEIGHT=height;</span><br><span class="line">        Container contentPane = getContentPane();</span><br><span class="line"></span><br><span class="line">        JButton startButton = <span class="keyword">new</span> JButton(<span class="string">"Draw"</span>);</span><br><span class="line">        <span class="keyword">final</span> JPanel panel = <span class="keyword">new</span> JPanel();</span><br><span class="line"></span><br><span class="line">        contentPane.add(panel, BorderLayout.CENTER);</span><br><span class="line">        contentPane.add(startButton, BorderLayout.SOUTH);</span><br><span class="line">        setSize(WIDTH, HEIGHT);</span><br><span class="line">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);</span><br><span class="line">        setVisible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">        startButton.addActionListener(<span class="keyword">new</span> ActionListener() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">actionPerformed</span><span class="params">(ActionEvent event)</span> </span>&#123;</span><br><span class="line">                Graphics g = panel.getGraphics();</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">20</span>; ++i) &#123;</span><br><span class="line">                    Shape shape = ShapeFactory.getShape(getRandomShape());</span><br><span class="line">                    shape.draw(g, getRandomX(), getRandomY(), getRandomWidth(),</span><br><span class="line">                            getRandomHeight(), getRandomColor());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> ShapeType <span class="title">getRandomShape</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shapes[(<span class="keyword">int</span>) (Math.random() * shapes.length)];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getRandomX</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (Math.random() * WIDTH);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getRandomY</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (Math.random() * HEIGHT);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getRandomWidth</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (Math.random() * (WIDTH / <span class="number">10</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">getRandomHeight</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (Math.random() * (HEIGHT / <span class="number">10</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> Color <span class="title">getRandomColor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> colors[(<span class="keyword">int</span>) (Math.random() * colors.length)];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        DrawingClient drawing = <span class="keyword">new</span> DrawingClient(<span class="number">500</span>,<span class="number">600</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h4><p>由于对每个<code>Shape</code>对象进行初始化是非常耗时的，因此我们采用享元模式以避免多次初始化同一个类型的<code>Shape</code>对象。</p>
-<p>在多次点击<code>Draw</code>Button后，就会出现这样的结果：<br><img src="assets/2e183df2-de68-4bf0-b9ff-95f12b1f6649.png" alt=""></p>
+<p>在多次点击<code>Draw</code>Button后，就会出现这样的结果：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2e183df2-de68-4bf0-b9ff-95f12b1f6649.png" alt=""></p>
 <h1 id="6-优缺点"><a href="#6-优缺点" class="headerlink" title="6 优缺点"></a>6 优缺点</h1><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
 <li>大幅度地降低了内存中对象是数量</li>
 </ul>
@@ -623,11 +623,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -727,15 +727,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,15 +739,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,11 +763,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,11 +775,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

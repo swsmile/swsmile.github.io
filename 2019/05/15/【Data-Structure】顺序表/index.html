@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="顺序表顺序表，即线性表的顺序存储结构，是线性表一种实现方式。线性表用于存储逻辑关系为“一对一”的数据，顺序表自然也不例外。 不仅如此，顺序表对数据的物理存储结构也有要求。顺序表存储数据时，会提前申请一整块足够大小的物理空间，然后将数据依次存储起来，存储时做到数据元素之间不留一丝缝隙。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/15/【Data-Structure】顺序表/assets/image-20190515114503280.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/15/【Data-Structure】顺序表/assets/2-1Q122201300X8.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/15/【Data-Structure】顺序表/assets/2-1Q122201355232.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/15/【Data-Structure】顺序表/assets/2-1Q12220142H50.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/15/【Data-Structure】顺序表/assets/2-1Q122201629521.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190515114503280.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q122201300X8.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q122201355232.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q12220142H50.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q122201629521.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】顺序表">
 <meta name="twitter:description" content="顺序表顺序表，即线性表的顺序存储结构，是线性表一种实现方式。线性表用于存储逻辑关系为“一对一”的数据，顺序表自然也不例外。 不仅如此，顺序表对数据的物理存储结构也有要求。顺序表存储数据时，会提前申请一整块足够大小的物理空间，然后将数据依次存储起来，存储时做到数据元素之间不留一丝缝隙。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/15/【Data-Structure】顺序表/assets/image-20190515114503280.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190515114503280.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -221,7 +221,7 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <p>例如，使用顺序表存储集合 {1,2,3,4,5}，数据最终的存储状态如下图所示：</p>
-<p><img src="assets/image-20190515114503280.png" alt="image-20190515114503280"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190515114503280.png" alt="image-20190515114503280"></p>
 <p>由此我们可以得出，将“具有 ‘一对一’ 逻辑关系的数据按照次序连续存储到一整块物理空间上”的存储结构就是顺序存储结构。</p>
 <p>通过观察上图中数据的存储状态，我们可以发现，顺序表存储数据同数组非常接近。其实，顺序表存储数据使用的就是数组。</p>
 <h1 id="顺序表的初始化"><a href="#顺序表的初始化" class="headerlink" title="顺序表的初始化"></a>顺序表的初始化</h1><p>使用顺序表存储数据之前，除了要申请足够大小的物理空间之外，为了方便后期使用表中的数据，顺序表还需要实时记录以下 2 项数据：</p>
@@ -265,15 +265,15 @@ var _hmt = _hmt || [];
 <ul>
 <li>遍历至顺序表存储第 3 个数据元素的位置，如下图所示：</li>
 </ul>
-<p><img src="assets/2-1Q122201300X8.gif" alt="找到目标元素位置"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q122201300X8.gif" alt="找到目标元素位置"></p>
 <ul>
 <li>将元素 3 以及后续元素 4 和 5 整体向后移动一个位置，如下图所示：</li>
 </ul>
-<p><img src="assets/2-1Q122201355232.gif" alt="将插入位置腾出"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q122201355232.gif" alt="将插入位置腾出"></p>
 <ul>
 <li>将新元素 6 放入腾出的位置，如下图所示：</li>
 </ul>
-<p><img src="assets/2-1Q12220142H50.gif" alt="插入目标元素"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q12220142H50.gif" alt="插入目标元素"></p>
 <p>因此，顺序表插入数据元素的 C 语言实现代码如下：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入函数，其中，elem为插入的元素，add为插入到顺序表的位置</span></span><br><span class="line"><span class="function">table <span class="title">addTable</span><span class="params">(table t,<span class="keyword">int</span> elem,<span class="keyword">int</span> add)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//判断插入本身是否存在问题（如果插入元素位置比整张表的长度+1还大（如果相等，是尾随的情况），或者插入的位置本身不存在，程序作为提示并自动退出）</span></span><br><span class="line">    <span class="keyword">if</span> (add&gt;t.length+<span class="number">1</span>||add&lt;<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"插入位置有问题"</span>);</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//做插入操作时，首先需要看顺序表是否有多余的存储空间提供给插入的元素，如果没有，需要申请</span></span><br><span class="line">    <span class="keyword">if</span> (t.length==t.size) &#123;</span><br><span class="line">        t.head=(<span class="keyword">int</span> *)<span class="built_in">realloc</span>(t.head, (t.size+<span class="number">1</span>)*<span class="keyword">sizeof</span>(<span class="keyword">int</span>));</span><br><span class="line">        <span class="keyword">if</span> (!t.head) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"存储分配失败"</span>);</span><br><span class="line">            <span class="keyword">return</span> t;</span><br><span class="line">        &#125;</span><br><span class="line">        t.size+=<span class="number">1</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">//插入操作，需要将从插入位置开始的后续元素，逐个后移</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=t.length<span class="number">-1</span>; i&gt;=add<span class="number">-1</span>; i--) &#123;</span><br><span class="line">        t.head[i+<span class="number">1</span>]=t.head[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//后移完成后，直接将所需插入元素，添加到顺序表的相应位置</span></span><br><span class="line">    t.head[add<span class="number">-1</span>]=elem;</span><br><span class="line">    <span class="comment">//由于添加了元素，所以长度+1</span></span><br><span class="line">    t.length++;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -281,7 +281,7 @@ var _hmt = _hmt || [];
 <h3 id="顺序表删除元素"><a href="#顺序表删除元素" class="headerlink" title="顺序表删除元素"></a>顺序表删除元素</h3><p>从顺序表中删除指定元素，实现起来非常简单，只需找到目标元素，并将其后续所有元素整体前移 1 个位置即可。</p>
 <p>后续元素整体前移一个位置，会直接将目标元素删除，可间接实现删除元素的目的。</p>
 <p>例如，从 <code>{1,2,3,4,5}</code> 中删除元素 3 的过程如下图所示：</p>
-<p><img src="assets/2-1Q122201629521.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q122201629521.gif" alt="img"></p>
 <p>因此，顺序表删除元素的 C 语言实现代码为：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">table <span class="title">delTable</span><span class="params">(table t,<span class="keyword">int</span> add)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (add&gt;t.length || add&lt;<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"被删除元素的位置有误"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//删除操作</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=add; i&lt;t.length; i++) &#123;</span><br><span class="line">        t.head[i<span class="number">-1</span>]=t.head[i];</span><br><span class="line">    &#125;</span><br><span class="line">    t.length--;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -634,11 +634,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,15 +738,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,15 +750,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -774,11 +774,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -786,11 +786,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="狭义的Servlet是指Java语言中的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/11/01/【JavaEE】servlet/assets/web-server-servlet-container.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/web-server-servlet-container.jpg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【JavaEE】Java Servlet和 JSP（JavaServer Pages）">
 <meta name="twitter:description" content="狭义的Servlet是指Java语言中的一个接口，广义的Servlet是指任何实现了这个Servlet接口的类，一般情况下，人们将Servlet理解为后者。">
-<meta name="twitter:image" content="http://swsmile.info/2019/11/01/【JavaEE】servlet/assets/web-server-servlet-container.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/web-server-servlet-container.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -233,7 +233,7 @@ var _hmt = _hmt || [];
 <p><strong>Tomcat才是与客户端直接打交道的家伙</strong>，他监听了端口，请求过来后，根据url等信息，确定要将请求交给哪个Servlet去处理，然后调用那个Servlet的service方法，service方法返回一个response对象，Tomcat再把这个response返回给客户端。</p>
 <p>等Spring家族出现后，Servlet开始退居幕后，取而代之的是方便的SpringMVC。SpringMVC的核心组件DispatcherServlet其实本质就是一个Servlet。但它已经自立门户，在原来HttpServlet的基础上，又封装了一条逻辑。</p>
 <h2 id="Web-container（Servlet-container）"><a href="#Web-container（Servlet-container）" class="headerlink" title="Web container（Servlet container）"></a>Web container（Servlet container）</h2><p>As we see here, the user/client can only request static webpage from the server. This is not good enough, if the user wants to read the web page based on his input. The basic idea of Servlet container is using Java to dynamically generate the web page on the server side. So servlet container is essentially a part of a web server that interacts with the servlets.</p>
-<p><img src="assets/web-server-servlet-container.jpg" alt="web server &amp; servlet container"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/web-server-servlet-container.jpg" alt="web server &amp; servlet container"></p>
 <p>在JSP技术推出后，管理和运行Servlet和JSP的容器也称为Web container（Web容器）。</p>
 <h2 id="First-Servlet"><a href="#First-Servlet" class="headerlink" title="First Servlet"></a>First Servlet</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">// importing the javax.servlet package </span><br><span class="line">// importing java.io package <span class="keyword">for</span> PrintWriter </span><br><span class="line"><span class="keyword">import</span> javax.servlet.*; </span><br><span class="line"><span class="keyword">import</span> java.io.*; </span><br><span class="line">  </span><br><span class="line">// now creating a servlet by implementing Servlet interface </span><br><span class="line">public class LifeCycleServlet implements Servlet &#123; </span><br><span class="line">  </span><br><span class="line">    ServletConfig config = null; </span><br><span class="line">  </span><br><span class="line">    // init method </span><br><span class="line">    public void init(ServletConfig sc) </span><br><span class="line">    &#123; </span><br><span class="line">        config = sc; </span><br><span class="line">        System.out.println(<span class="string">"in init"</span>); </span><br><span class="line">    &#125; </span><br><span class="line">  </span><br><span class="line">    // service method </span><br><span class="line">    public void service(ServletRequest req, ServletResponse res) </span><br><span class="line">        throws ServletException, IOException </span><br><span class="line">    &#123; </span><br><span class="line">        res.setContenttype(<span class="string">"text/html"</span>); </span><br><span class="line">        PrintWriter pw = res.getWriter(); </span><br><span class="line">        pw.println(<span class="string">"&lt;h2&gt;hello from life cycle servlet&lt;/h2&gt;"</span>); </span><br><span class="line">        System.out.println(<span class="string">"in service"</span>); </span><br><span class="line">    &#125; </span><br><span class="line">  </span><br><span class="line">    // destroy method </span><br><span class="line">    public void destroy() </span><br><span class="line">    &#123; </span><br><span class="line">        System.out.println(<span class="string">"in destroy"</span>); </span><br><span class="line">    &#125; </span><br><span class="line">    public String getServletInfo() </span><br><span class="line">    &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="string">"LifeCycleServlet"</span>; </span><br><span class="line">    &#125; </span><br><span class="line">    public ServletConfig getServletConfig() </span><br><span class="line">    &#123; </span><br><span class="line">        <span class="keyword">return</span> config; // getServletConfig </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -585,11 +585,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,15 +689,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,15 +701,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -725,11 +725,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,11 +737,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

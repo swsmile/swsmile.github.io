@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="实际参数与形式参数我们都知道，在Java中定义方法的时候是可以定义参数的。比如Java中的main方法： 1public static void main(String[] args)  这里面的args就是参数。参数在程序语言中分为形式参数和实际参数。  形式参数：是在定义函数名和函数体的时候使用的参数,目的是用来接收调用该函数时传入的参数。 ****：在调用有参函数时，主调函数和被调函数之间有">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/10/【Java】引用-值传递与引用传递/assets/image-20190710114037919.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/10/【Java】引用-值传递与引用传递/assets/image-20190710120318905.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/10/【Java】引用-值传递与引用传递/assets/image-20190710120421375.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190710114037919.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190710120318905.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190710120421375.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.348Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】值传递与引用传递">
 <meta name="twitter:description" content="实际参数与形式参数我们都知道，在Java中定义方法的时候是可以定义参数的。比如Java中的main方法： 1public static void main(String[] args)  这里面的args就是参数。参数在程序语言中分为形式参数和实际参数。  形式参数：是在定义函数名和函数体的时候使用的参数,目的是用来接收调用该函数时传入的参数。 ****：在调用有参函数时，主调函数和被调函数之间有">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/10/【Java】引用-值传递与引用传递/assets/image-20190710114037919.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190710114037919.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -261,21 +261,21 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print in pass , user is User&#123;name=&apos;hollischuang&apos;, gender=&apos;Male&apos;&#125;</span><br><span class="line">print in main , user is User&#123;name=&apos;Hollis&apos;, gender=&apos;Male&apos;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>我们来画一张图，看一下整个过程中发生了什么，然后我再告诉你，为啥Java中只有值传递。</p>
-<p><img src="assets/image-20190710114037919.png" alt="image-20190710114037919"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190710114037919.png" alt="image-20190710114037919"></p>
 <p>稍微解释下上面这张图，当我们在main中创建一个User对象的时候，在堆中开辟一块内存，其中保存了name和gender等数据。然后hollis持有该内存的地址<code>0x123456</code>。</p>
 <p>当尝试调用pass方法，并且hollis作为实际参数传递给形式参数user的时候，会把这个地址<code>0x123456</code>交给user，这时，user也指向了这个地址。</p>
 <p>然后在pass方法内对参数进行修改的时候，即<code>user = new User();</code>，会重新开辟一块<code>0X456789</code>的内存，赋值给user。后面对user的任何修改都不会改变内存<code>0X123456</code>的内容。</p>
 <p>上面这种传递是什么传递？肯定不是引用传递，如果是引用传递的话，在执行 <code>user = new User();</code> 的时候，实际参数的引用也应该改为指向<code>0X456789</code>，但是实际上并没有。</p>
 <p>通过概念我们也能知道，这里是把实际参数的引用的地址<strong>复制</strong>了一份，传递给了形式参数。<strong>所以，上面的参数其实是值传递，把实参对象引用的地址当做值传递给了形式参数。</strong></p>
 <p>我们再来回顾下之前的那个“砸电视”的例子，看那个例子中的传递过程发生了什么。</p>
-<p><img src="assets/image-20190710120318905.png" alt="image-20190710120318905"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190710120318905.png" alt="image-20190710120318905"></p>
 <p>同样的，在参数传递的过程中，实际参数的地址<code>0X1213456</code>被拷贝给了形参，只是，在这个方法中，并没有对形参本身进行修改，而是修改的形参持有的地址中存储的内容。</p>
 <p><strong>所以，值传递和引用传递的区别并不是传递的内容。而是实参到底有没有被复制一份给形参。</strong>在判断实参内容有没有受影响的时候，要看传的的是什么，如果你传递的是个地址，那么就看这个地址的变化会不会有影响，而不是看地址指向的对象的变化。</p>
 <p>那么，既然这样，为啥上面同样是传递对象，传递的String对象和User对象的表现结果不一样呢？我们在pass方法中使用<code>name = &quot;hollischuang&quot;;</code>试着去更改name的值，阴差阳错的直接改变了name的引用的地址。因为这段代码，会new一个String，再把引用交给name，即等价于：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="keyword">new</span> String(<span class="string">"hollischuang"</span>);</span><br></pre></td></tr></table></figure>
 
 <p>而原来的那个”Hollis”字符串还是由实参持有着的，所以，并没有修改到实际参数的值。</p>
-<p><img src="assets/image-20190710120421375.png" alt="image-20190710120421375"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190710120421375.png" alt="image-20190710120421375"></p>
 <p><strong>所以说，Java中其实还是值传递的，只不过对于对象参数，值的内容是对象的引用。</strong></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>为什么说Java中只有值传递。- <a href="https://mp.weixin.qq.com/s?__biz=MzI3NzE0NjcwMg==&amp;mid=2650121036&amp;idx=1&amp;sn=9b23486a7ca3a9b92765549f1ac29274&amp;chksm=f36bbe6dc41c377b4489e5608b4c8162e50642ce5b94a04dc80ceb10701ecd32d1da37d18909&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">https://mp.weixin.qq.com/s?__biz=MzI3NzE0NjcwMg==&amp;mid=2650121036&amp;idx=1&amp;sn=9b23486a7ca3a9b92765549f1ac29274&amp;chksm=f36bbe6dc41c377b4489e5608b4c8162e50642ce5b94a04dc80ceb10701ecd32d1da37d18909&amp;scene=21#wechat_redirect</a></li>
@@ -615,11 +615,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,15 +719,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -735,15 +731,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,11 +755,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,11 +767,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

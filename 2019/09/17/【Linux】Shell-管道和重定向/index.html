@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="多命令之间无数据共享按顺序执行多个命令（无论命令是否执行成功） - ;1$ &amp;lt;command 1&amp;gt;; &amp;lt;command 2&amp;gt;  分号（;）是一个命令的结束符，使用分号可以在一行中执行多个命令，上一个命令执行结束后，再执行第二个命令。 注意，使用分号时，第二个命令总是接着第一个命令执行，不管第一个命令执行成功或失败。 123456$ echo &quot;--&quot;;ll;echo &quot;--">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/09/17/【Linux】Shell-管道和重定向/assets/image-20200613222208105.png">
-<meta property="og:image" content="http://swsmile.info/2019/09/17/【Linux】Shell-管道和重定向/assets/image-20200530120543354.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200613222208105.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200530120543354.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Linux】Shell&#x2F;Bash - 多命令执行、管道（pipeline）和重定向（redirection）">
 <meta name="twitter:description" content="多命令之间无数据共享按顺序执行多个命令（无论命令是否执行成功） - ;1$ &amp;lt;command 1&amp;gt;; &amp;lt;command 2&amp;gt;  分号（;）是一个命令的结束符，使用分号可以在一行中执行多个命令，上一个命令执行结束后，再执行第二个命令。 注意，使用分号时，第二个命令总是接着第一个命令执行，不管第一个命令执行成功或失败。 123456$ echo &quot;--&quot;;ll;echo &quot;--">
-<meta name="twitter:image" content="http://swsmile.info/2019/09/17/【Linux】Shell-管道和重定向/assets/image-20200613222208105.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200613222208105.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -239,7 +239,7 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ time sleep 50</span><br><span class="line">sleep 5  0.00s user 0.00s system 0% cpu 50.008 total</span><br><span class="line"><span class="comment"># 获取当前 shell process 的 PID</span></span><br><span class="line">$ <span class="built_in">echo</span> $$</span><br><span class="line">$ time sleep 5&amp;</span><br><span class="line">[1] 18147</span><br></pre></td></tr></table></figure>
 
 <p>增加<code>&amp;</code>后，这行command在成功启动一个新的 shell child process （对应的 PID 为18147）后，就会返回执行流（这意味着，你可以继续输入命令，而不是当这个command执行结束后，才返回执行流）。</p>
-<p><img src="assets/image-20200613222208105.png" alt="image-20200613222208105"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200613222208105.png" alt="image-20200613222208105"></p>
 <h1 id="多命令之间有数据共享"><a href="#多命令之间有数据共享" class="headerlink" title="多命令之间有数据共享"></a>多命令之间有数据共享</h1><h2 id="管道（pipeline）"><a href="#管道（pipeline）" class="headerlink" title="管道（pipeline） - |"></a>管道（pipeline） - <code>|</code></h2><p><strong>管道命令</strong>操作符是：”|”，它能且仅能获取由前面一个命令执行后输出的<strong>标准输出（standard output, stdout）</strong>，而并不能获取前面一个命令执行后输出的<strong>标准错误信息（stdandard error, stderr）</strong>。然后，传递给下一个命令，作为它的<strong>标准输入（standard input, stdin）</strong>。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ cat test.sh | grep -n <span class="string">'echo'</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"very good!"</span>;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"good!"</span>;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"pass!"</span>;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"no pass!"</span>;</span><br><span class="line"><span class="comment">#读出test.sh文件内容，通过管道转发给grep 作为输入内容</span></span><br></pre></td></tr></table></figure>
 
@@ -251,7 +251,7 @@ var _hmt = _hmt || [];
 <p>也就是说只要有一个ESTABLISHED，就表明有一个客户端正连接在这个服务器上，因此可以用管道符去查找这些信息行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -an | grep <span class="string">"ESTABLISHED"</span></span><br><span class="line">tcp        0     52 192.168.0.112:22            192.168.0.104:2367          ESTABLISHED</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/image-20200530120543354.png" alt="image-20200530120543354"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200530120543354.png" alt="image-20200530120543354"></p>
 <p>从而统计服务器上连接了哪些人。还可以将这个结果再接一个管道符，用 <code>wc -l</code> 去处理这个结果，就知道有多少行(人)连接了这个服务器，而不去关心其它信息了：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -an | grep <span class="string">"ESTABLISHED"</span> | wc -l</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 
@@ -632,11 +632,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -736,15 +736,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -752,15 +748,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,11 +772,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,11 +784,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

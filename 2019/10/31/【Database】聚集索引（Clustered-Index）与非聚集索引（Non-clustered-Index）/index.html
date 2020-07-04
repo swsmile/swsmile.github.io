@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="DB 索引数据的存储方式 - 聚集索引（Clustered Index）与非聚集索引（Non-clustered Index） 索引数据的存储方式 - 聚集索引（聚簇索引，Clustered Index）聚集索引（clustered index），也称为聚簇索引。 聚簇索引并不是一种单独的索引类型，而是一种索引数据的存储方式。 当表有聚簇索引时，它的行数据实际上存储在索引的叶子页（leaf pag">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/assets/image-20191031122156711-2495844.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/assets/image-20191031144759095-2521861.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/assets/image-20191031145856212-2521874.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191031122156711-2495844.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191031144759095-2521861.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191031145856212-2521874.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Database】聚集索引（Clustered Index）与非聚集索引（Non-clustered Index）">
 <meta name="twitter:description" content="DB 索引数据的存储方式 - 聚集索引（Clustered Index）与非聚集索引（Non-clustered Index） 索引数据的存储方式 - 聚集索引（聚簇索引，Clustered Index）聚集索引（clustered index），也称为聚簇索引。 聚簇索引并不是一种单独的索引类型，而是一种索引数据的存储方式。 当表有聚簇索引时，它的行数据实际上存储在索引的叶子页（leaf pag">
-<meta name="twitter:image" content="http://swsmile.info/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/assets/image-20191031122156711-2495844.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191031122156711-2495844.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -222,7 +222,7 @@ var _hmt = _hmt || [];
 
 <p><strong>对于采用聚簇索引的存储引擎（比如MySQL的InnoDB），表中行的物理存储顺序与索引顺序是一致的</strong>，即：只要索引是相邻的，那么对应的数据一定也是相邻地存储在磁盘上的。</p>
 <p>下图展示了聚簇索引的记录是如何存放的。注意到，节点页只包含了索引列，叶子页包含该行的全部数据，这是B+Tree的数据结构：</p>
-<p><img src="assets/image-20191031122156711-2495844.png" alt="image-20191031122156711-2495844"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191031122156711-2495844.png" alt="image-20191031122156711-2495844"></p>
 <p>聚集索引通过主键聚集数据，上图中的“被索引的列”就是主键列。这意味着，聚集索引表同时也是数据表。</p>
 <p>如果没有定义主键，InnoDB会选择一个唯一的非空索引代替。如果没有这样的索引，InnoDB会隐式定义一个主键来作为聚簇索引。</p>
 <p>与非聚集索引相比，聚集索引通常提供更快的数据访问速度，且更适用于很少对基表进行增删改操作的场景。</p>
@@ -245,10 +245,10 @@ var _hmt = _hmt || [];
 <h1 id="索引数据的存储方式-非聚集索引（非簇索引，Non-clustered-Index）"><a href="#索引数据的存储方式-非聚集索引（非簇索引，Non-clustered-Index）" class="headerlink" title="索引数据的存储方式 - 非聚集索引（非簇索引，Non-clustered Index）"></a>索引数据的存储方式 - 非聚集索引（非簇索引，Non-clustered Index）</h1><p><strong>非聚集索引（non-clustered index）</strong>，也叫<strong>非簇索引</strong>。</p>
 <p>对于采用非聚簇索引的存储引擎，<strong>表中数据行的物理存储顺序与索引顺序无关</strong>，<strong>叶子结点包含索引字段值及指向数据页数据行的逻辑指针</strong>，其行数量与数据表行数据量一致。</p>
 <h2 id="非聚集索引索引主键-主键索引（Primary-Index）"><a href="#非聚集索引索引主键-主键索引（Primary-Index）" class="headerlink" title="非聚集索引索引主键 - 主键索引（Primary Index）"></a>非聚集索引索引主键 - 主键索引（Primary Index）</h2><p>在下图中，表一共有三列，假设以 col1 为主键，可以看出，该非聚集索引的叶子节点中保存的实际上是指向存放数据的物理块的指针。</p>
-<p><img src="assets/image-20191031144759095-2521861.png" alt="image-20191031144759095"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191031144759095-2521861.png" alt="image-20191031144759095"></p>
 <h2 id="非聚集索引索引非主键-辅助索引（Secondary-Index）"><a href="#非聚集索引索引非主键-辅助索引（Secondary-Index）" class="headerlink" title="非聚集索引索引非主键 - 辅助索引（Secondary Index）"></a>非聚集索引索引非主键 - 辅助索引（Secondary Index）</h2><p>以对列 col2 （非主键列）进行索引为例。在这个非聚集索引（同时也是一个辅助索引（Secondary Index））中，每一个叶子节点中仅仅包含行号（row number），且叶子节点按照col2值的大小顺序进行存储。</p>
 <p>注意到，数据表的数据存储顺序也与索引顺序无关。</p>
-<p><img src="assets/image-20191031145856212-2521874.png" alt="image-20191031145856212"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191031145856212-2521874.png" alt="image-20191031145856212"></p>
 
       
 
@@ -583,11 +583,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,15 +687,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,15 +699,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,11 +723,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -735,11 +735,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

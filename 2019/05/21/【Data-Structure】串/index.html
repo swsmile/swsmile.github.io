@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="串（String）串的基本概念：串是由零个或多个任意字符组成的字符序列。 一般记作：s=‘a1 a2 an’。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】串/assets/v2-e1f6759c00b91291a1060af13b9b50ce_hd.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】串/assets/2-1Q209151141W0.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】串/assets/2-1Q209151202A0.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】串/assets/032208464871566.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】串/assets/032215106443194.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-e1f6759c00b91291a1060af13b9b50ce_hd.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q209151141W0.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q209151202A0.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032215106443194.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】串（String）">
 <meta name="twitter:description" content="串（String）串的基本概念：串是由零个或多个任意字符组成的字符序列。 一般记作：s=‘a1 a2 an’。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/21/【Data-Structure】串/assets/v2-e1f6759c00b91291a1060af13b9b50ce_hd.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-e1f6759c00b91291a1060af13b9b50ce_hd.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -239,7 +239,7 @@ var _hmt = _hmt || [];
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定长顺序存储结构定义为:</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_STRLEN 256 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">    <span class="keyword">char</span> str[MAX_STRLEN] ; </span><br><span class="line">    <span class="keyword">int</span> length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>定长数组存在一个预定义的最大串长度，一般可以将实际的串长度值保存在数组的0下标位置，也可以是在存储数组的最后一个下标位置。“\0”来表示串值的终结。 </p>
-<p><img src="assets/v2-e1f6759c00b91291a1060af13b9b50ce_hd.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-e1f6759c00b91291a1060af13b9b50ce_hd.png" alt="img"></p>
 <h3 id="串的堆分配存储表示"><a href="#串的堆分配存储表示" class="headerlink" title="串的堆分配存储表示"></a>串的堆分配存储表示</h3><p>但是，这样定长数组存储串是有问题的，串的两串的连接Concat、新串的插入StrInsert，以及字符串的替换Replace，都有可能使得串序列的长度超过了数组的长度Max-Size。</p>
 <p>于是对于串的顺序存储，有一些变化，串值的存储空间可在程序执行过程中<strong>动态分配</strong>而得。比如在计算机中存在一个自由存储区，叫做<strong>“堆”</strong>。这个堆可由C语言的动态分配函数malloc()和free()来管理。</p>
 <p> 特点是：仍然以一组地址连续的存储空间来存储字符串值，但其所需的存储空间是在程序执行过程中动态分配，故是动态的，变长的。</p>
@@ -250,9 +250,9 @@ var _hmt = _hmt || [];
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//(1) 块结点的类型定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BLOCK_SIZE 4</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Blstrtype</span></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">    <span class="keyword">char</span> data[BLOCK_SIZE] ; </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Blstrtype</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;BNODE ;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//(2) 块链串的类型定义 </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span> </span><br><span class="line">    BNODE head; <span class="comment">/* 头指针 */</span> </span><br><span class="line">    <span class="keyword">int</span> Strlen ; <span class="comment">/* 当前长度 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>例如，下图所示是用链表存储字符串 <code>shujujiegou</code>，该链表各个节点中可存储 1 个字符：</p>
-<p><img src="assets/2-1Q209151141W0.gif" alt="各节点仅存储 1 个数据元素的链表"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q209151141W0.gif" alt="各节点仅存储 1 个数据元素的链表"></p>
 <p>同样，下图设置的链表各节点可存储 4 个字符：</p>
-<p><img src="assets/2-1Q209151202A0.gif" alt="各节点可存储 4 个数据元素的链表"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q209151202A0.gif" alt="各节点可存储 4 个数据元素的链表"></p>
 <p>从上图可以看到，使用链表存储字符串，其最后一个节点的数据域不一定会被字符串全部占满，对于这种情况，通常会用 ‘#’ 或其他特殊字符（能与字符串区分开就行）将最后一个节点填满。</p>
 <p><strong>一个结点存多少个字符才合适就变得很重要</strong>，这会直接影响着串处理的效率，需要根据实际情况做出选择。</p>
 <blockquote>
@@ -265,11 +265,11 @@ var _hmt = _hmt || [];
 <li>T 和 P 中的元素都属于有限的<strong>字母表 Σ 表</strong>；</li>
 <li>如果 0≤s≤n-m，并且 T[s+1..s+m] = P[1..m]，即对 1≤j≤m，有 T[s+j] = P[j]，则说模式 P 在文本 T 中出现且位移为 s，且称 s 是一个<strong>有效位移（Valid Shift）</strong>。</li>
 </ul>
-<p><img src="assets/032208464871566.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png" alt="img"></p>
 <p>比如上图中，目标是找出所有在文本 T = abcabaabcabac 中模式 P = abaa 的所有出现。该模式在此文本中仅出现一次，即在位移 s = 3 处，位移 s = 3 是有效位移。</p>
 <h3 id="常见的字符串匹配算法"><a href="#常见的字符串匹配算法" class="headerlink" title="常见的字符串匹配算法"></a>常见的字符串匹配算法</h3><p>解决字符串匹配的算法包括：朴素算法（Naive Algorithm）、Rabin-Karp 算法、有限自动机算法（Finite Automation）、 Knuth-Morris-Pratt 算法（即 KMP Algorithm）、Boyer-Moore 算法、Simon 算法、Colussi 算法、Galil-Giancarlo 算法、Apostolico-Crochemore 算法、Horspool 算法和 Sunday 算法等。</p>
 <h3 id="字符串匹配算法的步骤"><a href="#字符串匹配算法的步骤" class="headerlink" title="字符串匹配算法的步骤"></a>字符串匹配算法的步骤</h3><p>字符串匹配算法通常分为两个步骤：预处理（Preprocessing）和匹配（Matching）。所以算法的总运行时间为预处理和匹配的时间的总和。</p>
-<p><img src="assets/032215106443194.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/032215106443194.png" alt="img"></p>
 <p>上图描述了常见字符串匹配算法的预处理和匹配时间。</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>数据结构-串 - <a href="https://zhuanlan.zhihu.com/p/29160321" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/29160321</a></li>
@@ -611,11 +611,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,15 +715,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,15 +727,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,11 +751,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,11 +763,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

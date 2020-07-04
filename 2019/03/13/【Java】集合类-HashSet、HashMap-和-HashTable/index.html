@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="集合框架集合框架有自己的接口和实现，主要分为Set接口，List接口，Map接口和Queue接口。 它们有各自的特点：  Set接口里存放的对象是无序，不能重复的，集合中的对象不按特定的方式排序，只是简单地把对象加入集合中。 List接口是一个有序的集合，同时也是可以重复的，List关注的是索引，拥有一系列和索引相关的方法，查询速度快。因为往list集合里插入或删除数据时，会伴随着后面数据的移动，">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/13/【Java】集合类-HashSet、HashMap-和-HashTable/assets/image-20190313162313688.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/13/【Java】集合类-HashSet、HashMap-和-HashTable/assets/image-20190313162911445.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190313162313688.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190313162911445.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】集合类-HashSet、HashMap 和 HashTable">
 <meta name="twitter:description" content="集合框架集合框架有自己的接口和实现，主要分为Set接口，List接口，Map接口和Queue接口。 它们有各自的特点：  Set接口里存放的对象是无序，不能重复的，集合中的对象不按特定的方式排序，只是简单地把对象加入集合中。 List接口是一个有序的集合，同时也是可以重复的，List关注的是索引，拥有一系列和索引相关的方法，查询速度快。因为往list集合里插入或删除数据时，会伴随着后面数据的移动，">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/13/【Java】集合类-HashSet、HashMap-和-HashTable/assets/image-20190313162313688.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190313162313688.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -305,7 +305,7 @@ var _hmt = _hmt || [];
 <h2 id="存储原理"><a href="#存储原理" class="headerlink" title="存储原理"></a>存储原理</h2><p>HashMap内部维护了一个用于存储元素的哈希数组，每一个数组元素都是一个 Entry 对象实例（每一个数组元素逻辑上称为一个 Bucket）。</p>
 <p>而每个Bucket逻辑上都是一个单向链表（LinkedList），单向链表中可以存储多个Entry对象。</p>
 <p>之所以成为逻辑上，是因为我们没有使用LinkedList类型的对象作为哈希数组的元素，而是使用Entry 对象。每个Entry 对象实例都有一个名为next的指针，指向下一个Entry 对象，从而形成单向链表。</p>
-<p><img src="assets/image-20190313162313688.png" alt="image-20190313162313688"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190313162313688.png" alt="image-20190313162313688"></p>
 <hr>
 <p><strong>HashMap采用链表解决冲突</strong>。当准备添加一个键值对时，首先通过hash(key)方法计算hash值，然后通过indexFor(hash,length)得到该待存储键值对的在这个HashMap的哈希数组中的存储位置（本质是哈希数组的一个索引下标）。</p>
 <p>计算方法是先用hash&amp;0x7FFFFFFF后，再对length取模，这就保证每一个key-value对都能存入HashMap中。</p>
@@ -314,7 +314,7 @@ var _hmt = _hmt || [];
 <p>如上图中，左侧是一个哈希数组（存储在HashMap对象中），数组的每个元素都是一个Entry对象，同时每个对象也是一个单链表的头节点，链表是用来解决冲突的，如果不同的key映射到了哈希数组的同一位置处，就将其放入单链表中，其中新加入的元素放在链表的头部，最早加入的放在链表的尾部）。</p>
 <p>如果定位到的数组位置不含链表（当前Entry的next指向null），那么对于查找，添加等操作很快，仅需一次寻址即可；如果定位到的数组包含链表，对于添加操作，其时间复杂度依然为O(1)，因为最新的Entry会插入链表头部，仅需简单改变引用链即可，而对于查找操作来讲，此时就需要遍历链表，然后通过key对象的equals方法逐一比对查找。所以，出于性能考虑，HashMap中的链表出现越少，性能才会越好。</p>
 <h2 id="JDK-1-8-后的改进"><a href="#JDK-1-8-后的改进" class="headerlink" title="JDK 1.8 后的改进"></a>JDK 1.8 后的改进</h2><p>在JDK1.8 对HashMap做了改造，如下图：</p>
-<p><img src="assets/image-20190313162911445.png" alt="image-20190313162911445"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190313162911445.png" alt="image-20190313162911445"></p>
 <p>JDK 1.8 以前 HashMap 的实现是 数组+链表，即使哈希函数取得再好，也很难达到元素百分百均匀分布。</p>
 <p>当 HashMap 中有大量的元素都存放到同一个Bucket 中时，这个Bucket下有一条长长的链表，这个时候 HashMap 就相当于一个单链表，假如单链表有 n 个元素，遍历的时间复杂度就是 O(n)，完全失去了它的优势。</p>
 <p>针对这种情况，JDK 1.8 中引入了 红黑树（查找时间复杂度为 $O(log_2n))$来优化这个问题。</p>
@@ -710,11 +710,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -814,15 +814,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -830,15 +826,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -850,11 +850,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -862,11 +862,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

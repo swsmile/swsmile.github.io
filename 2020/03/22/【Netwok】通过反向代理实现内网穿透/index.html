@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Background树莓派通常会（通过LAN 或者 WIFI）连接到一个路由器上，如果我们不方便在路由器上配置端口映射（或者这个路由器之外还有另外的 NAT），当我们不在这个内网时，就无法管理我们的树莓派。 这时候，我们可以考虑使用用于内网穿透的反向代理应用。 如果你有一个拥有公网 IP 的机器，比如云主机、VPS 等。那么最稳定的方式就是在这个机器上自己架设中转节点。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/03/22/【Netwok】通过反向代理实现内网穿透/assets/image-20200127124212704.png">
-<meta property="og:image" content="http://swsmile.info/2020/03/22/【Netwok】通过反向代理实现内网穿透/assets/image-20200127154734647.png">
-<meta property="og:image" content="http://swsmile.info/2020/03/22/【Netwok】通过反向代理实现内网穿透/assets/image-20200125152045680.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200127124212704.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200127154734647.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200125152045680.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Netwok】通过反向代理实现内网穿透">
 <meta name="twitter:description" content="Background树莓派通常会（通过LAN 或者 WIFI）连接到一个路由器上，如果我们不方便在路由器上配置端口映射（或者这个路由器之外还有另外的 NAT），当我们不在这个内网时，就无法管理我们的树莓派。 这时候，我们可以考虑使用用于内网穿透的反向代理应用。 如果你有一个拥有公网 IP 的机器，比如云主机、VPS 等。那么最稳定的方式就是在这个机器上自己架设中转节点。">
-<meta name="twitter:image" content="http://swsmile.info/2020/03/22/【Netwok】通过反向代理实现内网穿透/assets/image-20200127124212704.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200127124212704.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,7 +219,7 @@ var _hmt = _hmt || [];
 <p>如果你有一个拥有公网 IP 的机器，比如云主机、VPS 等。那么最稳定的方式就是在这个机器上自己架设中转节点。</p>
 <a id="more"></a> 
 
-<h1 id="Approach1-frp"><a href="#Approach1-frp" class="headerlink" title="Approach1 - frp"></a>Approach1 - frp</h1><h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="assets/image-20200127124212704.png" alt="image-20200127124212704"></p>
+<h1 id="Approach1-frp"><a href="#Approach1-frp" class="headerlink" title="Approach1 - frp"></a>Approach1 - frp</h1><h2 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200127124212704.png" alt="image-20200127124212704"></p>
 <h2 id="原生"><a href="#原生" class="headerlink" title="原生"></a>原生</h2><h3 id="配置并启动-server"><a href="#配置并启动-server" class="headerlink" title="配置并启动 server"></a>配置并启动 server</h3><p>去 <a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">https://github.com/fatedier/frp/releases</a> 下载，我的server 是 Mac，所以选择 <a href="https://github.com/fatedier/frp/releases/download/v0.31.1/frp_0.31.1_darwin_amd64.tar.gz" target="_blank" rel="noopener">frp_0.31.1_darwin_amd64.tar.gz</a>。</p>
 <p>修改 frps.ini 文件，这里使用了最简化的配置：</p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># frps.ini</span></span><br><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">bind_addr</span> = xxx.xxx.xxx.xxx <span class="comment"># 你的 frp server 的公网 IP</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">7000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Optional</span></span><br><span class="line"><span class="attr">dashboard_port</span> = <span class="number">7500</span></span><br><span class="line"><span class="attr">dashboard_user</span> = &lt;你的仪表盘用户名&gt;</span><br><span class="line"><span class="attr">dashboard_pwd</span> = &lt;你的仪表盘密码&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Optional, for security reasons</span></span><br><span class="line"><span class="attr">privilege_token</span> = &lt;u5gYrhw!k<span class="variable">$3R6</span>%!t&gt;</span><br></pre></td></tr></table></figure>
@@ -244,7 +244,7 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -oPort=6000 &lt;the user of ssh&gt;@xxx.xxx.xxx.xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># e.g.,</span></span><br><span class="line">$ ssh -oPort=6000 <span class="built_in">test</span>@xxx.xxx.xxx.xxx</span><br></pre></td></tr></table></figure>
 
 <p>通过 dashboad 可以查询流量信息：</p>
-<img src="assets/image-20200127154734647.png" alt="image-20200127154734647" style="zoom:67%;">
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200127154734647.png" alt="image-20200127154734647" style="zoom:67%;">
 
 
 
@@ -374,7 +374,7 @@ var _hmt = _hmt || [];
 <p>运行 ngrok：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./ngrok tcp 22</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/image-20200125152045680.png" alt="image-20200125152045680"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200125152045680.png" alt="image-20200125152045680"></p>
 <p>我们需要记住Forwarding这行。</p>
 <p>当你在外网时，访问这个树莓派的ssh的方式：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh &lt;your respaberry acount&gt;@&lt;domain and port&gt;</span><br><span class="line"></span><br><span class="line">// e.g.,</span><br><span class="line">$ ssh pi@0.tcp.ngrok.io -p 11911</span><br></pre></td></tr></table></figure>
@@ -732,11 +732,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,15 +836,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -852,15 +848,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -872,11 +872,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -884,11 +884,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

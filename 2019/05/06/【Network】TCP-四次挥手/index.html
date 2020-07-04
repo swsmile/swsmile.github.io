@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的。那对于TCP的断开连接，就有了四次挥手（TCP Four-way Wavehand）。 四次挥手（TCP Four-way Wavehand）由于TCP连接是全双工的，因此每个方向的连接必须单独地进行关闭，于是TCP连接的断开需要进行“四次挥手”（两端分别进行FIN+ACK和ACK两次挥手）。 ![TCP">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/06/【Network】TCP-四次挥手/assets/102527xjbw4zjvk22b7kvn-7301972.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/06/【Network】TCP-四次挥手/assets/134846hthrf5qugstt5qro.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/06/【Network】TCP-四次挥手/assets/image-20190506124648083.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/102527xjbw4zjvk22b7kvn-7301972.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/134846hthrf5qugstt5qro.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190506124648083.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】TCP 四次挥手（TCP Four-way Wavehand）">
 <meta name="twitter:description" content="当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的。那对于TCP的断开连接，就有了四次挥手（TCP Four-way Wavehand）。 四次挥手（TCP Four-way Wavehand）由于TCP连接是全双工的，因此每个方向的连接必须单独地进行关闭，于是TCP连接的断开需要进行“四次挥手”（两端分别进行FIN+ACK和ACK两次挥手）。 ![TCP">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/06/【Network】TCP-四次挥手/assets/102527xjbw4zjvk22b7kvn-7301972.gif">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/102527xjbw4zjvk22b7kvn-7301972.gif">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -232,8 +232,8 @@ var _hmt = _hmt || [];
 <li>有足够的时间让这个连接不会跟后面的连接混在一起（部分路由器会缓存数据包导致连接重用）</li>
 </ul>
 <p>以下为动画演示四次挥手的交互过程：</p>
-<p><img src="assets/102527xjbw4zjvk22b7kvn-7301972.gif" alt="102527xjbw4zjvk22b7kvn"></p>
-<h1 id="四次握手时的状态变化"><a href="#四次握手时的状态变化" class="headerlink" title="四次握手时的状态变化"></a>四次握手时的状态变化</h1><p><img src="assets/134846hthrf5qugstt5qro.png" alt="[éä¿ææ]æ·±å¥çè§£TCPåè®®ï¼ä¸ï¼ï¼çè®ºåºç¡_5.png"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/102527xjbw4zjvk22b7kvn-7301972.gif" alt="102527xjbw4zjvk22b7kvn"></p>
+<h1 id="四次握手时的状态变化"><a href="#四次握手时的状态变化" class="headerlink" title="四次握手时的状态变化"></a>四次握手时的状态变化</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/134846hthrf5qugstt5qro.png" alt="[éä¿ææ]æ·±å¥çè§£TCPåè®®ï¼ä¸ï¼ï¼çè®ºåºç¡_5.png"></p>
 <h1 id="为什么要四次挥手"><a href="#为什么要四次挥手" class="headerlink" title="为什么要四次挥手"></a>为什么要四次挥手</h1><p>TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着：</p>
 <ul>
 <li>当主机1向主机2发出FIN报文段时，只是表示主机1已经没有数据要发送了，即主机1告诉主机2，它的数据已经全部发送完毕了；</li>
@@ -242,7 +242,7 @@ var _hmt = _hmt || [];
 </ul>
 <h1 id="Wireshake抓包学习TCP-四次挥手"><a href="#Wireshake抓包学习TCP-四次挥手" class="headerlink" title="Wireshake抓包学习TCP 四次挥手"></a>Wireshake抓包学习TCP 四次挥手</h1><p>可以增加<code>tcp &amp;&amp; tcp.flags.fin == 1</code>过滤条件，可以让我们找到两条FIN报文段。去掉过滤条件，并找到这两条FIN报文段对应的ACK报文段。</p>
 <p>一个完整的四次挥手过程如下所示：</p>
-<p><img src="assets/image-20190506124648083.png" alt="image-20190506124648083"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190506124648083.png" alt="image-20190506124648083"></p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="6939"><a href="#6939" class="headerlink" title="#6939"></a>#6939</h3><p>Client -&gt; Server</p>
 <p>[FIN, ACK]</p>
 <p>Sequence number 196</p>
@@ -598,11 +598,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,15 +702,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,15 +714,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,11 +738,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,11 +750,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

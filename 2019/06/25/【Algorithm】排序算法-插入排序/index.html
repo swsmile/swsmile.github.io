@@ -16,20 +16,20 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="插入排序（Insertion Sort）插入排序（Insertion-Sort）是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。 插入排序的思想和我们打扑克摸牌的时候一样，从牌堆里一张一张摸起来的牌都是乱序的，我们会把摸起来的牌插入到左手中合适的位置，让左手中的牌时刻保持一个有序的状态。 那如果我们不是从牌堆里摸牌，而是左手">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/m83ut.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/c9ddk.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/m318e.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/9g4fd.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/quu7o.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/faetq.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/1024555-20161126000335346-416319390.png">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/849589-20171015225645277-1151100000.gif">
-<meta property="og:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/Jietu20190804-222324.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/m83ut.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/c9ddk.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/m318e.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/9g4fd.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/quu7o.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/faetq.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20161126000335346-416319390.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/849589-20171015225645277-1151100000.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190804-222324.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm】排序算法 - 插入排序（Insertion Sort）">
 <meta name="twitter:description" content="插入排序（Insertion Sort）插入排序（Insertion-Sort）是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。 插入排序的思想和我们打扑克摸牌的时候一样，从牌堆里一张一张摸起来的牌都是乱序的，我们会把摸起来的牌插入到左手中合适的位置，让左手中的牌时刻保持一个有序的状态。 那如果我们不是从牌堆里摸牌，而是左手">
-<meta name="twitter:image" content="http://swsmile.info/2019/06/25/【Algorithm】排序算法-插入排序/assets/m83ut.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/m83ut.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -229,21 +229,21 @@ var _hmt = _hmt || [];
 
 
 <h1 id="图解-1"><a href="#图解-1" class="headerlink" title="图解 1"></a>图解 1</h1><p>数组初始化：[ 8，2，5，9，7 ]，我们把数组中的数据分成两个区域，已排序区域和未排序区域，初始化的时候所有的数据都处在未排序区域中，已排序区域是空。</p>
-<p><img src="assets/m83ut.png" alt="插入排序1"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/m83ut.png" alt="插入排序1"></p>
 <p>第一轮，从未排序区域中随机拿出一个数字，既然是随机，那么我们就获取第一个，然后插入到已排序区域中，已排序区域是空，那么就不做比较，默认自身已经是有序的了。（当然了，第一轮在代码中是可以省略的，从下标为1的元素开始即可）</p>
-<p><img src="assets/c9ddk.png" alt="插入排序2"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/c9ddk.png" alt="插入排序2"></p>
 <p>第二轮，继续从未排序区域中拿出一个数，插入到已排序区域中，这个时候要遍历已排序区域中的数字挨个做比较，比大比小取决于你是想升序排还是想倒序排，这里排升序：</p>
-<p><img src="assets/m318e.png" alt="插入排序3"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/m318e.png" alt="插入排序3"></p>
 <p>第三轮，排 5 ：</p>
-<p><img src="assets/9g4fd.png" alt="插入排序4"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/9g4fd.png" alt="插入排序4"></p>
 <p>第四轮，排 9 ：</p>
-<p><img src="assets/quu7o.png" alt="插入排序5"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/quu7o.png" alt="插入排序5"></p>
 <p>第五轮，排 7</p>
-<p><img src="assets/faetq.png" alt="插入排序6"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/faetq.png" alt="插入排序6"></p>
 <p>排序结束。</p>
-<h1 id="图解-2"><a href="#图解-2" class="headerlink" title="图解 2"></a>图解 2</h1><p><img src="assets/1024555-20161126000335346-416319390.png" alt="img"></p>
-<h1 id="动画演示"><a href="#动画演示" class="headerlink" title="动画演示"></a>动画演示</h1><p><img src="assets/849589-20171015225645277-1151100000.gif" alt="img"></p>
-<p><img src="assets/Jietu20190804-222324.gif" alt="img"></p>
+<h1 id="图解-2"><a href="#图解-2" class="headerlink" title="图解 2"></a>图解 2</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1024555-20161126000335346-416319390.png" alt="img"></p>
+<h1 id="动画演示"><a href="#动画演示" class="headerlink" title="动画演示"></a>动画演示</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/849589-20171015225645277-1151100000.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190804-222324.gif" alt="img"></p>
 <h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] insertionSort(<span class="keyword">int</span>[] arr) &#123;</span><br><span class="line">    <span class="keyword">int</span> n = arr.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">int</span> value = arr[i];</span><br><span class="line">        <span class="keyword">int</span> j;<span class="comment">//插入的位置</span></span><br><span class="line">        <span class="keyword">for</span> (j = i-<span class="number">1</span>; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[j] &gt; value) &#123;</span><br><span class="line">                arr[j+<span class="number">1</span>] = arr[j];<span class="comment">//移动数据</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        arr[j+<span class="number">1</span>] = value; <span class="comment">//插入数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>从代码里我们可以看出，如果找到了合适的位置，就不会再进行比较了，就好比牌堆里抽出的一张牌本身就比我手里的牌都小，那么我只需要直接放在末尾就行了，不用一个一个去移动数据腾出位置插入到中间。</p>
@@ -590,11 +590,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,15 +694,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -710,15 +706,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,11 +730,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,11 +742,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

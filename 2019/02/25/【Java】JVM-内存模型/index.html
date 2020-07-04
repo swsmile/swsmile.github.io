@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景重排序（Instruction Reordering）在执行程序时为了提高性能，编译器和处理器常常会对指令做重排序。 重排序分三类：  编译器优化的重排序：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。 指令级并行的重排序。现代处理器采用了指令级并行技术来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。 内存系统的重排序。由于处理器使用缓">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/25/【Java】JVM-内存模型/assets/image-20190225114204614.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/25/【Java】JVM-内存模型/assets/image-20190225101800443.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/25/【Java】JVM-内存模型/assets/image-20190307161930331.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/25/【Java】JVM-内存模型/assets/image-20190226121914125.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/25/【Java】JVM-内存模型/assets/image-20190225111324047.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/25/【Java】JVM-内存模型/assets/image-20190225111339229.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225114204614.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225101800443.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190307161930331.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190226121914125.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225111324047.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225111339229.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】JVM - Java 内存模型（Java Memory Model）">
 <meta name="twitter:description" content="背景重排序（Instruction Reordering）在执行程序时为了提高性能，编译器和处理器常常会对指令做重排序。 重排序分三类：  编译器优化的重排序：编译器在不改变单线程程序语义的前提下，可以重新安排语句的执行顺序。 指令级并行的重排序。现代处理器采用了指令级并行技术来将多条指令重叠执行。如果不存在数据依赖性，处理器可以改变语句对应机器指令的执行顺序。 内存系统的重排序。由于处理器使用缓">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/25/【Java】JVM-内存模型/assets/image-20190225114204614.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225114204614.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -227,19 +227,19 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <p>从 Java 源代码到最终实际执行的指令序列，会分别经历下面三种重排序：</p>
-<p><img src="assets/image-20190225114204614.png" alt="image-20190225114204614"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225114204614.png" alt="image-20190225114204614"></p>
 <p>上面的这些重排序都可能导致多线程程序出现内存可见性问题。对于编译器，JMM 的编译器重排序规则会禁止特定类型的编译器重排序（不是所有的编译器重排序都要禁止）。对于处理器重排序，JMM 的处理器重排序规则会要求 Java 编译器在生成指令序列时，插入特定类型的内存屏障指令，通过内存屏障指令来禁止特定类型的处理器重排序（不是所有的处理器重排序都要禁止）。</p>
 <p>JMM 属于语言级的内存模型，它确保在不同的编译器和不同的处理器平台之上，通过禁止特定类型的编译器重排序和处理器重排序，为程序员提供一致的内存可见性保证。</p>
 <h1 id="Java-内存模型（Java-Memory-Model，JMM）"><a href="#Java-内存模型（Java-Memory-Model，JMM）" class="headerlink" title="Java 内存模型（Java Memory Model，JMM）"></a>Java 内存模型（Java Memory Model，JMM）</h1><p>Java 虚拟机规范中试图定义一种 <strong>Java 内存模型（Java Memory Model，简称 JMM）</strong>，来屏蔽掉各种硬件和操作系统的内存访问差异，以实现让 Java 程序在各种平台下都能达到一致的内存访问效果，不必因为不同平台上的物理机的内存模型的差异，对各平台定制化开发程序。</p>
 <p>在此之前，主流程序语言（如C/C++等）直接使用物理硬件和操作系统的内存模型，因此，会由于不同平台上内存模型的差异，有可能导致程序在一套平台上并发完全正常，而在另外一套平台上并发访问却经常出错，因此在某些场景下就不许针对不同的平台来编写程序。</p>
-<p><img src="assets/image-20190225101800443.png" alt="image-20190225101800443"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225101800443.png" alt="image-20190225101800443"></p>
 <h2 id="Java内存模型组成"><a href="#Java内存模型组成" class="headerlink" title="Java内存模型组成"></a>Java内存模型组成</h2><p>Java内存模型包括<strong>主内存</strong>和<strong>工作内存</strong>两个部分：</p>
 <ul>
 <li><strong>主内存（Main Memory）</strong>：用来存储线程之间的共享变量；</li>
 <li><strong>工作内存（Working Memory）</strong>：存储每个线程使用到的变量副本。</li>
 </ul>
 <p>即当某个线程要读取主内存中的某个变量时，JVM 会先将这个变量从主内存中拷贝到线程对应的工作内存；当这个线程完进行了对这个变量的修改后，JVM 会将这个变量在工作内存中的值同步到主内存中。</p>
-<p><img src="assets/image-20190307161930331.png" alt="image-20190307161930331"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190307161930331.png" alt="image-20190307161930331"></p>
 <p>  Java 内存模型规定：</p>
 <ul>
 <li>所有变量都存储在主内存（Main Memory）中；</li>
@@ -289,7 +289,7 @@ var _hmt = _hmt || [];
 <td>作用于主内存的变量，把store操作从工作内存中得到的变量的值放入主内存的变量中</td>
 </tr>
 </tbody></table>
-<p><img src="assets/image-20190226121914125.png" alt="image-20190226121914125"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190226121914125.png" alt="image-20190226121914125"></p>
 <p>除此之外，Java 内存模型还规定了在执行上述 8 种基本操作时，必须满足如下规则：</p>
 <ul>
 <li>不允许 read 和 load ，store 和 write 操作之一单独出现，即不允许一个变量从主内存读取了但工作内存不接受，或者从工作内存发起回写了但主内存不接受的情况出现。</li>
@@ -303,14 +303,14 @@ var _hmt = _hmt || [];
 <li>对一个变量执行 unlock 操作之前，必须先把此变量同步回主内存中（执行 store、write 操作）。</li>
 </ul>
 <p>这 8 种操作定义相当严禁，实践起来又比较麻烦，但是可以有助于我们理解多线程的工作原理。因此，有一个与此 8 种操作相等的 Happen-before 原则。</p>
-<h2 id="JVM-对-Java-内存模型的实现"><a href="#JVM-对-Java-内存模型的实现" class="headerlink" title="JVM 对 Java 内存模型的实现"></a>JVM 对 Java 内存模型的实现</h2><p><img src="assets/image-20190225111324047.png" alt="image-20190225111324047"></p>
+<h2 id="JVM-对-Java-内存模型的实现"><a href="#JVM-对-Java-内存模型的实现" class="headerlink" title="JVM 对 Java 内存模型的实现"></a>JVM 对 Java 内存模型的实现</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225111324047.png" alt="image-20190225111324047"></p>
 <p>在 JVM 内部，Java 内存模型把内存分成了两部分：<strong>线程栈区（Thread Stack）</strong>和<strong>堆区（Heap）</strong>：</p>
 <p>JVM 中运行的每个线程都拥有自己的线程栈，线程栈包含了当前线程执行的方法调用相关信息，我们也把它称作<strong>调用栈（Call stack）</strong>。随着代码的不断执行，调用栈会不断变化。</p>
 <p>线程栈还包含了当前方法的所有本地变量信息。一个线程只能读取自己的线程栈，也就是说，线程中的本地变量对其它线程是不可见的。即使两个线程执行的是同一段代码，它们也会各自在自己的线程栈中创建本地变量，因此，每个线程中的本地变量都会有自己的版本。</p>
 <p>所有原始类型（boolean,byte,short,char,int,long,float,double）的本地变量都直接保存在线程栈当中，对于它们的值各个线程之间都是独立的。对于原始类型的本地变量，一个线程只能传递这个本地变量的副本给另一个线程，而无法在这两个线程之间共享这个变量（注意，我们讨论的是本地变量，如果这个变量已经被声明成volatile了，则不是本地变量了）。</p>
 <p>堆区包含了 Java 应用创建的所有对象信息，不管对象是哪个线程创建的，其中的对象包括原始类型的封装类（如Byte、Integer、Long等等）。不管对象是属于一个成员变量还是方法中的本地变量，它都会被存储在堆区。</p>
 <p>下图展示了调用栈和本地变量都存储在栈区，对象都存储在堆区： </p>
-<p><img src="assets/image-20190225111339229.png" alt="image-20190225111339229"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190225111339229.png" alt="image-20190225111339229"></p>
 <h1 id="原子性（atomicity）、可见性（visibility）以及有序性（ordering）的保证"><a href="#原子性（atomicity）、可见性（visibility）以及有序性（ordering）的保证" class="headerlink" title="原子性（atomicity）、可见性（visibility）以及有序性（ordering）的保证"></a>原子性（atomicity）、可见性（visibility）以及有序性（ordering）的保证</h1><p>Java 内存模型是围绕着并发编程中<strong>原子性（atomicity）</strong>、<strong>可见性（visibility）</strong>以及<strong>有序性（ordering）</strong>这三个特征来建立的。</p>
 <p>那么， Java 语言本身对这三个特性提供了哪些保证呢？</p>
 <h2 id="原子性（Atomicity）"><a href="#原子性（Atomicity）" class="headerlink" title="原子性（Atomicity）"></a>原子性（Atomicity）</h2><p>由 Java 内存模型来直接保证的原子性变量操作包括 read、load、assign、use、store、write，而<strong>对基本数据类型变量的访问读写是具备原子性的（long和double的非原子性协定例外）</strong>，即这些操作是不可被中断的，要么执行，要么不执行。</p>
@@ -734,11 +734,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -838,15 +838,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -854,15 +850,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -874,11 +874,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -886,11 +886,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

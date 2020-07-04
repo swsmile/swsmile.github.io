@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="iptables原理iptables是什么iptables是Linux内核默认的防火墙。防火墙，其实说白了讲，就是用于实现Linux下访问控制的功能的，它分为硬件的或者软件的防火墙两种。无论是在哪个网络中，防火墙工作的地方一定是在网络的边缘。而我们的任务就是需要去定义到底防火墙如何工作，这就是防火墙的策略，规则，以达到让它对出入网络的IP、数据进行检测。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/02/【Linux】iptables防火墙/assets/image-20190202162724892.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/02/【Linux】iptables防火墙/assets/iptables.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/02/【Linux】iptables防火墙/assets/image-20190618152140437.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202162724892.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/iptables.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190618152140437.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Linux】iptables防火墙">
 <meta name="twitter:description" content="iptables原理iptables是什么iptables是Linux内核默认的防火墙。防火墙，其实说白了讲，就是用于实现Linux下访问控制的功能的，它分为硬件的或者软件的防火墙两种。无论是在哪个网络中，防火墙工作的地方一定是在网络的边缘。而我们的任务就是需要去定义到底防火墙如何工作，这就是防火墙的策略，规则，以达到让它对出入网络的IP、数据进行检测。">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/02/【Linux】iptables防火墙/assets/image-20190202162724892.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202162724892.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -235,7 +235,7 @@ var _hmt = _hmt || [];
 <h3 id="表（tables）"><a href="#表（tables）" class="headerlink" title="表（tables）"></a>表（tables）</h3><p>iptables内置了4个表，即 filter表、nat 表、mangle 表、raw 表，分别用于实现包过滤、网络地址转换、包修改和数据跟踪处理等功能。</p>
 <p><strong>每个表中含有若干条链</strong>，具体的规则就是根据实现目的的不同，添加到不同表的不同链中。</p>
 <p>如下图所示，各个表分别包含相关的链：</p>
-<p><img src="assets/image-20190202162724892.png" alt="image-20190202162724892"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202162724892.png" alt="image-20190202162724892"></p>
 <ul>
 <li>raw表有2条链：PREROUTING链、OUTPUT链；</li>
 <li>mangle表有5条链：PREROUTING链、POSTROUTING链、INPUT链、OUTPUT链、FORWARD链；</li>
@@ -244,7 +244,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>4个表的优先级为：raw &gt; mangle &gt; nat &gt; filter。</p>
 <p>raw表中包含PREROUTING链和OUTPUT链，优先级最高。因此，可以对数据包在进入NAT表的PREROUTING链之前对消息进行处理。</p>
-<h5 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h5><p><img src="assets/iptables.png" alt="iptables"></p>
+<h5 id="数据流"><a href="#数据流" class="headerlink" title="数据流"></a>数据流</h5><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/iptables.png" alt="iptables"></p>
 <h5 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h5><p>当数据包到达网卡时，首先会进入PREROUTING链（注意，PREROUTING链中存在不同表中的规则，这些规则存在优先顺序），完成PREROUTING链中规则的匹配和执行后，iptables会根据数据包的目的IP是否为本机地址，判断是否需要将该数据包转发出去。若为本机，则进入OUTPUT链，否则直接进入POSTROUTING链。最终输出。</p>
 <p>综上，数据包在iptables中的传输链路有两种情况：</p>
 <ul>
@@ -273,7 +273,7 @@ var _hmt = _hmt || [];
 <p>-L用于显示所有规则，比如查看nat表中的所有规则：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ iptables -t nat -L -n</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/image-20190618152140437.png" alt="image-20190618152140437"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190618152140437.png" alt="image-20190618152140437"></p>
 <ul>
 <li>target：代表进行的操作，ACCEPT是放行，而REJECT则是拒绝，此外，还有DROP表示丢弃。</li>
 <li>prot：代表使用的数据包协议，主要有TCP、UDP以及ICMP3种数据包格式。</li>
@@ -691,11 +691,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -795,15 +795,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -811,15 +807,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -831,11 +831,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -843,11 +843,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

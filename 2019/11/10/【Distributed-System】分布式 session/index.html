@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="BackgroundSession的作用？ Session 是客户端与服务器通讯会话跟踪技术，服务器与客户端保持整个通讯的会话基本信息。 客户端在第一次访问服务端的时候，服务端会响应一个sessionId并且将它存入到本地cookie中，在之后的访问会将cookie中的sessionId放入到请求头中去访问服务器，如果通过这个sessionid没有找到对应的数据那么服务器会创建一个新的sessio">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Distributed-System】分布式%20session/assets/image-20191110200832156.png">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Distributed-System】分布式%20session/assets/image-20191110200813570.png">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Distributed-System】分布式%20session/assets/image-20191110200950135.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110200832156.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110200813570.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110200950135.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】分布式 session（Distributed Seesion）">
 <meta name="twitter:description" content="BackgroundSession的作用？ Session 是客户端与服务器通讯会话跟踪技术，服务器与客户端保持整个通讯的会话基本信息。 客户端在第一次访问服务端的时候，服务端会响应一个sessionId并且将它存入到本地cookie中，在之后的访问会将cookie中的sessionId放入到请求头中去访问服务器，如果通过这个sessionid没有找到对应的数据那么服务器会创建一个新的sessio">
-<meta name="twitter:image" content="http://swsmile.info/2019/11/10/【Distributed-System】分布式%20session/assets/image-20191110200832156.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110200832156.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -222,7 +222,7 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <h1 id="分布式session管理实现方案"><a href="#分布式session管理实现方案" class="headerlink" title="分布式session管理实现方案"></a>分布式session管理实现方案</h1><p>分布式Session有如下几种实现方式。</p>
-<h2 id="1-Session复制"><a href="#1-Session复制" class="headerlink" title="1 Session复制"></a>1 Session复制</h2><img src="assets/image-20191110200832156.png" alt="image-20191110200832156" style="zoom:50%;">
+<h2 id="1-Session复制"><a href="#1-Session复制" class="headerlink" title="1 Session复制"></a>1 Session复制</h2><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110200832156.png" alt="image-20191110200832156" style="zoom:50%;">
 
 <p>任何一个服务器上的session发生改变（增删改），该节点会把这个 session的所有内容序列化，然后广播给所有其它节点，不管其他服务器需不需要session，以此来保证Session同步。</p>
 <ul>
@@ -231,7 +231,7 @@ var _hmt = _hmt || [];
 <li>适用场景：只适用于Web服务器比较少且Session数据量少的情况。</li>
 <li>可用方案：开源方案tomcat-redis-session-manager，暂不支持Tomcat8。</li>
 </ul>
-<h2 id="2-Session粘滞"><a href="#2-Session粘滞" class="headerlink" title="2 Session粘滞"></a>2 Session粘滞</h2><img src="assets/image-20191110200813570.png" alt="image-20191110200813570" style="zoom:50%;">
+<h2 id="2-Session粘滞"><a href="#2-Session粘滞" class="headerlink" title="2 Session粘滞"></a>2 Session粘滞</h2><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110200813570.png" alt="image-20191110200813570" style="zoom:50%;">
 
 <p>将用户的每次请求都通过某种方法强制分发到某一个特定Web服务器上。具体来说，用户第一次请求时，负载均衡器将用户的请求转发到了A服务器上，那么用户以后的每次请求都会转发到A服务器上。</p>
 <ul>
@@ -239,7 +239,7 @@ var _hmt = _hmt || [];
 <li>缺点：一旦某个Web服务器重启或宕机，相对应的Session数据将会丢失，而且需要依赖负载均衡机制。</li>
 <li>适用场景：对稳定性要求不是很高的业务情景。</li>
 </ul>
-<h2 id="3-Session集中管理"><a href="#3-Session集中管理" class="headerlink" title="3 Session集中管理"></a>3 Session集中管理</h2><img src="assets/image-20191110200950135.png" alt="image-20191110200950135" style="zoom:50%;">
+<h2 id="3-Session集中管理"><a href="#3-Session集中管理" class="headerlink" title="3 Session集中管理"></a>3 Session集中管理</h2><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110200950135.png" alt="image-20191110200950135" style="zoom:50%;">
 
 <p>在单独的服务器或服务器集群上使用缓存技术，如Redis存储Session数据，集中管理所有的Session，所有的Web服务器都从这个存储介质中存取对应的Session，实现Session共享。</p>
 <ul>
@@ -609,11 +609,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -713,15 +713,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,15 +725,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -749,11 +749,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,11 +761,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

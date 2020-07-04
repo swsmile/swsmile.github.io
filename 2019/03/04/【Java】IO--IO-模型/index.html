@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景对于 Unix 中的五种 I/O 模型：  阻塞 I/O（blocking I/O） 非阻塞 I/O（non-blocking I/O） I/O 多路复用（I/O multiplxing） 信号驱动 I/O（signal driven I/O） 异步 I/O（asynchronous I/O）  除信号驱动 I/O 外，Java 对其它四种 I/O 模型都有所支持。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/04/【Java】IO--IO-模型/assets/195333v2cj2o6y92d2zp5z.jpeg">
-<meta property="og:image" content="http://swsmile.info/2019/03/04/【Java】IO--IO-模型/assets/image-20190303135331554.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/195333v2cj2o6y92d2zp5z.jpeg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190303135331554.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】I&#x2F;O - I&#x2F;O 模型与服务端编程">
 <meta name="twitter:description" content="背景对于 Unix 中的五种 I/O 模型：  阻塞 I/O（blocking I/O） 非阻塞 I/O（non-blocking I/O） I/O 多路复用（I/O multiplxing） 信号驱动 I/O（signal driven I/O） 异步 I/O（asynchronous I/O）  除信号驱动 I/O 外，Java 对其它四种 I/O 模型都有所支持。">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/04/【Java】IO--IO-模型/assets/195333v2cj2o6y92d2zp5z.jpeg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/195333v2cj2o6y92d2zp5z.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -240,7 +240,7 @@ var _hmt = _hmt || [];
 <h1 id="阻塞-I-O-（Blocking-I-O）-多线程（multithreading）"><a href="#阻塞-I-O-（Blocking-I-O）-多线程（multithreading）" class="headerlink" title="阻塞 I/O （Blocking I/O） + 多线程（multithreading）"></a>阻塞 I/O （Blocking I/O） + 多线程（multithreading）</h1><p>上例使用单线程逐个处理所有请求，缺点在于同一时间只能处理一个请求，而且在线程等待 I/O 而被阻塞的过程，不能充分利用 CPU 资源，最终能够对连接请求处理的吞吐率较低。</p>
 <p>为此，我们使用多线程对阻塞 I/O 模型的改进，提出<strong>阻塞 I/O 模式 + 多线程模型</strong>，即<strong>为每个请求创建一个线程。一个连接建立成功后，创建一个单独的线程处理其 I/O 操作</strong>。</p>
 <p>这是一种在传统的网络服务设计中的经典模式，而另外一种是线程池（我们在下文会介绍）。</p>
-<p><img src="assets/195333v2cj2o6y92d2zp5z.jpeg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/195333v2cj2o6y92d2zp5z.jpeg" alt=""></p>
 <p>该模型最大的问题就是缺乏弹性伸缩能力，当客户端并发访问量增加后，服务端的线程个数和客户端并发访问数呈 1：1 的正比关系，由于线程是 Java 虚拟机非常宝贵的系统资源，当线程数膨胀之后，系统的性能将急剧下降，随着并发访问量的继续增大，系统会发生线程堆栈溢出、创建新线程 失败等问题，并最终导致进程宕机或者僵死，不能对外提供服务。</p>
 <p>代码实现如下所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IOServerMultiThread</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger LOGGER = LoggerFactory.getLogger(IOServerMultiThread<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  ServerSocket serverSocket = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      serverSocket = <span class="keyword">new</span> ServerSocket();</span><br><span class="line">      serverSocket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">2345</span>));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">      LOGGER.error(<span class="string">"Listen failed"</span>, ex);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">        Socket socket = serverSocket.accept();</span><br><span class="line">        <span class="keyword">new</span> Thread( () -&gt; &#123;</span><br><span class="line">          <span class="keyword">try</span>&#123;</span><br><span class="line">            InputStream inputstream = socket.getInputStream();</span><br><span class="line">            LOGGER.info(<span class="string">"Received message &#123;&#125;"</span>, IOUtils.toString(inputstream));</span><br><span class="line">            IOUtils.closeQuietly(inputstream);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">            LOGGER.error(<span class="string">"Read message failed"</span>, ex);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span>(IOException ex) &#123;</span><br><span class="line">      IOUtils.closeQuietly(serverSocket);</span><br><span class="line">      LOGGER.error(<span class="string">"Accept connection failed"</span>, ex);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -248,7 +248,7 @@ var _hmt = _hmt || [];
 <h1 id="阻塞-I-O-（Blocking-I-O）-线程池（Thread-Pool）"><a href="#阻塞-I-O-（Blocking-I-O）-线程池（Thread-Pool）" class="headerlink" title="阻塞 I/O （Blocking I/O） + 线程池（Thread Pool）"></a>阻塞 I/O （Blocking I/O） + 线程池（Thread Pool）</h1><p>在上面的”阻塞 I/O 模式 + 多线程“ 模型中，虽然实现起来简单。但是，当连接数量达到上限时，再有用户请求连接，直接会导致资源瓶颈，严重的可能会直接导致服务器崩溃。</p>
 <p>同时，线程不断地重复创建和销毁会带来的大量的性能开销。</p>
 <p>为此，我们可以采用<strong>线程池（thread pool）</strong>来进行优化，即，采用线程池和任务队列可以实现一种叫做伪异步的 I/O 通信框架。</p>
-<p><img src="assets/image-20190303135331554.png" alt="image-20190303135331554"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190303135331554.png" alt="image-20190303135331554"></p>
 <p>当有新的客户端接入的时候，将客户端的 Socket 封装成一个 Task（该任务实现 java.lang.Runnable 接口）投递到后端的线程池中进行处理，当这个 Task 处理完成后会被自动放回线程池中。JDK 的线程池维护一个消息队列和 N 个活跃线程对消息队列中的任务进行处理。由于线程池 可以设置消息队列的大小和最大线程数，因此，它的资源占用是可控的，无论多少个客户端并发访问，都不会导致资源的耗尽和宕机。</p>
 <p>总结：重用线程避免了频率地创建和销毁线程带来的开销。</p>
 <p>但是，阻塞 I/O 模式 + 线程池从根本上解决同步 I/O 导致的通信线程阻塞问题。下面我们就简单分析下如果通信 对方返回应答时间过长，会引起的级联故障。</p>
@@ -626,11 +626,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +730,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,15 +742,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -766,11 +766,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -778,11 +778,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="进程调度的原理需要进程调度（Process Scheduling）的理由很简单，即充分利用计算机系统中的CPU资源，让计算机系统能够多快好省地完成我们让它做的各种任务。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/10/【Operating-System】进程-线程调度/assets/image-20190210101149472.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/10/【Operating-System】进程-线程调度/assets/image-20190210103415237.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/10/【Operating-System】进程-线程调度/assets/image-20190210112045755.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190210101149472.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190210103415237.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190210112045755.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.390Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Operating System】进程 - 进程&#x2F;线程调度">
 <meta name="twitter:description" content="进程调度的原理需要进程调度（Process Scheduling）的理由很简单，即充分利用计算机系统中的CPU资源，让计算机系统能够多快好省地完成我们让它做的各种任务。">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/10/【Operating-System】进程-线程调度/assets/image-20190210101149472.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190210101149472.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -286,7 +286,7 @@ var _hmt = _hmt || [];
 <p>在最短作业优先调度算法中，我们假定进程的运行时间（run time）是已知的。而事实上，一个任务的运行时间也是很容易预测的。比如，在保险公司每天后台的批处理服务中，每个索赔任务（claim）的处理时间是几乎一致的，因此根据需要处理的数量可以计算出运行时间。</p>
 <hr>
 <p>我们来看一个例子，当前有4个任务 A、B、C和D，它们的运行时间（run time）分别为8、4、4和4分钟。</p>
-<p><img src="assets/image-20190210101149472.png" alt="image-20190210101149472"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190210101149472.png" alt="image-20190210101149472"></p>
 <p>若以<strong>默认的顺序</strong>运行（如上图中 a 所示），则A、B、C和D任务的周转时间（turnaround time）分别为8分钟、12分钟、16分钟和20分钟，其中平均周转时间为14分钟。</p>
 <p>若采用<strong>最短作业优先调度算法</strong>（如上图中 b 所示），则周转时间分别为4、8、12和20分钟，其中平均周转时间为11分钟。</p>
 <p>显然，最短作业优先调度算法更优。</p>
@@ -304,7 +304,7 @@ var _hmt = _hmt || [];
 <h3 id="时间片轮转调度算法-Round-robin-scheduling"><a href="#时间片轮转调度算法-Round-robin-scheduling" class="headerlink" title="时间片轮转调度算法 (Round-robin scheduling)"></a>时间片轮转调度算法 (Round-robin scheduling)</h3><p>时间片轮转调度算法 (Round-robin scheduling) 是最古老、简单、公平也最为被广泛使用的调度算法。</p>
 <p>在时间片轮转调度算法中，系统将所有就绪进程按FIFO规则排队（称为就绪队列），按一定的时间间隔（time interval）把CPU分配给队列中的进程。这样，就绪队列中所有进程均可获得一个CPU时间片而运行。</p>
 <p><strong>时间片轮转调度算法是抢占式的</strong>。当一个进程执行到CPU时间片末端而仍没有执行完成时，它会被放到就绪就绪队列的末端，并且接着执行下一个进程。在下图的例子中，进程B就执行到CPU时间片末端但仍没有执行完成，因此被放到就绪就绪队列的末端；并且，F进程会被开始执行</p>
-<p><img src="assets/image-20190210103415237.png" alt="image-20190210103415237"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190210103415237.png" alt="image-20190210103415237"></p>
 <h4 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h4><p>一个潜在的问题是如何设置时间片轮转调度算法的CPU时间片长度。</p>
 <p>由于进行进程上下文切换（context switch）需要一定的时间，这其中包括保存、加载寄存器（register）和内存映射（memory maps）等等。</p>
 <p>若设置较短的CPU时间片长度，会导致频繁的进程上下文切换，因而降低CPU的效率；而设置较长的CPU时间片长度，会对短交互式的请求提供较慢的响应。</p>
@@ -315,7 +315,7 @@ var _hmt = _hmt || [];
 <p>为了防止高优先级的进程无限地运行，调度器可以在每隔一定的时钟周期（clock tick）降低正在运行的进程的优先级。当这个进程的优先级低于第二高优先级的进程时，上下文切换发生。或者，可以设置一个最大CPU时间片值，当一个进程的这个最大CPU时间片被用尽时，就轮到了优先级次之的进程运行。</p>
 <hr>
 <p>作为一个改进方案，<strong>结合时间片轮转调度算法</strong>，我们可以根据进程的优先级（priority）进行分组（同优先级的进程归为一组），每一组按照时间片轮转调度算法进行执行。当高优先级的进程队列为空时，次级优先级的进程队列才开始被执行。</p>
-<p><img src="assets/image-20190210112045755.png" alt="image-20190210112045755"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190210112045755.png" alt="image-20190210112045755"></p>
 <p>这样做的一个不足在于，当高优先级的进程队列一直不为空时，下层的优先级的进程就一直没有机会被执行。</p>
 <h3 id="多级队列调度算法（Multilevel-queue-scheduling）"><a href="#多级队列调度算法（Multilevel-queue-scheduling）" class="headerlink" title="多级队列调度算法（Multilevel queue scheduling）"></a>多级队列调度算法（Multilevel queue scheduling）</h3><blockquote>
 <p>为了解决”因设置较短的CPU时间片长度，会导致频繁的进程上下文切换，因而降低CPU的效率；而设置较长的CPU时间片长度，会对短交互式的请求提供较慢的响应“的问题，</p>
@@ -684,11 +684,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -788,15 +788,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -804,15 +800,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,11 +824,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,11 +836,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

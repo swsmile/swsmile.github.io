@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="1.背景 每隔一段时间，iOS都会更新最新的操作系统版本。因此对于App开发者，需要考虑不同iOS系统版本兼容的问题。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/05/15/【iOS】iOS不同操作系统适配问题/assets/19840364-0471-492b-8962-8e36fdf1441f.png">
-<meta property="og:image" content="http://swsmile.info/2017/05/15/【iOS】iOS不同操作系统适配问题/assets/a142d606-1b85-4588-8bd1-2885b84d7be6.png">
-<meta property="og:image" content="http://swsmile.info/2017/05/15/【iOS】iOS不同操作系统适配问题/assets/b675e66c-06b0-45d6-b38d-16443c7f907d.png">
-<meta property="og:image" content="http://swsmile.info/2017/05/15/【iOS】iOS不同操作系统适配问题/assets/b98995cb-3bb2-41af-8163-9bb0d9bc1ec3.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/19840364-0471-492b-8962-8e36fdf1441f.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a142d606-1b85-4588-8bd1-2885b84d7be6.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/b675e66c-06b0-45d6-b38d-16443c7f907d.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/b98995cb-3bb2-41af-8163-9bb0d9bc1ec3.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【iOS】 iOS不同操作系统兼容问题">
 <meta name="twitter:description" content="1.背景 每隔一段时间，iOS都会更新最新的操作系统版本。因此对于App开发者，需要考虑不同iOS系统版本兼容的问题。">
-<meta name="twitter:image" content="http://swsmile.info/2017/05/15/【iOS】iOS不同操作系统适配问题/assets/19840364-0471-492b-8962-8e36fdf1441f.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/19840364-0471-492b-8962-8e36fdf1441f.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,7 +219,7 @@ var _hmt = _hmt || [];
  <a id="more"></a> 
 
 <p>从Apple的官网上，我们可以获取到不同iOS操作系统版本的分布。</p>
-<p><strong>地址：<a href="https://developer.apple.com/support/app-store/" target="_blank" rel="noopener">https://developer.apple.com/support/app-store/</a></strong><br><img src="assets/19840364-0471-492b-8962-8e36fdf1441f.png" alt=""></p>
+<p><strong>地址：<a href="https://developer.apple.com/support/app-store/" target="_blank" rel="noopener">https://developer.apple.com/support/app-store/</a></strong><br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/19840364-0471-492b-8962-8e36fdf1441f.png" alt=""></p>
 <p>但是，由于官方对于数据的更新频率较慢，因此我们也可以参考以下数据：</p>
 <ul>
 <li><a href="https://data.apteligent.com/ios/" target="_blank" rel="noopener">https://data.apteligent.com/ios/</a></li>
@@ -230,14 +230,14 @@ var _hmt = _hmt || [];
 <h3 id="（1）Base-SDK"><a href="#（1）Base-SDK" class="headerlink" title="（1）Base SDK"></a>（1）Base SDK</h3><p><strong><code>Base SDK</code>是指用来编译我们项目（App or 类库）的SDK（Software Development Kit）版本，每一个iOS操作系统版本都会对应一个SDK版本号。</strong></p>
 <p>这个SDK包含了开发者要用到的所有头文件、链接库的集合。如果Apple推出了新的API，也会增加在这个SDK里。</p>
 <p><strong>默认情况下，Xcode中创建的新工程总是使用当前已下载的最新的SDK</strong>（这样能保证你能够使用到Apple最新的API），而苹果会处理废弃的API。除非你有充分的理由，否则你应该使用这个默认的SDK版本。</p>
-<p><img src="assets/a142d606-1b85-4588-8bd1-2885b84d7be6.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a142d606-1b85-4588-8bd1-2885b84d7be6.png" alt=""></p>
 <h3 id="（2）Deployment-Target"><a href="#（2）Deployment-Target" class="headerlink" title="（2）Deployment Target"></a>（2）Deployment Target</h3><p><strong><code>Deployment Target</code>是指编译出的程序最低可以在哪个版本的操作系统上运行。</strong></p>
 <p>比如我设置成<code>iOS 10.2</code>，那么编译出的App or 类库，最低可以在iOS 10.2的平台上运行（<strong>前提是未使用高于10.2的API</strong>）。如果这个App发布到了AppStore，那么若低于 <code>10.2</code>版本的设备下载或安装这个App，会被自动阻止。</p>
-<p><img src="assets/b675e66c-06b0-45d6-b38d-16443c7f907d.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/b675e66c-06b0-45d6-b38d-16443c7f907d.png" alt=""></p>
 <p>事实上，如果手动将这个值设置成iOS 8.0以下的话，Xcode 会发出警告（印象中是从 Xcode 8开始出现这个警告的），建议将<code>Deployment Target</code>设置为iOS 8.0。</p>
 <p>结合【1.背景】中提到的iOS 操作系统版本分布统计，iOS 8.0以下的占有量其实也是非常非常低的。</p>
 <p>截止2017.5.1，除了个别用户量非常非常大的App（微信设置为7.0，支付宝设置为7.0），大部分App都至少将其设置为8.0（甚至更高）。</p>
-<h3 id="（3）Deployment-Target与Base-SDK关系"><a href="#（3）Deployment-Target与Base-SDK关系" class="headerlink" title="（3）Deployment Target与Base SDK关系"></a>（3）Deployment Target与Base SDK关系</h3><p><img src="assets/b98995cb-3bb2-41af-8163-9bb0d9bc1ec3.png" alt=""></p>
+<h3 id="（3）Deployment-Target与Base-SDK关系"><a href="#（3）Deployment-Target与Base-SDK关系" class="headerlink" title="（3）Deployment Target与Base SDK关系"></a>（3）Deployment Target与Base SDK关系</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/b98995cb-3bb2-41af-8163-9bb0d9bc1ec3.png" alt=""></p>
 <p>这里用一张图说明了<code>deployment target</code>设置为<code>OS X v10.4</code>， <code>base SDK</code> 设置为<code>OS X v10.6</code>时的情况。<br>这时，应用可以无条件使用兼容<code>10.0</code>到<code>10.4</code>的API，有条件使用兼容<code>10.5</code>到<code>10.6</code>的API（必要时进行运行时判断）。</p>
 <p><strong>让我们更深入的剖析这张图：</strong></p>
 <h5 id="特性："><a href="#特性：" class="headerlink" title="特性："></a>特性：</h5><ul>
@@ -617,11 +617,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,15 +721,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,15 +733,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -757,11 +757,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -769,11 +769,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

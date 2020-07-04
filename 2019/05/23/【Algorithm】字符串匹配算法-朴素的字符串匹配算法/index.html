@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="模式匹配/ 字符串匹配算法字符串匹配字符串匹配问题的形式定义：  文本（Text）是一个长度为 n 的数组 T[1..n]； 模式（Pattern）是一个长度为 m 且 m≤n 的数组 P[1..m]； T 和 P 中的元素都属于有限的字母表 Σ 表； 如果 0≤s≤n-m，并且 T[s+1..s+m] = P[1..m]，即对 1≤j≤m，有 T[s+j] = P[j]，则说模式 P 在文本 T">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/23/【Algorithm】字符串匹配算法-朴素的字符串匹配算法/assets/032208464871566.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/23/【Algorithm】字符串匹配算法-朴素的字符串匹配算法/assets/032215106443194.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/23/【Algorithm】字符串匹配算法-朴素的字符串匹配算法/assets/2-1Q210200205160.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/23/【Algorithm】字符串匹配算法-朴素的字符串匹配算法/assets/2-1Q210200229316.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/23/【Algorithm】字符串匹配算法-朴素的字符串匹配算法/assets/2-1Q21020024b12.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/23/【Algorithm】字符串匹配算法-朴素的字符串匹配算法/assets/2-1Q210200309607.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032215106443194.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q210200205160.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q210200229316.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q21020024b12.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q210200309607.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm】字符串匹配算法 - 朴素的字符串匹配算法（Naive String Matching Algorithm）">
 <meta name="twitter:description" content="模式匹配/ 字符串匹配算法字符串匹配字符串匹配问题的形式定义：  文本（Text）是一个长度为 n 的数组 T[1..n]； 模式（Pattern）是一个长度为 m 且 m≤n 的数组 P[1..m]； T 和 P 中的元素都属于有限的字母表 Σ 表； 如果 0≤s≤n-m，并且 T[s+1..s+m] = P[1..m]，即对 1≤j≤m，有 T[s+j] = P[j]，则说模式 P 在文本 T">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/23/【Algorithm】字符串匹配算法-朴素的字符串匹配算法/assets/032208464871566.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -226,11 +226,11 @@ var _hmt = _hmt || [];
 </ul>
 <a id="more"></a> 
 
-<p><img src="assets/032208464871566.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png" alt="img"></p>
 <p>比如上图中，目标是找出所有在文本 T = abcabaabcabac 中模式 P = abaa 的所有出现。该模式在此文本中仅出现一次，即在位移 s = 3 处，位移 s = 3 是有效位移。</p>
 <h3 id="常见的字符串匹配算法"><a href="#常见的字符串匹配算法" class="headerlink" title="常见的字符串匹配算法"></a>常见的字符串匹配算法</h3><p>解决字符串匹配的算法包括：朴素算法（Naive Algorithm）、Rabin-Karp 算法、有限自动机算法（Finite Automation）、 Knuth-Morris-Pratt 算法（即 KMP Algorithm）、Boyer-Moore 算法、Simon 算法、Colussi 算法、Galil-Giancarlo 算法、Apostolico-Crochemore 算法、Horspool 算法和 Sunday 算法等。</p>
 <h3 id="字符串匹配算法的步骤"><a href="#字符串匹配算法的步骤" class="headerlink" title="字符串匹配算法的步骤"></a>字符串匹配算法的步骤</h3><p>字符串匹配算法通常分为两个步骤：<strong>预处理（Preprocessing）</strong>和<strong>匹配（Matching）</strong>。所以算法的总运行时间为预处理和匹配的时间的总和。</p>
-<p><img src="assets/032215106443194.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/032215106443194.png" alt="img"></p>
 <p>上图描述了常见字符串匹配算法的预处理和匹配时间。</p>
 <h1 id="朴素的字符串匹配算法（Naive-String-Matching-Algorithm）"><a href="#朴素的字符串匹配算法（Naive-String-Matching-Algorithm）" class="headerlink" title="朴素的字符串匹配算法（Naive String Matching Algorithm）"></a>朴素的字符串匹配算法（Naive String Matching Algorithm）</h1><p>朴素的字符串匹配算法（Naive String Matching Algorithm），又称为暴力匹配算法（Brute Force Algorithm）：对主串(S)的每一个字符作为子串(T)开头，与要匹配的字符串进行匹配。对主串做大循环，每个字符开头做T的长度的小循环，直到匹配成功或全部遍历完成为止。 </p>
 <p>它的主要特点是：</p>
@@ -243,13 +243,13 @@ var _hmt = _hmt || [];
 </ul>
 <p>很显然，朴素的字符串匹配算法 NAIVE-STRING-MATCHER 是最原始的算法，它通过使用循环来检查是否在范围 n-m+1 中存在满足条件 P[1..m] = T [s + 1..s + m] 的有效位移 s。</p>
 <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>首先，将串 A 与串 B 的首字符对齐，然后逐个判断相对的字符是否相等，如下图所示：</p>
-<p><img src="assets/2-1Q210200205160.gif" alt="串的第一次模式匹配示意图"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q210200205160.gif" alt="串的第一次模式匹配示意图"></p>
 <p>上图中，由于串 A 与串 B 的第 3 个字符匹配失败，因此需要将串 A 后移一个字符的位置，继续同串 B 匹配，如下图所示：</p>
-<p><img src="assets/2-1Q210200229316.gif" alt="串的第二次模式匹配示意图"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q210200229316.gif" alt="串的第二次模式匹配示意图"></p>
 <p>上图中可以看到，两串匹配失败，串 A 继续向后移动一个字符的位置，如下图所示：</p>
-<p><img src="assets/2-1Q21020024b12.gif" alt="串的第三次模式匹配示意图"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q21020024b12.gif" alt="串的第三次模式匹配示意图"></p>
 <p>上图中，两串的模式匹配失败，串 A 继续移动，一直移动至下图的位置才匹配成功：</p>
-<p><img src="assets/2-1Q210200309607.gif" alt="串模式匹配成功示意图"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1Q210200309607.gif" alt="串模式匹配成功示意图"></p>
 <p>由此，串 A 与串 B 以供经历了 6 次匹配的过程才成功，通过整个模式匹配的过程，证明了串 A 是串 B 的子串（串 B 是串 A 的主串）。</p>
 <h3 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h3><p>假设模式P的长度为n，文本T的长度为m，匹配的时间在最好情况下为Θ(n)，在最坏情况下为 Θ((n-m+1)m)，如果 m = [n/2]，则为 Θ(n2)。</p>
 <h3 id="Java实现"><a href="#Java实现" class="headerlink" title="Java实现"></a>Java实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">naiveStringMatch</span><span class="params">(String text, String pattern)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span>[] textChs = text.toCharArray();</span><br><span class="line">    <span class="keyword">char</span>[] patternChs = pattern.toCharArray();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; textChs.length - patternChs.length; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; patternChs.length; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (textChs[i + j] != patternChs[j]) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (j == patternChs.length) &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -594,11 +594,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -698,15 +698,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,15 +710,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -734,11 +734,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,11 +746,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

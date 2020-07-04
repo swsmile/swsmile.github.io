@@ -16,20 +16,20 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="记得有一次面试，被问道：当在浏览器中输入一个URL后会发生什么。就个人而言，很喜欢这样发散性的问题，因为客观的来说，这类问题能够客观地考察其对HTTP、Web的理解，也不用担心其有意准备了面试答案，稍微深入某个细节，就可了解其掌握程度。而且，从不同的角度看完全可以得出不同的分析过程。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/af0db60c-ea01-41dc-8f9f-6f225cf9e78f.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/88f2ba47-b54d-4181-bef9-7b875e73fa46.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/ff92050e-53cf-41ef-821e-360b51b17632.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/59352573-28d3-4df9-a447-0ad946e901fc.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/b2a3eff2-ed26-4005-a9c8-ce3ba7692616.jpg">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/3955908f-6d70-4cce-9aa8-2722cc4f88a2.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/96fee272-8472-4804-998b-d8d851a57ed9.jpg">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/f16dc409-bc75-4251-8905-49dda8f58f4a.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/f2bf2730-3944-482b-9e0d-a2fa5fb46444.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/af0db60c-ea01-41dc-8f9f-6f225cf9e78f.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/88f2ba47-b54d-4181-bef9-7b875e73fa46.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ff92050e-53cf-41ef-821e-360b51b17632.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/59352573-28d3-4df9-a447-0ad946e901fc.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/b2a3eff2-ed26-4005-a9c8-ce3ba7692616.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/3955908f-6d70-4cce-9aa8-2722cc4f88a2.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/96fee272-8472-4804-998b-d8d851a57ed9.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/f16dc409-bc75-4251-8905-49dda8f58f4a.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/f2bf2730-3944-482b-9e0d-a2fa5fb46444.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】DNS原理分析">
 <meta name="twitter:description" content="记得有一次面试，被问道：当在浏览器中输入一个URL后会发生什么。就个人而言，很喜欢这样发散性的问题，因为客观的来说，这类问题能够客观地考察其对HTTP、Web的理解，也不用担心其有意准备了面试答案，稍微深入某个细节，就可了解其掌握程度。而且，从不同的角度看完全可以得出不同的分析过程。">
-<meta name="twitter:image" content="http://swsmile.info/2017/04/04/【Network】DNS原理分析/assets/af0db60c-ea01-41dc-8f9f-6f225cf9e78f.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/af0db60c-ea01-41dc-8f9f-6f225cf9e78f.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -233,7 +233,7 @@ var _hmt = _hmt || [];
 <p>因此，在TCP/IP世界诞生之初，就有一个叫<strong>主机识别码</strong>的东西。每一台联网的主机都赋予一个主机识别码，以标识这台主机，并替代直接使用一大串非常难记的IP地址。为此，系统必须能够自动地<strong>将输入的主机标识码转换为对应的IP地址</strong>。</p>
 <p>为了实现这个功能，每台主机都将这个<strong>主机标识符到IP地址的转换表</strong>存储在一个叫<code>hosts</code>的数据库文件中。几乎所有的现代操作系统中，还仍然存在这个<code>hosts</code>文件，只是其中的内容变少了（因为其大部分职能都被DNS服务器替代了）。</p>
 <p><strong>我的<code>hosts文件</code>的一个例子：</strong></p>
-<p><img src="assets/af0db60c-ea01-41dc-8f9f-6f225cf9e78f.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/af0db60c-ea01-41dc-8f9f-6f225cf9e78f.png" alt=""></p>
 <p><strong>hosts文件路径：</strong></p>
 <ul>
 <li>Windows：C:\Windows\System32\drivers\etc\hosts</li>
@@ -249,7 +249,7 @@ var _hmt = _hmt || [];
 <p><strong>域名是一个为了识别主机名称和组织机构的一种具有分层结构的名称。</strong></p>
 <p><strong>域名由英文字母、数字和某些允许的英文字符用点号（“.”）连接组成</strong>，形成层次结构，这样一个主域名分配给一个组织，这个组织可以拥有多个不同名的主机，并自由地为这些主机分配主域名下的不同子域名。</p>
 <p><strong>域名的分层结构</strong>：
-<img src="assets/88f2ba47-b54d-4181-bef9-7b875e73fa46.png" alt=""></p>
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/88f2ba47-b54d-4181-bef9-7b875e73fa46.png" alt=""></p>
 <p>域名的分层结构如一棵树，顶点是树的根（root），顶点的下一层称为<strong>顶级域名（TLD: Top Level Domain）</strong>，顶级域名可分为<strong>国别顶级域名（ccTLD: country code Top Level Domain）</strong>和<strong>通用顶级域名（gTLD: generic Top Level Doamin）</strong>两种类型。</p>
 <ul>
 <li>国别顶级域名：包括“cn（中国）”、“jp（日本）”、“uk（英国）”等表示国家的域名</li>
@@ -259,7 +259,7 @@ var _hmt = _hmt || [];
 <p>事实上，在实际的使用中，这里的“特定领域”已经不再那么严格了，比如个人网站也能使用“.com”或“.org”结尾的特定领域顶级域名</p>
 </blockquote>
 <h2 id="2-域名服务器"><a href="#2-域名服务器" class="headerlink" title="2 域名服务器"></a>2 域名服务器</h2><p>如上面的分层结构中描述，每一个层级中的每一个节点都有一个<strong>域名服务器</strong>来管理与其相关的下一层的所有子域名，而且这些域名服务器都称为<code>权威服务器</code>。
-<img src="assets/ff92050e-53cf-41ef-821e-360b51b17632.png" alt=""></p>
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ff92050e-53cf-41ef-821e-360b51b17632.png" alt=""></p>
 <h3 id="（1）各层中的节点都有各自的域名服务器"><a href="#（1）各层中的节点都有各自的域名服务器" class="headerlink" title="（1）各层中的节点都有各自的域名服务器"></a>（1）各层中的节点都有各自的域名服务器</h3><p>比如，<code>.cn</code>拥有自己域名服务器，<code>.uk</code>拥有自己的域名服务器.，<code>people.cn</code>拥有自己的域名服务器，<code>.baidu.com</code>拥有自己的域名服务器….</p>
 <h3 id="（2）各层域名服务器都了解自己所在节点的下一连接分层所有节点的域名服务器的IP地址"><a href="#（2）各层域名服务器都了解自己所在节点的下一连接分层所有节点的域名服务器的IP地址" class="headerlink" title="（2）各层域名服务器都了解自己所在节点的下一连接分层所有节点的域名服务器的IP地址"></a>（2）各层域名服务器都了解自己所在节点的下一连接分层所有节点的域名服务器的IP地址</h3><p>比如，<code>.cn</code>了解<code>.people.cn</code>域名服务器的IP 和 <code>.china.cn</code>域名服务器的IP……</p>
 <h3 id="（3）顺着根节点可访问到世界上所有域名服务器的地址"><a href="#（3）顺着根节点可访问到世界上所有域名服务器的地址" class="headerlink" title="（3）顺着根节点可访问到世界上所有域名服务器的地址"></a>（3）顺着根节点可访问到世界上所有域名服务器的地址</h3><p>由于每一层都记录下一层节点的域名服务器，所以可以从<strong>根节点开始</strong>，顺着层次结构，最终访问到世界上所有的域名服务器地址。</p>
@@ -276,10 +276,10 @@ var _hmt = _hmt || [];
 <h1 id="三-DNS解析过程"><a href="#三-DNS解析过程" class="headerlink" title="三 DNS解析过程"></a>三 DNS解析过程</h1><h2 id="1-本机设置的DNS"><a href="#1-本机设置的DNS" class="headerlink" title="1 本机设置的DNS"></a>1 本机设置的DNS</h2><p>现在我有一台计算机，通过 <strong>ISP</strong>（<strong>Internet Service Provider</strong>，比如中国电信） 接入了互联网，那么 ISP 就会给我提供一个<strong>可供服务</strong>的DNS服务器的IP地址。</p>
 <p>这里需要说明一下，ISP提供的<strong>可供服务的</strong>DNS服务器IP地址，指的是我可以使用它完成DNS解析服务，但并不意味着我只能使用它，因为我还可以使用<code>114.114.114.114</code>（114DNS）、<code>8.8.8.8</code>（Google Public DNS）、<code>208.67.220.220</code>（OpenDNS ）等公共的DNS服务器。更极端一点，我还可以自己搭一个<code>DNS服务器</code>。</p>
 <p>注意，<strong>这个DNS服务器不是权威服务器</strong>，而是相当于一个<strong>代理的 DNS 解析服务器</strong>。也就是说，当我向它发出一个DNS解析请求时，它会检查自己的缓冲中是否已经存在了我需要查询的host对应的IP的地址。如果不存在，它会帮我<strong>向权威服务器迭代查询，并将查询结果返回</strong>给我。至于它有没有向权威服务器迭代，对我来说是透明的（不知情的），因此称它是一个<strong>代理的 DNS 解析服务器</strong>。</p>
-<p>比如，我的DNS设置：<br><img src="assets/59352573-28d3-4df9-a447-0ad946e901fc.png" alt=""></p>
+<p>比如，我的DNS设置：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/59352573-28d3-4df9-a447-0ad946e901fc.png" alt=""></p>
 <h2 id="2-DNS解析过程"><a href="#2-DNS解析过程" class="headerlink" title="2 DNS解析过程"></a>2 DNS解析过程</h2><p>在以下的描述过程中，本机设置的DNS服务器简称为<strong>本机DNS服务器</strong>，但需要明确这台服务器并不是在本机，而且其实你可以任意指定。</p>
 <p><strong>以在浏览器中输入“<a href="http://en.wikipedia.org”" target="_blank" rel="noopener">http://en.wikipedia.org”</a> 查询后的DNS解析过程为例：</strong></p>
-<p><img src="assets/b2a3eff2-ed26-4005-a9c8-ce3ba7692616.jpg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/b2a3eff2-ed26-4005-a9c8-ce3ba7692616.jpg" alt=""></p>
 <ul>
 <li>浏览器检查<strong>浏览器内部的DNS缓存</strong>中该DNS条目是否有效（存在该缓存，且未过期）。如果有效，则直接返回IP地址；</li>
 <li>如果无效，查询<strong>操作系统的DNS缓存</strong>中是否存在该DNS条目。如果存在，则直接返回IP地址；</li>
@@ -290,7 +290,7 @@ var _hmt = _hmt || [];
 <li>本地DNS服务器向<strong>“wikipedia.org”域DNS服务器</strong>请求“<code>en.wikipedia.org</code>”域的DNS服务器IP</li>
 <li>最终，本地DNS服务器获取到<code>“en.wikipedia.org”</code>域的服务器IP，并返回给本机</li>
 </ul>
-<p>当然通过<code>dig +trace en.wikipedia.org</code>（在下文中会介绍<code>dig</code>工具常用的使用），你也能清晰地看到这个完整的过程：<br><img src="assets/3955908f-6d70-4cce-9aa8-2722cc4f88a2.png" alt=""></p>
+<p>当然通过<code>dig +trace en.wikipedia.org</code>（在下文中会介绍<code>dig</code>工具常用的使用），你也能清晰地看到这个完整的过程：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/3955908f-6d70-4cce-9aa8-2722cc4f88a2.png" alt=""></p>
 <p><strong>再次强调：<code>向根服务器请求“.org”域的DNS服务器IP</code>、<code>向“.org”域DNS服务器请求“wikipedia.org”域的DNS服务器IP</code>和 <code>向“wikipedia.org”域DNS服务器请求“en.wikipedia.org”域的DNS服务器IP</code> 的这三个过程都是在本地DNS服务器上完成，对于本机来说是透明的。</strong></p>
 <h2 id="3-DNS的查询类型"><a href="#3-DNS的查询类型" class="headerlink" title="3 DNS的查询类型"></a>3 DNS的查询类型</h2><h3 id="（1）递归查询"><a href="#（1）递归查询" class="headerlink" title="（1）递归查询"></a>（1）递归查询</h3><p><code>主机向本地DNS服务器的查询</code>一般都是采用<strong>递归查询</strong>。</p>
 <p>所谓<strong>递归查询</strong>就是：如果主机所询问的<code>本地DNS服务器</code>不知道被查询的域名的IP地址，那么<code>本地DNS服务器</code>就从<code>根域名服务器</code>开始发出查询请求，直至<strong>查询到目标IP地址</strong>，或者<strong>报错（表示无法查询到所需的IP地址）</strong>。</p>
@@ -299,10 +299,10 @@ var _hmt = _hmt || [];
 <p><strong>迭代查询</strong>的特点：当<code>根域名服务器</code>收到本地DNS服务器发出的查询请求报文时，要么<strong>给出所要查询的IP地址</strong>，要么<strong>告诉本地DNS服务器：“你下一步应当向哪一个域名服务器（暂且称为<code>A权威域名服务器</code>）进行查询，并给出该<code>A权威域名服务器</code>的IP”</strong>。
 如果本地DNS服务器接收到的是<code>A权威域名服务器</code>的IP，就向它发出查询请求。类似地，<code>A权威域名服务器</code>在收到本地DNS服务器的查询请求后，要么给出所要查询的IP地址，要么告诉本地服务器下一步应当向哪一个下级的权限域名服务器进行查询……<br>最终，本地DNS服务器要么查询到目标IP地址，要么报错。</p>
 <h1 id="四-域名解析设置"><a href="#四-域名解析设置" class="headerlink" title="四 域名解析设置"></a>四 域名解析设置</h1><p>在一个域名的解析设置中，存在一些参数可供设置。</p>
-<p>以下是一个域名的解析设置（仅供参考）：<br><img src="assets/96fee272-8472-4804-998b-d8d851a57ed9.jpg" alt=""></p>
+<p>以下是一个域名的解析设置（仅供参考）：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/96fee272-8472-4804-998b-d8d851a57ed9.jpg" alt=""></p>
 <h2 id="1-常见的域名记录类型"><a href="#1-常见的域名记录类型" class="headerlink" title="1 常见的域名记录类型"></a>1 常见的域名记录类型</h2><h3 id="（1）主机记录（A记录）"><a href="#（1）主机记录（A记录）" class="headerlink" title="（1）主机记录（A记录）"></a>（1）主机记录（A记录）</h3><p>用于名称解析的重要记录，它将<strong>特定的主机名</strong>映射到<strong>对应主机的IPv4地址</strong>上，是最常用的的记录类型。</p>
 <p>比如，这里把<code>en</code>主机（对应<code>en.wikipedia.org</code>域名）映射到<code>198.35.26.96</code>这个IP。因此，我们输入<code>en.wikipedia.org</code>本质上是访问了<code>198.35.26.96</code>：</p>
-<p><img src="assets/f16dc409-bc75-4251-8905-49dda8f58f4a.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/f16dc409-bc75-4251-8905-49dda8f58f4a.png" alt=""></p>
 <h3 id="（2）IPv6主机记录（AAAA记录）"><a href="#（2）IPv6主机记录（AAAA记录）" class="headerlink" title="（2）IPv6主机记录（AAAA记录）"></a>（2）IPv6主机记录（AAAA记录）</h3><p>与A记录对应，用于将特定的<strong>主机名</strong>映射到一个<strong>主机的IPv6地址</strong>。</p>
 <h3 id="（3）域名服务器记录（NS记录）"><a href="#（3）域名服务器记录（NS记录）" class="headerlink" title="（3）域名服务器记录（NS记录）"></a>（3）域名服务器记录（NS记录）</h3><p>用于指定此域名由哪个权威DNS服务器来进行解析。</p>
 <blockquote>
@@ -335,7 +335,7 @@ var _hmt = _hmt || [];
 <h1 id="六-WHOIS"><a href="#六-WHOIS" class="headerlink" title="六 WHOIS"></a>六 WHOIS</h1><p>通过WHOIS，你可以查询到<strong>这个域名的所有者信息</strong>。</p>
 <p>对于大多数<a href="https://zh.wikipedia.org/w/index.php?title=%E6%A0%B9%E5%9F%9F%E5%90%8D%E4%BC%BA%E6%9C%8D%E5%99%A8%E5%88%97%E8%A1%A8&action=edit&redlink=1" target="_blank" rel="noopener">根域名服务器</a>，基本的WHOIS由<a href="https://zh.wikipedia.org/wiki/ICANN" target="_blank" rel="noopener">ICANN</a>维护，而WHOIS的细节则由<strong>控制那个域的域注册机构</strong>维护。</p>
 <p>对于240多个国家代码顶级域名（ccTLDs），通常由该域名权威注册机构负责维护WHOIS。例如<a href="https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%81%AF%E4%B8%AD%E5%BF%83" target="_blank" rel="noopener">中国互联网络信息中心</a>（China Internet Network Information Center）负责.CN域名的WHOIS维护，<a href="https://zh.wikipedia.org/wiki/%E9%A6%99%E6%B8%AF%E4%BA%92%E8%81%AF%E7%B6%B2%E8%A8%BB%E5%86%8A%E7%AE%A1%E7%90%86%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8" target="_blank" rel="noopener">香港互联网注册管理有限公司</a>（Hong Kong Internet Registration Corporation Limited）负责.HK域名的WHOIS维护，<a href="https://zh.wikipedia.org/w/index.php?title=%E5%8F%B0%E7%81%A3%E7%B6%B2%E7%B5%A1%E8%B3%87%E8%A8%8A%E4%B8%AD%E5%BF%83&action=edit&redlink=1" target="_blank" rel="noopener">台湾网络信息中心</a>（Taiwan Network Information Center）负责.TW域名的WHOIS维护。</p>
-<p>比如，我可以查看<code>baidu.com</code>的所有者信息：<br><img src="assets/f2bf2730-3944-482b-9e0d-a2fa5fb46444.png" alt=""></p>
+<p>比如，我可以查看<code>baidu.com</code>的所有者信息：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/f2bf2730-3944-482b-9e0d-a2fa5fb46444.png" alt=""></p>
 <h1 id="七-参考"><a href="#七-参考" class="headerlink" title="七 参考"></a>七 参考</h1><ul>
 <li>《图解HTTP》</li>
 <li><a href="https://en.wikipedia.org/wiki/Domain_Name_System" target="_blank" rel="noopener">Wikipedia -Domain Name System</a></li>
@@ -677,11 +677,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -781,15 +781,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -797,15 +793,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -817,11 +817,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -829,11 +829,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

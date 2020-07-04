@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="今天分享一下Git中一个非常重要的文件.gitignore，这个文件用来定义哪些文件或文件夹，Git不需要跟踪，从而也不需要将这些文件添加到版本管理中。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【Git】Git之忽略文件（gitignore）/assets/6b0a3a25-0fe1-4f6d-b3e4-650efdfd5f09.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/6b0a3a25-0fe1-4f6d-b3e4-650efdfd5f09.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Git】 Git之忽略文件（gitignore）">
 <meta name="twitter:description" content="今天分享一下Git中一个非常重要的文件.gitignore，这个文件用来定义哪些文件或文件夹，Git不需要跟踪，从而也不需要将这些文件添加到版本管理中。">
-<meta name="twitter:image" content="http://swsmile.info/2017/04/03/【Git】Git之忽略文件（gitignore）/assets/6b0a3a25-0fe1-4f6d-b3e4-650efdfd5f09.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/6b0a3a25-0fe1-4f6d-b3e4-650efdfd5f09.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -328,7 +328,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- .gitignore</span><br><span class="line">- a-folder</span><br><span class="line"> - .gitignore</span><br><span class="line"> - file.txt</span><br></pre></td></tr></table></figure>
 
 <p>其中，在根目录下的<code>.gitignore</code>中定义<code>file.txt</code>（即忽略<code>file.txt</code>），在<code>a-folder</code>文件夹的<code>.gitignore</code>中定义<code>!file.txt</code>（即不忽略<code>file.txt</code>）。</p>
-<p><img src="assets/6b0a3a25-0fe1-4f6d-b3e4-650efdfd5f09.png" alt=""><br>通过<code>git status</code>，我们发现该<code>file.txt</code>是会被<code>git</code>跟踪的，其实是因为<code>a-folder</code>文件夹的<code>.gitignore</code>中定义的<code>!file.txt</code>重写了根目录下的<code>.gitignore</code>中定义的<code>file.txt</code>忽略规则。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/6b0a3a25-0fe1-4f6d-b3e4-650efdfd5f09.png" alt=""><br>通过<code>git status</code>，我们发现该<code>file.txt</code>是会被<code>git</code>跟踪的，其实是因为<code>a-folder</code>文件夹的<code>.gitignore</code>中定义的<code>!file.txt</code>重写了根目录下的<code>.gitignore</code>中定义的<code>file.txt</code>忽略规则。</p>
 <h1 id="六-注意"><a href="#六-注意" class="headerlink" title="六.注意"></a>六.注意</h1><h3 id="1-尽量在Project创立之初，就定义好-gitignore"><a href="#1-尽量在Project创立之初，就定义好-gitignore" class="headerlink" title="1. 尽量在Project创立之初，就定义好.gitignore"></a>1. 尽量在Project创立之初，就定义好<code>.gitignore</code></h3><p>最后需要强调的一点是，如果你在将<strong>对应某个文件或文件夹的过滤规则</strong>添加到<code>.gitignore</code>之前，就将<strong>这个文件或文件夹</strong> <code>git push</code>到了远端 repository，那么即使你在<code>.gitignore</code>中添加这些过滤规则，<strong>这些规则也不会起作用</strong>，<code>Git</code>仍然会对这些文件或者文件夹进行版本管理。</p>
 <p>因此，我们<strong>尽量在Project创立之初，就定义好<code>.gitignore</code></strong>。如果在之后的开发过程中，因为新增加了某些文件，而需要增加了新的过滤规则，要保证这些文件在创建之初，就在<code>.gitignore</code>中增加对应的过滤规则。而不是在<code>git push</code>这些文件后，才想起来要修改<code>.gitignore</code>。</p>
 <h3 id="2-已经被tracked的文件设置-gitignore无效"><a href="#2-已经被tracked的文件设置-gitignore无效" class="headerlink" title="2.已经被tracked的文件设置.gitignore无效"></a>2.已经被tracked的文件设置<code>.gitignore</code>无效</h3><p><code>.gitignore</code>规则仅对未被跟踪（tracked）的文件有效，跟踪（tracked）文件包括被暂存（staged）的文件（即该文件已经被<code>git add</code>了，但没有<code>git commit</code>），和被<code>git commit</code>的文件。</p>
@@ -675,11 +675,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -779,15 +779,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -795,15 +791,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,11 +815,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -827,11 +827,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

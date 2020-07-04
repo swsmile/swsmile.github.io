@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="1.ARMARM处理器，因为其低功耗和小尺寸而闻名，几乎所有的手机处理器都基于ARM，其在嵌入式系统中的应用非常广泛，它的性能在同等功耗产品中也很出色。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/04/30/【iOS】Apple移动设备处理器指令集与XCode指令集相关设置/assets/a1af261d-76c0-407b-8d3a-6dac6e5de0c1.jpg">
-<meta property="og:image" content="http://swsmile.info/2017/04/30/【iOS】Apple移动设备处理器指令集与XCode指令集相关设置/assets/074e5007-9adc-4774-a4e6-efacea051154.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/30/【iOS】Apple移动设备处理器指令集与XCode指令集相关设置/assets/54cf806e-90e6-4637-8b92-9603857fc69e.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1af261d-76c0-407b-8d3a-6dac6e5de0c1.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/074e5007-9adc-4774-a4e6-efacea051154.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/54cf806e-90e6-4637-8b92-9603857fc69e.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【iOS】 Apple移动设备处理器指令集与Xcode指令集相关设置">
 <meta name="twitter:description" content="1.ARMARM处理器，因为其低功耗和小尺寸而闻名，几乎所有的手机处理器都基于ARM，其在嵌入式系统中的应用非常广泛，它的性能在同等功耗产品中也很出色。">
-<meta name="twitter:image" content="http://swsmile.info/2017/04/30/【iOS】Apple移动设备处理器指令集与XCode指令集相关设置/assets/a1af261d-76c0-407b-8d3a-6dac6e5de0c1.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1af261d-76c0-407b-8d3a-6dac6e5de0c1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -220,11 +220,11 @@ var _hmt = _hmt || [];
 <p>ARMv6、ARMv7、ARMv7s、ARM64都是ARM处理器的<code>指令集</code>，<strong>所有指令集原则上都是<code>向下兼容的</code></strong>。</p>
 <p>如 iPhone4S 的CPU默认指令集为ARMv7指令集，但iPhone4S 的 CPU 同时也兼容ARMv6指令集（也就是，只包含 ARMv6 指令集的.ipa同样也可以运行在 iPhone4S 上）。只是使用 ARMv6 指令集运行时无法充分发挥其性能，即无法使用ARMv7指令集中的新特性。<br>同理，iPhone5的处理器标配 ARMv7s 指令集，同时也支持 ARMv7 指令集，只是无法进行相关的性能优化，从而导致程序的执行效率没那么高。</p>
 <p>需要注意的是iOS模拟器没有运行ARM指令集，编译运行的是x86指令集，所以，只有在iOS设备上，才会执行设备对应的ARM指令集。</p>
-<h1 id="2-设备默认指令集"><a href="#2-设备默认指令集" class="headerlink" title="2.设备默认指令集"></a>2.设备默认指令集</h1><p><img src="assets/a1af261d-76c0-407b-8d3a-6dac6e5de0c1.jpg" alt=""></p>
+<h1 id="2-设备默认指令集"><a href="#2-设备默认指令集" class="headerlink" title="2.设备默认指令集"></a>2.设备默认指令集</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1af261d-76c0-407b-8d3a-6dac6e5de0c1.jpg" alt=""></p>
 <blockquote>
 <p>从 iPhone 6之后出的iPhone、iPad、iPod touch均为arm64架构。</p>
 </blockquote>
-<h1 id="3-Xcode中与指令集相关的选项"><a href="#3-Xcode中与指令集相关的选项" class="headerlink" title="3.Xcode中与指令集相关的选项"></a>3.Xcode中与指令集相关的选项</h1><p><strong>【Xcode】 - 【Build Setting】中指令集相关设置：</strong><br><img src="assets/074e5007-9adc-4774-a4e6-efacea051154.png" alt=""></p>
+<h1 id="3-Xcode中与指令集相关的选项"><a href="#3-Xcode中与指令集相关的选项" class="headerlink" title="3.Xcode中与指令集相关的选项"></a>3.Xcode中与指令集相关的选项</h1><p><strong>【Xcode】 - 【Build Setting】中指令集相关设置：</strong><br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/074e5007-9adc-4774-a4e6-efacea051154.png" alt=""></p>
 <p><strong>常用的架构项：</strong></p>
 <ul>
 <li>armv7</li>
@@ -265,7 +265,7 @@ var _hmt = _hmt || [];
 </ul>
 <p><strong>原因其实是，我的项目被设置为最终编译时包含某种指令集对应的二进制代码，然而这个第三方.a库中并没有包含这种特定的指令集。</strong></p>
 <h4 id="（5）总结"><a href="#（5）总结" class="headerlink" title="（5）总结"></a>（5）总结</h4><p><strong>说了这么多，或许你不想了解这么多细节，只希望知道【最佳实践的设置】，结论如下：</strong></p>
-<p><strong>（1）对于普通 App 开发者，<code>Architectures</code>、<code>Valid Architectures</code>、<code>Build Active Architecture Only</code>的设置按项目初始时的默认设置即可，不要修改他们。默认值如下：</strong><br><img src="assets/54cf806e-90e6-4637-8b92-9603857fc69e.png" alt=""></p>
+<p><strong>（1）对于普通 App 开发者，<code>Architectures</code>、<code>Valid Architectures</code>、<code>Build Active Architecture Only</code>的设置按项目初始时的默认设置即可，不要修改他们。默认值如下：</strong><br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/54cf806e-90e6-4637-8b92-9603857fc69e.png" alt=""></p>
 <p><strong>（2）对于第三方库的开发者，需要保证在<code>.a</code> or <code>.framework</code>中包含 ARMv7、ARMv7s、ARM64 3种指令集对应的二进制代码。</strong></p>
 <h1 id="4-参考"><a href="#4-参考" class="headerlink" title="4.参考"></a>4.参考</h1><ul>
 <li><a href="http://www.cocoachina.com/ios/20140915/9620.html" target="_blank" rel="noopener">Apple移动设备处理器指令集 armv6、armv7、armv7s及arm64</a></li>
@@ -610,11 +610,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,15 +714,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +726,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,11 +750,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,11 +762,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

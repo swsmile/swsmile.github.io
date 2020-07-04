@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="注意两阶段锁（Two-phase locking，2PL）需要和两阶段提交（Two-phase commit）区别开来。 两阶段锁（Two-phase locking，2PL）主要用于单机事务中的一致性与隔离性；而两阶段提交（Two-phase commit）主要用于分布式事务。  什么是两阶段加锁（Two-phase locking，2PL）在一个事务中，分为加锁阶段（也称为增长阶段，expa">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/21/【Database】两阶段锁/assets/image-20190221152346426.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/21/【Database】两阶段锁/assets/image-20190221152441762.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190221152346426.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190221152441762.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Database】两阶段锁（Two-phase locking）">
 <meta name="twitter:description" content="注意两阶段锁（Two-phase locking，2PL）需要和两阶段提交（Two-phase commit）区别开来。 两阶段锁（Two-phase locking，2PL）主要用于单机事务中的一致性与隔离性；而两阶段提交（Two-phase commit）主要用于分布式事务。  什么是两阶段加锁（Two-phase locking，2PL）在一个事务中，分为加锁阶段（也称为增长阶段，expa">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/21/【Database】两阶段锁/assets/image-20190221152346426.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190221152346426.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,7 +224,7 @@ var _hmt = _hmt || [];
 </ul>
 <a id="more"></a> 
 
-<p><img src="assets/image-20190221152346426.png" alt="image-20190221152346426"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190221152346426.png" alt="image-20190221152346426"></p>
 <p>这意味着，不管<strong>同一个事务内</strong>需要在多少个数据项上加锁，所有的加锁操作都只能在加锁阶段（增长阶段）完成。在这个阶段内，不允许对已经加锁的数据项进行解锁操作。同时，在加锁完成后，也只能在解锁阶段（缩减阶段）对所有数据项进行解锁。当解锁阶段结束后，所有持有的锁都已经被释放。</p>
 <p>对于任何一个数据项而言，分为两种锁：</p>
 <ul>
@@ -261,7 +261,7 @@ var _hmt = _hmt || [];
 <p>引入两阶段加锁是为了在保证事务的隔离性（即多个事务在并发的情况下等同于串行的执行）去前提下，尽可能的提高事务的并发度。</p>
 <p><strong>为了提高并发度，才对锁进行分类</strong>，分出共享锁（读锁）和排它锁（写锁），因这两种类型的锁，又产生加两种锁共四种事务之间受影响的情况：</p>
 <h2 id="严格的两阶段锁（Strict-two-phase-locking）"><a href="#严格的两阶段锁（Strict-two-phase-locking）" class="headerlink" title="严格的两阶段锁（Strict two-phase locking）"></a>严格的两阶段锁（Strict two-phase locking）</h2><p>在实际情况下，SQL是千变万化、条数不定的，数据库很难在事务中判定什么是加锁阶段，什么是解锁阶段。于是引入了 Strict-2PL（S2PL）即：在事务中只有<strong>提交（commit）</strong>或者<strong>回滚（rollback）</strong>时才是解锁阶段，其余时间为加锁阶段。</p>
-<p><img src="assets/image-20190221152441762.png" alt="image-20190221152441762"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190221152441762.png" alt="image-20190221152441762"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>MySql-两阶段加锁协议 - <a href="https://yq.aliyun.com/articles/626848" target="_blank" rel="noopener">https://yq.aliyun.com/articles/626848</a></li>
 <li>浅谈数据库并发控制 - 锁和 MVCC - <a href="https://juejin.im/entry/59dc7a3ff265da430c10c623" target="_blank" rel="noopener">https://juejin.im/entry/59dc7a3ff265da430c10c623</a></li>
@@ -601,11 +601,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,15 +705,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,15 +717,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -741,11 +741,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,11 +753,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

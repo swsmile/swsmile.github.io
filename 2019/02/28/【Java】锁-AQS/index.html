@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="引言在 JDK1.5 之前，一般是靠 synchronized 关键字来实现线程对共享变量的互斥访问。synchronized是在字节码上加指令，依赖于底层操作系统的Mutex Lock实现。 而从JDK1.5以后，Java界的一位大神—— Doug Lea 开发了AbstractQueuedSynchronizer（AQS）组件，使用原生Java代码实现了synchronized语义。换句话说，">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/28/【Java】锁-AQS/assets/Jietu20190712-125829.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/28/【Java】锁-AQS/assets/image-20190712125439442.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/28/【Java】锁-AQS/assets/image-20190712125455950.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190712-125829.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712125439442.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712125455950.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】锁 - AQS">
 <meta name="twitter:description" content="引言在 JDK1.5 之前，一般是靠 synchronized 关键字来实现线程对共享变量的互斥访问。synchronized是在字节码上加指令，依赖于底层操作系统的Mutex Lock实现。 而从JDK1.5以后，Java界的一位大神—— Doug Lea 开发了AbstractQueuedSynchronizer（AQS）组件，使用原生Java代码实现了synchronized语义。换句话说，">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/28/【Java】锁-AQS/assets/Jietu20190712-125829.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190712-125829.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,7 +224,7 @@ var _hmt = _hmt || [];
 <p>CAS通过调用JNI（Java Native Interface）调用实现的。JNI允许java调用其他语言，而CAS就是借助C语言来调用CPU底层指令实现的。Unsafe是CAS的核心类，它提供了硬件级别的原子操作</p>
 <p>Doug Lea大神在java同步器中大量使用了CAS技术，鬼斧神工的实现了多线程执行的安全性。CAS不仅在AQS的实现中随处可见，也是整个java.util.concurrent包的基石。</p>
 <p>AQS，非阻塞数据结构和原子变量类（java.util.concurrent.atomic包中的类），这些concurrent包中的基础类都是使用这种模式来实现的，而concurrent包中的高层类又是依赖于这些基础类来实现的。从整体来看，concurrent包的实现示意图如下：</p>
-<p><img src="assets/Jietu20190712-125829.png" alt="Jietu20190712-125829"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190712-125829.png" alt="Jietu20190712-125829"></p>
 <p><strong>在Java中，<code>sun.misc.Unsafe</code> 类提供了硬件级别的原子操作来实现这个CAS。 <code>java.util.concurrent</code> 包下的大量类都使用了这个 <code>Unsafe.java</code> 类的CAS操作。</strong></p>
 <a id="more"></a> 
 
@@ -242,12 +242,12 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LockDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">            Thread thread = <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">10000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    lock.unlock();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            thread.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>实例代码中开启了5个线程，先获取锁之后再睡眠10S中，实际上这里让线程睡眠是想模拟出当线程无法获取锁时进入同步队列的情况。通过debug，当Thread-4（在本例中最后一个线程）获取锁失败后进入同步时，AQS时现在的同步队列如图所示：</p>
-<p><img src="assets/image-20190712125439442.png" alt="image-20190712125439442"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712125439442.png" alt="image-20190712125439442"></p>
 <p>Thread-0先获得锁后进行睡眠，其他线程（Thread-1,Thread-2,Thread-3,Thread-4）获取锁失败进入同步队列，同时也可以很清楚的看出来每个节点有两个域：prev(前驱)和next(后继)，并且每个节点用来保存获取同步状态失败的线程引用以及等待状态等信息。另外AQS中有两个重要的成员变量：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Node head;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Node tail;</span><br></pre></td></tr></table></figure>
 
 <p>也就是说AQS实际上通过头尾指针来管理同步队列，同时实现包括获取锁失败的线程进行入队，释放锁时对同步队列中的线程进行通知等核心方法。其示意图如下：</p>
-<p><img src="assets/image-20190712125455950.png" alt="image-20190712125455950"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712125455950.png" alt="image-20190712125455950"></p>
 <p>通过对源码的理解以及做实验的方式，现在我们可以清楚的知道这样几点：</p>
 <ol>
 <li><strong>节点的数据结构，即AQS的静态内部类Node,节点的等待状态等信息</strong>；</li>
@@ -592,11 +592,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,15 +696,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,15 +708,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,11 +732,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -744,11 +744,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -16,18 +16,18 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="进程（Process）进程的概念进程（Process）是操作系统管理资源的基本单元。 一个进程对应有一块（内存）地址空间（address space），进程可以对这块自己的地址空间进行任意的读写，这块地址空间中包括可以执行的程序（executable program）代码区、数据区（program’s data）和栈（stack）。 同时，操作系统会维护一个进程表（process table），进">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190122171020849.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190213114909356.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202171450904.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202205856075.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202212244135.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202214223407.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190202221846481.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190122171020849.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213114909356.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202171450904.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202205856075.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202212244135.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202214223407.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202221846481.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.391Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Operating System】进程 - 进程与线程">
 <meta name="twitter:description" content="进程（Process）进程的概念进程（Process）是操作系统管理资源的基本单元。 一个进程对应有一块（内存）地址空间（address space），进程可以对这块自己的地址空间进行任意的读写，这块地址空间中包括可以执行的程序（executable program）代码区、数据区（program’s data）和栈（stack）。 同时，操作系统会维护一个进程表（process table），进">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/14/【Operating-System】进程-进程与线程/assets/image-20190122171020849.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190122171020849.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -232,7 +232,7 @@ var _hmt = _hmt || [];
 <p>运行（Running）和就绪（Ready）是类似的，只是处于就绪情况时，暂时地没有可用的CPU时间片。当CPU有可用的时间片时，进程调度器（Process Schuduler）会将这个进程从就绪态切换为运行态。</p>
 <p>阻塞（Blocked）与上面两种状态有本质上的不同，即使这时CPU空闲没有其他任务，这个进程也由于要等待依赖事件的发生而不能被运行。</p>
 <h2 id="进程状态状态机（State-machine）"><a href="#进程状态状态机（State-machine）" class="headerlink" title="进程状态状态机（State machine）"></a>进程状态状态机（State machine）</h2><p>下图是这三种状态变化的状态机（State Machine）：</p>
-<p><img src="assets/image-20190122171020849.png" alt="image-20190122171020849"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190122171020849.png" alt="image-20190122171020849"></p>
 <h3 id="状态迁移1"><a href="#状态迁移1" class="headerlink" title="状态迁移1"></a>状态迁移1</h3><p>当一个进程读取管道（pipe）或者特定文件，且此时还没有完成数据的获取时，进程会自动从运行态切换为阻塞态（发生状态迁移1）。</p>
 <h3 id="状态迁移2和状态迁移3"><a href="#状态迁移2和状态迁移3" class="headerlink" title="状态迁移2和状态迁移3"></a>状态迁移2和状态迁移3</h3><p>状态迁移2和状态迁移3由<strong>进程调度器（Process Scheduler）</strong>触发，进程调度器是操作系统的一部分，而进程调度器对进程来说是透明的（进程不会意思到它的存在）。</p>
 <p>当进程调度器认为一个正在运行的进程已经执行了足够长的时间，是时候到其他进程来占用CPU时间了，进程调度器就会将这个进程从运行态切换为就绪态（发生状态迁移2）。</p>
@@ -249,10 +249,10 @@ var _hmt = _hmt || [];
 <p>而修改竞态资源（共享数据区）的代码块，就称为<strong>临界区（critical section）</strong>。</p>
 <h2 id="共享缓存问题（Shared-Buffer-Problem）"><a href="#共享缓存问题（Shared-Buffer-Problem）" class="headerlink" title="共享缓存问题（Shared Buffer Problem）"></a>共享缓存问题（Shared Buffer Problem）</h2><p>共享缓存问题（Shared Buffer Problem）是一个典型的数据不一致性（Data Inconsistency）例子。</p>
 <p>一天，爸爸发现儿子的账号里只有100美元，于是决定存入50美元给儿子。而正在此时，儿子正在取钱，他打算取20美元（取钱后账号应该剩80美元）。</p>
-<p><img src="assets/image-20190213114909356.png" alt="image-20190213114909356"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190213114909356.png" alt="image-20190213114909356"></p>
 <p>由于爸爸和儿子的操作同时进行，而且进行操作账号时没锁（Lock），最终可能出现他们操作之后，账号的余额为150美元。</p>
 <p><strong>使用汇编语言来描述这个过程：</strong></p>
-<p><img src="assets/image-20190202171450904.png" alt="image-20190202171450904"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202171450904.png" alt="image-20190202171450904"></p>
 <p>我们需要引入<strong>互斥（mutual exclusion）机制</strong>，以避免多个进程同时进入临界区，最终避免<strong>数据不一致性（Data Inconsistency）</strong>的发生。</p>
 <p>互斥机制从本质来说，是一种同步（synchronization）机制。</p>
 <h3 id="进程间通信方式"><a href="#进程间通信方式" class="headerlink" title="进程间通信方式"></a>进程间通信方式</h3><p>进程间通信可以通过以下几种方式：</p>
@@ -311,14 +311,14 @@ var _hmt = _hmt || [];
 <hr>
 <p>下面我们来看一个具体的例子：</p>
 <p>就拿我写博客的LiveWriter来说，LiveWriter需要监听我打字输入的状态，还需要每隔5分钟对草稿进行自动保存。假设如果这个进程只有一个线程的话，那么当对草稿进行保存时，因为此时需要访问硬盘，而访问硬盘的时间线程是阻塞状态的，这时我的任何输入都会没有响应，这种用户体验是无法接受的，或许我们可以通过键盘或者鼠标的输入去中断保存草稿的过程，但这种方案也并不讨好。而使用多线程，每个线程仅仅需要处理自己那一部分应该完成的任务，而不用去关心和其它线程的冲突。因此简化了编程模型。如下图所示。</p>
-<p><img src="assets/image-20190202205856075.png" alt="image-20190202205856075"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202205856075.png" alt="image-20190202205856075"></p>
 <p>这里值得注意的是，上面的两个线程如果改成两个进程，那么达不到所要的效果，<strong>因为进程有自己独立的内存地址空间，而线程共享进程的内存地址空间。</strong></p>
 <h2 id="经典的线程模型"><a href="#经典的线程模型" class="headerlink" title="经典的线程模型"></a>经典的线程模型</h2><p>一个进程模型通常包含两个事务：资源的组织（grouping）和执行（execution）。在过去没有线程的操作系统中，资源的组织和执行都是由进程统一完成的。换句话说，完成一个任务所用到的数据资源和这个任务的执行都由一个进程管理。</p>
 <p>当引入线程后，对于资源执行的管理粒度更细了，即进程对完成一个任务所用到的数据资源进行管理（通过存储在同一块内存区域）；而由进程中的线程来负责具体资源的执行，线程共享资源的组织（即一个进程中的多个线程均可访问进程的资源）。</p>
 <p>线程，是每一个进程中执行的一个条线。线程虽然共享进程中的大多数资源，但线程也需要自己的一些资源，比如：用于标识下一条执行指令的程序计数器（Program Counter），一些容纳局部变量的寄存器（Register），以及用于记录执行历史的栈（Stack）。</p>
 <p><strong>总而言之：进程是组织资源的最小单位，而线程是安排CPU执行的最小单位。</strong></p>
 <p>我们来看一个例子，在 (a) 中，有三个进程，每个进程拥有自己的内存地址空间（address space）和一个单独的线程；而在 (b) 中，只有一个进程，这个进程中包含三个线程，且这三个线程共享同一块内存地址空间。</p>
-<p><img src="assets/image-20190202212244135.png" alt="image-20190202212244135"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202212244135.png" alt="image-20190202212244135"></p>
 <p><strong>每一个进程和线程所独自占有的资源如下所示：</strong></p>
 <ul>
 <li>进程占有的资源<ul>
@@ -341,7 +341,7 @@ var _hmt = _hmt || [];
 </ul>
 <p>线程与进程拥有完全相同的状态：运行（running）、阻塞（blocked）、就绪（ready）和停止（terminated）。</p>
 <p>另外，每一个线程都拥有独立的栈（stack），如下图所示。在栈中，包含多个frame，每一个frame都对应一个被调用但未被返回的方法。在每一个frame中，包含这个方法的局部变量表（local variables）和这个方法的返回地址。</p>
-<p><img src="assets/image-20190202214223407.png" alt="image-20190202214223407"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202214223407.png" alt="image-20190202214223407"></p>
 <h2 id="操作系统实现线程的几种方式"><a href="#操作系统实现线程的几种方式" class="headerlink" title="操作系统实现线程的几种方式"></a>操作系统实现线程的几种方式</h2><h3 id="在用户空间中实现线程"><a href="#在用户空间中实现线程" class="headerlink" title="在用户空间中实现线程"></a>在用户空间中实现线程</h3><p>若在用户空间（User Space）中实现线程，对内核而言，只存在包含一个单线程的进程。</p>
 <p>这样的做法最大的好处在于当操作系统不支持线程时，我们仍然可以通过库函数（Library）来支持多线程。事实上，仍然有部分现代操作系统并不支持线程。</p>
 <p>在这种模式下，在每一个进程中，都有一个自己进行管理的线程表（thread table）。</p>
@@ -352,7 +352,7 @@ var _hmt = _hmt || [];
 <p>因为在内核模式下实现进程的成本更高，一个比较好的做法是另线程回收利用，当一个线程需要被销毁时，仅仅是修改标记位，而不是直接销毁其内容，当一个新的线程需要被创建时，也同样修改被“销毁”的线程其标记位即可。</p>
 <p>这种模式下同样还是有一些弊端，比如接收系统信号的单位是进程，而不是线程，那么由进程中的哪一个线程接收系统信号呢？如果使用了表来记录，那么多个线程注册则通过哪一个线程处理系统信号？</p>
 <h3 id="混合模式"><a href="#混合模式" class="headerlink" title="混合模式"></a>混合模式</h3><p>还有一种实现方式是将上面两种模式进行混合，用户空间中进程管理自己的线程，操作系统内核中有一部分内核级别的线程，如下图所示。</p>
-<p><img src="assets/image-20190202221846481.png" alt="image-20190202221846481"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190202221846481.png" alt="image-20190202221846481"></p>
 <p>在这种模式下，操作系统只能看到内核线程。用户空间线程基于操作系统线程运行。因此，程序员可以决定使用多少用户空间线程以及操作系统线程，这无疑具有更大的灵活性。而用户空间线程的调度和前面所说的在用户空间下执行实现线程是一样的，同样可以自定义实现。</p>
 <h1 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h1><blockquote>
 <p> 谈了这么多，我们来总结一下进程与线程的区别。</p>
@@ -702,11 +702,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,15 +806,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -822,15 +818,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -842,11 +842,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -854,11 +854,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

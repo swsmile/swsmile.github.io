@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Redis集群当面对一个小型的Demo项目时，使用一台Redis服务器己经非常足够了，然而现实中的项目通常需要若干台Redis服务器的支持：  从结构上，单个Redis服务器会发生单点故障，同时一台服务器需要承受所有的请求负载。这就需要为数据生成多个副本并分配在不同的服务器上： 从容量上，单个Redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。  同时拥有多个Redis服务器后就会面">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/05/07/【Redis】Redis-集群/assets/image-20190118123456671.png">
-<meta property="og:image" content="http://swsmile.info/2020/05/07/【Redis】Redis-集群/assets/image-20190118123728988.png">
-<meta property="og:image" content="http://swsmile.info/2020/05/07/【Redis】Redis-集群/assets/image-20190101200434738-6344274.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123456671.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123728988.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190101200434738-6344274.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Redis】Redis 集群">
 <meta name="twitter:description" content="Redis集群当面对一个小型的Demo项目时，使用一台Redis服务器己经非常足够了，然而现实中的项目通常需要若干台Redis服务器的支持：  从结构上，单个Redis服务器会发生单点故障，同时一台服务器需要承受所有的请求负载。这就需要为数据生成多个副本并分配在不同的服务器上： 从容量上，单个Redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。  同时拥有多个Redis服务器后就会面">
-<meta name="twitter:image" content="http://swsmile.info/2020/05/07/【Redis】Redis-集群/assets/image-20190118123456671.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123456671.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
 <h1 id="复制（replication）"><a href="#复制（replication）" class="headerlink" title="复制（replication）"></a>复制（replication）</h1><p>通过持久化功能，Redis保证了即使在服务器重启的情况下也不会损失（或少量损失） 数据。但是由于数据是存储在一台服务器上的，如果这台服务器出现硬盘故障等问题，也会导致数据丢失。</p>
 <p>为了避免<strong>单点故障</strong>，通常的做法是将数据库复制多个副本以部署在不同的服务器上，这样即使有一台服务器出现故障，其他服务器依然可以继续提供服务。</p>
 <p>为此， Redis提供了复制（replication）功能，可以实现当主数据库（master）中的数据更新后（进行了写操作），自动将更新的数据同步到所有的从数据库（slave）上。但不支持主主复制。</p>
-<p><img src="assets/image-20190118123456671.png" alt="image-20190118123456671"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123456671.png" alt="image-20190118123456671"></p>
 <p>See <a href="https://redis.io/topics/replication" target="_blank" rel="noopener">https://redis.io/topics/replication</a> for more details.</p>
 <h2 id="一致性保证（Consistency-Guarantees）"><a href="#一致性保证（Consistency-Guarantees）" class="headerlink" title="一致性保证（Consistency Guarantees）"></a>一致性保证（Consistency Guarantees）</h2><p>Synchronous replication of certain data can be requested by the clients using the <a href="https://redis.io/commands/wait" target="_blank" rel="noopener">WAIT</a> command. </p>
 <p>However <a href="https://redis.io/commands/wait" target="_blank" rel="noopener">WAIT</a> is only able to ensure that there are the specified number of acknowledged copies in the other Redis instances, it does not turn a set of Redis instances into a CP system with strong consistency: acknowledged writes can still be lost during a failover, depending on the exact configuration of the Redis persistence. However with <a href="https://redis.io/commands/wait" target="_blank" rel="noopener">WAIT</a> the probability of losing a write after a failure event is greatly reduced to certain hard to trigger failure modes.</p>
@@ -267,9 +267,9 @@ var _hmt = _hmt || [];
 </ul>
 <p>See <a href="https://redis.io/topics/sentinel" target="_blank" rel="noopener">https://redis.io/topics/sentinel</a> for more details.</p>
 <p>哨兵是一个独立的进程，使用哨兵的一个典型架构如下图所示。</p>
-<p><img src="assets/image-20190118123728988.png" alt="image-20190118123728988"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123728988.png" alt="image-20190118123728988"></p>
 <p>在一个一主多从的Redis系统中，可以使用<strong>多个哨兵</strong>进行监控任务以保证系统足够稳健， 如下图所示。注意，此时不仅哨兵会同时监控主数据库和从数据库哨兵之间也会互相监控。</p>
-<p><img src="assets/image-20190101200434738-6344274.png" alt="image-20190101200434738"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190101200434738-6344274.png" alt="image-20190101200434738"></p>
 <h2 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
 <li>Redis Sentinel 集群部署简单；</li>
 <li>能够解决 Redis 主从模式下的高可用切换问题；</li>
@@ -639,11 +639,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,15 +743,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -759,15 +755,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -779,11 +779,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,11 +791,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

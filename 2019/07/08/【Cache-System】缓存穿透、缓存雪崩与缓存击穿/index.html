@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="缓存穿透问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308-6759541.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308-6759647.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308-6759919.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308-6759541.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308-6759647.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308-6759919.jpg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Cache System】缓存穿透、缓存雪崩与缓存击穿">
 <meta name="twitter:description" content="缓存穿透问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -216,7 +216,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="缓存穿透问题"><a href="#缓存穿透问题" class="headerlink" title="缓存穿透问题"></a>缓存穿透问题</h1><p>缓存穿透是指<strong>查询一个根本不存在的数据</strong>，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：</p>
-<p><img src="assets/Jietu20190106-151308.jpg" alt="Jietu20190106-151308"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308.jpg" alt="Jietu20190106-151308"></p>
 <ol>
 <li>缓存层不命中</li>
 <li>存储层不命中，所以不将空结果写回缓存</li>
@@ -227,14 +227,14 @@ var _hmt = _hmt || [];
 <p><strong>缓存穿透将导致不存在的数据每次请求都要到存储层去查询，失去了缓存保护后端存储的意义。</strong></p>
 <p>缓存穿透问题可能会使后端存储负载加大，由于很多后端存储不具备高并发性，甚至可能造成后端存储宕掉。通常可以在程序中分别统计总调用数、缓存层命中数、存储层命中数，如果发现大量存储层空命中，可能就是出现了缓存穿透问题。</p>
 <h2 id="缓存穿透的解决方法"><a href="#缓存穿透的解决方法" class="headerlink" title="缓存穿透的解决方法"></a><strong>缓存穿透的解决方法</strong></h2><h3 id="1）缓存空对象"><a href="#1）缓存空对象" class="headerlink" title="1）缓存空对象"></a><strong>1）缓存空对象</strong></h3><p>如下图所示，当第 2 步存储层不命中后，仍然将空对象保留到缓存层中，之后再访问这个数据将会从缓存中获取，保护了后端数据源。</p>
-<p><img src="assets/Jietu20190106-151308-6759541.jpg" alt="Jietu20190106-151308-6759541"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308-6759541.jpg" alt="Jietu20190106-151308-6759541"></p>
 <p>缓存空对象会有两个问题：</p>
 <p>第一，空值做了缓存，意味着缓存层中存了更多的键，需要更多的内存空间 ( 如果是攻击，问题更严重 )，比较有效的方法是针对这类数据设置一个较短的过期时间，让其自动剔除。</p>
 <p>第二，缓存层和存储层的数据会有一段时间窗口的不一致，可能会对业务有一定影响。例如过期时间设置为 5 分钟，如果此时存储层添加了这个数据，那此段时间就会出现缓存层和存储层数据的不一致，此时可以利用消息系统或者其他方式清除掉缓存层中的空对象。</p>
-<h3 id="2）布隆过滤器拦截"><a href="#2）布隆过滤器拦截" class="headerlink" title="2）布隆过滤器拦截"></a><strong>2）布隆过滤器拦截</strong></h3><p><img src="assets/Jietu20190106-151308-6759647.jpg" alt="Jietu20190106-151308-6759647"></p>
+<h3 id="2）布隆过滤器拦截"><a href="#2）布隆过滤器拦截" class="headerlink" title="2）布隆过滤器拦截"></a><strong>2）布隆过滤器拦截</strong></h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308-6759647.jpg" alt="Jietu20190106-151308-6759647"></p>
 <p>如上图所示，在访问缓存层和存储层之前，将存在的 key 用布隆过滤器提前保存起来，做第一层拦截。例如： 一个个性化推荐系统有 4 亿个用户 ID，每个小时算法工程师会根据每个用户之前历史行为做出来的个性化放到存储层中，但是最新的用户由于没有历史行为，就会发生缓存穿透的行为，为此可以将所有有个性化推荐数据的用户做成布隆过滤器。如果布隆过滤器认为该用户 ID 不存在，那么就不会访问存储层，在一定程度保护了存储层。</p>
 <h1 id="缓存雪崩问题"><a href="#缓存雪崩问题" class="headerlink" title="缓存雪崩问题"></a><strong>缓存雪崩问题</strong></h1><p>从下图可以很清晰出什么是缓存雪崩：<strong>由于缓存层承载着大量请求，有效的保护了存储层，但是如果缓存层由于某些原因整体不能提供服务，于是所有的请求都会达到存储层，存储层的调用量会暴增，造成存储层也会挂掉的情况。</strong> 缓存雪崩的英文原意是 stampeding herd（奔逃的野牛），指的是缓存层宕掉后，流量会像奔逃的野牛一样，打向后端存储。</p>
-<p><img src="assets/Jietu20190106-151308-6759919.jpg" alt="Jietu20190106-151308-6759919"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308-6759919.jpg" alt="Jietu20190106-151308-6759919"></p>
 <h2 id="缓存雪崩问题-1"><a href="#缓存雪崩问题-1" class="headerlink" title="缓存雪崩问题"></a>缓存雪崩问题</h2><p>预防和解决缓存雪崩问题，可以从以下三个方面进行着手。</p>
 <h3 id="1）保证缓存层服务高可用性"><a href="#1）保证缓存层服务高可用性" class="headerlink" title="1）保证缓存层服务高可用性"></a>1）保证缓存层服务高可用性</h3><p>和飞机都有多个引擎一样，如果缓存层设计成高可用的，即使个别节点、个别机器、甚至是机房宕掉，依然可以提供服务，例如前面介绍过的 Redis Sentinel 和 Redis Cluster 都实现了高可用。</p>
 <h3 id="2）-为时效时间增加随机值"><a href="#2）-为时效时间增加随机值" class="headerlink" title="2） 为时效时间增加随机值"></a>2） 为时效时间增加随机值</h3><p>一个简单且有效的方案就是将缓存失效时间分散开，比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟随机，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。</p>
@@ -579,11 +579,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -683,15 +683,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -699,15 +695,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,11 +719,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,11 +731,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

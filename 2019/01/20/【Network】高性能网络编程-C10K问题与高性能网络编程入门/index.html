@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="C10K 问题C10K是服务器应用领域很古老很出名的一个问题，大意是说单台服务器要同时支持并发 10K 量级的连接。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/01/20/【Network】高性能网络编程-C10K问题与高性能网络编程入门/assets/image-20190120130756038.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/20/【Network】高性能网络编程-C10K问题与高性能网络编程入门/assets/image-20181031120327041-7955796.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190120130756038.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120327041-7955796.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】C10K问题与高性能网络编程入门">
 <meta name="twitter:description" content="C10K 问题C10K是服务器应用领域很古老很出名的一个问题，大意是说单台服务器要同时支持并发 10K 量级的连接。">
-<meta name="twitter:image" content="http://swsmile.info/2019/01/20/【Network】高性能网络编程-C10K问题与高性能网络编程入门/assets/image-20190120130756038.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190120130756038.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -225,11 +225,11 @@ var _hmt = _hmt || [];
 <h2 id="思路一：每个进程-线程处理一个连接"><a href="#思路一：每个进程-线程处理一个连接" class="headerlink" title="思路一：每个进程/线程处理一个连接"></a>思路一：每个进程/线程处理一个连接</h2><p>这一思路最为直接，即每一个新连接到来，都为其创建一个对应的线程来处理。</p>
 <p>由于申请和销毁进程/线程都会消耗相当可观的系统资源（CPU和内存），而且大量地进行线程上下文切换会导致CPU效率不高（CPU的计算资源未得到充分利用），因此这种方案不具备良好的可扩展性。当连接数较少时，可以获得很快的响应速度。而当连接量大大增加时，响应速度会呈指数性下降。</p>
 <p>传统的Apache，Tomcat均采用这个思路进行实现。它本质上基于传统的同步阻塞I/O模型。</p>
-<p><img src="assets/image-20190120130756038.png" alt="image-20190120130756038"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190120130756038.png" alt="image-20190120130756038"></p>
 <p>因此，这一思路在服务器资源还没有富裕到足够程度的时候，是不可行的。即便资源足够富裕，效率也不够高。总之，此思路技术实现会使得资源占用过多，可扩展性差。</p>
 <h2 id="思路二：每个进程-线程同时处理多个连接"><a href="#思路二：每个进程-线程同时处理多个连接" class="headerlink" title="思路二：每个进程/线程同时处理多个连接"></a>思路二：每个进程/线程同时处理多个连接</h2><h3 id="同步非阻塞I-O模型"><a href="#同步非阻塞I-O模型" class="headerlink" title="同步非阻塞I/O模型"></a>同步非阻塞I/O模型</h3><p>在思路一中，本质上是由于线程不断被阻塞导致的效率低下。因此，很自然的联想到，是否存在一种非阻塞的调用方式呢。</p>
 <p>Linux的<code>read()</code>系统调用就为我们提供了非阻塞的调用，如下图所示：</p>
-<p><img src="assets/image-20181031120327041-7955796.png" alt="image-20181031120327041-7955796"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181031120327041-7955796.png" alt="image-20181031120327041-7955796"></p>
 <p>可以看到，用户线程需要不停地发送系统调用以获取这个I/O操作的最新状态，这个过程称为<strong>轮询（poll）</strong>。</p>
 <p>虽然用户线程不再被阻塞了，但用户线程需要不断地进行轮询，轮询过程会消耗额外的CPU资源。因此CPU的有效利用率同样不高。</p>
 <h3 id="I-O多路复用（I-O-Multiplexing）"><a href="#I-O多路复用（I-O-Multiplexing）" class="headerlink" title="I/O多路复用（I/O Multiplexing）"></a>I/O多路复用（I/O Multiplexing）</h3><p>我们希望，用户线程不需要进行不停的轮询，以避免消耗额外的CPU资源。同时，用户线程处于休眠状态（sleep），而当一个或多个文件描述符对应的I/O操作数据准备完成时，用户线程被唤醒，以去处理这些I/O操作。</p>
@@ -631,11 +631,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -735,15 +735,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,15 +747,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,11 +771,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,11 +783,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

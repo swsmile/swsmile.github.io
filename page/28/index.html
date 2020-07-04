@@ -295,7 +295,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="传统的Web开发方式"><a href="#传统的Web开发方式" class="headerlink" title="传统的Web开发方式"></a>传统的Web开发方式</h1><p>先来看看传统的web开发方式，通过对比比较容易理解什么是Microservice Architecture。和Microservice相对应的，这种方式一般被称为Monolithic（比较难传神的翻译）。所有的功能打包在一个 WAR包里，基本没有外部依赖（除了容器），部署在一个JEE容器（Tomcat，JBoss，WebLogic）里，包含了 DO/DAO，Service，UI等所有逻辑。</p>
-<p><img src="assets/image-20190731223214598.png" alt="image-20190731223214598"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223214598.png" alt="image-20190731223214598"></p>
 <p>Monolithic比较适合小项目，优点是：</p>
 <p>1、开发简单直接，集中式管理</p>
 <p>2、基本不会重复开发</p>
@@ -307,7 +307,7 @@ var _hmt = _hmt || [];
 <p>4、稳定性不高：一个微不足道的小问题，可以导致整个应用挂掉</p>
 <p>5、扩展性不够：无法满足高并发情况下的业务需求</p>
 <h1 id="Microservice-Architecture"><a href="#Microservice-Architecture" class="headerlink" title="Microservice Architecture"></a>Microservice Architecture</h1><p>所以，现在主流的设计一般会采用Microservice Architecture，就是基于微服务的架构。简单来说，微服务的目的是有效的拆分应用，实现敏捷开发和部署。</p>
-<p><img src="assets/image-20190804222019214.png" alt="image-20190804222019214"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804222019214.png" alt="image-20190804222019214"></p>
         
           <a class="article-more-a" href="/2019/07/31/【Distributed-System】微服务/#more">more >></a>
         
@@ -485,7 +485,7 @@ var _hmt = _hmt || [];
       
         <h1 id="读写分离（Read-Write-Splitting）-主从复制（Master-slave-Replication）"><a href="#读写分离（Read-Write-Splitting）-主从复制（Master-slave-Replication）" class="headerlink" title="读写分离（Read/Write Splitting）+ 主从复制（Master-slave Replication）"></a>读写分离（Read/Write Splitting）+ 主从复制（Master-slave Replication）</h1><p><strong>读写分离（Read/Write Splitting）</strong>的基本思想：让集群中的主数据库负责增（insert）、删（delete）和改（update）事务操作，而集群中的从数据库负责查询操作（select）；并且，数据库后台会自动将因在主数据库中进行的事务操作导致的数据变更，同步到集群中的各个从数据库中。</p>
 <p>MySQL的主从复制和MySQL的读写分离两者有着紧密联系，首先部署主从复制，只有主从复制完了，才能在此基础上进行数据的读写分离。简单来说，读写分离就是只在主服务器上写，只在从服务器上读，基本的原理是让主数据库处理事务性查询，而从数据库处理select查询。当业务量非常大时，一台服务器的性能无法满足需求，就可以通过配置主从复制实现写分离来分摊负载，避免因负载太高而造成无法及时响应请求。</p>
-<p><img src="assets/image-20190712223317174.png" alt="image-20190712223317174"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712223317174.png" alt="image-20190712223317174"></p>
 <p>读写分离的方式，扩展了数据库对读数据的处理能力，但写能力并没有任何提升。</p>
 <p>而且，数据库中单表的数据量是有限制的，当数据库中单表的数据量到达一定程度后，数据库的性能会显著下降。</p>
 <h2 id="使用原因"><a href="#使用原因" class="headerlink" title="使用原因"></a>使用原因</h2><p>大部分互联网业务读多写少，数据库的读往往最先成为性能瓶颈，如果希望：</p>
@@ -573,9 +573,9 @@ var _hmt = _hmt || [];
         <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="队列（Queue）"><a href="#队列（Queue）" class="headerlink" title="队列（Queue）"></a>队列（Queue）</h2><p>队列的特点是什么？</p>
 <p>聪明的小伙伴们都知道，是<strong>先进先出（FIFO）</strong>。</p>
 <p><strong>入队列：</strong></p>
-<p><img src="assets/1537838714989640.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1537838714989640.png" alt="img"></p>
 <p><strong>出队列：</strong></p>
-<p><img src="assets/1537838715920483.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1537838715920483.png" alt="img"></p>
 <h1 id="优先队列（Priority-Queue）"><a href="#优先队列（Priority-Queue）" class="headerlink" title="优先队列（Priority Queue）"></a>优先队列（Priority Queue）</h1><p>因为队列中允许的操作是先进先出（FIFO），在队尾插入元素，在队头取出元素。</p>
 <p>而堆优先队列，不再遵循先入先出的原则，而是分为两种情况：</p>
 <ul>
@@ -584,7 +584,7 @@ var _hmt = _hmt || [];
 </ul>
 <hr>
 <p>比如有一个最大优先队列，它的最大元素是8，那么虽然元素8并不是队首元素，但出队的时候仍然让元素8首先出队：</p>
-<p><img src="assets/1537838715655305.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1537838715655305.png" alt="img"></p>
 <p>要满足以上需求，利用线性数据结构（比如，无序数组、有序数组或者链表）并非不能实现，只是时间复杂度较高（最坏时间复杂度O(n)），因而不是最理想的方式。</p>
 <h1 id="优先队列的实现方式"><a href="#优先队列的实现方式" class="headerlink" title="优先队列的实现方式"></a>优先队列的实现方式</h1><p>优先队列有以下实现方式：</p>
 <ul>
@@ -1120,11 +1120,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1224,15 +1224,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1240,15 +1236,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1260,11 +1260,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1272,11 +1272,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

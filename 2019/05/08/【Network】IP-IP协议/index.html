@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="IP 协议（网际协议）IP协议是TCP/IP协议的核心，所有的TCP，UDP，IMCP，IGCP的数据都以IP数据格式传输。 要注意的是，IP不是可靠的协议，这是说，IP协议没有提供一种数据未传达以后的处理机制－－这被认为是上层协议（TCP或UDP）来负责的事情。所以这也就出现了TCP是一个可靠的协议，而UDP就没有那么可靠的区别。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】IP-IP协议/assets/ipv4-header.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】IP-IP协议/assets/9c2f944a41df793f6ec03e2a0bedc7bd.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/08/【Network】IP-IP协议/assets/ipv6-header.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ipv4-header.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/9c2f944a41df793f6ec03e2a0bedc7bd.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ipv6-header.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.374Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】IP 协议（网际协议）">
 <meta name="twitter:description" content="IP 协议（网际协议）IP协议是TCP/IP协议的核心，所有的TCP，UDP，IMCP，IGCP的数据都以IP数据格式传输。 要注意的是，IP不是可靠的协议，这是说，IP协议没有提供一种数据未传达以后的处理机制－－这被认为是上层协议（TCP或UDP）来负责的事情。所以这也就出现了TCP是一个可靠的协议，而UDP就没有那么可靠的区别。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/08/【Network】IP-IP协议/assets/ipv4-header.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ipv4-header.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,14 +219,14 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <h1 id="IP-Datagram-Format"><a href="#IP-Datagram-Format" class="headerlink" title="IP Datagram Format"></a>IP Datagram Format</h1><h2 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h2><p>IPv4 Datagram分为<strong>首部（Header）</strong>和<strong>数据</strong>两部分。IPv4 Header由<strong>固定部分（Basic）</strong>和<strong>选项部分（Options）</strong>组成，其中固定部分的大小为20 bytes。IPv4 Header最大为60 bytes。</p>
-<p><img src="assets/ipv4-header.png" alt="The IPv4 Datagram"></p>
-<p><img src="assets/9c2f944a41df793f6ec03e2a0bedc7bd.png" alt="Image result for ip datagram format"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ipv4-header.png" alt="The IPv4 Datagram"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/9c2f944a41df793f6ec03e2a0bedc7bd.png" alt="Image result for ip datagram format"></p>
 <p><strong>IP版本</strong>：现在的IP版本号是4，所以也称作IPv4。现在还有IPv6，而且运用也越来越广泛了。</p>
 <p><strong>TTL（Time-to-Live）</strong>：这个字段规定该数据包在穿过多少个路由之后会被抛弃。</p>
 <p>这里就体现出来IP协议包的不可靠性，它不保证数据被送达。<strong>某个IP数据包每穿过一个路由器，该数据包的TTL数值就会减少1</strong>，当该数据包的TTL成为零，它就会被自动抛弃。这个字段的最大值也就是255，也就是说一个协议包也穿行过路由器255次后就会被抛弃了，根据系统的不同，这个数字也不一样，一般是32或者是64，Tracerouter这个工具就是用这个原理工作的，tranceroute的-m选项要求最大值是255，也就是因为这个TTL在IP协议里面只有8bit。 </p>
 <p><strong>ToS(Type of Service)</strong>：DS Field(Differentiated Services Field) + ECN(Explicit Congestion Notification, 显式拥塞通知)</p>
 <h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2><p>与IPv4 Header不同，IPv6 Header具有固定的大小（40 bytes），并且没有选项部分。但是IPv6 Header可以有扩展首部（extension headers），其作用与Options类似。Next Header字段用于指示extension headers。</p>
-<p><img src="assets/ipv6-header.png" alt="The IPv6 Header"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ipv6-header.png" alt="The IPv6 Header"></p>
 <h1 id="IP路由选择"><a href="#IP路由选择" class="headerlink" title="IP路由选择"></a>IP路由选择</h1><p>当一个IP数据包准备好了的时候，IP数据包（或者说是路由器）是如何将数据包送到目的地的呢？它是怎么选择一个合适的路径来”送货”的呢？</p>
 <p>最特殊的情况是目的主机和主机直连，那么主机根本不用寻找路由，直接把数据传递过去就可以了。至于是怎么直接传递的，这就要靠ARP协议了。</p>
 <p>稍微一般一点的情况是，主机通过若干个路由器（router）和目的主机连接。那么路由器就要通过IP包的信息来为IP包寻找到一个合适的目标来进行传递，比如合适的主机，或者合适的路由。路由器或者主机将会用如下的方式来处理某一个IP数据包：</p>
@@ -587,11 +587,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,15 +691,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,15 +703,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -727,11 +727,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,11 +739,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

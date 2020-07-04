@@ -16,20 +16,20 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="javap是JDK自带的反汇编器，可以用于查看Java编译器对Java源代码编译后，生成的字节码（ByteCode）中的详细信息。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/a56aeea0-df2f-47f9-8a9d-10f1cc0e75a2.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/453d5728-1500-428e-bb28-de7ae6936a43.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/3ebb41a5-bd88-4ad3-8496-96b203bda146.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/45f926d5-df66-4568-8268-85ffe8a6e3d7.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/b07d8ccd-b7ce-49fc-b76e-fb8c07ad543d.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/ec532055-3d70-4908-ac50-35ba3589985e.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/391740bb-a345-4bef-8aaf-1f01fe4aa5be.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/775d12e4-8391-47c6-83ab-fa92fdd88ac5.png">
-<meta property="og:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/b81853d4-0315-4912-85a6-888526f84750.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a56aeea0-df2f-47f9-8a9d-10f1cc0e75a2.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/453d5728-1500-428e-bb28-de7ae6936a43.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/3ebb41a5-bd88-4ad3-8496-96b203bda146.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/45f926d5-df66-4568-8268-85ffe8a6e3d7.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/b07d8ccd-b7ce-49fc-b76e-fb8c07ad543d.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ec532055-3d70-4908-ac50-35ba3589985e.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/391740bb-a345-4bef-8aaf-1f01fe4aa5be.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/775d12e4-8391-47c6-83ab-fa92fdd88ac5.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/b81853d4-0315-4912-85a6-888526f84750.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】javap（Java Class文件分解工具）">
 <meta name="twitter:description" content="javap是JDK自带的反汇编器，可以用于查看Java编译器对Java源代码编译后，生成的字节码（ByteCode）中的详细信息。">
-<meta name="twitter:image" content="http://swsmile.info/2017/06/08/【Java】编译与反编译-javap（Java-Class文件分解工具）/assets/a56aeea0-df2f-47f9-8a9d-10f1cc0e75a2.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a56aeea0-df2f-47f9-8a9d-10f1cc0e75a2.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -248,7 +248,7 @@ var _hmt = _hmt || [];
 
 <h1 id="二-参数解读"><a href="#二-参数解读" class="headerlink" title="二.参数解读"></a>二.参数解读</h1><h3 id="1-默认参数（-package）："><a href="#1-默认参数（-package）：" class="headerlink" title="1.默认参数（-package）："></a>1.默认参数（-package）：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">javap HelloWorld.class</span><br><span class="line"></span><br><span class="line">// 等效于以下（即 只显示包、protected和public类及成员）</span><br><span class="line">javap -package HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/a56aeea0-df2f-47f9-8a9d-10f1cc0e75a2.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a56aeea0-df2f-47f9-8a9d-10f1cc0e75a2.png" alt=""></p>
 <h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><ul>
 <li>只有方法声明，没有方法具体实现对应的字节码汇编代码</li>
 <li>private方法和字段不会被显示</li>
@@ -258,14 +258,14 @@ var _hmt = _hmt || [];
 
 <h4 id="（1）-public"><a href="#（1）-public" class="headerlink" title="（1）-public"></a>（1）-public</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -public HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/453d5728-1500-428e-bb28-de7ae6936a43.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/453d5728-1500-428e-bb28-de7ae6936a43.png" alt=""></p>
 <h5 id="注意：-1"><a href="#注意：-1" class="headerlink" title="注意："></a>注意：</h5><ul>
 <li>只有方法声明，没有方法具体实现对应的字节码汇编代码</li>
 <li>只有 public 方法和字段会被显示</li>
 </ul>
 <h4 id="（2）-private"><a href="#（2）-private" class="headerlink" title="（2）-private"></a>（2）-private</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -private HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/3ebb41a5-bd88-4ad3-8496-96b203bda146.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/3ebb41a5-bd88-4ad3-8496-96b203bda146.png" alt=""></p>
 <h5 id="注意：-2"><a href="#注意：-2" class="headerlink" title="注意："></a>注意：</h5><ul>
 <li>只有方法声明，没有方法具体实现对应的字节码汇编代码</li>
 <li>public、protected、private 方法和字段都会被显示</li>
@@ -273,7 +273,7 @@ var _hmt = _hmt || [];
 <h3 id="3-c显示方法内部实现对应的字节码汇编代码"><a href="#3-c显示方法内部实现对应的字节码汇编代码" class="headerlink" title="3.-c显示方法内部实现对应的字节码汇编代码"></a>3.<code>-c</code>显示方法内部实现对应的字节码汇编代码</h3><p><code>-c</code>用于显示方法内部实现对应的字节码汇编代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -c HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/45f926d5-df66-4568-8268-85ffe8a6e3d7.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/45f926d5-df66-4568-8268-85ffe8a6e3d7.png" alt=""></p>
 <h3 id="4-l显示字节码代码与源代码的行号映射关系"><a href="#4-l显示字节码代码与源代码的行号映射关系" class="headerlink" title="4.-l显示字节码代码与源代码的行号映射关系"></a>4.<code>-l</code>显示字节码代码与源代码的行号映射关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -l HelloWorld.class</span><br></pre></td></tr></table></figure>
 
 <p>在源代码编译成字节码的过程中，编译器会生成一个源代码与源代码编译后的字节码的行号映射表。</p>
@@ -284,19 +284,19 @@ var _hmt = _hmt || [];
 <li><p>TypeScript、Dart、CoffeeScript等<br>如果你使用过TypeScript、Dart、CoffeeScript等最终编译成JavaScript的语言，在编译时，可选择生成一个.map文件，这个<code>.map</code>文件中存储的信息与<code>-l</code>显示的信息作用是也是类似的。</p>
 </li>
 </ul>
-<p><img src="assets/b07d8ccd-b7ce-49fc-b76e-fb8c07ad543d.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/b07d8ccd-b7ce-49fc-b76e-fb8c07ad543d.png" alt=""></p>
 <h3 id="5-constants显示被修饰为final的静态常量"><a href="#5-constants显示被修饰为final的静态常量" class="headerlink" title="5.-constants显示被修饰为final的静态常量"></a>5.<code>-constants</code>显示被修饰为final的静态常量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -constants HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/ec532055-3d70-4908-ac50-35ba3589985e.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ec532055-3d70-4908-ac50-35ba3589985e.png" alt=""></p>
 <h3 id="6-v-verbose输出额外信息（堆栈大小、各方法的locals及args参数，以及class文件的编译版本）"><a href="#6-v-verbose输出额外信息（堆栈大小、各方法的locals及args参数，以及class文件的编译版本）" class="headerlink" title="6.-v -verbose输出额外信息（堆栈大小、各方法的locals及args参数，以及class文件的编译版本）"></a>6.<code>-v</code> <code>-verbose</code>输出额外信息（堆栈大小、各方法的locals及args参数，以及class文件的编译版本）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -v HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/391740bb-a345-4bef-8aaf-1f01fe4aa5be.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/391740bb-a345-4bef-8aaf-1f01fe4aa5be.png" alt=""></p>
 <h3 id="7-sysinfo显示当前-class的系统信息-路径-大小-日期-MD5"><a href="#7-sysinfo显示当前-class的系统信息-路径-大小-日期-MD5" class="headerlink" title="7.sysinfo显示当前.class的系统信息 (路径, 大小, 日期, MD5 )"></a>7.<code>sysinfo</code>显示当前.class的系统信息 (路径, 大小, 日期, MD5 )</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -sysinfo HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/775d12e4-8391-47c6-83ab-fa92fdd88ac5.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/775d12e4-8391-47c6-83ab-fa92fdd88ac5.png" alt=""></p>
 <h3 id="8-s输出内部类型签名"><a href="#8-s输出内部类型签名" class="headerlink" title="8.-s输出内部类型签名"></a>8.<code>-s</code>输出内部类型签名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javap -s HelloWorld.class</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/b81853d4-0315-4912-85a6-888526f84750.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/b81853d4-0315-4912-85a6-888526f84750.png" alt=""></p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/javap.html" target="_blank" rel="noopener">Oracle - javap - The Java Class File Disassembler</a></li>
 </ul>
@@ -634,11 +634,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,15 +738,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,15 +750,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -774,11 +774,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -786,11 +786,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
