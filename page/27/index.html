@@ -191,6 +191,345 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Architecture】高并发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/06/【Architecture】高并发/">【Architecture】高并发</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/06/【Architecture】高并发/" class="archive-article-date">
+  	<time datetime="2019-08-06T03:59:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="实现高并发的思路"><a href="#实现高并发的思路" class="headerlink" title="实现高并发的思路"></a>实现高并发的思路</h1><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>数据库的分库分表</p>
+<p>数据库读写分离-主从复制 -&gt;增加读性能</p>
+<p>双主复制</p>
+<p>增加 Redis</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><ul>
+<li>DNS 负载均衡</li>
+<li>反向代理负载均衡<ul>
+<li>IP负载均衡</li>
+<li>直接路由</li>
+</ul>
+</li>
+</ul>
+<h2 id="静态资源"><a href="#静态资源" class="headerlink" title="静态资源"></a>静态资源</h2><p>动态静态资源分离，静态资源使用 CDN 加速。</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><h3 id="镜像集群模式"><a href="#镜像集群模式" class="headerlink" title="镜像集群模式"></a>镜像集群模式</h3><p>创建的queue无论元数据还是queue里的消息都会存在于多个实例上，</p>
+<p>每次写消息到queue的时候，都会自动把消息到多个实例的queue里进行消息同步。</p>
+<p>这样的话任何一个机器宕机了别的实例都可以用提供服务，这样就做到了真正的高可用了。</p>
+<h3 id="异步（提高并行）"><a href="#异步（提高并行）" class="headerlink" title="异步（提高并行）"></a>异步（提高并行）</h3><p>减少响应所需时间</p>
+<h3 id="削峰"><a href="#削峰" class="headerlink" title="削峰"></a>削峰</h3><p>消息队列具有很好的削峰作用的功能——即通过异步处理，将短时间高并发产生的事务消息存储在消息队列中，从而削平高峰期的并发事务。</p>
+        
+          <a class="article-more-a" href="/2019/08/06/【Architecture】高并发/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/06/【Architecture】高并发/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Architecture】中台" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/06/【Architecture】中台/">【Architecture】中台概念</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/06/【Architecture】中台/" class="archive-article-date">
+  	<time datetime="2019-08-06T03:52:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="中台的企业级"><a href="#中台的企业级" class="headerlink" title="中台的企业级"></a>中台的企业级</h1><p>首先，中台一定是企业级的，这里的企业级不是说难度而是指范围。企业级也不一定就是一个企业的范围，甚至可以是跨企业，例如现在同样火爆的“生态”的概念。</p>
+<p>当做中台建设的时候，一定是跳出单条业务线、站在企业整体视角来审视业务全景，寻找可复用的能力进行沉淀，从而希望通过能力的复用一方面消除数据孤岛、业务孤岛，一方面支撑企业级规模化创新，助力企业变革，孕育生态。</p>
+<p>所以虽然中台的建设过程虽然可以自下而上，以点及面。但驱动力一定是自上而下的，从全局视角出发的，并且需要一定的顶层设计。这也解释了为什么在企业中推动中台建设的往往都是跨业务部门，例如CIO级别领导或是企业的战略规划部门，因为只有这些横跨多条业务线的角色和组织，才会经常去反思与推动企业级的能力复用问题。</p>
+<p>这一点也引出了中台建设的一个关键难点，就是组织架构的调整和演进以及利益的重新分配是技术所不能解决的，也是中台建设的最强阻力，</p>
+        
+          <a class="article-more-a" href="/2019/08/06/【Architecture】中台/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/06/【Architecture】中台/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Algorithm】算法思想-分治" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/05/【Algorithm】算法思想-分治/">【Algorithm】算法思想 - 分治算法（Divide and Conquer）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/05/【Algorithm】算法思想-分治/" class="archive-article-date">
+  	<time datetime="2019-08-05T14:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a><strong>基本概念</strong></h2><p>在计算机科学中，分治法是一种很重要的算法。字面上的解释是“分而治之”，就是把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。这个技巧是很多高效算法的基础，如排序算法(快速排序，归并排序)，傅立叶变换(快速傅立叶变换)……</p>
+<p>任何一个可以用计算机求解的问题所需的计算时间都与其规模有关。问题的规模越小，越容易直接求解，解题所需的计算时间也越少。例如，对于n个元素的排序问题，当n=1时，不需任何计算。n=2时，只要作一次比较即可排好序。n=3时只要作3次比较即可，…。而当n较大时，问题就不那么容易处理了。要想直接解决一个规模较大的问题，有时是相当困难的。</p>
+<h2 id="基本思想及策略"><a href="#基本思想及策略" class="headerlink" title="基本思想及策略"></a>基本思想及策略</h2><p>分治法的设计思想是：将一个难以直接解决的大问题，分割成一些规模较小的相同问题，以便各个击破，分而治之。</p>
+<p>分治策略是：对于一个规模为n的问题，若该问题可以容易地解决（比如说规模n较小）则直接解决，否则将其分解为k个规模较小的子问题，这些子问题互相独立且与原问题形式相同，递归地解这些子问题，然后将各子问题的解合并得到原问题的解。这种算法设计策略叫做分治法。</p>
+<p>如果原问题可分割成k个子问题，1&lt;k≤n，且这些子问题都可解并可利用这些子问题的解求出原问题的解，那么这种分治法就是可行的。由分治法产生的子问题往往是原问题的较小模式，这就为使用递归技术提供了方便。在这种情况下，反复应用分治手段，可以使子问题与原问题类型一致而其规模却不断缩小，最终使子问题缩小到很容易直接求出其解。这自然导致递归过程的产生。分治与递归像一对孪生兄弟，经常同时应用在算法设计之中，并由此产生许多高效算法。</p>
+        
+          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-分治/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-分治/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Algorithm】算法思想-贪心算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/05/【Algorithm】算法思想-贪心算法/">【Algorithm】算法思想 - 贪心算法（Greedy Algorithm）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/05/【Algorithm】算法思想-贪心算法/" class="archive-article-date">
+  	<time datetime="2019-08-05T14:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="贪心算法（Greedy-Algorithm）"><a href="#贪心算法（Greedy-Algorithm）" class="headerlink" title="贪心算法（Greedy Algorithm）"></a>贪心算法（Greedy Algorithm）</h1><p>贪心算法（Greedy Algorithm），又称贪婪算法，是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。比如在旅行推销员问题中，如果旅行员每次都选择最近的城市，那这就是一种贪心算法。 </p>
+<p>贪心算法在有最优子结构的问题中尤为有效。最优子结构的意思是局部最优解能决定全局最优解。简单地说，问题能够分解成子问题来解决，子问题的最优解能递推到最终问题的最优解。 </p>
+<p>贪心算法与动态规划的不同在于它对每个子问题的解决方案都做出选择，不能回退。动态规划则会保存以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。</p>
+<p>我们能够依据贪心法的2个重要的性质去证明：<strong>贪心选择性质和最优子结构性质</strong>。</p>
+<h2 id="贪心选择"><a href="#贪心选择" class="headerlink" title="贪心选择"></a>贪心选择</h2><p>什么叫贪心选择？从字义上就是贪心也就是目光短线。贪图眼前利益。在算法中就是仅仅依据当前已有的信息就做出选择，并且以后都不会改变这次选择<strong>（这是和动态规划法的主要差别）</strong>。</p>
+<p>所以对于一个具体的问题。要确定它是否具有贪心选择性质，必须证明每做一步贪心选择是否终于导致问题的总体最优解。</p>
+<h2 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h2><p>当一个问题的最优解包括其子问题的最优解时，称此问题具有最优子结构性质。</p>
+<p>运用贪心策略在每一次转化时都取得了最优解。问题的最优子结构性质是该问题可用贪心算法或动态规划算法求解的关键特征。贪心算法的每一次操作都对结果产生直接影响，而动态规划则不是。贪心算法对每个子问题的解决方案都做出选择，不能回退；动态规划则会根据以前的选择结果对当前进行选择，有回退功能。动态规划主要运用于二维或三维问题，而贪心一般是一维问题。</p>
+<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>贪心算法的基本思路是从问题的某一个初始解触发一步一步地进行，根据抹个优化测度，每一步都要确保能获得局部最优解，每一步值考虑一个数据，他的选取应该满足局部优化的条件。若下一个数据和部分最优解连载一起不再是可行解时，就不把改数据添加到部分解中，知道把所有数据枚举玩，或者不能在添加算法停止。</p>
+<p><strong>过程</strong></p>
+<ol>
+<li>建立数学模型来描述问题；</li>
+<li>把求解的问题分成若干个子问题；</li>
+<li>对每一子问题求解，得到子问题的局部最优解；</li>
+<li>把子问题的解局部最优解合成原来解问题的一个解。</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-贪心算法/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-贪心算法/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Algorithm】排序算法-计数排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -548,329 +887,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Docker】减小Docker镜像体积" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/04/【Docker】减小Docker镜像体积/">【Docker】减小 Docker 镜像体积</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/04/【Docker】减小Docker镜像体积/" class="archive-article-date">
-  	<time datetime="2019-08-04T12:49:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在构建 Docker 容器时，应该尽量想办法获得体积更小的镜像，因为传输和部署体积较小的镜像速度更快。</p>
-<p>但 RUN 语句总是会创建一个新层，而且在生成镜像之前还需要使用很多中间文件，在这种情况下，该如何获得体积更小的镜像呢？</p>
-        
-          <a class="article-more-a" href="/2019/08/04/【Docker】减小Docker镜像体积/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Docker/" class="article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/04/【Docker】减小Docker镜像体积/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Performance】性能指标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/04/【Performance】性能指标/">【Performance】 性能指标（Performance Indicator）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/04/【Performance】性能指标/" class="archive-article-date">
-  	<time datetime="2019-08-04T05:45:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="并发数（Concurrency）"><a href="#并发数（Concurrency）" class="headerlink" title="并发数（Concurrency）"></a>并发数（Concurrency）</h1><p>并发数（Concurrency），也叫并发连接数，指网络设备所能处理的最大会话数量。这里的会话数是指请求-&gt;响应一次会话。</p>
-<h1 id="并发用户数"><a href="#并发用户数" class="headerlink" title="并发用户数"></a>并发用户数</h1><p>并发用户数是指系统可以同时承载的正常使用系统功能的用户的数量。与吞吐量相比，并发用户数是一个更直观但也更笼统的性能指标。</p>
-<h1 id="吞吐率（Throughput）"><a href="#吞吐率（Throughput）" class="headerlink" title="吞吐率（Throughput）"></a><strong>吞吐率</strong>（Throughput）</h1><p>我们一般使用单位时间内服务器处理的请求数来描述其并发处理能力。称之为吞吐率（Throughput），单位是 “req/s”。<strong>吞吐率特指Web服务器单位时间内处理的请求数。</strong></p>
-<p>另一种描述，吞吐率是，单位时间内网络上传输的数据量，也可以指单位时间内处理客户请求数量。它是衡量网络性能的重要指标。通常情况下，吞吐率“字节数/秒”来衡量。当然你也可以用“请求数/秒”和“页面数/秒”来衡量。其实不管一个请求还是一个页面，它的本质都是在网络上传输的数据，那么用来表述数据的单位就是字节数。</p>
-<h1 id="吞吐量（Throughput-Capacity）"><a href="#吞吐量（Throughput-Capacity）" class="headerlink" title="吞吐量（Throughput Capacity）"></a>吞吐量（Throughput Capacity）</h1><p>吞吐量（Throughput Capacity），是指在一次性能测试过程中网络上传输的数据量的总和。</p>
-<p>对于交互式应用来说，吞吐量指标反映的是服务器承受的压力，在容量规划的测试中，吞吐量是一个重点关注的指标，因为它能够说明系统级别的负载能力，另外，在性能调优过程中，吞吐量指标也有重要的价值。如一个大型工厂，他们的生产效率与生产速度很快，一天生产10W吨的货物，结果工厂的运输能力不行，就两辆小型三轮车一天拉2吨的货物，比喻有些夸张，但我想说明的是这个运输能力是整个系统的瓶颈。</p>
-<p>其实，用吞吐量来衡量一个系统的输出能力是极其不准确的，用个最简单的例子说明，一个水龙头开一天一夜，流出10吨水；10个水龙头开1秒钟，流出0.1吨水。当然是一个水龙头的吞吐量大。你能说1个水龙头的出水能力是10个水龙头的强？所以，我们要加单位时间，看谁1秒钟的出水量大。这就是吞吐率。</p>
-        
-          <a class="article-more-a" href="/2019/08/04/【Performance】性能指标/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Performance</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Performance/" class="article-tag-list-link color2">Performance</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/04/【Performance】性能指标/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Java】集合类-PriorityQueue" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/02/【Java】集合类-PriorityQueue/">【Java】集合类 - PriorityQueue类（优先队列）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/02/【Java】集合类-PriorityQueue/" class="archive-article-date">
-  	<time datetime="2019-08-02T14:32:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="PriorityQueue类"><a href="#PriorityQueue类" class="headerlink" title="PriorityQueue类"></a>PriorityQueue类</h1><p>PriorityQueue 类在 Java 1.5 中引入。</p>
-<p>PriorityQueue 是基于优先堆的一个无界队列，这个优先队列中的元素可以默认自然排序或者通过提供的 Comparator 在队列实例化的时排序。</p>
-<p>默认情况下，为最小堆（这意味着，通过 <code>queue.poll()</code> 方法获取的第一个元素为队列中的最小值）。</p>
-<p>PriorityQueue 不允许空值，而且不支持 non-comparable（不可比较）的对象，比如用户自定义的类。优先队列要求使用 Java Comparable 和 Comparator 接口给对象排序，并且在排序时会按照优先级处理其中的元素。</p>
-<p>PriorityQueue 的大小是不受限制的，但在创建时可以指定初始大小。当我们向优先队列增加元素的时候，队列大小会自动增加。</p>
-<p>PriorityQueue 是非线程安全的，所以 Java 提供了 PriorityBlockingQueue（实现 BlockingQueue接口）用于Java 多线程环境。</p>
-        
-          <a class="article-more-a" href="/2019/08/02/【Java】集合类-PriorityQueue/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/02/【Java】集合类-PriorityQueue/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Linux】命令-sed命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/02/【Linux】命令-sed命令/">【Linux】命令 - sed命令</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/02/【Linux】命令-sed命令/" class="archive-article-date">
-  	<time datetime="2019-08-02T04:08:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usage: sed script [-Ealn] [-i extension] [file ...]</span><br><span class="line">       sed [-Ealn] [-i extension] [-e script] ... [-f script_file] ... [file ...]</span><br></pre></td></tr></table></figure>
-
-<h1 id="用s命令-替换匹配字符串"><a href="#用s命令-替换匹配字符串" class="headerlink" title="用s命令 - 替换匹配字符串"></a>用s命令 - 替换匹配字符串</h1><p>我使用下面的这段文本做演示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat pets.txt</span><br><span class="line">This is my cat</span><br><span class="line">  my cat<span class="string">'s name is betty</span></span><br><span class="line"><span class="string">This is my dog</span></span><br><span class="line"><span class="string">  my dog'</span>s name is frank</span><br><span class="line">This is my fish</span><br><span class="line">  my fish<span class="string">'s name is george</span></span><br><span class="line"><span class="string">This is my goat</span></span><br><span class="line"><span class="string">  my goat'</span>s name is adam</span><br></pre></td></tr></table></figure>
-
-<p>把其中的 <code>my</code> 字符串替换成 <code>Hao Chen’s</code>，下面的语句应该很好理解（ <code>s</code> 表示替换命令，<code>/my/</code> 表示匹配my，<code>/Hao Chen’s/</code> 表示把匹配字符串替换成 <code>Hao Chen’s</code>，<code>/g</code> 表示把一行中所有的匹配字符串都进行替换）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sed <span class="string">"s/my/Hao Chen's/g"</span> pets.txt</span><br><span class="line">This is Hao Chen<span class="string">'s cat</span></span><br><span class="line"><span class="string">  Hao Chen'</span>s cat<span class="string">'s name is betty</span></span><br><span class="line"><span class="string">This is Hao Chen'</span>s dog</span><br><span class="line">  Hao Chen<span class="string">'s dog'</span>s name is frank</span><br><span class="line">This is Hao Chen<span class="string">'s fish</span></span><br><span class="line"><span class="string">  Hao Chen'</span>s fish<span class="string">'s name is george</span></span><br><span class="line"><span class="string">This is Hao Chen'</span>s goat</span><br><span class="line">  Hao Chen<span class="string">'s goat'</span>s name is adam</span><br></pre></td></tr></table></figure>
-
-<p>注意：如果你要使用单引号，那么你没办法通过 <code>\</code>这样来转义，就有双引号就可以了，在双引号内可以用 <code>\”</code> 来实现对双引号的转义。</p>
-        
-          <a class="article-more-a" href="/2019/08/02/【Linux】命令-sed命令/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/02/【Linux】命令-sed命令/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/26/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/28/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/26/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/28/">Next &raquo;</a>
     </nav>
   
 
@@ -974,11 +993,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1002,6 +1021,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1011,10 +1034,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1070,15 +1089,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1102,10 +1121,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -1114,7 +1129,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1122,11 +1137,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1142,11 +1161,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1194,11 +1213,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">

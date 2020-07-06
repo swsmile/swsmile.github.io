@@ -191,6 +191,321 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Distributed-System】分布式事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/12/【Distributed-System】分布式事务/">【Distributed System】分布式事务（Distributed Transaction）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/12/【Distributed-System】分布式事务/" class="archive-article-date">
+  	<time datetime="2019-07-12T05:06:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h2 id="事务（Transaction）"><a href="#事务（Transaction）" class="headerlink" title="事务（Transaction）"></a>事务（Transaction）</h2><p><strong>事务（Transaction）</strong>提供一种机制将一个活动涉及的所有操作纳入到一个不可分割的执行单元，组成事务的所有操作只有在所有操作均能正常执行的情况下方能提交，只要其中任一操作执行失败，都将导致整个事务的回滚。简单地说，事务提供一种“要么什么都不做，要么做全套（All or Nothing）”机制。</p>
+<h2 id="数据库本地事务-ACID"><a href="#数据库本地事务-ACID" class="headerlink" title="数据库本地事务 - ACID"></a>数据库本地事务 - ACID</h2><p>说到数据库事务就不得不说，数据库事务中的四大特性，ACID：</p>
+<h3 id="原子性（Atomicity）"><a href="#原子性（Atomicity）" class="headerlink" title="原子性（Atomicity）"></a>原子性（Atomicity）</h3><p>一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</p>
+<p>就像你买东西要么交钱收货一起都执行，要么要是发不出货，就退钱。</p>
+        
+          <a class="article-more-a" href="/2019/07/12/【Distributed-System】分布式事务/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/12/【Distributed-System】分布式事务/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Java】锁-Lock接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/12/【Java】锁-Lock接口/">【Java】锁 - Lock 接口</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/12/【Java】锁-Lock接口/" class="archive-article-date">
+  	<time datetime="2019-07-12T04:11:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Lock接口"><a href="#Lock接口" class="headerlink" title="Lock接口"></a>Lock接口</h1><p>我们现在就来看看lock接口定义了哪些方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取锁 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//获取锁的过程能够响应中断</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">lockInterruptibly</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException； </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//非阻塞式响应中断能立即返回，获取锁放回true反之返回fasle </span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//超时获取锁，在超时内或者未中断的情况下能够获取锁 </span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">tryLock</span><span class="params">(<span class="keyword">long</span> time, TimeUnit unit)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取与lock绑定的等待通知组件，当前线程必须获得了锁才能进行等待，进行等待时会先释放锁，当再次获取锁时才能从等待中返回</span></span><br><span class="line"><span class="function">Condition <span class="title">newCondition</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/07/12/【Java】锁-Lock接口/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/12/【Java】锁-Lock接口/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Java】Java关键字-synchronized关键字中的锁状态" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/12/【Java】Java关键字-synchronized关键字中的锁状态/">【Java】Java关键字 - synchronized关键字中的锁状态</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/12/【Java】Java关键字-synchronized关键字中的锁状态/" class="archive-article-date">
+  	<time datetime="2019-07-12T03:34:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="无锁-VS-偏向锁-VS-轻量级锁-VS-重量级锁"><a href="#无锁-VS-偏向锁-VS-轻量级锁-VS-重量级锁" class="headerlink" title="无锁 VS 偏向锁 VS 轻量级锁 VS 重量级锁"></a>无锁 VS 偏向锁 VS 轻量级锁 VS 重量级锁</h1><p>这四种锁是指锁的状态，专门针对synchronized关键字对应的互斥锁的。在介绍这四种锁状态之前还需要介绍一些额外的知识。</p>
+<p>首先为什么synchronized能实现线程同步？</p>
+<p>在回答这个问题之前我们需要了解两个重要的概念：“Java对象头”、“Monitor”。</p>
+        
+          <a class="article-more-a" href="/2019/07/12/【Java】Java关键字-synchronized关键字中的锁状态/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/12/【Java】Java关键字-synchronized关键字中的锁状态/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Lock】独享锁vs共享锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/12/【Lock】独享锁vs共享锁/">【Lock】独享锁（Exclusive Lock） VS 共享锁（Shared Lock）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/12/【Lock】独享锁vs共享锁/" class="archive-article-date">
+  	<time datetime="2019-07-12T03:26:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="独享锁（Exclusive-Lock）-VS-共享锁（Shared-Lock）"><a href="#独享锁（Exclusive-Lock）-VS-共享锁（Shared-Lock）" class="headerlink" title="独享锁（Exclusive Lock） VS 共享锁（Shared Lock）"></a>独享锁（Exclusive Lock） VS 共享锁（Shared Lock）</h1><p><strong>独享锁（Exclusive Lock）</strong>也叫<strong>排他锁</strong>，是指该锁一次只能被一个线程所持有。如果线程T对数据A加上排它锁后，则其他线程不能再对A加任何类型的锁。获得排它锁的线程即能读数据又能修改数据。JDK中的synchronized和JUC中Lock的实现类就是互斥锁。</p>
+<p><strong>共享锁（Shared Lock）</strong>是指该锁可被多个线程所持有。典型的就是<strong>ReentrantReadWriteLock里的读锁</strong>，它的读锁是可以被共享的，但是它的写锁确每次只能被独占。</p>
+        
+          <a class="article-more-a" href="/2019/07/12/【Lock】独享锁vs共享锁/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Lock</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Lock/" class="article-tag-list-link color5">Lock</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/12/【Lock】独享锁vs共享锁/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Distributed-System】分布式锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -501,449 +816,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Java】IO-Netty入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/【Java】IO-Netty入门/">【Java】Netty入门</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/10/【Java】IO-Netty入门/" class="archive-article-date">
-  	<time datetime="2019-07-10T07:42:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>如果你想知道Nginx是怎么写出来的，如果你想知道Tomcat和Jetty是如何实现的，如果你也想实现一个简单的Redis服务器，那都应该好好理解一下Netty，它们高性能的原理都是类似的。</p>
-        
-          <a class="article-more-a" href="/2019/07/10/【Java】IO-Netty入门/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Network Programming</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/NetworkProgramming/" class="article-tag-list-link color4">NetworkProgramming</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/10/【Java】IO-Netty入门/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Regular-Expression】正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/【Regular-Expression】正则表达式/">【Regular Expression】正则表达式（Regular Expression）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/10/【Regular-Expression】正则表达式/" class="archive-article-date">
-  	<time datetime="2019-07-10T07:27:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="非打印字符"><a href="#非打印字符" class="headerlink" title="非打印字符"></a>非打印字符</h1><p>非打印字符也可以是正则表达式的组成部分。下表列出了表示非打印字符的转义序列：</p>
-<table>
-<thead>
-<tr>
-<th align="left">字符</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">\cx</td>
-<td align="left">匹配由x指明的控制字符。例如， \cM 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 ‘c’ 字符。</td>
-</tr>
-<tr>
-<td align="left">\f</td>
-<td align="left">匹配一个换页符。等价于 \x0c 和 \cL。</td>
-</tr>
-<tr>
-<td align="left">\n</td>
-<td align="left">匹配一个换行符。等价于 \x0a 和 \cJ。</td>
-</tr>
-<tr>
-<td align="left">\r</td>
-<td align="left">匹配一个回车符。等价于 \x0d 和 \cM。</td>
-</tr>
-<tr>
-<td align="left">\s</td>
-<td align="left">匹配任何空白字符，包括空格（space）、制表符（tab）、换页符（newline）等等。等价于 <code>[\f\n\r\t\v]</code>。注意 Unicode 正则表达式会匹配全角空格符。 <img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200531132357653.png" alt="image-20200531132357653"></td>
-</tr>
-<tr>
-<td align="left">\S</td>
-<td align="left">匹配任何非空白字符，即除空格（space）、制表符（tab）、换页符（newline）之外的任何字符。等价于 <code>[^\f\n\r\t\v]</code>。 <img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200531132444718.png" alt="image-20200531132444718"></td>
-</tr>
-<tr>
-<td align="left">\t</td>
-<td align="left">匹配一个制表符。等价于 \x09 和 \cI。</td>
-</tr>
-<tr>
-<td align="left">\v</td>
-<td align="left">匹配一个垂直制表符。等价于 \x0b 和 \cK。</td>
-</tr>
-<tr>
-<td align="left">\0</td>
-<td align="left">Matches a null character, most often visually represented in unicode using U+2400.</td>
-</tr>
-</tbody></table>
-<h1 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h1><p>所谓特殊字符，就是一些有特殊含义的字符，如runoo*b 中的 <code>*</code>，简单的说就是表示任何字符串的意思。如果要查找字符串中的 <code>*</code> 符号，则需要对 <code>*</code> 进行转义，即在其前加一个 <code>\</code> 变成 <code>\*</code> ， <code>runo\*ob</code> 匹配 <code>runo*ob</code>。</p>
-<p>许多元字符要求在试图匹配它们时特别对待。若要匹配这些特殊字符，必须首先使字符”转义”，即，将反斜杠字符<strong>\</strong> 放在它们前面。下表列出了正则表达式中的特殊字符：</p>
-<table>
-<thead>
-<tr>
-<th align="left">特别字符</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">$</td>
-<td align="left">匹配输入字符串的<strong>结尾位置</strong>。如果设置了 RegExp 对象的 Multiline 属性，则也匹配 ‘\n’ 或 ‘\r’。要匹配 $ 字符本身，请使用 ·<code>\$</code>。</td>
-</tr>
-<tr>
-<td align="left">( )</td>
-<td align="left">标记一个子表达式的开始和结束位置。子表达式可以获取供以后使用。要匹配这些字符，请使用 <code>\(</code> 和 <code>\)</code>。</td>
-</tr>
-<tr>
-<td align="left">*</td>
-<td align="left">匹配前面的子表达式零次或多次。要匹配 * 字符，请使用 <code>\*</code>。</td>
-</tr>
-<tr>
-<td align="left">+</td>
-<td align="left">匹配前面的子表达式一次或多次。要匹配 + 字符，请使用 <code>\+</code>。</td>
-</tr>
-<tr>
-<td align="left">.</td>
-<td align="left">匹配除换行符 \n 之外的任何单个字符（这个字符的长度为 1）。要匹配 <code>.</code> ，请使用 <code>\.</code> 。</td>
-</tr>
-<tr>
-<td align="left">[</td>
-<td align="left">标记一个中括号表达式的开始。要匹配 [，请使用 <code>\[</code>。</td>
-</tr>
-<tr>
-<td align="left">?</td>
-<td align="left">匹配前面的子表达式零次或一次，或指明一个非贪婪限定符。要匹配 ? 字符，请使用 <code>\?</code>。</td>
-</tr>
-<tr>
-<td align="left">\</td>
-<td align="left">将下一个字符标记为或特殊字符、或原义字符、或向后引用、或八进制转义符。例如， ‘n’ 匹配字符 ‘n’。’\n’ 匹配换行符。序列 ‘\‘ 匹配 “&quot;，而 ‘(‘ 则匹配 “(“。</td>
-</tr>
-<tr>
-<td align="left">^</td>
-<td align="left">匹配输入字符串的<strong>开始位置</strong>。如果在方括号表达式中使用，则表示不接受该字符集合（比如，<code>[^a-z]</code> 表示匹配<strong>在 a - z 范围</strong>外<strong>的一个字符</strong>）。要匹配 ^ 字符本身，请使用<code>\^</code>。</td>
-</tr>
-<tr>
-<td align="left">{</td>
-<td align="left">标记限定符表达式的开始。要匹配 {，请使用 <code>\{</code>。</td>
-</tr>
-<tr>
-<td align="left">|</td>
-<td align="left">指明两项之间的一个选择。要匹配 |，请使用 <code>|</code>。</td>
-</tr>
-</tbody></table>
-<h1 id="限定符（Quantifier）"><a href="#限定符（Quantifier）" class="headerlink" title="限定符（Quantifier）"></a>限定符（Quantifier）</h1><p>限定符（Quantifier）用来指定正则表达式的一个给定组件必须要出现多少次才能满足匹配。有 <strong>*** 或 **+</strong> 或 <strong>?</strong> 或 <strong>{n}</strong> 或 <strong>{n,}</strong> 或 <strong>{n,m}</strong> 共6种。</p>
-<p>正则表达式的限定符有：</p>
-<table>
-<thead>
-<tr>
-<th align="left">字符</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">*</td>
-<td align="left">匹配前面的子表达式<strong>零次或多次</strong>。例如，<code>zo*</code> 能匹配 “z” 以及 “zoo”。<code>*</code> 等价于 <code>{0,}</code>。</td>
-</tr>
-<tr>
-<td align="left">+</td>
-<td align="left">匹配前面的子表达式<strong>一次或多次</strong>。例如，<code>zo+</code> 能匹配 “zo” 以及 “zoo”，但不能匹配 “z”。<code>+</code> 等价于 <code>{1,}</code>。</td>
-</tr>
-<tr>
-<td align="left">?</td>
-<td align="left">匹配前面的子表达式<strong>零次或一次</strong>。例如，<code>do(es)?</code> 可以匹配 “do” 、 “does” 中的 “does” 、 “doxy” 中的 “do” 。<code>?</code> 等价于 <code>{0,1}</code>。</td>
-</tr>
-<tr>
-<td align="left">{n}</td>
-<td align="left">n 是一个非负整数。<strong>匹配确定的 n 次</strong>。例如，<code>o{2}</code> 不能匹配 “Bob” 中的 ‘o’，但是能匹配 “food” 中的两个 o。</td>
-</tr>
-<tr>
-<td align="left">{n,}</td>
-<td align="left">n 是一个非负整数。<strong>至少匹配n 次</strong>。例如，<code>o{2,</code>‘ 不能匹配 “Bob” 中的 ‘o’，但能匹配 “foooood” 中的所有 o。<code>o{1,}</code> 等价于 <code>o+</code>。<code>o{0,}</code> 则等价于 <code>o*</code>。</td>
-</tr>
-<tr>
-<td align="left">{n,m}</td>
-<td align="left">m 和 n 均为非负整数，其中n &lt;= m。<strong>最少匹配 n 次且最多匹配 m 次</strong>。例如，<code>o{1,3}</code> 将匹配 <code>fooooood</code> 中的前三个 o。<code>o{0,1}&#39;</code> 等价于 <code>o?</code>。请注意在逗号和两个数之间不能有空格。</td>
-</tr>
-</tbody></table>
-        
-          <a class="article-more-a" href="/2019/07/10/【Regular-Expression】正则表达式/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Regular Expression</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/RegularExpression/" class="article-tag-list-link color3">RegularExpression</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/10/【Regular-Expression】正则表达式/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【JavaEE】Jetty入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/【JavaEE】Jetty入门/">【Java EE】Jetty入门</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/10/【JavaEE】Jetty入门/" class="archive-article-date">
-  	<time datetime="2019-07-10T05:27:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Jetty"><a href="#Jetty" class="headerlink" title="Jetty"></a>Jetty</h1><p>总的来说，Jetty是一个Servlet container，可以看做是Tomcat的替代品。</p>
-        
-          <a class="article-more-a" href="/2019/07/10/【JavaEE】Jetty入门/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Java EE</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/JavaEE/" class="article-tag-list-link color2">JavaEE</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/10/【JavaEE】Jetty入门/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Operating-System】死锁" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/10/【Operating-System】死锁/">【Operating System】死锁（deadlock）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/10/【Operating-System】死锁/" class="archive-article-date">
-  	<time datetime="2019-07-10T05:20:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="死锁（deadlock）"><a href="#死锁（deadlock）" class="headerlink" title="死锁（deadlock）"></a>死锁（deadlock）</h1><p><strong>死锁（deadlock）</strong>，是指两个或两个以上的线程或进程。因争夺资源而造成的互相等待的现象。若无外力作用，他们都将无法推进下去，此时称系统处于死锁状态或产生了死锁，这些永远互相等待的进程称之为死锁进程、线程。</p>
-        
-          <a class="article-more-a" href="/2019/07/10/【Operating-System】死锁/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Operating System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/OperatingSystem/" class="article-tag-list-link color1">OperatingSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/10/【Operating-System】死锁/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/31/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/33/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/31/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="page-number" href="/page/31/">31</a><span class="page-number current">32</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/33/">Next &raquo;</a>
     </nav>
   
 
@@ -1047,11 +922,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1075,6 +950,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1084,10 +963,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1143,15 +1018,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1175,10 +1050,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -1187,7 +1058,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1195,11 +1066,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1215,11 +1090,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1267,11 +1142,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
