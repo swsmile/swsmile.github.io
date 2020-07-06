@@ -191,6 +191,88 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Django】错误汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/05/【Django】错误汇总/">【Django】错误汇总</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/05/【Django】错误汇总/" class="archive-article-date">
+  	<time datetime="2019-11-05T09:37:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Reason-image-not-found"><a href="#Reason-image-not-found" class="headerlink" title="Reason: image not found"></a>Reason: image not found</h1><h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>通过 <code>python manage.py runserver 0.0.0.0:80</code> 启动 Django 时，报错：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">django.core.exceptions.ImproperlyConfigured: Error loading MySQLdb module: dlopen(/Working/my_project/venv/lib/python2<span class="number">.7</span>/site-packages/_mysql.so, <span class="number">2</span>): Library <span class="keyword">not</span> loaded: /usr/local/opt/mysql@<span class="number">5.7</span>/lib/libmysqlclient<span class="number">.20</span>.dylib</span><br><span class="line">  Referenced <span class="keyword">from</span>: /Working/my_project/venv/lib/python2<span class="number">.7</span>/site-packages/_mysql.so</span><br><span class="line">  Reason: image <span class="keyword">not</span> found</span><br><span class="line">Unhandled exception <span class="keyword">in</span> thread started by &lt;_pydev_bundle.pydev_monkey._NewThreadStartupWithTrace instance at <span class="number">0x10acf42d8</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>这其实是因为在启动 Django 时，python interpreter 为了连接 MySQL，需要 <code>libmysqlclient.20.dylib</code> 文件，而去 <code>/usr/local/opt/mysql@5.7/lib/libmysqlclient.20.dylib</code> 路径下找时，未找到该文件。</p>
+<p>而事实上，本机中其实有 <code>libmysqlclient.20.dylib</code> 文件的，我的这个文件位于 <code>/usr/local/mysql-5.7.28-macos10.14-x86_64/lib/libmysqlclient.20.dylib</code> 下。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接创建软链接，有可能会出现因不存在特定文件夹，导致创建失败的情况</span></span><br><span class="line">$ sudo ln -s /usr/<span class="built_in">local</span>/mysql-5.7.28-macos10.14-x86_64/lib/libmysqlclient.20.dylib /usr/<span class="built_in">local</span>/opt/mysql@5.7/lib/libmysqlclient.20.dylib</span><br><span class="line">ln: /usr/<span class="built_in">local</span>/opt/mysql@5.7/lib/libmysqlclient.20.dylib: No such file or directory</span><br><span class="line"></span><br><span class="line">$ mkdir /usr/<span class="built_in">local</span>/opt/mysql@5.7</span><br><span class="line">$ <span class="built_in">cd</span> /usr/<span class="built_in">local</span>/opt/mysql@5.7</span><br><span class="line">$ mkdir lib</span><br><span class="line">$ sudo ln -s /usr/<span class="built_in">local</span>/mysql-5.7.28-macos10.14-x86_64/lib/libmysqlclient.20.dylib /usr/<span class="built_in">local</span>/opt/mysql@5.7/lib/libmysqlclient.20.dylib</span><br></pre></td></tr></table></figure>
+
+<p>再次启动 Django 时，一切正常。</p>
+        
+          <a class="article-more-a" href="/2019/11/05/【Django】错误汇总/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/05/【Django】错误汇总/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Python】前缀" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -925,86 +1007,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Python】Collection-Dict" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/01/【Python】Collection-Dict/">【Python】Collection - dict</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/01/【Python】Collection-Dict/" class="archive-article-date">
-  	<time datetime="2019-11-01T09:24:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="dict"><a href="#dict" class="headerlink" title="dict"></a>dict</h1><p>一个非常有用的 Python 內置数据类型是 <em>字典</em> (参见 <a href="https://docs.python.org/zh-cn/3/library/stdtypes.html#typesmapping" target="_blank" rel="noopener">映射类型 — dict</a>)。字典在其他语言里可能会被叫做 <em>联合内存</em> 或 <em>联合数组</em>。与以连续整数为索引的序列不同，字典是以 <em>关键字</em> 为索引的，关键字可以是任意不可变类型，通常是字符串或数字。如果一个元组只包含字符串、数字或元组，那么这个元组也可以用作关键字。但如果元组直接或间接地包含了可变对象，那么它就不能用作关键字。列表不能用作关键字，因为列表可以通过索引、切片或 <code>append()</code> 和 <code>extend()</code> 之类的方法来改变。</p>
-<p>理解字典的最好方式，就是将它看做是一个 <em>键: 值</em> 对的集合，键必须是唯一的（在一个字典中）。一对花括号可以创建一个空字典：<code>{}</code> 。另一种初始化字典的方式是在一对花括号里放置一些以逗号分隔的键值对，而这也是字典输出的方式。</p>
-<p>字典主要的操作是使用关键字存储和解析值。也可以用 <code>del</code> 来删除一个键值对。如果你使用了一个已经存在的关键字来存储值，那么之前与这个关键字关联的值就会被遗忘。用一个不存在的键来取值则会报错。</p>
-<p>对一个字典执行 <code>list(d)</code> 将返回包含该字典中所有键的列表，按插入次序排列 (如需其他排序，则要使用 <code>sorted(d)</code>)。要检查字典中是否存在一个特定键，可使用 <a href="https://docs.python.org/zh-cn/3/reference/expressions.html#in" target="_blank" rel="noopener"><code>in</code></a> 关键字。</p>
-<p>以下是使用字典的一些简单示例</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>tel = &#123;<span class="string">'jack'</span>: <span class="number">4098</span>, <span class="string">'sape'</span>: <span class="number">4139</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tel[<span class="string">'guido'</span>] = <span class="number">4127</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tel</span><br><span class="line">&#123;<span class="string">'jack'</span>: <span class="number">4098</span>, <span class="string">'sape'</span>: <span class="number">4139</span>, <span class="string">'guido'</span>: <span class="number">4127</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tel[<span class="string">'jack'</span>]</span><br><span class="line"><span class="number">4098</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">del</span> tel[<span class="string">'sape'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tel[<span class="string">'irv'</span>] = <span class="number">4127</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>tel</span><br><span class="line">&#123;<span class="string">'jack'</span>: <span class="number">4098</span>, <span class="string">'guido'</span>: <span class="number">4127</span>, <span class="string">'irv'</span>: <span class="number">4127</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(tel)</span><br><span class="line">[<span class="string">'jack'</span>, <span class="string">'guido'</span>, <span class="string">'irv'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>sorted(tel)</span><br><span class="line">[<span class="string">'guido'</span>, <span class="string">'irv'</span>, <span class="string">'jack'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'guido'</span> <span class="keyword">in</span> tel</span><br><span class="line"><span class="literal">True</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'jack'</span> <span class="keyword">not</span> <span class="keyword">in</span> tel</span><br><span class="line"><span class="literal">False</span></span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/11/01/【Python】Collection-Dict/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/01/【Python】Collection-Dict/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/16/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/18/">Next &raquo;</a>
@@ -1155,10 +1157,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -1167,7 +1165,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1176,10 +1182,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1211,15 +1213,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1235,11 +1237,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1271,10 +1273,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
@@ -1283,11 +1281,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1295,11 +1297,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Node.js</a>
+                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
+                <a href="javascript:void(0)" class="js-tag color3">Node.js</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1327,15 +1329,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1343,15 +1341,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1363,11 +1365,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1376,10 +1382,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
