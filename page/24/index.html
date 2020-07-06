@@ -191,6 +191,106 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Python】线程-多线程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/23/【Python】线程-多线程/">【Python】线程 - 多线程（Multithreading）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/23/【Python】线程-多线程/" class="archive-article-date">
+  	<time datetime="2019-09-23T13:17:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python-多线程"><a href="#Python-多线程" class="headerlink" title="Python 多线程"></a>Python 多线程</h1><p>Python中使用线程有两种方式：函数或者用类来包装线程对象。</p>
+<h1 id="函数-创建新线程"><a href="#函数-创建新线程" class="headerlink" title="函数 - 创建新线程"></a>函数 - 创建新线程</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread.start_new_thread ( function, args[, kwargs] )</span><br></pre></td></tr></table></figure>
+
+<p>参数说明:</p>
+<ul>
+<li>function - 线程函数。</li>
+<li>args - 传递给线程函数的参数,他必须是个tuple类型。</li>
+<li>kwargs - 可选参数。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> thread</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 为线程定义一个函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_time</span><span class="params">( threadName, delay)</span>:</span></span><br><span class="line">   count = <span class="number">0</span></span><br><span class="line">   <span class="keyword">while</span> count &lt; <span class="number">5</span>:</span><br><span class="line">      time.sleep(delay)</span><br><span class="line">      count += <span class="number">1</span></span><br><span class="line">      <span class="keyword">print</span> <span class="string">"%s: %s"</span> % ( threadName, time.ctime(time.time()) )</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建两个线程</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">   thread.start_new_thread( print_time, (<span class="string">"Thread-1"</span>, <span class="number">2</span>, ) )</span><br><span class="line">   thread.start_new_thread( print_time, (<span class="string">"Thread-2"</span>, <span class="number">4</span>, ) )</span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"Error: unable to start thread"</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">   <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="包装线程对象-创建线程"><a href="#包装线程对象-创建线程" class="headerlink" title="包装线程对象 - 创建线程"></a>包装线程对象 - 创建线程</h1><p>Python 提供了Thread类来处理线程，Thread类提供了以下方法:</p>
+<ul>
+<li><strong>run()</strong>： 用以表示线程活动的方法。</li>
+<li><strong>start()</strong>：启动线程活动。</li>
+<li><strong>join([time])</strong> ：等待至线程中止。这阻塞调用线程直至线程的join() 方法被调用中止-正常退出或者抛出未处理的异常-或者是可选的超时发生。</li>
+<li><strong>isAlive()</strong>：返回线程是否活动的。</li>
+<li><strong>getName()</strong>：返回线程名。</li>
+<li><strong>setName()</strong> ：设置线程名。</li>
+</ul>
+<hr>
+<p>使用Threading模块创建线程，直接从threading.Thread类继承，然后重写<strong>init</strong>方法和run方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"> </span><br><span class="line">exitFlag = <span class="number">0</span></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">myThread</span> <span class="params">(threading.Thread)</span>:</span>   <span class="comment">#继承父类threading.Thread</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, threadID, name, counter)</span>:</span></span><br><span class="line">        threading.Thread.__init__(self)</span><br><span class="line">        self.threadID = threadID</span><br><span class="line">        self.name = name</span><br><span class="line">        self.counter = counter</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span>                   <span class="comment">#把要执行的代码写到run函数里面 线程在创建后会直接运行run函数 </span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Starting "</span> + self.name</span><br><span class="line">        print_time(self.name, self.counter, <span class="number">5</span>)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Exiting "</span> + self.name</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_time</span><span class="params">(threadName, delay, counter)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> counter:</span><br><span class="line">        <span class="keyword">if</span> exitFlag:</span><br><span class="line">            (threading.Thread).exit()</span><br><span class="line">        time.sleep(delay)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"%s: %s"</span> % (threadName, time.ctime(time.time()))</span><br><span class="line">        counter -= <span class="number">1</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 创建新线程</span></span><br><span class="line">thread1 = myThread(<span class="number">1</span>, <span class="string">"Thread-1"</span>, <span class="number">1</span>)</span><br><span class="line">thread2 = myThread(<span class="number">2</span>, <span class="string">"Thread-2"</span>, <span class="number">2</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 开启线程</span></span><br><span class="line">thread1.start()</span><br><span class="line">thread2.start()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> <span class="string">"Exiting Main Thread"</span></span><br></pre></td></tr></table></figure>
+
+<p>或者，把一个函数传入并创建<code>Thread</code>实例，然后调用<code>start()</code>开始执行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time, threading</span><br><span class="line"></span><br><span class="line"><span class="comment"># 新线程执行的代码:</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'thread %s is running...'</span> % threading.current_thread().name)</span><br><span class="line">    n = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> n &lt; <span class="number">5</span>:</span><br><span class="line">        n = n + <span class="number">1</span></span><br><span class="line">        print(<span class="string">'thread %s &gt;&gt;&gt; %s'</span> % (threading.current_thread().name, n))</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">'thread %s ended.'</span> % threading.current_thread().name)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'thread %s is running...'</span> % threading.current_thread().name)</span><br><span class="line">t = threading.Thread(target=loop, name=<span class="string">'LoopThread'</span>)</span><br><span class="line">t.start()</span><br><span class="line">t.join()</span><br><span class="line">print(<span class="string">'thread %s ended.'</span> % threading.current_thread().name)</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/09/23/【Python】线程-多线程/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/23/【Python】线程-多线程/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Python】线程-多进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -782,97 +882,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【SQL】常用SQL语句" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/22/【SQL】常用SQL语句/">【SQL】常用 SQL 语句</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/22/【SQL】常用SQL语句/" class="archive-article-date">
-  	<time datetime="2019-08-22T03:20:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CREATE-创建数据表"><a href="#CREATE-创建数据表" class="headerlink" title="CREATE - 创建数据表"></a>CREATE - 创建数据表</h1><p>以下为创建MySQL数据表的SQL通用语法：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_name (column_name column_type);</span><br></pre></td></tr></table></figure>
-
-<p>以下例子中我们将在 RUNOOB 数据库中创建数据表runoob_tbl：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="string">`runoob_tbl`</span>(</span><br><span class="line">   <span class="string">`runoob_id`</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> AUTO_INCREMENT,</span><br><span class="line">   <span class="string">`runoob_title`</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">   <span class="string">`runoob_author`</span> <span class="built_in">VARCHAR</span>(<span class="number">40</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">   <span class="string">`submission_date`</span> <span class="built_in">DATE</span>,</span><br><span class="line">   PRIMARY <span class="keyword">KEY</span> ( <span class="string">`runoob_id`</span> )</span><br><span class="line">)<span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span> <span class="keyword">DEFAULT</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure>
-
-<p>实例解析：</p>
-<ul>
-<li><p>如果你不想字段为 <strong>NULL</strong> 可以设置字段的属性为 <strong>NOT NULL</strong>， 在操作数据库时如果输入该字段的数据为<strong>NULL</strong> ，就会报错。</p>
-</li>
-<li><p>AUTO_INCREMENT定义列为自增的属性，一般用于主键，数值会自动加1。</p>
-</li>
-<li><p>PRIMARY KEY关键字用于定义列为主键。 您可以使用多列来定义主键，列间以逗号分隔。</p>
-</li>
-<li><p>ENGINE 设置存储引擎，CHARSET 设置编码。</p>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/08/22/【SQL】常用SQL语句/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/SQL/" class="article-tag-list-link color4">SQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/22/【SQL】常用SQL语句/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/23/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/68/">68</a><a class="extend next" rel="next" href="/page/25/">Next &raquo;</a>
@@ -979,11 +988,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1007,6 +1016,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1016,10 +1029,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1039,15 +1048,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1075,10 +1084,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1087,15 +1092,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1107,15 +1116,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1127,11 +1136,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1139,11 +1148,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1151,11 +1160,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,15 +1180,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1199,11 +1208,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
