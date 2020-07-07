@@ -191,6 +191,86 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【MySQL】连接诊断 - Too-many-connections" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/【MySQL】连接诊断 - Too-many-connections/">【MySQL】Too many connections</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/【MySQL】连接诊断 - Too-many-connections/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:39:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL-最大连接数（max-connection）"><a href="#MySQL-最大连接数（max-connection）" class="headerlink" title="MySQL 最大连接数（max connection）"></a>MySQL 最大连接数（max connection）</h1><p><code>max connection</code> is a threshold specified in MySQL: the maximum permitted number of simultaneous client connections (if exceed, apps will get “Too many connections” error from MySQL).</p>
+<p>查看当前 MySQL 的最大连接数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ mysql –u root –p</span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE <span class="string">'max_connections'</span>;</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| Variable_name   | Value |</span><br><span class="line">+-----------------+-------+</span><br><span class="line">| max_connections | 151   |</span><br><span class="line">+-----------------+-------+</span><br></pre></td></tr></table></figure>
+
+<h1 id="MySQL-同时被使用的连接的最大值（max-used-connection）"><a href="#MySQL-同时被使用的连接的最大值（max-used-connection）" class="headerlink" title="MySQL 同时被使用的连接的最大值（max used connection）"></a>MySQL 同时被使用的连接的最大值（max used connection）</h1><p><code>max used connection</code> is the maximum number of connections that have been in use simultaneously since the server started.</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global status like <span class="string">'Max_used_connections'</span>;</span><br><span class="line">+----------------------+-------+</span><br><span class="line"><span class="params">| Variable_name    |</span> Value <span class="params">|</span></span><br><span class="line"><span class="params">+----------------------+-------+</span></span><br><span class="line"><span class="params">|</span> Max_used_connections <span class="params">| 2   |</span></span><br><span class="line">+----------------------+-------+</span><br><span class="line"><span class="number">1</span> row <span class="keyword">in</span> set (<span class="number">0</span>.<span class="number">00</span> sec)</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/04/21/【MySQL】连接诊断 - Too-many-connections/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/【MySQL】连接诊断 - Too-many-connections/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Redis】查看连接信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -774,84 +854,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】使用-JSON序列化与反序列化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/30/【Golang】使用-JSON序列化与反序列化/">【Golang】JSON序列化与反序列化</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/30/【Golang】使用-JSON序列化与反序列化/" class="archive-article-date">
-  	<time datetime="2020-03-30T14:36:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="struct转JSON"><a href="#struct转JSON" class="headerlink" title="struct转JSON"></a>struct转JSON</h1><p>我们可以在struct的attribute后指定该struct被序列化成JSON后的key的值，这被称为<strong>Struct Tag</strong>。</p>
-<p>Struct tag 可以决定 Marshal 和 Unmarshal 函数如何在序列化和反序列化数据时，JSON key的值。</p>
-<p>如果没有指定，则取该attribute对应全小写字符串作为key的值。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"encoding/json"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">	UserName <span class="keyword">string</span> <span class="string">`json:"username"`</span></span><br><span class="line">	NickName <span class="keyword">string</span> <span class="string">`json:"nickname"`</span></span><br><span class="line">	Age      <span class="keyword">int</span></span><br><span class="line">	Birthday <span class="keyword">string</span> <span class="string">`json:"birth"`</span></span><br><span class="line">	Sex      <span class="keyword">string</span></span><br><span class="line">	Email    <span class="keyword">string</span></span><br><span class="line">	Phone    <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*结构体转json*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testStruct</span><span class="params">()</span></span> &#123;</span><br><span class="line">	user1 := &amp;User&#123;</span><br><span class="line">		UserName: <span class="string">"user1"</span>,</span><br><span class="line">		NickName: <span class="string">"上课看似"</span>,</span><br><span class="line">		Age:      <span class="number">18</span>,</span><br><span class="line">		Birthday: <span class="string">"2008/8/8"</span>,</span><br><span class="line">		Sex:      <span class="string">"男"</span>,</span><br><span class="line">		Email:    <span class="string">"mahuateng@qq.com"</span>,</span><br><span class="line">		Phone:    <span class="string">"110"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	dataBytes, err := json.Marshal(user1)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"json.marshal failed, err:"</span>, err)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"%s \n"</span>, <span class="keyword">string</span>(dataBytes))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	testStruct()</span><br><span class="line">	fmt.Println(<span class="string">"----"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">&#123;<span class="string">"username"</span>:<span class="string">"user1"</span>,<span class="string">"nickname"</span>:<span class="string">"上课看似"</span>,<span class="string">"Age"</span>:<span class="number">18</span>,<span class="string">"birth"</span>:<span class="string">"2008/8/8"</span>,<span class="string">"Sex"</span>:<span class="string">"男"</span>,<span class="string">"Email"</span>:<span class="string">"mahuateng@qq.com"</span>,<span class="string">"Phone"</span>:<span class="string">"110"</span>&#125; </span><br><span class="line">----</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/03/30/【Golang】使用-JSON序列化与反序列化/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/30/【Golang】使用-JSON序列化与反序列化/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
@@ -958,15 +960,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1014,15 +1016,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1062,15 +1064,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1078,15 +1076,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1126,11 +1128,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1142,6 +1144,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
               </li>
              
@@ -1150,15 +1156,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1194,11 +1200,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">

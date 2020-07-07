@@ -191,6 +191,120 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】内置函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/【Golang】内置函数/">【Golang】内置函数</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/15/【Golang】内置函数/" class="archive-article-date">
+  	<time datetime="2020-03-15T09:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="make"><a href="#make" class="headerlink" title="make()"></a><code>make()</code></h1><p>Slices can be created with the built-in <code>make</code> function; this is how you create dynamically-sized arrays.</p>
+<p>The <code>make</code> function allocates a zeroed array and returns a slice that refers to that array:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a := make([]int, 5)  // len(a)=5</span><br></pre></td></tr></table></figure>
+
+<p>To specify a capacity, pass a third argument to <code>make</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">b := make([]int, 0, 5) // len(b)=0, cap(b)=5</span><br><span class="line"></span><br><span class="line">b = b[:cap(b)] // len(b)=5, cap(b)=5</span><br><span class="line">b = b[1:]      // len(b)=4, cap(b)=4</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	a := make([]int, 5)</span><br><span class="line">	printSlice(&quot;a&quot;, a)</span><br><span class="line"></span><br><span class="line">	b := make([]int, 0, 5)</span><br><span class="line">	printSlice(&quot;b&quot;, b)</span><br><span class="line"></span><br><span class="line">	c := b[:2]</span><br><span class="line">	printSlice(&quot;c&quot;, c)</span><br><span class="line"></span><br><span class="line">	d := c[2:5]</span><br><span class="line">	printSlice(&quot;d&quot;, d)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func printSlice(s string, x []int) &#123;</span><br><span class="line">	fmt.Printf(&quot;%s len=%d cap=%d %v\n&quot;,</span><br><span class="line">		s, len(x), cap(x), x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="make-T-args-返回的是-T-的引用（指针）-易错"><a href="#make-T-args-返回的是-T-的引用（指针）-易错" class="headerlink" title="make(T, args) 返回的是 T 的引用（指针） - 易错"></a><code>make(T, args)</code> 返回的是 T 的引用（指针） - 易错</h2><p>在 Go的世界中，如果没有显式的声明，则都是按值传递（无论数据类型）。这意味着，当调用一个函数时，这个值会被复制一份并传递到这个函数中。因此，在函数内部对值修改不影响值的本身。</p>
+<p><strong>但是，make(T, args) 返回的值通过函数传递参数之后可以直接修改，即任何 map，slice，channel 的实例传入函数之后，在函数内部修改该实例的值，将影响该实例在函数外部的状态。</strong></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modifySlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	s[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s2 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">3</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"%#v"</span>, s2) <span class="comment">//[]int&#123;0, 0, 0&#125;</span></span><br><span class="line">	modifySlice(s2)</span><br><span class="line">	fmt.Printf(<span class="string">"%#v"</span>, s2) <span class="comment">//[]int&#123;1, 0, 0&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">[]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;</span><br><span class="line">[]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这其实说明，调用<code>make(T, args)</code>时返回的是 T 实例的引用（指针），而不是 T 实例。</p>
+<h3 id="make-和-new"><a href="#make-和-new" class="headerlink" title="make() 和 new()"></a><code>make()</code> 和 <code>new()</code></h3><blockquote>
+<p>new 和 make 都可以用来分配空间，初始化类型，但是它们确有不同。</p>
+</blockquote>
+<h4 id="new-T-返回的是-T-的指针"><a href="#new-T-返回的是-T-的指针" class="headerlink" title="new(T) 返回的是 T 的指针"></a>new(T) 返回的是 T 的指针</h4><p><code>new(T)</code> 会实例化出一个 T 类型的实例，并为此分配内存空间，该示例为 T 类型的默认值。</p>
+<p><code>new(T)</code> 返回的是示例的地址（也就是一个 T 类型的指针 *T）该指针指向这个 T 的实例。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p1 := <span class="built_in">new</span>(<span class="keyword">int</span>)</span><br><span class="line">fmt.Printf(<span class="string">"p1 --&gt; %#v \n "</span>, p1) <span class="comment">//(*int)(0xc42000e250) </span></span><br><span class="line">fmt.Printf(<span class="string">"p1 point to --&gt; %#v \n "</span>, *p1) <span class="comment">//0</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p2 *<span class="keyword">int</span></span><br><span class="line">i := <span class="number">0</span></span><br><span class="line">p2 = &amp;i</span><br><span class="line">fmt.Printf(<span class="string">"p2 --&gt; %#v \n "</span>, p2) <span class="comment">//(*int)(0xc42000e278) </span></span><br><span class="line">fmt.Printf(<span class="string">"p2 point to --&gt; %#v \n "</span>, *p2) <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码是等价的，new(int) 将分配的空间初始化为 int 的零值，也就是 0，并返回 int 的指针，这和直接声明指针并初始化的效果是相同的。</p>
+<h4 id="make-1"><a href="#make-1" class="headerlink" title="make()"></a><code>make()</code></h4><p>make 只能用于 slice，map，channel 三种类型，也就是说，在调用 <code>make(T, args)</code> 时，T 只能是slice，map，channel 三种中的其实一种。</p>
+<p><code>make(T, args)</code> 返回的是初始化之后的 T 类型的实例（而不是一个指针）。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s1 []<span class="keyword">int</span></span><br><span class="line"><span class="keyword">if</span> s1 == <span class="literal">nil</span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"s1 is nil --&gt; %#v \n "</span>, s1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">s2 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">3</span>)</span><br><span class="line"><span class="keyword">if</span> s2 == <span class="literal">nil</span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"s2 is nil --&gt; %#v \n "</span>, s2)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"s2 is not nill --&gt; %#v \n "</span>, s2)<span class="comment">// []int&#123;0, 0, 0&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">s1 is <span class="literal">nil</span> --&gt; []<span class="keyword">int</span>(<span class="literal">nil</span>) </span><br><span class="line">s2 is not nill --&gt; []<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于 slice 而言，slice 的零值是 nil，当调用 <code>make()</code> 之后， slice 的初始化被完成，即 slice 的长度、容量、底层指向的 array 都在 <code>make()</code> 函数中被初始化了，此时 slice 内容被类型 int 的零值填充，形式是 [0 0 0]，map 和 channel 也是类似的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> m1 <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span></span><br><span class="line">	<span class="keyword">if</span> m1 == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"m1 is nil --&gt; %#v \n "</span>, m1)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	m2 := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>)</span><br><span class="line">	<span class="keyword">if</span> m2 == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"m2 is nil --&gt; %#v \n "</span>, m2)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"m2 is not nill --&gt; %#v \n "</span>, m2)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> c1 <span class="keyword">chan</span> <span class="keyword">string</span></span><br><span class="line">	<span class="keyword">if</span> c1 == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"c1 is nil --&gt; %#v \n "</span>, c1) <span class="comment">//(chan string)(nil)</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="number">36.6</span></span><br><span class="line">	c2 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">string</span>)</span><br><span class="line">	<span class="keyword">if</span> c2 == <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"c2 is nil --&gt; %#v \n "</span>, c2)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Printf(<span class="string">"c2 is not nill --&gt; %#v \n "</span>, c2) <span class="comment">//(chan string)(0xc420016120)</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">m1 is <span class="literal">nil</span> --&gt; <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>(<span class="literal">nil</span>) </span><br><span class="line">m2 is not nill --&gt; <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;&#125; </span><br><span class="line">c1 is <span class="literal">nil</span> --&gt; (<span class="keyword">chan</span> <span class="keyword">string</span>)(<span class="literal">nil</span>) </span><br><span class="line">c2 is not nill --&gt; (<span class="keyword">chan</span> <span class="keyword">string</span>)(<span class="number">0xc000070060</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="append"><a href="#append" class="headerlink" title="append()"></a><code>append()</code></h1><p>可以通过直接使用<code>append()</code> 来向数组中添加元素，此后数组的 len 和 cap 都会自动变大，比如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span></span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// append works on nil slices.</span></span><br><span class="line">	s = <span class="built_in">append</span>(s, <span class="number">0</span>)</span><br><span class="line">	printSlice(s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"len=%d cap=%d %v\n"</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s), s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">0</span> <span class="built_in">cap</span>=<span class="number">0</span> []</span><br><span class="line"><span class="built_in">len</span>=<span class="number">1</span> <span class="built_in">cap</span>=<span class="number">1</span> [<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p>It is common to append new elements to a slice, and so Go provides a built-in <code>append</code> function. The <a href="https://golang.org/pkg/builtin/#append" target="_blank" rel="noopener">documentation</a> of the built-in package describes <code>append</code>.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(s []T, vs ...T)</span> []<span class="title">T</span></span></span><br></pre></td></tr></table></figure>
+
+<p>The first parameter <code>s</code> of <code>append</code> is a slice of type <code>T</code>, and the rest are <code>T</code> values to append to the slice.</p>
+<p>The resulting value of <code>append</code> is a slice containing all the elements of the original slice plus the provided values.</p>
+<p>If the backing array of <code>s</code> is too small to fit all the given values a bigger array will be allocated. The returned slice will point to the newly allocated array.</p>
+<p>(To learn more about slices, read the <a href="https://blog.golang.org/go-slices-usage-and-internals" target="_blank" rel="noopener">Slices: usage and internals</a> article.)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var s []int</span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	// append works on nil slices.</span><br><span class="line">	s = append(s, 0)</span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	// The slice grows as needed.</span><br><span class="line">	s = append(s, 1)</span><br><span class="line">	printSlice(s)</span><br><span class="line"></span><br><span class="line">	// We can add more than one element at a time.</span><br><span class="line">	s = append(s, 2, 3, 4)</span><br><span class="line">	printSlice(s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func printSlice(s []int) &#123;</span><br><span class="line">	fmt.Printf(&quot;len=%d cap=%d %v\n&quot;, len(s), cap(s), s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//output</span><br><span class="line">len=0 cap=0 []</span><br><span class="line">len=1 cap=2 [0]</span><br><span class="line">len=2 cap=2 [0 1]</span><br><span class="line">len=5 cap=8 [0 1 2 3 4]</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/03/15/【Golang】内置函数/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/15/【Golang】内置函数/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】类型-数据类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1076,87 +1190,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】枚举" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/15/【Golang】枚举/">【Golang】枚举（enumeration）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/15/【Golang】枚举/" class="archive-article-date">
-  	<time datetime="2020-03-15T09:00:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="枚举（enumeration）"><a href="#枚举（enumeration）" class="headerlink" title="枚举（enumeration）"></a>枚举（enumeration）</h2><p>Golang 语言并没有提供enum的定义，我们可以使用const来模拟枚举类型。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> PolicyType <span class="keyword">int32</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    Policy_MIN      PolicyType = <span class="number">0</span></span><br><span class="line">    Policy_MAX      PolicyType = <span class="number">1</span></span><br><span class="line">    Policy_MID      PolicyType = <span class="number">2</span></span><br><span class="line">    Policy_AVG      PolicyType = <span class="number">3</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>这里定义了一个新的类型PolicyType，并且定义了4个常量（Policy_MIN, Policy_MAX, Policy_MID, Policy_AVG），类型是PolicyType。</p>
-<h1 id="使用举例"><a href="#使用举例" class="headerlink" title="使用举例"></a>使用举例</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">foo</span><span class="params">(p PolicyType)</span></span> &#123;</span><br><span class="line">    fmt.Printf(<span class="string">"enum value: %v\n"</span>, p)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    foo(Policy_MAX)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const (</span><br><span class="line">    Unknown = 0</span><br><span class="line">    Female = 1</span><br><span class="line">    Male = 2</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/03/15/【Golang】枚举/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/15/【Golang】枚举/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
@@ -1263,15 +1296,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1319,15 +1352,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1367,15 +1400,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1383,15 +1412,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1431,11 +1464,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1447,6 +1480,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
               </li>
              
@@ -1455,15 +1492,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1499,11 +1536,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
