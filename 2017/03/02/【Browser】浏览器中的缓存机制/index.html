@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/9b21e08b-224b-44f8-aeaf-611b335ebe4c.jpg">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ee0acf92-0c73-4905-94f3-33d7240c656a.jpg">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/876aba5f-63b8-4b24-a212-561f4a52f498.png">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.285Z">
+<meta property="og:updated_time" content="2020-07-07T12:58:49.519Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Browser】 浏览器中的缓存机制">
 <meta name="twitter:description" content="浏览器中的缓存机制，其实就相当于HTTP协议定义的缓存机制，因为浏览器为我们实现了它。一般情况下我们会想到HTTP响应头中的 Pragma，Expires，Cache-Control，Last-Modified，If-Modified-Since，Etag ，因为这些域与缓存相关。">
@@ -226,8 +226,9 @@ var _hmt = _hmt || [];
 </blockquote>
 <a id="more"></a> 
 
-<h5 id="浏览器对这些域的处理："><a href="#浏览器对这些域的处理：" class="headerlink" title="浏览器对这些域的处理："></a>浏览器对这些域的处理：</h5><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/69d56226-772b-45be-8638-143e0f413d68.jpg" alt=""></p>
-<h1 id="一-Pragma域"><a href="#一-Pragma域" class="headerlink" title="一.Pragma域"></a>一.Pragma域</h1><p>Pragma行是为了兼容HTTP1.0，作用与</p>
+<p><strong>浏览器对这些域的处理：</strong></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/69d56226-772b-45be-8638-143e0f413d68.jpg" alt=""></p>
+<h1 id="Pragma域"><a href="#Pragma域" class="headerlink" title="Pragma域"></a>Pragma域</h1><p>Pragma行是为了兼容HTTP1.0，作用与</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: no-cache</span><br></pre></td></tr></table></figure>
 
 <p>是一样的。</p>
@@ -244,7 +245,7 @@ var _hmt = _hmt || [];
 <p>做了测试后发现也的确如此，这种客户端定义Pragma的形式基本没起到多少作用。不过如果是在响应报文上加上该字段就不一样了：</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/834be19f-6fd4-454d-b66b-14a6d0702171.jpg" alt=""></p>
 <p>如上图红框部分是再次刷新页面时生成的请求，这说明禁用缓存生效，预计浏览器在收到服务器的Pragma字段后会对资源进行标记，禁用其缓存行为，进而后续每次刷新页面均能重新发出请求而不走缓存。</p>
-<h1 id="二-Expires域"><a href="#二-Expires域" class="headerlink" title="二.Expires域"></a>二.Expires域</h1><p>有了Pragma来禁用缓存，自然也需要有个东西来启用缓存和定义缓存时间，对http1.0而言，<strong>Expires</strong> 就是做这件事的首部字段。</p>
+<h1 id="Expires域"><a href="#Expires域" class="headerlink" title="Expires域"></a>Expires域</h1><p>有了Pragma来禁用缓存，自然也需要有个东西来启用缓存和定义缓存时间，对http1.0而言，<strong>Expires</strong> 就是做这件事的首部字段。</p>
 <p><strong>Expires 存储是一个用来控制缓存失效的日期</strong>。</p>
 <p>当浏览器看到Response中有一个Expires头时，它会和相应的页面一起保存到其缓存中，只要页面没有过期，浏览器就会<strong>使用缓存中保存的页面版本</strong>而不会进行任何向服务器发送的HTTP请求，功能等同于max-age（下文会详细描述）；若该页面超过了Expires域中指定时间，Browser会重新访问Server获取页面数据。</p>
 <p>设置的日期格式必须为GMT（格林尼治标准时间）。若此属性在一页上设置了多次，则使用最短的时间。</p>
@@ -256,7 +257,7 @@ var _hmt = _hmt || [];
 <p>如果是在服务端报头返回Expires字段，则在任何浏览器中都能正确设置资源缓存的时间：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/34e1f9ad-9e7e-47c9-8edc-19a02f22690c.jpg" alt=""><br>在上图里，缓存时间设置为一个已过期的时间点_（见红框）_，则刷新页面将重新发送请求_（见蓝框）_。</p>
 <p><strong>那么如果Pragma和Expires一起上阵的话，听谁的？我们试一试就知道了：</strong><br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2370234d-852a-42fa-9331-e6cc101f20c2.jpg" alt=""></p>
 <p>我们通过Pragma禁用缓存，又给Expires定义一个还未到期的时间_（红框）_，刷新页面时发现均发起了新请求_（蓝框）_，<strong>这意味着Pragma字段的优先级会更高。</strong></p>
-<h2 id="三-Cache-Control域"><a href="#三-Cache-Control域" class="headerlink" title="三.Cache-Control域"></a>三.Cache-Control域</h2><p>该域在HTTP1.1中添加。</p>
+<h1 id="Cache-Control域"><a href="#Cache-Control域" class="headerlink" title="Cache-Control域"></a>Cache-Control域</h1><p>该域在HTTP1.1中添加。</p>
 <p>服务器响应浏览器请求时响应头中的Cache-Control使得每个资源都可以<strong>通过 Cache-Control HTTP 头来定义自己的缓存策略</strong>，Cache-Control 指令用来告诉 Browser，该资源在什么条件下可以缓存，以及可以缓存多久。</p>
 <p>Cache-Control头参数的含义(<strong>响应头中的Cache-Control</strong>)</p>
 <ul>
@@ -271,38 +272,38 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;Cache-Control&quot;  &quot;:&quot;  cache-directive</span><br></pre></td></tr></table></figure>
 
 <p>作为请求首部时，cache-directive 的可选值有：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/6159c4ac-e10a-499e-8596-96de89180796.jpg" alt=""><br>作为响应首部时，cache-directive 的可选值有：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bdff8ab6-d653-4a4e-817e-efc5a519c272.jpg" alt=""></p>
-<h2 id="四-Last-Modified、If-Modified-Since"><a href="#四-Last-Modified、If-Modified-Since" class="headerlink" title="四.Last-Modified、If-Modified-Since"></a>四.Last-Modified、If-Modified-Since</h2><p>在浏览器第一次请求某一个URL时，服务器端的返回状态会是200，内容是你请求的资源，同时有一个Last-Modified的属性标记此文件在服务期端最后被修改的时间，格式类似这样：</p>
+<h1 id="Last-Modified、If-Modified-Since"><a href="#Last-Modified、If-Modified-Since" class="headerlink" title="Last-Modified、If-Modified-Since"></a>Last-Modified、If-Modified-Since</h1><p>在浏览器第一次请求某一个URL时，服务器端的返回状态会是200，内容是你请求的资源，同时有一个Last-Modified的属性标记此文件在服务期端最后被修改的时间，格式类似这样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Last-Modified: Fri, 12 May 2006 18:53:33 GMT</span><br></pre></td></tr></table></figure>
 
 <p>客户端第二次请求此URL时，根据 HTTP 协议的规定，浏览器会向服务器传送 If-Modified-Since 报头，询问该时间之后文件是否有被修改过：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: Fri, 12 May 2006 18:53:33 GMT</span><br></pre></td></tr></table></figure>
 
 <p>如果服务器端的资源没有变化，则自动返回 HTTP 304 （Not Changed.）状态码，内容为空，这样就节省了传输数据量。当服务器端代码发生改变或者重启服务器时，则重新发出资源，返回和第一次请求时类似。从而保证不向客户端重复发出资源，也保证当服务器有变化时，客户端能够得到最新的资源。</p>
-<h4 id="Last-Modified-If-Modified-Sincec搭配使用"><a href="#Last-Modified-If-Modified-Sincec搭配使用" class="headerlink" title="Last-Modified/If-Modified-Sincec搭配使用"></a>Last-Modified/If-Modified-Sincec搭配使用</h4><blockquote>
+<h2 id="Last-Modified-If-Modified-Sincec搭配使用"><a href="#Last-Modified-If-Modified-Sincec搭配使用" class="headerlink" title="Last-Modified/If-Modified-Sincec搭配使用"></a>Last-Modified/If-Modified-Sincec搭配使用</h2><blockquote>
 <p>Last-Modified/If-Modified-Since也配合Cache-Control使用。</p>
 </blockquote>
 <p><strong>Last-Modified：</strong>标示这个响应资源的最后修改时间。web服务器在响应请求时，告诉浏览器资源的最后修改时间。</p>
 <p><strong>If-Modified-Since：</strong>当资源过期时（使用Cache-Control标识的max-age），发现资源具有Last-Modified声明，则再次向web服务器请求时带上头 If-Modified-Since，表示请求时间。web服务器收到请求后发现有头If-Modified-Since 则与被请求资源的最后修改时间进行比对。若最后修改时间较新，说明资源又被改动过，则响应整片资源内容（写在响应消息包体内），HTTP 200；若最后修改时间较旧，说明资源无新修改，则响应HTTP 304 (无需包体，节省浏览)，告知浏览器继续使用所保存的cache。</p>
-<h1 id="五-Etag-If-None-Match"><a href="#五-Etag-If-None-Match" class="headerlink" title="五.Etag/If-None-Match"></a>五.Etag/If-None-Match</h1><blockquote>
+<h1 id="Etag-If-None-Match"><a href="#Etag-If-None-Match" class="headerlink" title="Etag/If-None-Match"></a>Etag/If-None-Match</h1><blockquote>
 <p>Etag/If-None-Match也要配合Cache-Control使用。</p>
 </blockquote>
 <p><strong>Etag 是根据实体内容生成一段hash字符串</strong>，标识资源的状态，由服务端产生。浏览器会将这串字符串传回服务器，验证资源是否已经修改，如果没有修改，过程如下：</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/9b21e08b-224b-44f8-aeaf-611b335ebe4c.jpg" alt=""></p>
-<h3 id="1-Etag配合If-None-Match使用"><a href="#1-Etag配合If-None-Match使用" class="headerlink" title="1.Etag配合If-None-Match使用"></a>1.Etag配合If-None-Match使用</h3><p>Etag：web服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）。Apache中，ETag的值，默认是对文件的索引节（INode），大小（Size）和最后修改时间（MTime）进行Hash后得到的。</p>
+<h2 id="1-Etag配合If-None-Match使用"><a href="#1-Etag配合If-None-Match使用" class="headerlink" title="1 Etag配合If-None-Match使用"></a>1 Etag配合If-None-Match使用</h2><p>Etag：web服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识（生成规则由服务器决定）。Apache中，ETag的值，默认是对文件的索引节（INode），大小（Size）和最后修改时间（MTime）进行Hash后得到的。</p>
 <p>If-None-Match：当资源过期时（使用Cache-Control标识的max-age），发现资源具有Etage声明，则再次向web服务器请求时带上头If-None-Match （Etag的值）。web服务器收到请求后发现有头If-None-Match 则与被请求资源的相应校验串进行比对，决定返回200或304。</p>
 <p>ETags和If-None-Match是一种常用的判断资源是否改变的方法。类似于Last-Modified和HTTP-IF-MODIFIED-SINCE。但是有所不同的是Last-Modified和HTTP-IF-MODIFIED-SINCE只判断资源的最后修改时间，而ETags和If-None-Match可以是资源任何的任何属性，不如资源的MD5等。</p>
 <p>ETags和If-None-Match的工作原理是在HTTP Response中添加ETags信息。当客户端再次请求该资源时，将在HTTP Request中加入If-None-Match信息（ETags的值）。如果服务器验证资源的ETags没有改变（该资源没有改变），将返回一个304状态；否则，服务器将返回200状态，并返回该资源和新的ETags。</p>
-<h3 id="2-使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）"><a href="#2-使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）" class="headerlink" title="2.使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）"></a>2.使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）</h3><ol>
+<h2 id="2-使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）"><a href="#2-使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）" class="headerlink" title="2 使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）"></a>2 使用Etag相对于Last-modified的优点（使用ETag可以解决Last-modified存在的一些问题）</h2><ol>
 <li>某些服务器不能精确得到资源的最后修改时间，这样就无法通过最后修改时间判断资源是否更新</li>
 <li>如果资源修改非常频繁，在秒以下的时间内进行修改，而Last-modified只能精确到秒</li>
 <li>一些资源的最后修改时间改变了，但是内容没改变，使用ETag就认为资源还是没有修改的。</li>
 </ol>
-<h3 id="3-既生Last-Modified何生Etag"><a href="#3-既生Last-Modified何生Etag" class="headerlink" title="3.既生Last-Modified何生Etag"></a>3.既生Last-Modified何生Etag</h3><p>你可能会觉得使用Last-Modified已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要Etag（实体标识）呢？HTTP1.1中Etag的出现主要是为了解决几个Last-Modified比较难解决的问题：</p>
+<h2 id="3-既生Last-Modified何生Etag"><a href="#3-既生Last-Modified何生Etag" class="headerlink" title="3 既生Last-Modified何生Etag"></a>3 既生Last-Modified何生Etag</h2><p>你可能会觉得使用Last-Modified已经足以让浏览器知道本地的缓存副本是否足够新，为什么还需要Etag（实体标识）呢？HTTP1.1中Etag的出现主要是为了解决几个Last-Modified比较难解决的问题：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Last-Modified标注的最后修改只能精确到秒级，如果某些文件在1秒钟以内，被修改多次的话，它将不能准确标注文件的修改时间</span><br><span class="line">如果某些文件会被定期生成，当有时内容并没有任何变化，但Last-Modified却改变了，导致文件没法使用缓存</span><br><span class="line">有可能存在服务器没有准确获取文件修改时间，或者与代理服务器时间不一致等情形</span><br></pre></td></tr></table></figure>
 
 <p>Etag是服务器自动生成或者由开发者生成的对应资源在服务器端的唯一标识符，能够更加准确的控制缓存。Last-Modified与ETag一起使用时，服务器会优先验证ETag。</p>
 <p><strong>如果 Last-Modified 和 ETag 同时被使用，则要求它们的验证都必须通过才会返回304，若其中某个验证没通过，则服务器会按常规返回资源实体及200状态码。</strong></p>
-<h4 id="ETag生成规则"><a href="#ETag生成规则" class="headerlink" title="ETag生成规则"></a>ETag生成规则</h4><blockquote>
+<h3 id="ETag生成规则"><a href="#ETag生成规则" class="headerlink" title="ETag生成规则"></a>ETag生成规则</h3><blockquote>
 <p>我们对ETag寄予厚望，希望它对于每一个url生成唯一的值，资源变化时ETag也发生变化。神秘的Etag是如何生成的呢？以Apache为例，ETag生成靠以下几种因子</p>
 </blockquote>
 <ol>
@@ -310,7 +311,7 @@ var _hmt = _hmt || [];
 <li><strong>文件最后修改时间</strong></li>
 <li><strong>文件大小</strong>:    生成Etag的时候，可以使用其中一种或几种因子，使用抗碰撞散列函数来生成。所以，理论上ETag也是会重复的，只是概率小到可以忽略。</li>
 </ol>
-<h2 id="六-组合使用方法："><a href="#六-组合使用方法：" class="headerlink" title="六.组合使用方法："></a>六.组合使用方法：</h2><h2 id="1-最基本的设置：Cache-control-max-age-secs-（类似于Expires域的功能）"><a href="#1-最基本的设置：Cache-control-max-age-secs-（类似于Expires域的功能）" class="headerlink" title="1.最基本的设置：Cache-control: max-age=[secs]  （类似于Expires域的功能）"></a>1.最基本的设置：Cache-control: max-age=[secs]  （类似于Expires域的功能）</h2><blockquote>
+<h1 id="组合使用方法"><a href="#组合使用方法" class="headerlink" title="组合使用方法"></a>组合使用方法</h1><h2 id="1-最基本的设置：Cache-control-max-age-secs-（类似于Expires域的功能）"><a href="#1-最基本的设置：Cache-control-max-age-secs-（类似于Expires域的功能）" class="headerlink" title="1 最基本的设置：Cache-control: max-age=[secs]  （类似于Expires域的功能）"></a>1 最基本的设置：Cache-control: max-age=[secs]  （类似于Expires域的功能）</h2><blockquote>
 <p><strong>这个是最最基础的一种策略，[secs]是cache在客户端存活的秒数，例如 Cache-control: max-age=1800 表明cache的时间是半小时,只使用这样一个声明就可以使浏览器能够将这个HTTP响应的内容写入临时目录做cache。</strong></p>
 </blockquote>
 <p><strong>这里是简要过程:</strong></p>
@@ -331,7 +332,7 @@ var _hmt = _hmt || [];
 <li>浏览器再一次请求资源<a href="http://test.qq.com/test.cgi" target="_blank" rel="noopener">http://test.qq.com/test.cgi</a></li>
 <li>查询临时文件目录发现存在Cache存储，检查保鲜期max-age，已经过期，则发请求到Web Server</li>
 </ol>
-<h2 id="2-保鲜期-Cache-control-max-age-最后修改时间验证-Last-Modified"><a href="#2-保鲜期-Cache-control-max-age-最后修改时间验证-Last-Modified" class="headerlink" title="2.保鲜期(Cache-control: max-age) + 最后修改时间验证(Last-Modified)"></a>2.保鲜期(Cache-control: max-age) + 最后修改时间验证(Last-Modified)</h2><blockquote>
+<h2 id="2-保鲜期-Cache-control-max-age-最后修改时间验证-Last-Modified"><a href="#2-保鲜期-Cache-control-max-age-最后修改时间验证-Last-Modified" class="headerlink" title="2 保鲜期(Cache-control: max-age) + 最后修改时间验证(Last-Modified)"></a>2 保鲜期(Cache-control: max-age) + 最后修改时间验证(Last-Modified)</h2><blockquote>
 <p><strong>这里的要素是，在给出保鲜期的同时，给出一个资源的验证方式：<br>Last-Modified: [UTC time] ([UTC time]标示这个响应资源的最后修改时间)<br>例如 Last-Modified: Mon, 06 Jul 2009 09:21:48 GMT<br>这个响应头只有配合Cache-control的时候才有实际价值，只是声明校验资源的方式，并不能影响资源的保鲜期时长</strong></p>
 </blockquote>
 <p>** 这里是简要过程：**</p>
@@ -353,7 +354,7 @@ var _hmt = _hmt || [];
 <li>查询临时文件目录发现存在cache存储，检查保鲜期max-age，已经过期发现资源具有Last-Modified声明，则为请求带上头 <strong>If-Modified-Since</strong>: Mon, 06 Jul 2009 09:21:48 GMT 发送请求到web server</li>
 <li>web server收到请求后发现有头If-Modified-Since 则与被请求资源的最后修改时间进行比对,<strong>若最后修改时间较新，说明资源又被改动过，则响应整片资源内容，HTTP 200 (需要整块内容写为包体).若最后修改时间较旧，说明资源无新修改，则响应HTTP 304 (无需包体)</strong>，告知浏览器继续使用所保存的cache,(这里当然也可以根据自己的需要决定是200还是304，我们的CGI毕竟是一种原始的实现)</li>
 </ol>
-<h2 id="3-保鲜期-Cache-control-max-age-自定义标识验证-Etag"><a href="#3-保鲜期-Cache-control-max-age-自定义标识验证-Etag" class="headerlink" title="3.保鲜期(Cache-control: max-age)  + 自定义标识验证(Etag)"></a>3.保鲜期(Cache-control: max-age)  + 自定义标识验证(Etag)</h2><blockquote>
+<h2 id="3-保鲜期-Cache-control-max-age-自定义标识验证-Etag"><a href="#3-保鲜期-Cache-control-max-age-自定义标识验证-Etag" class="headerlink" title="3 保鲜期(Cache-control: max-age)  + 自定义标识验证(Etag)"></a>3 保鲜期(Cache-control: max-age)  + 自定义标识验证(Etag)</h2><blockquote>
 <p>这里的要素是，在给出保鲜期的同时，给出另一种资源的验证方式：<br><strong>ETag: [custom flag]</strong><br>[custom flag]标示这个响应资源的由开发者自己确定的签名验证标识，例如 ETag: “abcdefg”,这个响应头只有配合Cache-control的时候才有实际价值，是声明校验资源的方式。ETag的使用为我们实现304响应提供了更多的灵活性，我们可以抛开必须将验证转化成时间格式的限制。</p>
 </blockquote>
 <p>** 这里是简要过程：**
@@ -379,16 +380,16 @@ var _hmt = _hmt || [];
 </ul>
 </li>
 </ol>
-<h1 id="七-几种状态码的区别"><a href="#七-几种状态码的区别" class="headerlink" title="七.几种状态码的区别"></a>七.几种状态码的区别</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ee0acf92-0c73-4905-94f3-33d7240c656a.jpg" alt=""></p>
-<h1 id="八-用户行为与缓存"><a href="#八-用户行为与缓存" class="headerlink" title="八.用户行为与缓存"></a>八.用户行为与缓存</h1><blockquote>
+<h1 id="几种状态码的区别"><a href="#几种状态码的区别" class="headerlink" title="几种状态码的区别"></a>几种状态码的区别</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ee0acf92-0c73-4905-94f3-33d7240c656a.jpg" alt=""></p>
+<h1 id="用户行为与缓存"><a href="#用户行为与缓存" class="headerlink" title="用户行为与缓存"></a>用户行为与缓存</h1><blockquote>
 <p>浏览器缓存行为还有用户的行为有关，如果大家对 强制刷新（Ctrl + F5）</p>
 </blockquote>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/876aba5f-63b8-4b24-a212-561f4a52f498.png" alt=""></p>
-<h1 id="九-因设置缓存参数客户端数据不能及时更新的解决方案"><a href="#九-因设置缓存参数客户端数据不能及时更新的解决方案" class="headerlink" title="九.因设置缓存参数客户端数据不能及时更新的解决方案"></a>九.因设置缓存参数客户端数据不能及时更新的解决方案</h1><blockquote>
+<h1 id="因设置缓存参数客户端数据不能及时更新的解决方案"><a href="#因设置缓存参数客户端数据不能及时更新的解决方案" class="headerlink" title="因设置缓存参数客户端数据不能及时更新的解决方案"></a>因设置缓存参数客户端数据不能及时更新的解决方案</h1><blockquote>
 <p>背景：某次投产，某系统投产后由于强缓存设置时间不恰当导致变更的功能没有体现。后来通过变更文件路径强行解决问题。</p>
 </blockquote>
 <p>变更上下文根，导致URL变化一定可以解决问题。但我们不可能每一次都这么做；还有，在浏览器端关闭缓存、或者清除缓存后再继续浏览、同时使用Ctrl+F5刷新，也可以解决问题，但是我们也不可能让每一个客户在投产后都做一次这个操作。<br>那我们怎么办呢？从问题原因来看，是将经常变化的资源缓存时间设置的过长导致的。理论上来讲，只要正确划分经常变化资源与不经常变化资源就可以解决问题。但是谁也不能保证不经常变化的资源就一定不会变化。<br>万一不经常变化的资源变更了怎么办呢？<strong>在资源请求的URL中增加一个参数，比如：css/main.css?v=20160105。这个参数是一个版本号，客户化在js代码中，每一次投产的时候变更一下，当这个参数变化的时候，强缓存都会失效并重新加载。</strong>这样一来，即使是不常变化的资源，投产以后也需要重新加载。这样就完美的解决了问题。</p>
-<h1 id="十-哪些请求不能被缓存？"><a href="#十-哪些请求不能被缓存？" class="headerlink" title="十.哪些请求不能被缓存？"></a>十.哪些请求不能被缓存？</h1><p><strong>无法被浏览器缓存的请求：</strong></p>
+<h1 id="哪些请求不能被缓存？"><a href="#哪些请求不能被缓存？" class="headerlink" title="哪些请求不能被缓存？"></a>哪些请求不能被缓存？</h1><p><strong>无法被浏览器缓存的请求：</strong></p>
 <ol>
 <li>HTTP信息头中包含Cache-Control:no-cache，pragma:no-cache，或Cache-Control:max-age=0等告诉浏览器不用缓存的请求</li>
 <li>需要根据Cookie，认证信息等决定输入内容的动态请求是不能被缓存的</li>
@@ -626,7 +627,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,7 +635,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,6 +659,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -670,19 +679,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,6 +688,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,7 +723,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -734,15 +735,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,7 +759,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,15 +767,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -794,7 +799,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,11 +811,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -822,15 +827,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -854,11 +859,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -866,11 +871,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
