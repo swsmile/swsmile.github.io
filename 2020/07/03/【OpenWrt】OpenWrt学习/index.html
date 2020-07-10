@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【OpenWrt】OpenWrt学习 | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="OpenWrt 网络接口（Network Interfaces）物理网络接口（Physical Network Interfaces）eth0, eth8, radio0, wlan19, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC]">
+  <meta name="description" content="Types of Virtual Network Interfaces aliases\: eth4:5, eth4:6, ..IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple add">
 <meta name="keywords" content="OpenWrt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【OpenWrt】OpenWrt学习">
 <meta property="og:url" content="http://swsmile.info/2020/07/03/【OpenWrt】OpenWrt学习/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="OpenWrt 网络接口（Network Interfaces）物理网络接口（Physical Network Interfaces）eth0, eth8, radio0, wlan19, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC]">
+<meta property="og:description" content="Types of Virtual Network Interfaces aliases\: eth4:5, eth4:6, ..IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple add">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200705222803125.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704150203334.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704110420382.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704112333495.png">
-<meta property="og:updated_time" content="2020-07-05T15:13:47.043Z">
+<meta property="og:updated_time" content="2020-07-10T02:38:40.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【OpenWrt】OpenWrt学习">
-<meta name="twitter:description" content="OpenWrt 网络接口（Network Interfaces）物理网络接口（Physical Network Interfaces）eth0, eth8, radio0, wlan19, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC]">
+<meta name="twitter:description" content="Types of Virtual Network Interfaces aliases\: eth4:5, eth4:6, ..IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple add">
 <meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200705222803125.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
@@ -215,13 +215,24 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
+        <!-- mor
 
 
 
-<h1 id="OpenWrt-网络接口（Network-Interfaces）"><a href="#OpenWrt-网络接口（Network-Interfaces）" class="headerlink" title="OpenWrt 网络接口（Network Interfaces）"></a>OpenWrt 网络接口（Network Interfaces）</h1><h2 id="物理网络接口（Physical-Network-Interfaces）"><a href="#物理网络接口（Physical-Network-Interfaces）" class="headerlink" title="物理网络接口（Physical Network Interfaces）"></a>物理网络接口（Physical Network Interfaces）</h2><p><code>eth0</code>, <code>eth8</code>, <code>radio0</code>, <code>wlan19</code>, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](<a href="https://en.wikipedia.org/wiki/Network" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Network</a> interface controller), [WNIC](<a href="https://en.wikipedia.org/wiki/Wireless" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Wireless</a> network interface controller) 或其他一些 <a href="https://en.wikipedia.org/wiki/Modem" target="_blank" rel="noopener">Modem</a>。当[device driver](<a href="https://en.wikipedia.org/wiki/device" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/device</a> driver)被作为物理网络接口的驱动加载进内核，这些网络接口就可用了。</p>
-<p>任何物理网络接口是由操作系统为用户命名的软件的网络接口，以使得操作系统配置物理网络设备并且将其集成到程序和脚本中。</p>
-<h2 id="虚拟网络接口（Virtual-Network-Interfaces）"><a href="#虚拟网络接口（Virtual-Network-Interfaces）" class="headerlink" title="虚拟网络接口（Virtual Network Interfaces）"></a>虚拟网络接口（Virtual Network Interfaces）</h2><p><code>lo</code>, <code>eth0:1</code>, <code>eth0.1</code>, <code>vlan2</code>, <code>br0</code>, <code>pppoe-dsl</code>, <code>gre0</code>, <code>sit0</code> <code>tun0</code>, <code>imq0</code>, <code>teql0</code>, .. are virtual network interfaces that do NOT represent an existent hardware device but are linked to one (otherwise they would be useless). Virtual network interfaces were invented to give the system administrator maximum flexibility when configuring a Linux-based operating system. A virtual network interface is generally associated with a physical network interface (eth6) or another virtual interface (eth6.9) or be stand alone such as the <a href="https://en.wikipedia.org/wiki/Loopback#Virtual_network_interface" target="_blank" rel="noopener">loopback interface</a> <code>lo</code>.</p>
+# OpenWrt 网络接口（Network Interfaces）
+
+## 物理网络接口（Physical Network Interfaces）
+
+`eth0`, `eth8`, `radio0`, `wlan19`, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC](https://en.wikipedia.org/wiki/Wireless network interface controller) 或其他一些 [Modem](https://en.wikipedia.org/wiki/Modem)。当[device driver](https://en.wikipedia.org/wiki/device driver)被作为物理网络接口的驱动加载进内核，这些网络接口就可用了。
+
+任何物理网络接口是由操作系统为用户命名的软件的网络接口，以使得操作系统配置物理网络设备并且将其集成到程序和脚本中。
+
+## 虚拟网络接口（Virtual Network Interfaces）
+
+`lo`, `eth0:1`, `eth0.1`, `vlan2`, `br0`, `pppoe-dsl`, `gre0`, `sit0` `tun0`, `imq0`, `teql0`, .. are virtual network interfaces that do NOT represent an existent hardware device but are linked to one (otherwise they would be useless). Virtual network interfaces were invented to give the system administrator maximum flexibility when configuring a Linux-based operating system. A virtual network interface is generally associated with a physical network interface (eth6) or another virtual interface (eth6.9) or be stand alone such as the [loopback interface](https://en.wikipedia.org/wiki/Loopback#Virtual_network_interface) `lo`.
+
+e --> 
+
 <h3 id="Types-of-Virtual-Network-Interfaces"><a href="#Types-of-Virtual-Network-Interfaces" class="headerlink" title="Types of Virtual Network Interfaces"></a>Types of Virtual Network Interfaces</h3><ul>
 <li><p><strong><em>aliases\</em></strong>: <code>eth4:5</code>, <code>eth4:6</code>, ..<br>IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple address/prefixes per interface, but aliases are still supported for backwards compatibility. <a href="https://git.kernel.org/cgit/linux/kernel/git/stable/linux-stable.git/tree/Documentation/networking/alias.txt" target="_blank" rel="noopener">Documentation/networking/alias.txt</a></p>
 </li>
@@ -558,6 +569,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -566,11 +581,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -579,10 +594,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -610,7 +621,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -622,11 +633,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,15 +657,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,15 +705,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,11 +773,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
