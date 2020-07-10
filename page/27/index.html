@@ -191,6 +191,290 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Java】源码-BitSet" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/14/【Java】源码-BitSet/">【Java】源码 - BitSet</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/14/【Java】源码-BitSet/" class="archive-article-date">
+  	<time datetime="2019-08-14T04:36:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是BitSet？"><a href="#什么是BitSet？" class="headerlink" title="什么是BitSet？"></a>什么是BitSet？</h1><p>BitSet类实现了一个按需增长的位向量。位Set的每一个组件都有一个boolean值。用非负的整数将BitSet的位编入索引。可以对每个编入索引的位进行测试、设置或者清除。通过逻辑与、逻辑或和逻辑异或操作，可以使用一个 BitSet修改另一个 BitSet的内容。 </p>
+<p>默认情况下，set 中所有位的初始值都是false。 </p>
+<p>每个位 set 都有一个当前大小，也就是该位 set 当前所用空间的位数。注意，这个大小与位 set 的实现有关，所以它可能随实现的不同而更改。位 set 的长度与位 set 的逻辑长度有关，并且是与实现无关而定义的。 </p>
+<p>BitSet的索引范围从 0 到 nbits-1 。</p>
+        
+          <a class="article-more-a" href="/2019/08/14/【Java】源码-BitSet/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/14/【Java】源码-BitSet/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Algorithm】动态规划-背包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/13/【Algorithm】动态规划-背包问题/">【Algorithm】动态规划 - 背包问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/13/【Algorithm】动态规划-背包问题/" class="archive-article-date">
+  	<time datetime="2019-08-13T13:35:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="主要分类"><a href="#主要分类" class="headerlink" title="主要分类"></a>主要分类</h1><h2 id="0-1背包"><a href="#0-1背包" class="headerlink" title="0-1背包"></a>0-1背包</h2><p>每个物品只能取一次</p>
+<p>Leetcode：</p>
+<ul>
+<li>Leetcode 474. Ones and Zeroes（01背包）</li>
+</ul>
+<h3 id="爆搜解法"><a href="#爆搜解法" class="headerlink" title="爆搜解法"></a>爆搜解法</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190813214917985.png" alt="image-20190813214917985"></p>
+<p>用 4 个 bit 分别标识 4 种物品，取还是不取。</p>
+<h3 id="贪心法-错误解"><a href="#贪心法-错误解" class="headerlink" title="贪心法 - 错误解"></a>贪心法 - 错误解</h3><p>所有的贪心，都是错误的！！！</p>
+<p><strong>反例：</strong></p>
+<p><strong>取价值最高</strong></p>
+<p>m=2, A = [1, 1, 2], V = [2, 2, 3] • </p>
+<p>贪心答案：3，正确答案：4 </p>
+<p><strong>取重量最轻</strong></p>
+<p>m=2, A = [1, 1, 2], V = [1, 1, 3] </p>
+<p>贪心答案：2，正确答案</p>
+<p><strong>取单位价值最高</strong></p>
+<p> m=3, A = [1, 1, 3], V = [2, 2, 5] </p>
+<p>贪心答案：4，正确答案：5</p>
+<h4 id="爆搜算法的局限"><a href="#爆搜算法的局限" class="headerlink" title="爆搜算法的局限"></a>爆搜算法的局限</h4><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190814220349076.png" alt="image-20190814220349076"></p>
+        
+          <a class="article-more-a" href="/2019/08/13/【Algorithm】动态规划-背包问题/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/13/【Algorithm】动态规划-背包问题/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Linxu】磁盘管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/08/【Linxu】磁盘管理/">【Linxu】磁盘管理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/08/【Linxu】磁盘管理/" class="archive-article-date">
+  	<time datetime="2019-08-08T13:53:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="df"><a href="#df" class="headerlink" title="df"></a>df</h1><p>df命令参数功能：检查文件系统的磁盘空间占用情况。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。</p>
+<p>语法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ df [-ahikHTm] [目录或文件名]</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-a ：列出所有的文件系统，包括系统特有的 /proc 等文件系统；</li>
+<li>-k ：以 KBytes 的容量显示各文件系统；</li>
+<li>-m ：以 MBytes 的容量显示各文件系统；</li>
+<li>-h ：以人们较易阅读的 GBytes, MBytes, KBytes 等格式自行显示；</li>
+<li>-H ：以 M=1000K 取代 M=1024K 的进位方式；</li>
+<li>-T ：显示文件系统类型, 连同该 partition 的 filesystem 名称 (例如 ext3) 也列出；</li>
+<li>-i ：不用硬盘容量，而以 inode 的数量来显示</li>
+</ul>
+<h2 id="列出系统内所有的文件系统"><a href="#列出系统内所有的文件系统" class="headerlink" title="列出系统内所有的文件系统"></a>列出系统内所有的文件系统</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ df</span><br><span class="line">Filesystem      1K-blocks      Used Available Use% Mounted on</span><br><span class="line">/dev/hdc2         9920624   3823112   5585444  41% /</span><br><span class="line">/dev/hdc3         4956316    141376   4559108   4% /home</span><br><span class="line">/dev/hdc1          101086     11126     84741  12% /boot</span><br><span class="line">tmpfs              371332         0    371332   0% /dev/shm</span><br></pre></td></tr></table></figure>
+
+<p>在 Linux 底下如果 df 没有加任何选项，那么默认会将系统内所有的 (不含特殊内存内的文件系统与 swap) 都以 1 Kbytes 的容量来列出来！</p>
+<h2 id="将容量结果以易读的容量格式显示出来"><a href="#将容量结果以易读的容量格式显示出来" class="headerlink" title="将容量结果以易读的容量格式显示出来"></a>将容量结果以易读的容量格式显示出来</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ df -h</span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/hdc2             9.5G  3.7G  5.4G  41% /</span><br><span class="line">/dev/hdc3             4.8G  139M  4.4G   4% /home</span><br><span class="line">/dev/hdc1              99M   11M   83M  12% /boot</span><br><span class="line">tmpfs                 363M     0  363M   0% /dev/shm</span><br></pre></td></tr></table></figure>
+
+<h2 id="将系统内的所有特殊文件格式及名称都列出来"><a href="#将系统内的所有特殊文件格式及名称都列出来" class="headerlink" title="将系统内的所有特殊文件格式及名称都列出来"></a>将系统内的所有特殊文件格式及名称都列出来</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ df -aT</span><br><span class="line">Filesystem    Type 1K-blocks    Used Available Use% Mounted on</span><br><span class="line">/dev/hdc2     ext3   9920624 3823112   5585444  41% /</span><br><span class="line">proc          proc         0       0         0   -  /proc</span><br><span class="line">sysfs        sysfs         0       0         0   -  /sys</span><br><span class="line">devpts      devpts         0       0         0   -  /dev/pts</span><br><span class="line">/dev/hdc3     ext3   4956316  141376   4559108   4% /home</span><br><span class="line">/dev/hdc1     ext3    101086   11126     84741  12% /boot</span><br><span class="line">tmpfs        tmpfs    371332       0    371332   0% /dev/shm</span><br><span class="line">none   binfmt_misc         0       0         0   -  /proc/sys/fs/binfmt_misc</span><br><span class="line">sunrpc  rpc_pipefs         0       0         0   -  /var/lib/nfs/rpc_pipefs</span><br></pre></td></tr></table></figure>
+
+<h3 id="将-etc-底下的可用的磁盘容量以易读的容量格式显示"><a href="#将-etc-底下的可用的磁盘容量以易读的容量格式显示" class="headerlink" title="将 /etc 底下的可用的磁盘容量以易读的容量格式显示"></a>将 /etc 底下的可用的磁盘容量以易读的容量格式显示</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ df -h /etc</span><br><span class="line">Filesystem            Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/hdc2             9.5G  3.7G  5.4G  41% /</span><br></pre></td></tr></table></figure>
+
+<h1 id="du"><a href="#du" class="headerlink" title="du"></a>du</h1><p>Linux du命令也是查看使用空间的，但是与df命令不同的是Linux du命令是对文件和目录磁盘使用的空间的查看。</p>
+<p>语法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ du [-ahskm] 文件或目录名称</span><br></pre></td></tr></table></figure>
+
+<p>选项与参数：</p>
+<ul>
+<li>-a ：列出所有的文件与目录容量，因为默认仅统计目录底下的文件量而已。</li>
+<li>-h ：以人们较易读的容量格式 (G/M) 显示；</li>
+<li>-s ：列出总量而已，而不列出每个各别的目录占用容量；</li>
+<li>-S ：不包括子目录下的总计，与 -s 有点差别。</li>
+<li>-k ：以 KBytes 列出容量显示；</li>
+<li>-m ：以 MBytes 列出容量显示；</li>
+</ul>
+<h2 id="列出目前目录下的所有文件容量"><a href="#列出目前目录下的所有文件容量" class="headerlink" title="列出目前目录下的所有文件容量"></a>列出目前目录下的所有文件容量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ du</span><br><span class="line">8       ./test4     &lt;==每个目录都会列出来</span><br><span class="line">8       ./test2</span><br><span class="line">....中间省略....</span><br><span class="line">12      ./.gconfd   &lt;==包括隐藏文件的目录</span><br><span class="line">220     .           &lt;==这个目录(.)所占用的总量</span><br></pre></td></tr></table></figure>
+
+<p>直接输入 du 没有加任何选项时，则 du 会分析当前所在目录的文件与目录所占用的硬盘空间。</p>
+        
+          <a class="article-more-a" href="/2019/08/08/【Linxu】磁盘管理/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linxu</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linxu/" class="article-tag-list-link color1">Linxu</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/08/【Linxu】磁盘管理/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Python】线程-协程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -613,257 +897,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Algorithm】算法思想-分治" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/05/【Algorithm】算法思想-分治/">【Algorithm】算法思想 - 分治算法（Divide and Conquer）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/05/【Algorithm】算法思想-分治/" class="archive-article-date">
-  	<time datetime="2019-08-05T14:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="分治算法"><a href="#分治算法" class="headerlink" title="分治算法"></a>分治算法</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a><strong>基本概念</strong></h2><p>在计算机科学中，分治法是一种很重要的算法。字面上的解释是“分而治之”，就是把一个复杂的问题分成两个或更多的相同或相似的子问题，再把子问题分成更小的子问题……直到最后子问题可以简单的直接求解，原问题的解即子问题的解的合并。这个技巧是很多高效算法的基础，如排序算法(快速排序，归并排序)，傅立叶变换(快速傅立叶变换)……</p>
-<p>任何一个可以用计算机求解的问题所需的计算时间都与其规模有关。问题的规模越小，越容易直接求解，解题所需的计算时间也越少。例如，对于n个元素的排序问题，当n=1时，不需任何计算。n=2时，只要作一次比较即可排好序。n=3时只要作3次比较即可，…。而当n较大时，问题就不那么容易处理了。要想直接解决一个规模较大的问题，有时是相当困难的。</p>
-<h2 id="基本思想及策略"><a href="#基本思想及策略" class="headerlink" title="基本思想及策略"></a>基本思想及策略</h2><p>分治法的设计思想是：将一个难以直接解决的大问题，分割成一些规模较小的相同问题，以便各个击破，分而治之。</p>
-<p>分治策略是：对于一个规模为n的问题，若该问题可以容易地解决（比如说规模n较小）则直接解决，否则将其分解为k个规模较小的子问题，这些子问题互相独立且与原问题形式相同，递归地解这些子问题，然后将各子问题的解合并得到原问题的解。这种算法设计策略叫做分治法。</p>
-<p>如果原问题可分割成k个子问题，1&lt;k≤n，且这些子问题都可解并可利用这些子问题的解求出原问题的解，那么这种分治法就是可行的。由分治法产生的子问题往往是原问题的较小模式，这就为使用递归技术提供了方便。在这种情况下，反复应用分治手段，可以使子问题与原问题类型一致而其规模却不断缩小，最终使子问题缩小到很容易直接求出其解。这自然导致递归过程的产生。分治与递归像一对孪生兄弟，经常同时应用在算法设计之中，并由此产生许多高效算法。</p>
-        
-          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-分治/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-分治/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Algorithm】算法思想-贪心算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/05/【Algorithm】算法思想-贪心算法/">【Algorithm】算法思想 - 贪心算法（Greedy Algorithm）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/05/【Algorithm】算法思想-贪心算法/" class="archive-article-date">
-  	<time datetime="2019-08-05T14:16:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="贪心算法（Greedy-Algorithm）"><a href="#贪心算法（Greedy-Algorithm）" class="headerlink" title="贪心算法（Greedy Algorithm）"></a>贪心算法（Greedy Algorithm）</h1><p>贪心算法（Greedy Algorithm），又称贪婪算法，是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。比如在旅行推销员问题中，如果旅行员每次都选择最近的城市，那这就是一种贪心算法。 </p>
-<p>贪心算法在有最优子结构的问题中尤为有效。最优子结构的意思是局部最优解能决定全局最优解。简单地说，问题能够分解成子问题来解决，子问题的最优解能递推到最终问题的最优解。 </p>
-<p>贪心算法与动态规划的不同在于它对每个子问题的解决方案都做出选择，不能回退。动态规划则会保存以前的运算结果，并根据以前的结果对当前进行选择，有回退功能。</p>
-<p>我们能够依据贪心法的2个重要的性质去证明：<strong>贪心选择性质和最优子结构性质</strong>。</p>
-<h2 id="贪心选择"><a href="#贪心选择" class="headerlink" title="贪心选择"></a>贪心选择</h2><p>什么叫贪心选择？从字义上就是贪心也就是目光短线。贪图眼前利益。在算法中就是仅仅依据当前已有的信息就做出选择，并且以后都不会改变这次选择<strong>（这是和动态规划法的主要差别）</strong>。</p>
-<p>所以对于一个具体的问题。要确定它是否具有贪心选择性质，必须证明每做一步贪心选择是否终于导致问题的总体最优解。</p>
-<h2 id="最优子结构"><a href="#最优子结构" class="headerlink" title="最优子结构"></a>最优子结构</h2><p>当一个问题的最优解包括其子问题的最优解时，称此问题具有最优子结构性质。</p>
-<p>运用贪心策略在每一次转化时都取得了最优解。问题的最优子结构性质是该问题可用贪心算法或动态规划算法求解的关键特征。贪心算法的每一次操作都对结果产生直接影响，而动态规划则不是。贪心算法对每个子问题的解决方案都做出选择，不能回退；动态规划则会根据以前的选择结果对当前进行选择，有回退功能。动态规划主要运用于二维或三维问题，而贪心一般是一维问题。</p>
-<h2 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h2><p>贪心算法的基本思路是从问题的某一个初始解触发一步一步地进行，根据抹个优化测度，每一步都要确保能获得局部最优解，每一步值考虑一个数据，他的选取应该满足局部优化的条件。若下一个数据和部分最优解连载一起不再是可行解时，就不把改数据添加到部分解中，知道把所有数据枚举玩，或者不能在添加算法停止。</p>
-<p><strong>过程</strong></p>
-<ol>
-<li>建立数学模型来描述问题；</li>
-<li>把求解的问题分成若干个子问题；</li>
-<li>对每一子问题求解，得到子问题的局部最优解；</li>
-<li>把子问题的解局部最优解合成原来解问题的一个解。</li>
-</ol>
-        
-          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-贪心算法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/05/【Algorithm】算法思想-贪心算法/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Algorithm】排序算法-计数排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/05/【Algorithm】排序算法-计数排序/">【Algorithm】排序算法 - 计数排序（Counting Sort）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/05/【Algorithm】排序算法-计数排序/" class="archive-article-date">
-  	<time datetime="2019-08-05T13:42:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="计数排序（Counting-Sort）"><a href="#计数排序（Counting-Sort）" class="headerlink" title="计数排序（Counting Sort）"></a>计数排序（Counting Sort）</h1><p>计数排序是一种非基于比较的排序算法，计数排序的时间复杂度为 O(n + m)，m 指的是数据量，说的简单点，计数排序算法的时间复杂度约等于 O(n)，快于任何比较型的排序算法。</p>
-<h1 id="图解计数"><a href="#图解计数" class="headerlink" title="图解计数"></a>图解计数</h1><p>以下以[ 3，5，8，2，5，4 ]这组数字来演示。</p>
-<p>首先，我们找到这组数字中最大的数，也就是 8，我们就创建一个最大下标为 8 的空数组 arr 。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2mj4w.png" alt="计数排序1"></p>
-<p>遍历数据，以将数据的出现次数填入arr中对应的下标位置中（该数据的值等于arr中对应的下标）。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/r2fy9.png" alt="计数排序2"></p>
-<p>遍历 arr ，将数据依次取出即可。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/u2qiw.png" alt="计数排序3"></p>
-        
-          <a class="article-more-a" href="/2019/08/05/【Algorithm】排序算法-计数排序/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/05/【Algorithm】排序算法-计数排序/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/26/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/28/">Next &raquo;</a>
@@ -1022,15 +1055,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1038,7 +1067,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1078,11 +1111,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1102,7 +1135,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1110,7 +1143,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1134,6 +1167,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
@@ -1142,15 +1179,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1202,15 +1235,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1246,19 +1283,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>

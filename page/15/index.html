@@ -191,6 +191,282 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【SQL】select-for-update" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/26/【SQL】select-for-update/">【SQL】select for update</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/26/【SQL】select-for-update/" class="archive-article-date">
+  	<time datetime="2019-11-26T11:30:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL-InnoDB-排他锁"><a href="#MySQL-InnoDB-排他锁" class="headerlink" title="MySQL InnoDB 排他锁"></a>MySQL InnoDB 排他锁</h1><p>用法： </p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> … <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> goods <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+
+<p>排他锁的申请前提：没有线程对该结果集中的任何行数据使用排他锁或共享锁，否则申请会阻塞。</p>
+<p>for update仅适用于InnoDB，且必须在事务块(BEGIN/COMMIT)中才能生效。在进行事务操作时，通过“for update”语句，MySQL会对查询结果集中每行数据都添加排他锁，其他线程对该记录的更新与删除操作都会阻塞。排他锁包含行锁、表锁。</p>
+        
+          <a class="article-more-a" href="/2019/11/26/【SQL】select-for-update/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/SQL/" class="article-tag-list-link color4">SQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/26/【SQL】select-for-update/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Python】Basics-特殊变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/26/【Python】Basics-特殊变量/">【Python】Basics - 特殊变量（Special Variables）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/26/【Python】Basics-特殊变量/" class="archive-article-date">
+  	<time datetime="2019-11-26T04:21:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a> 
+
+<p>类似__xx__，以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，它不是private变量。</p>
+<ul>
+<li><code>__doc__</code> 属性 -  定义文档字符串</li>
+<li><code>__dict__</code> 属性 - 类的属性列表</li>
+<li><code>__class__</code> 属性 - 返回当前类对应的变量</li>
+<li><code>__slots__</code> 属性 - 在运行时对类的实例动态绑定属性和方法</li>
+<li><code>__name__</code>属性 - 返回当前类的类名（以字符串描述）</li>
+</ul>
+<h1 id="slots-属性-在运行时对类的实例动态绑定属性和方法"><a href="#slots-属性-在运行时对类的实例动态绑定属性和方法" class="headerlink" title="__slots__ 属性 - 在运行时对类的实例动态绑定属性和方法"></a><code>__slots__</code> 属性 - 在运行时对类的实例动态绑定属性和方法</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> types <span class="keyword">import</span> MethodType</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_age</span><span class="params">(self, age)</span>:</span></span><br><span class="line">    self.age = age </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">p = P() </span><br><span class="line">p.name = <span class="string">'chenqi'</span></span><br><span class="line"><span class="comment"># 在运行时为这个类的实例绑定一个方法，但仅限于这个类实例（其他类实例仍然没有这个方法）</span></span><br><span class="line">p.set_age = MethodType(set_age, p, P)  </span><br><span class="line"></span><br><span class="line">p.set_age(<span class="number">31</span>)</span><br><span class="line"><span class="keyword">print</span> p.name</span><br><span class="line"><span class="keyword">print</span> p.age</span><br></pre></td></tr></table></figure>
+
+<p>如果想让添加的方法对所有实例都生效，可以绑定到类上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P.set_age = MethodType(set_age, None, P)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后，<strong>slots</strong>的作用就是限制对类动态绑定的属性范围，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class P(object):</span><br><span class="line">    __slots__ = (&quot;name&quot;, &quot;age&quot;)</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure>
+
+<p>如上，除了”name”和”age”之外的属性就不能再增加了；</p>
+<p>注意：<strong>slots</strong>属性不会继承给子类，仅在当前类生效。</p>
+<h1 id="class-属性-返回当前类对应的变量"><a href="#class-属性-返回当前类对应的变量" class="headerlink" title="__class__ 属性 - 返回当前类对应的变量"></a><code>__class__</code> 属性 - 返回当前类对应的变量</h1><p>比如可以这样玩：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></span><br><span class="line">   aa = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">get_current_class_variable</span><span class="params">(self)</span>:</span></span><br><span class="line">      <span class="keyword">return</span> self.__class__</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">class_A_variable = a.get_current_class_variable()</span><br><span class="line">a2 = class_A_variable()</span><br><span class="line"><span class="keyword">print</span> a2.aa</span><br></pre></td></tr></table></figure>
+
+<p>这体现了“在 Python 中一切皆对象“的哲学。</p>
+<h1 id="name-属性-返回当前类的类名（以字符串描述）"><a href="#name-属性-返回当前类的类名（以字符串描述）" class="headerlink" title="__name__属性 - 返回当前类的类名（以字符串描述）"></a><code>__name__</code>属性 - 返回当前类的类名（以字符串描述）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> A.__name__ <span class="comment"># A</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://www.liujiangblog.com/course/python/47" target="_blank" rel="noopener">http://www.liujiangblog.com/course/python/47</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/26/【Python】Basics-特殊变量/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Python】Basics-魔术方法（Magic-Methods）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/【Python】Basics-魔术方法（Magic-Methods）/">【Python】魔术方法（Magic Methods）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/【Python】Basics-魔术方法（Magic-Methods）/" class="archive-article-date">
+  	<time datetime="2019-11-24T12:32:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Python的魔术方法一般以<strong>methodname</strong>的形式命名，如：<code>__init__</code>（构造方法）、 <code>__getitem__</code>、 <code>__setitem__</code>、<code>__delitem__</code>（调用<code>del obj[key]</code>时对应触发的函数）、 <code>__len__</code>（对类实例调用<code>len(…)</code>时对应触发的函数）等。</p>
+<p>魔术方法具体有：</p>
+<ul>
+<li><code>__init__(self)</code>：构造方法</li>
+<li><code>__del__</code> ：析构函数，释放对象时使用</li>
+<li><code>__getitem__(self,key)</code>：返回键对应的值（按照索引获取值）</li>
+<li><code>__setitem__(self,key,value)</code>：设置给定键的值（按照索引赋值）</li>
+<li><code>__delitem__(self,key)</code>：删除给定键对应的元素</li>
+<li><code>__len__()</code>：对类实例调用<code>len(…)</code>时对应触发的函数</li>
+<li><code>__cmp_</code>： 比较运算</li>
+<li><code>__call_</code>：调用</li>
+<li><code>__add__</code>：加运算</li>
+<li><code>__sub__</code>：减运算</li>
+<li><code>__mul__</code>：乘运算</li>
+<li><code>__div__</code>：除运算</li>
+<li><code>__mod__</code>：求余运算</li>
+<li><code>__pow__</code>：幂</li>
+</ul>
+<p>需要注意的是，这些成员里面有些是方法，调用时要加括号，有些是属性，调用时不需要加括号。</p>
+        
+          <a class="article-more-a" href="/2019/11/24/【Python】Basics-魔术方法（Magic-Methods）/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/【Python】Basics-魔术方法（Magic-Methods）/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Python】import-问题排查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -599,245 +875,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Django】Django-ORM-使-DB-Schema-生效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/17/【Django】Django-ORM-使-DB-Schema-生效/">【Django】Django ORM - 使 DB Schema 生效</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/17/【Django】Django-ORM-使-DB-Schema-生效/" class="archive-article-date">
-  	<time datetime="2019-11-17T11:39:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>当通过 Model 声明完表结构后，Django 可以自动将 Model 声明转换成DB Schema，进而自动写入 DB 中。</p>
-<p>在&gt;=1.7 的 Django 中，可以使用以下方法来生成 DB schema：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py makemigrations</span><br><span class="line">$ python manage.py migrate</span><br></pre></td></tr></table></figure>
-
-<p>The <a href="https://docs.djangoproject.com/en/2.2/ref/django-admin/#django-admin-makemigrations" target="_blank" rel="noopener"><code>makemigrations</code></a> command looks at all your available models and creates migrations for whichever tables don’t already exist. <a href="https://docs.djangoproject.com/en/2.2/ref/django-admin/#django-admin-migrate" target="_blank" rel="noopener"><code>migrate</code></a> runs the migrations and creates tables in your database, as well as optionally providing <a href="https://docs.djangoproject.com/en/2.2/topics/migrations/" target="_blank" rel="noopener">much richer schema control</a>.</p>
-<p>在 1.7 之前的版本，使用：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py syncdb</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/11/17/【Django】Django-ORM-使-DB-Schema-生效/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/17/【Django】Django-ORM-使-DB-Schema-生效/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Django】使用-Template" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/17/【Django】使用-Template/">【Django】使用 Template</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/17/【Django】使用-Template/" class="archive-article-date">
-  	<time datetime="2019-11-17T08:28:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在复杂的 Django Project 中，可以会存在多个 Django App，如果科学地管理我们的 HTML页面非常重要。</p>
-        
-          <a class="article-more-a" href="/2019/11/17/【Django】使用-Template/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/17/【Django】使用-Template/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【MySQL】日志记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/17/【MySQL】日志记录/">【MySQL】日志记录</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/17/【MySQL】日志记录/" class="archive-article-date">
-  	<time datetime="2019-11-17T05:50:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MySQL 日志文件有一下几种：</p>
-<ul>
-<li>错误日志（error log）：It contains information about errors that occur while the server is running (also server start and stop)</li>
-<li>一般日志（general log）：This is a general record of what mysqld is doing (connect, disconnect, queries)</li>
-<li>慢查询日志（slow query log）：Ιt consists of “slow” SQL statements (as indicated by its name).</li>
-<li>二进制日志 binlog</li>
-<li>重做日志 redo.log</li>
-<li>回滚日志 undo.log</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/11/17/【MySQL】日志记录/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/17/【MySQL】日志记录/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
@@ -996,15 +1033,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1012,7 +1045,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1052,11 +1089,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1076,7 +1113,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1084,7 +1121,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1108,6 +1145,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
@@ -1116,15 +1157,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1176,15 +1213,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1220,19 +1261,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>

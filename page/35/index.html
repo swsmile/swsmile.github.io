@@ -191,6 +191,267 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Cache-System】缓存穿透、缓存雪崩与缓存击穿" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/">【Cache System】缓存穿透、缓存雪崩与缓存击穿</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/" class="archive-article-date">
+  	<time datetime="2019-07-08T14:31:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="缓存穿透问题"><a href="#缓存穿透问题" class="headerlink" title="缓存穿透问题"></a>缓存穿透问题</h1><p>缓存穿透是指<strong>查询一个根本不存在的数据</strong>，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190106-151308.jpg" alt="Jietu20190106-151308"></p>
+<ol>
+<li>缓存层不命中</li>
+<li>存储层不命中，所以不将空结果写回缓存</li>
+<li>返回空结果</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Cache System</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/CacheSystem/" class="article-tag-list-link color2">CacheSystem</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Algorithm】海量数据处理-布隆过滤器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/">【Algorithm】海量数据处理 - 布隆过滤器（Bloom Filter）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/" class="archive-article-date">
+  	<time datetime="2019-07-05T08:30:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="判断一个元素是否存在一个集合中"><a href="#判断一个元素是否存在一个集合中" class="headerlink" title="判断一个元素是否存在一个集合中"></a>判断一个元素是否存在一个集合中</h1><p>先来看几个比较常见的例子</p>
+<ul>
+<li>字处理软件中，需要检查一个英语单词是否拼写正确</li>
+<li>在 FBI，一个嫌疑人的名字是否已经在嫌疑名单上</li>
+<li>在网络爬虫里，一个网址是否被访问过</li>
+<li>yahoo, gmail等邮箱垃圾邮件过滤功能</li>
+</ul>
+<p>这几个例子有一个共同的特点： <strong>如何判断一个元素是否存在一个集合中？</strong></p>
+<p><strong>常规思路：</strong></p>
+<ul>
+<li>数组</li>
+<li>链表</li>
+<li>树、平衡二叉树、Trie</li>
+<li>HashMap （红黑树）：通过将值映射到 HashMap 中，就可以在 O(1) 的时间复杂度内返回结果（判断这个元素是否在集合中），效率奇高。但是 HashMap 的实现也有缺点，例如存储容量占比高，考虑到负载因子的存在，通常空间是不能被用满的，而一旦你的值很多例如上亿的时候，那 HashMap 占据的内存大小就变得很可观了。</li>
+<li>哈希表</li>
+</ul>
+<p>虽然上面描述的这几种数据结构配合常见的排序、二分搜索可以快速高效的处理绝大部分判断元素是否存在集合中的需求。</p>
+<p>但是当集合里面的元素数量足够大，如果有500万条记录甚至1亿条记录呢？这个时候常规的数据结构的问题就凸显出来了。</p>
+<p>数组、链表、树等数据结构会存储元素的内容，一旦数据量过大，消耗的内存也会呈现线性增长，最终达到瓶颈。</p>
+<p>有的同学可能会问，哈希表不是效率很高吗？查询效率可以达到O(1)。但是哈希表需要消耗的内存依然很高。使用哈希表存储一亿个垃圾 email 地址的消耗？</p>
+<p>哈希表的做法：首先，哈希函数将一个email地址映射成8字节信息指纹；考虑到哈希表存储效率通常小于50%（哈希冲突）；因此消耗的内存：8 * 2 * 1亿 字节 = 1.6G 内存，普通计算机是无法提供如此大的内存。这个时候，布隆过滤器（Bloom Filter）就应运而生。在继续介绍布隆过滤器的原理时，先讲解下关于哈希函数的预备知识。</p>
+<h1 id="什么是-Bloom-Filter"><a href="#什么是-Bloom-Filter" class="headerlink" title="什么是 Bloom Filter"></a>什么是 Bloom Filter</h1><p><strong>Bloom Filter</strong>，被译作称<strong>布隆过滤器</strong>，是一种空间效率很高的概率型数据结构（probabilistic data structure），特点是高效地插入和查询，可以用来告诉你 <strong>“某样东西一定不存在或者可能存在于特定集合中”</strong>。</p>
+<p>Bloom filter 可以看做是对 bit-map 的扩展，它的原理是：</p>
+<p>当一个元素被加入集合时，通过 K 个 Hash 函数将这个元素映射成一个位阵列（Bit array） 中的 K 个点，且把这些点的值置为 1。</p>
+<p>当需要判断这个元素是否存在在集合时，将这个元素分别再放到这 K 个 Hash 函数中，我们只要看看此时分别映射到的这 K 个点是不是都是 1，就（大约） 知道这个元素是否存在于集合中了：</p>
+<ul>
+<li>如果这些点有任何一个点的值为 0，则被检索元素一定不在于集合中； </li>
+<li>如果所有这些点的值都是 1，则被检索元素很可能存在于集合中。</li>
+</ul>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/169a878fc1c67913.gif" alt="å¸é"></p>
+<p>但 Bloom Filter 的这种高效是有一定代价的：<strong>在判断一个元素是否属于某个集合时，有可能会把不属于这个集合的元素误认为属于这个集合（false positive）</strong>。因此，Bloom Filter 不适合那些“零 错误”的应用场合。而在能容忍低错误率的应用场合下，Bloom Filter 通过极少的错误换取了存储空间的极大节省。</p>
+        
+          <a class="article-more-a" href="/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Algorithm】海量数据处理-位图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/【Algorithm】海量数据处理-位图/">【Algorithm】海量数据处理 - 位图（Bitmap）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/05/【Algorithm】海量数据处理-位图/" class="archive-article-date">
+  	<time datetime="2019-07-05T08:30:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Bitmap"><a href="#Bitmap" class="headerlink" title="Bitmap"></a>Bitmap</h1><p>所谓的 Bit-map 就是用一个 bit 位来标记某个元素对应的 Value， 而 Key 即是该元素。由于采用了 Bit 为单位来存储数据，因此在存储空间方面，可以大大节省。</p>
+        
+          <a class="article-more-a" href="/2019/07/05/【Algorithm】海量数据处理-位图/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/05/【Algorithm】海量数据处理-位图/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Algorithm】海量数据处理-MapReduce" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -571,306 +832,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【OOP】什么是多态" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/03/【OOP】什么是多态/">【OOP】什么是多态</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/03/【OOP】什么是多态/" class="archive-article-date">
-  	<time datetime="2019-07-03T04:26:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是多态"><a href="#什么是多态" class="headerlink" title="什么是多态"></a>什么是多态</h1><p>面向对象的三大特性：<strong>封装（encapsulation）、继承（Inheritance）和多态（polymophism）</strong>。从一定角度来看，封装和继承几乎都是为多态而准备的。</p>
-        
-          <a class="article-more-a" href="/2019/07/03/【OOP】什么是多态/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">OOP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/OOP/" class="article-tag-list-link color4">OOP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/03/【OOP】什么是多态/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Java】基本数据类型-基本数据类型的类型转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/28/【Java】基本数据类型-基本数据类型的类型转换/">【Java】基本数据类型 - 基本数据类型的类型转换</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/28/【Java】基本数据类型-基本数据类型的类型转换/" class="archive-article-date">
-  	<time datetime="2019-06-28T04:44:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h1><table>
-<thead>
-<tr>
-<th>序号</th>
-<th>数据类型</th>
-<th>大小/位</th>
-<th>封装类</th>
-<th>默认值</th>
-<th>可表示数据范围</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>byte(位)</td>
-<td>8</td>
-<td>Byte</td>
-<td>0</td>
-<td>-128 ~ 127</td>
-</tr>
-<tr>
-<td>2</td>
-<td>short(短整数)</td>
-<td>16</td>
-<td>Short</td>
-<td>0</td>
-<td>-32768 ~ 32767</td>
-</tr>
-<tr>
-<td>3</td>
-<td>int(整数)</td>
-<td>32</td>
-<td>Integer</td>
-<td>0</td>
-<td>-2147483648 ~ 2147483647</td>
-</tr>
-<tr>
-<td>4</td>
-<td>long(长整数)</td>
-<td>64</td>
-<td>Long</td>
-<td>0L</td>
-<td>-9223372036854775808 ~ 9223372036854775807</td>
-</tr>
-<tr>
-<td>5</td>
-<td>float(单精度)</td>
-<td>32</td>
-<td>Float</td>
-<td>0.0F</td>
-<td>1.4E-45 ~ 3.4028235E38</td>
-</tr>
-<tr>
-<td>6</td>
-<td>double(双精度)</td>
-<td>64</td>
-<td>Double</td>
-<td>0.0D</td>
-<td>4.9E-324 ~ 1.7976931348623157E308</td>
-</tr>
-<tr>
-<td>7</td>
-<td>char(字符)</td>
-<td>16</td>
-<td>Character</td>
-<td>空</td>
-<td>0 ~ 65535</td>
-</tr>
-<tr>
-<td>8</td>
-<td>boolean</td>
-<td>8</td>
-<td>Boolean</td>
-<td>flase</td>
-<td>true或false</td>
-</tr>
-</tbody></table>
-        
-          <a class="article-more-a" href="/2019/06/28/【Java】基本数据类型-基本数据类型的类型转换/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/28/【Java】基本数据类型-基本数据类型的类型转换/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Java】基本数据类型-Java支持的8种基本数据类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/28/【Java】基本数据类型-Java支持的8种基本数据类型/">【Java】基本数据类型 - Java支持的8种基本数据类型</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/28/【Java】基本数据类型-Java支持的8种基本数据类型/" class="archive-article-date">
-  	<time datetime="2019-06-28T02:34:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="列举"><a href="#列举" class="headerlink" title="列举"></a>列举</h1><p>byte（字节型）、short（短整型）、int（整型）、long（长整型）、float（单精度浮点型）、double（双精度浮点型）、boolean（布尔型）、char（字符型）。</p>
-        
-          <a class="article-more-a" href="/2019/06/28/【Java】基本数据类型-Java支持的8种基本数据类型/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/28/【Java】基本数据类型-Java支持的8种基本数据类型/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/34/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><a class="page-number" href="/page/34/">34</a><span class="page-number current">35</span><a class="page-number" href="/page/36/">36</a><a class="page-number" href="/page/37/">37</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/36/">Next &raquo;</a>
@@ -1029,15 +990,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1045,7 +1002,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1085,11 +1046,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1109,7 +1070,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1117,7 +1078,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1141,6 +1102,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
@@ -1149,15 +1114,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1209,15 +1170,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1253,19 +1218,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>
