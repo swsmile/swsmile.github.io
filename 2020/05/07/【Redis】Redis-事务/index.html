@@ -6,20 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Redis】Redis 事务（transaction） | 西维蜀黍 的博客</title>
+  <title>【Redis】Redis 事务（Transaction） | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis的事务（transaction）Redis通过MULTI、EXEC、WATCH等命令来实现事务（transaction）功能。事务提供了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求，它会将事务中的所有命令都执行完毕，然后才去处理其他客户端的命令请求。 以下是一个事务执行的过程，该事务首先以一个MULT">
+  <meta name="description" content="Redis 事务（Transaction）Redis通过 MULTI、EXEC、DISCARD、WATCH 等命令来实现事务（transaction）功能。  All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by">
 <meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Redis】Redis 事务（transaction）">
+<meta property="og:title" content="【Redis】Redis 事务（Transaction）">
 <meta property="og:url" content="http://swsmile.info/2020/05/07/【Redis】Redis-事务/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="Redis的事务（transaction）Redis通过MULTI、EXEC、WATCH等命令来实现事务（transaction）功能。事务提供了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求，它会将事务中的所有命令都执行完毕，然后才去处理其他客户端的命令请求。 以下是一个事务执行的过程，该事务首先以一个MULT">
+<meta property="og:description" content="Redis 事务（Transaction）Redis通过 MULTI、EXEC、DISCARD、WATCH 等命令来实现事务（transaction）功能。  All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.405Z">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710105651600.png">
+<meta property="og:updated_time" content="2020-07-10T03:03:21.027Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Redis】Redis 事务（transaction）">
-<meta name="twitter:description" content="Redis的事务（transaction）Redis通过MULTI、EXEC、WATCH等命令来实现事务（transaction）功能。事务提供了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求，它会将事务中的所有命令都执行完毕，然后才去处理其他客户端的命令请求。 以下是一个事务执行的过程，该事务首先以一个MULT">
+<meta name="twitter:title" content="【Redis】Redis 事务（Transaction）">
+<meta name="twitter:description" content="Redis 事务（Transaction）Redis通过 MULTI、EXEC、DISCARD、WATCH 等命令来实现事务（transaction）功能。  All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710105651600.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -197,7 +199,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      【Redis】Redis 事务（transaction）
+      【Redis】Redis 事务（Transaction）
     </h1>
   
 
@@ -210,13 +212,44 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Redis的事务（transaction）"><a href="#Redis的事务（transaction）" class="headerlink" title="Redis的事务（transaction）"></a>Redis的事务（transaction）</h1><p>Redis通过MULTI、EXEC、WATCH等命令来实现事务（transaction）功能。事务提供了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求，它会将事务中的所有命令都执行完毕，然后才去处理其他客户端的命令请求。</p>
-<p>以下是一个事务执行的过程，该事务首先以一个MULTI命令为开始，接着将多个命令放入事务当中，最后由幻EXEC命令将这个事务提交（commit）给服务器执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET <span class="string">"name” "</span>Practical Common Lisp QUEUED</span><br><span class="line">redis&gt; GET <span class="string">"name"</span></span><br><span class="line">QUEUED</span><br><span class="line">redis&gt; SET Mauthor11 wPeter Seibel^</span><br><span class="line">QUEUED</span><br><span class="line">redis&gt; GET nauthorH QUEUED</span><br><span class="line">redis&gt; EXEC</span><br><span class="line">1)	OK</span><br><span class="line">2)	<span class="string">"Practical Common Lisp”</span></span><br><span class="line"><span class="string">3)	OK</span></span><br><span class="line"><span class="string">4)	11 Peter Seibel”</span></span><br></pre></td></tr></table></figure>
-
+        <h1 id="Redis-事务（Transaction）"><a href="#Redis-事务（Transaction）" class="headerlink" title="Redis 事务（Transaction）"></a>Redis 事务（Transaction）</h1><p>Redis通过 <code>MULTI</code>、<code>EXEC</code>、<code>DISCARD</code>、<code>WATCH</code> 等命令来实现事务（transaction）功能。</p>
+<blockquote>
+<p>All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by another client is served <strong>in the middle</strong> of the execution of a Redis transaction. This guarantees that the commands are executed as a single isolated operation.</p>
+</blockquote>
+<p>事务提供了一种将多个命令请求打包，然后一次性、按顺序串行地（executed sequentially）执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求，它会将事务中的所有命令都执行完毕，然后才去处理其他客户端的命令请求。</p>
+<blockquote>
+<p>Either all of the commands or none are processed, so a Redis transaction is also atomic. The <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> command triggers the execution of all the commands in the transaction, so if a client loses the connection to the server in the context of a transaction before calling the <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> command none of the operations are performed, instead if the <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> command is called, all the operations are performed. </p>
+</blockquote>
+<p>以下是一个事务执行的过程，该事务首先以一个MULTI命令为开始，接着将多个命令放入事务当中，最后由 <code>EXEC</code>命令触发这个事务的执行，通过将这个事务提交（commit）给服务器。</p>
 <a id="more"></a> 
 
-<h2 id="Why-Redis-does-not-support-roll-backs"><a href="#Why-Redis-does-not-support-roll-backs" class="headerlink" title="Why Redis does not support roll backs?"></a>Why Redis does not support roll backs?</h2><p>If you have a relational databases background, the fact that Redis commands can fail during a transaction, but still Redis will execute the rest of the transaction instead of rolling back, may look odd to you.</p>
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><p>A Redis transaction is entered using the <a href="https://redis.io/commands/multi" target="_blank" rel="noopener">MULTI</a> command. The command always replies with <code>OK</code>. At this point the user can issue multiple commands. Instead of executing these commands, Redis will queue them. All the commands are executed once <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> is called.</p>
+<p>Calling <a href="https://redis.io/commands/discard" target="_blank" rel="noopener">DISCARD</a> instead will flush the transaction queue and will exit the transaction.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">&gt; INCR foo</span><br><span class="line">QUEUED</span><br><span class="line">&gt; INCR bar</span><br><span class="line">QUEUED</span><br><span class="line">&gt; EXEC</span><br><span class="line">1) (<span class="built_in">integer</span>) 1</span><br><span class="line">2) (<span class="built_in">integer</span>) 1</span><br></pre></td></tr></table></figure>
+
+<p>As it is possible to see from the session above, <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> returns an array of replies, where every element is the reply of a single command in the transaction, in the same order the commands were issued.</p>
+<p>When a Redis connection is in the context of a <a href="https://redis.io/commands/multi" target="_blank" rel="noopener">MULTI</a> request, all commands will reply with the string <code>QUEUED</code> (sent as a Status Reply from the point of view of the Redis protocol). A queued command is simply scheduled for execution when <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> is called.</p>
+<hr>
+<p>从TCP 通信角度来分析：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> aaabbbccc 123456</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> cccbbbaaa 987654</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; get aaabbbccc</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; EXEC</span><br><span class="line">1) OK</span><br><span class="line">2) OK</span><br><span class="line">3) <span class="string">"123456"</span></span><br></pre></td></tr></table></figure>
+
+<p>我们总共执行了5条命令，每条命令都会有对应的TCP通讯（每次通讯都会附上这条命令对应的执行内容）：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710105651600.png" alt="image-20200710105651600"></p>
+<p>这点其实是相比较 pipeline而言的，在 pipeline中，所有command都会缓存在 client，只有当执行 <code>EXEC</code> 命令时，才会进行TCP 通讯。</p>
+<p>这也意味着，如果执行大量的 transaction，redis server的memory usage会上升（因为有大量未被执行的command 被缓存在 redis server的memory中）；而如果执行大量的 pipeline（而每个pipeline中执行命令数量不多或者这些命令对应执行后的结果的数据量并不大），这时候并不会消耗很多的redis server memory。</p>
+<h1 id="Errors-inside-a-transaction"><a href="#Errors-inside-a-transaction" class="headerlink" title="Errors inside a transaction"></a>Errors inside a transaction</h1><p>During a transaction it is possible to encounter two kind of command errors:</p>
+<ul>
+<li>A command may fail to be queued, so there may be an error before <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> is called. For instance the command may be syntactically wrong (wrong number of arguments, wrong command name, …), or there may be some critical condition like an out of memory condition (if the server is configured to have a memory limit using the <code>maxmemory</code> directive).</li>
+<li>A command may fail <em>after</em> <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> is called, for instance since we performed an operation against a key with the wrong value (like calling a list operation against a string value).</li>
+</ul>
+<p>Clients used to sense the first kind of errors, happening before the <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> call, by checking the return value of the queued command: if the command replies with QUEUED it was queued correctly, otherwise Redis returns an error. If there is an error while queueing a command, most clients will abort the transaction discarding it.</p>
+<p>However starting with Redis 2.6.5, the server will remember that there was an error during the accumulation of commands, and will refuse to execute the transaction returning also an error during <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a>, and discarding the transaction automatically.</p>
+<p>Before Redis 2.6.5 the behavior was to execute the transaction with just the subset of commands queued successfully in case the client called <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> regardless of previous errors. The new behavior makes it much more simple to mix transactions with pipelining, so that the whole transaction can be sent at once, reading all the replies later at once.</p>
+<p>Errors happening <em>after</em> <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> instead are not handled in a special way: all the other commands will be executed even if some command fails during the transaction.</p>
+<h1 id="Discarding-the-command-queue"><a href="#Discarding-the-command-queue" class="headerlink" title="Discarding the command queue"></a>Discarding the command queue</h1><p><a href="https://redis.io/commands/discard" target="_blank" rel="noopener">DISCARD</a> can be used in order to abort a transaction. In this case, no commands are executed and the state of the connection is restored to normal.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt; SET foo 1</span><br><span class="line">OK</span><br><span class="line">&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">&gt; INCR foo</span><br><span class="line">QUEUED</span><br><span class="line">&gt; DISCARD</span><br><span class="line">OK</span><br><span class="line">&gt; GET foo</span><br><span class="line">&quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Why-Redis-does-not-support-roll-backs"><a href="#Why-Redis-does-not-support-roll-backs" class="headerlink" title="Why Redis does not support roll backs?"></a>Why Redis does not support roll backs?</h1><p>If you have a relational databases background, the fact that Redis commands can fail during a transaction, but still Redis will execute the rest of the transaction instead of rolling back, may look odd to you.</p>
 <p>However there are good opinions for this behavior:</p>
 <ul>
 <li>Redis commands can fail only if called with a wrong syntax (and the problem is not detectable during the command queueing), or against keys holding the wrong data type: this means that in practical terms a failing command is the result of a programming errors, and a kind of error that is very likely to be detected during development, and not in production.</li>
@@ -492,15 +525,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,11 +549,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,7 +577,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,15 +585,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,7 +613,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,7 +621,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,11 +633,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,15 +645,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -632,11 +657,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,15 +689,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,11 +713,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,11 +757,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
