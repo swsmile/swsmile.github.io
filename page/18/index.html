@@ -191,6 +191,85 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【macOS】清除-DNS-缓存" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/06/【macOS】清除-DNS-缓存/">【macOS】清除 DNS 缓存</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/06/【macOS】清除-DNS-缓存/" class="archive-article-date">
+  	<time datetime="2019-11-06T03:14:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo killall -HUP mDNSResponder; sleep 2; echo macOS DNS Cache Reset | say</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="http://osxdaily.com/2017/12/18/reset-dns-cache-macos-high-sierra/" target="_blank" rel="noopener">http://osxdaily.com/2017/12/18/reset-dns-cache-macos-high-sierra/</a></li>
+</ul>
+        
+          <a class="article-more-a" href="/2019/11/06/【macOS】清除-DNS-缓存/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">macOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/macOS/" class="article-tag-list-link color1">macOS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/06/【macOS】清除-DNS-缓存/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Django】错误汇总" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -760,253 +839,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Python】String" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/01/【Python】String/">【Python】String</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/01/【Python】String/" class="archive-article-date">
-  	<time datetime="2019-11-01T09:28:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a> 
-
-
-
-
-
-<h1 id="String-格式化"><a href="#String-格式化" class="headerlink" title="String 格式化"></a>String 格式化</h1><p>在Python中，采用的格式化方式和C语言是一致的，用<code>%</code>实现，举例如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'Hello, %s'</span> % <span class="string">'world'</span></span><br><span class="line"><span class="string">'Hello, world'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'Hi, %s, you have $%d.'</span> % (<span class="string">'Michael'</span>, <span class="number">1000000</span>)</span><br><span class="line"><span class="string">'Hi, Michael, you have $1000000.'</span></span><br></pre></td></tr></table></figure>
-
-<p>你可能猜到了，<code>%</code>运算符就是用来格式化字符串的。在字符串内部，<code>%s</code>表示用字符串替换，<code>%d</code>表示用整数替换，有几个<code>%?</code>占位符，后面就跟几个变量或者值，顺序要对应好。如果只有一个<code>%?</code>，括号可以省略。</p>
-<p>常见的占位符有：</p>
-<table>
-<thead>
-<tr>
-<th align="left">占位符</th>
-<th align="left">替换内容</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">%d</td>
-<td align="left">整数</td>
-</tr>
-<tr>
-<td align="left">%f</td>
-<td align="left">浮点数</td>
-</tr>
-<tr>
-<td align="left">%s</td>
-<td align="left">字符串</td>
-</tr>
-<tr>
-<td align="left">%x</td>
-<td align="left">十六进制整数</td>
-</tr>
-</tbody></table>
-<h1 id="访问字符或子字符串"><a href="#访问字符或子字符串" class="headerlink" title="访问字符或子字符串"></a>访问字符或子字符串</h1><p>Python 不支持单字符类型，单字符在 Python 中也是作为一个字符串使用。</p>
-<p>Python 访问子字符串，可以使用方括号来截取字符串，如下实例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"> </span><br><span class="line">var1 = <span class="string">'Hello World!'</span></span><br><span class="line">var2 = <span class="string">"Python Runoob"</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> <span class="string">"var1[0]: "</span>, var1[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">print</span> <span class="string">"var2[1:5]: "</span>, var2[<span class="number">1</span>:<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="转义字符"><a href="#转义字符" class="headerlink" title="转义字符"></a>转义字符</h1><p>在需要在字符中使用特殊字符时，python 用反斜杠 <strong>\</strong> 转义字符。如下表：</p>
-<table>
-<thead>
-<tr>
-<th align="left">转义字符</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">(在行尾时)</td>
-<td align="left">续行符</td>
-</tr>
-<tr>
-<td align="left">\</td>
-<td align="left">反斜杠符号</td>
-</tr>
-<tr>
-<td align="left">&#39;</td>
-<td align="left">单引号</td>
-</tr>
-<tr>
-<td align="left">&quot;</td>
-<td align="left">双引号</td>
-</tr>
-<tr>
-<td align="left">\a</td>
-<td align="left">响铃</td>
-</tr>
-<tr>
-<td align="left">\b</td>
-<td align="left">退格(Backspace)</td>
-</tr>
-<tr>
-<td align="left">\e</td>
-<td align="left">转义</td>
-</tr>
-<tr>
-<td align="left">\000</td>
-<td align="left">空</td>
-</tr>
-<tr>
-<td align="left">\n</td>
-<td align="left">换行</td>
-</tr>
-<tr>
-<td align="left">\v</td>
-<td align="left">纵向制表符</td>
-</tr>
-<tr>
-<td align="left">\t</td>
-<td align="left">横向制表符</td>
-</tr>
-<tr>
-<td align="left">\r</td>
-<td align="left">回车</td>
-</tr>
-<tr>
-<td align="left">\f</td>
-<td align="left">换页</td>
-</tr>
-<tr>
-<td align="left">\oyy</td>
-<td align="left">八进制数，yy代表的字符，例如：\o12代表换行</td>
-</tr>
-<tr>
-<td align="left">\xyy</td>
-<td align="left">十六进制数，yy代表的字符，例如：\x0a代表换行</td>
-</tr>
-<tr>
-<td align="left">\other</td>
-<td align="left">其它的字符以普通格式输出</td>
-</tr>
-</tbody></table>
-<h1 id="字符串运算符"><a href="#字符串运算符" class="headerlink" title="字符串运算符"></a>字符串运算符</h1><p>下表实例变量 a 值为字符串 “Hello”，b 变量值为 “Python”：</p>
-<table>
-<thead>
-<tr>
-<th align="left">操作符</th>
-<th align="left">描述</th>
-<th align="left">实例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">+</td>
-<td align="left">字符串连接</td>
-<td align="left">&gt;&gt;&gt;a + b ‘HelloPython’</td>
-</tr>
-<tr>
-<td align="left">*</td>
-<td align="left">重复输出字符串</td>
-<td align="left">&gt;&gt;&gt;a * 2 ‘HelloHello’</td>
-</tr>
-<tr>
-<td align="left">[]</td>
-<td align="left">通过索引获取字符串中字符</td>
-<td align="left">&gt;&gt;&gt;a[1] ‘e’</td>
-</tr>
-<tr>
-<td align="left">[ : ]</td>
-<td align="left">截取字符串中的一部分</td>
-<td align="left">&gt;&gt;&gt;a[1:4] ‘ell’</td>
-</tr>
-<tr>
-<td align="left">in</td>
-<td align="left">成员运算符 - 如果字符串中包含给定的字符返回 True</td>
-<td align="left">&gt;&gt;&gt;”H” in a True</td>
-</tr>
-<tr>
-<td align="left">not in</td>
-<td align="left">成员运算符 - 如果字符串中不包含给定的字符返回 True</td>
-<td align="left">&gt;&gt;&gt;”M” not in a True</td>
-</tr>
-<tr>
-<td align="left">r/R</td>
-<td align="left">原始字符串 - 原始字符串：所有的字符串都是直接按照字面的意思来使用，没有转义特殊或不能打印的字符。 原始字符串除在字符串的第一个引号前加上字母”r”（可以大小写）以外，与普通字符串有着几乎完全相同的语法。</td>
-<td align="left">&gt;&gt;&gt;print r’\n’ \n &gt;&gt;&gt; print R’\n’ \n</td>
-</tr>
-<tr>
-<td align="left">%</td>
-<td align="left">格式字符串</td>
-<td align="left">请看下一章节</td>
-</tr>
-</tbody></table>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line">a = <span class="string">"Hello"</span></span><br><span class="line">b = <span class="string">"Python"</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> <span class="string">"a + b 输出结果："</span>, a + b </span><br><span class="line"><span class="keyword">print</span> <span class="string">"a * 2 输出结果："</span>, a * <span class="number">2</span> </span><br><span class="line"><span class="keyword">print</span> <span class="string">"a[1] 输出结果："</span>, a[<span class="number">1</span>] </span><br><span class="line"><span class="keyword">print</span> <span class="string">"a[1:4] 输出结果："</span>, a[<span class="number">1</span>:<span class="number">4</span>] </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>( <span class="string">"H"</span> <span class="keyword">in</span> a) :</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"H 在变量 a 中"</span> </span><br><span class="line"><span class="keyword">else</span> :</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"H 不在变量 a 中"</span> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span>( <span class="string">"M"</span> <span class="keyword">not</span> <span class="keyword">in</span> a) :</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"M 不在变量 a 中"</span> </span><br><span class="line"><span class="keyword">else</span> :</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"M 在变量 a 中"</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">print</span> <span class="string">r'\n'</span></span><br><span class="line"><span class="keyword">print</span> R<span class="string">'\n'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Unicode-字符串"><a href="#Unicode-字符串" class="headerlink" title="Unicode 字符串"></a>Unicode 字符串</h1><p>Python 中定义一个 Unicode 字符串和定义一个普通字符串一样简单：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'Hello World !'</span></span><br><span class="line"><span class="string">u'Hello World !'</span></span><br></pre></td></tr></table></figure>
-
-<p>引号前小写的”u”表示这里创建的是一个 Unicode 字符串。如果你想加入一个特殊字符，可以使用 Python 的 Unicode-Escape 编码。如下例所示：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">u'Hello\u0020World !'</span></span><br><span class="line"><span class="string">u'Hello World !'</span></span><br></pre></td></tr></table></figure>
-
-<p>被替换的 \u0020 标识表示在给定位置插入编码值为 0x0020 的 Unicode 字符（空格符）。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400/1017075323632896" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/1016959663602400/1017075323632896</a></li>
-<li><a href="https://www.runoob.com/python/python-strings.html" target="_blank" rel="noopener">https://www.runoob.com/python/python-strings.html</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/01/【Python】String/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/17/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/19/">Next &raquo;</a>
@@ -1117,11 +949,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1173,15 +1005,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1209,10 +1041,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
@@ -1221,11 +1049,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1245,7 +1077,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1253,7 +1085,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1265,11 +1097,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1285,7 +1117,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1293,11 +1125,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1321,11 +1157,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1345,11 +1181,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1357,11 +1193,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1373,15 +1209,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1394,10 +1234,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
             
             <div class="clearfix"></div>

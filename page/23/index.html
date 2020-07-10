@@ -191,6 +191,86 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Django】Django-中的时间获取与相关问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/19/【Django】Django-中的时间获取与相关问题/">【Django】Django 中的时间获取与相关问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/19/【Django】Django-中的时间获取与相关问题/" class="archive-article-date">
+  	<time datetime="2019-10-19T09:29:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>在 Django1.4以后，存在两个概念：Naive time 与 Active time：</p>
+<ul>
+<li>Naive time就是不包含时区信息的时间，</li>
+<li>Active time就是包含时区信息（time-zone-aware）的时间</li>
+</ul>
+<p>举例来说，使用<code>datetime.datetime.utcnow()</code>或者<code>datetime.datetime.now()</code>输出的类似2015-05-11 09:10:33.080451，就是不带时区信息的时间（Naive time）。而使用<code>django.util.timezone.now()</code>输出的类似2015-05-11 09:05:19.936835+00:00的时间就是带时区信息的时间（Active time），其中+00:00表示的就是时区相对性。</p>
+        
+          <a class="article-more-a" href="/2019/10/19/【Django】Django-中的时间获取与相关问题/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/19/【Django】Django-中的时间获取与相关问题/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Django】Django-Shell" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -766,102 +846,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Python】杂-通过-pyenv-快速切换-Python-版本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/06/【Python】杂-通过-pyenv-快速切换-Python-版本/">【Python】杂 - 通过 pyenv 快速切换当前系统 Python 版本</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/06/【Python】杂-通过-pyenv-快速切换-Python-版本/" class="archive-article-date">
-  	<time datetime="2019-10-06T14:03:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a> 
-
-<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="Understanding-PATH"><a href="#Understanding-PATH" class="headerlink" title="Understanding PATH"></a>Understanding PATH</h2><p>When you run a command like <code>python</code> or <code>pip</code>, your operating system searches through a list of directories to find an executable file with that name. This list of directories lives in an environment variable called <code>PATH</code>, with each directory in the list separated by a colon:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/bin:/usr/bin:/bin</span><br></pre></td></tr></table></figure>
-
-<p>Directories in <code>PATH</code> are searched from left to right, so a matching executable in a directory at the beginning of the list takes precedence over another one at the end. In this example, the <code>/usr/local/bin</code> directory will be searched first, then <code>/usr/bin</code>, then <code>/bin</code>.</p>
-<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p><a href="https://github.com/yyuu/pyenv" target="_blank" rel="noopener">pyenv</a> 是 Python 版本管理工具。 pyenv 可以改变全局的 Python 版本，安装多个版本的 Python， 设置目录级别的 Python 版本，还能创建和管理 virtual python environments 。所有的设置都是用户级别的操作，不需要 sudo 命令。</p>
-<p>pyenv 主要用来管理 Python 的版本，比如一个项目需要 Python 2.x ，一个项目需要 Python 3.x 。 而 virtualenv 主要用来管理 Python 包的依赖，不同项目需要依赖的包版本不同，则需要使用虚拟环境。</p>
-<p>pyenv 通过系统修改环境变量来实现 Python 不同版本的切换。而 virtualenv 通过将 Python 包安装到一个目录来作为 Python 包虚拟环境，通过切换目录来实现不同包环境间的切换。</p>
-<p>pyenv 的美好之处在于，它并没有使用将不同的 PATH植入不同的shell这种高耦合的工作方式，而是简单地在PATH 的最前面插入了一个垫片路径（shims）：~/.pyenv/shims:/usr/local/bin:/usr/bin:/bin。所有对 Python 可执行文件的查找都会首先被这个 shims 路径截获，从而使后方的系统路径失效。</p>
-<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><h2 id="1-pyenv"><a href="#1-pyenv" class="headerlink" title="1 pyenv"></a>1 pyenv</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ brew update</span><br><span class="line">$ brew install pyenv</span><br><span class="line">$ pyenv -v</span><br><span class="line">pyenv 1.2.5</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-安装并管理多个Python："><a href="#2-安装并管理多个Python：" class="headerlink" title="2 安装并管理多个Python："></a>2 安装并管理多个Python：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ pyenv install 2.7.15</span><br><span class="line">$ pyenv install 3.7.0</span><br><span class="line">$ pyenv versions</span><br><span class="line">  system</span><br><span class="line">  2.7.15</span><br><span class="line">* 3.7.0 (<span class="built_in">set</span> by /Users/john/.pyenv/version)</span><br></pre></td></tr></table></figure>
-
-<p>注：星号指定当前的版本</p>
-<h2 id="3-切换版本："><a href="#3-切换版本：" class="headerlink" title="3 切换版本："></a>3 切换版本：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ pyenv global 2.7.15</span><br><span class="line">$ pyenv versions</span><br><span class="line">  system</span><br><span class="line">* 2.7.15 (<span class="built_in">set</span> by /Users/john/.pyenv/version)</span><br><span class="line">  3.7.0</span><br><span class="line">$ python --version</span><br><span class="line">Python 2.7.15</span><br></pre></td></tr></table></figure>
-
-<p>pyenv常用的命令说明：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">使用方式: pyenv &lt;命令&gt; [&lt;参数&gt;]</span><br><span class="line"></span><br><span class="line">命令:</span><br><span class="line">  commands    查看所有命令</span><br><span class="line">  local       设置或显示本地的Python版本</span><br><span class="line">  global      设置或显示全局Python版本</span><br><span class="line">  shell       设置或显示shell指定的Python版本</span><br><span class="line">  install     安装指定Python版本</span><br><span class="line">  uninstall   卸载指定Python版本)</span><br><span class="line">  version     显示当前的Python版本及其本地路径</span><br><span class="line">  versions    查看所有已经安装的版本</span><br><span class="line">  which       显示安装路径</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
-
-<p>注：使用local、global、shell，设置Python版本时需要跟上参数（版本号），查看则不需要。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li>使用 pyenv 管理 Python 版本 - <a href="http://einverne.github.io/post/2017/04/pyenv.html" target="_blank" rel="noopener">http://einverne.github.io/post/2017/04/pyenv.html</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/06/【Python】杂-通过-pyenv-快速切换-Python-版本/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/22/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><a class="page-number" href="/page/25/">25</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/24/">Next &raquo;</a>
@@ -972,11 +956,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1028,15 +1012,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1064,10 +1048,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
@@ -1076,11 +1056,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1100,7 +1084,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1108,7 +1092,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1120,11 +1104,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1140,7 +1124,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1148,11 +1132,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1176,11 +1164,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1200,11 +1188,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1212,11 +1200,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1228,15 +1216,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1249,10 +1241,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
             
             <div class="clearfix"></div>

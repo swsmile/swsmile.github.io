@@ -191,6 +191,89 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】mysql-Go-连接-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/【Golang】mysql-Go-连接-MySQL/">【Golang】Golang 连接 MySQL</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/【Golang】mysql-Go-连接-MySQL/" class="archive-article-date">
+  	<time datetime="2020-01-12T12:17:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/go-sql-driver/mysql</span><br></pre></td></tr></table></figure>
+
+<h1 id="mysql数据库连接"><a href="#mysql数据库连接" class="headerlink" title="mysql数据库连接"></a>mysql数据库连接</h1><ul>
+<li>构建连接, 格式是：”用户名:密码@tcp(IP:端口)/数据库?charset=utf8”</li>
+<li>打开数据库,前者是驱动名，所以要导入： _ “github.com/go-sql-driver/mysql”</li>
+<li>设置数据库最大连接数和设置上数据库最大闲置连接数</li>
+<li>验证连接：使用Ping()函数</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"database/sql"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	_ <span class="string">"github.com/go-sql-driver/mysql"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//数据库配置</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	userName = <span class="string">"root"</span></span><br><span class="line">	password = <span class="string">"123456"</span></span><br><span class="line">	ip = <span class="string">"127.0.0.1"</span></span><br><span class="line">	port = <span class="string">"3306"</span></span><br><span class="line">	dbName = <span class="string">"test"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitDB</span><span class="params">()</span></span>  &#123;</span><br><span class="line">  path := strings.Join([]<span class="keyword">string</span>&#123;userName, <span class="string">":"</span>, password, <span class="string">"@tcp("</span>,ip, <span class="string">":"</span>, port, <span class="string">")/"</span>, dbName, <span class="string">"?charset=utf8"</span>&#125;, <span class="string">""</span>)</span><br><span class="line">	db, error := gorm.Open(<span class="string">"mysql"</span>, path)</span><br><span class="line"></span><br><span class="line">	<span class="comment">// if there is an error opening the connection, handle it</span></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		<span class="built_in">panic</span>(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	results, err := db.Query(<span class="string">"select * from tb"</span>)</span><br><span class="line">	fmt.Println(results)</span><br><span class="line">	<span class="keyword">for</span> results.Next() &#123;</span><br><span class="line">		<span class="keyword">var</span> promotion Promotion</span><br><span class="line">		<span class="comment">// for each row, scan the result into our tag composite object</span></span><br><span class="line">		err = results.Scan(&amp;promotion.id, &amp;promotion.c1, &amp;promotion.c2)</span><br><span class="line">		<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="built_in">panic</span>(err.Error()) <span class="comment">// proper error handling instead of panic in your app</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Promotion <span class="keyword">struct</span> &#123;</span><br><span class="line">	id <span class="keyword">int</span></span><br><span class="line">	c1 <span class="keyword">string</span></span><br><span class="line">	c2 <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	InitDB()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/12/【Golang】mysql-Go-连接-MySQL/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/12/【Golang】mysql-Go-连接-MySQL/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】修改代码后自动重新编译并启动" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -850,84 +933,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Python】显示对象的所有-Attribute" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/06/【Python】显示对象的所有-Attribute/">【Python】显示对象的所有 Attribute</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/06/【Python】显示对象的所有-Attribute/" class="archive-article-date">
-  	<time datetime="2019-12-06T08:35:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="dir"><a href="#dir" class="headerlink" title="dir"></a>dir</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">my_list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">dir(my_list)</span><br><span class="line"><span class="comment"># Output: ['__add__', '__class__', '__contains__', '__delattr__', '__delitem__',</span></span><br><span class="line"><span class="comment"># '__delslice__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__',</span></span><br><span class="line"><span class="comment"># '__getitem__', '__getslice__', '__gt__', '__hash__', '__iadd__', '__imul__',</span></span><br><span class="line"><span class="comment"># '__init__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__',</span></span><br><span class="line"><span class="comment"># '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__',</span></span><br><span class="line"><span class="comment"># '__setattr__', '__setitem__', '__setslice__', '__sizeof__', '__str__',</span></span><br><span class="line"><span class="comment"># '__subclasshook__', 'append', 'count', 'extend', 'index', 'insert', 'pop',</span></span><br><span class="line"><span class="comment"># 'remove', 'reverse', 'sort']</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="inspect-module"><a href="#inspect-module" class="headerlink" title="inspect module"></a><code>inspect</code> module</h1><p>The inspect module also provides several useful functions to get information about live objects. For example you can check the members of an object by running:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> inspect</span><br><span class="line">print(inspect.getmembers(str))</span><br><span class="line"><span class="comment"># Output: [('__add__', &lt;slot wrapper '__add__' of ... ...</span></span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/12/06/【Python】显示对象的所有-Attribute/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/06/【Python】显示对象的所有-Attribute/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/69/">69</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
@@ -1038,11 +1043,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1094,15 +1099,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1130,10 +1135,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
@@ -1142,11 +1143,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1166,7 +1171,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1174,7 +1179,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1186,11 +1191,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1206,7 +1211,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1214,11 +1219,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1242,11 +1251,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1266,11 +1275,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1278,11 +1287,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1294,15 +1303,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1315,10 +1328,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
             
             <div class="clearfix"></div>
