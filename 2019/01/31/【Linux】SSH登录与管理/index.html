@@ -17,7 +17,7 @@
 <meta property="og:description" content="什么是SSH简单说，SSH是一种网络协议，用于计算机之间的加密登录。 如果一个用户从本地计算机，使用SSH协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露。 最早的时候，互联网通信都是明文通信，一旦被截获，内容就暴露无疑。1995年，芬兰学者Tatu Ylonen设计了SSH协议，将登录信息全部加密，成为互联网安全的一个基本解决方案，迅速在全世界获得推广，">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200613103948457.png">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.362Z">
+<meta property="og:updated_time" content="2020-07-12T15:05:42.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Linux】SSH登录与管理">
 <meta name="twitter:description" content="什么是SSH简单说，SSH是一种网络协议，用于计算机之间的加密登录。 如果一个用户从本地计算机，使用SSH协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露。 最早的时候，互联网通信都是明文通信，一旦被截获，内容就暴露无疑。1995年，芬兰学者Tatu Ylonen设计了SSH协议，将登录信息全部加密，成为互联网安全的一个基本解决方案，迅速在全世界获得推广，">
@@ -236,6 +236,18 @@ var _hmt = _hmt || [];
 </ol>
 <p>这个过程本身是安全的，但是实施的时候存在一个风险：如果有人截获了登录请求，然后冒充远程主机，将伪造的公钥发给用户，那么用户很难辨别真伪。<strong>因为不像HTTPS协议，SSH协议的公钥是没有证书中心（CA）公证的</strong>，也就是说，都是自己签发的。</p>
 <p>可以设想，如果攻击者插在用户与远程主机之间（比如在公共的wifi区域），用伪造的公钥，获取用户的登录密码。再用这个密码登录远程主机，那么SSH的安全机制就荡然无存了。这种风险就是著名的<strong>“中间人攻击”（Man-in-the-middle attack）</strong>。</p>
+<h1 id="Ubuntu下使用SSH远程登录与禁止登录方法"><a href="#Ubuntu下使用SSH远程登录与禁止登录方法" class="headerlink" title="Ubuntu下使用SSH远程登录与禁止登录方法"></a>Ubuntu下使用SSH远程登录与禁止登录方法</h1><p>如果你只是想登陆别的机器的SSH只需要安装openssh-client（ubuntu有默认安装，如果没有则 <code>sudo apt-get install openssh-client</code>），如果要使本机开放SSH服务就需要安装openssh-server。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># ubuntu默认是不启用root用户也不允许root远程登录的。所以需要先启用root用户</span><br><span class="line"># 启用root用户</span><br><span class="line">$ sudo passwd root //修改密码后就启用了。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 查看当前的ubuntu是否安装了ssh-server服务</span><br><span class="line">$ dpkg -l | grep ssh</span><br><span class="line"></span><br><span class="line"># 安装ssh-server服务</span><br><span class="line">$ sudo apt-get install openssh-server</span><br><span class="line"></span><br><span class="line"># 再次查看安装的服务：</span><br><span class="line">$ dpkg -l | grep ssh</span><br><span class="line"></span><br><span class="line"># 然后确认ssh-server是否启动了：</span><br><span class="line">$ ps -e | grep ssh</span><br><span class="line"></span><br><span class="line"># 如果看到sshd那说明ssh-server已经启动了。</span><br><span class="line"># 如果没有则可以这样启动</span><br><span class="line">$ sudo /etc/init.d/ssh start或sudo service ssh start</span><br></pre></td></tr></table></figure>
+
+<p>配置文件：</p>
+<p>ssh-server配置文件位于/etc/ssh/sshd_config，在这里可以定义SSH的服务端口，默认端口是22，你可以自己定义成其他端口号，如222。</p>
+<p>把配置文件中的”PermitRootLogin without-password”加一个”#”号，把它注释掉，再增加一句”PermitRootLogin yes”。</p>
+<p>查找 AllowUsers ，如果没有则加上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AllowUsers sw root</span><br></pre></td></tr></table></figure>
+
+<p><strong>上面表达的意思就是只允许 sw 和root用户远程登录。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 重启 openssh server</span><br><span class="line">$ sudo service ssh restart</span><br></pre></td></tr></table></figure>
+
 <h1 id="密码登录"><a href="#密码登录" class="headerlink" title="密码登录"></a>密码登录</h1><p>如果你是第一次登录对方主机，系统会出现下面的提示：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ssh user@host</span><br><span class="line"></span><br><span class="line">The authenticity of host <span class="string">'host (12.18.429.21)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)?</span></span><br></pre></td></tr></table></figure>
 
@@ -511,15 +523,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -539,6 +551,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -548,14 +564,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -571,7 +579,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -580,6 +588,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -643,11 +655,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,11 +687,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,11 +703,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,11 +767,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -779,19 +791,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
