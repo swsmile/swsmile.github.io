@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Factors impacting Redis performanceThere are multiple factors having direct consequences on Redis performance. We mention them here, since they can alter the result of any benchmarks. Please note howe">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-10T04:00:51.529Z">
+<meta property="og:updated_time" content="2020-07-12T06:49:55.346Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Redis】Redis 性能分析 Insight">
 <meta name="twitter:description" content="Factors impacting Redis performanceThere are multiple factors having direct consequences on Redis performance. We mention them here, since they can alter the result of any benchmarks. Please note howe">
@@ -224,10 +224,40 @@ var _hmt = _hmt || [];
 </ul>
 <a id="more"></a> 
 
+<h1 id="Latency-Monitoring"><a href="#Latency-Monitoring" class="headerlink" title="Latency Monitoring"></a>Latency Monitoring</h1><p>What is high latency for one use case is not high latency for another. There are applications where all the queries must be served in less than 1 millisecond and applications where from time to time a small percentage of clients experiencing a 2 second latency is acceptable.</p>
+<p>So the first step to enable the latency monitor is to set a <strong>latency threshold</strong> in milliseconds. Only events that will take more than the specified threshold will be logged as latency spikes. The user should set the threshold according to their needs. For example if for the requirements of the application based on Redis the maximum acceptable latency is 100 milliseconds, the threshold should be set to such a value in order to log all the events blocking the server for a time equal or greater to 100 milliseconds.</p>
+<p>The latency monitor can easily be enabled at runtime in a production server with the following command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG SET latency-monitor-threshold 100</span><br></pre></td></tr></table></figure>
 
+<p>By default monitoring is disabled (threshold set to 0), even if the actual cost of latency monitoring is near zero. However while the memory requirements of latency monitoring are very small, there is no good reason to raise the baseline memory usage of a Redis instance that is working well.</p>
+<h2 id="Information-reporting-with-the-LATENCY-command"><a href="#Information-reporting-with-the-LATENCY-command" class="headerlink" title="Information reporting with the LATENCY command"></a>Information reporting with the LATENCY command</h2><p>The user interface to the latency monitoring subsystem is the <code>LATENCY</code> command. Like many other Redis commands, <code>LATENCY</code> accepts subcommands that modifies its behavior. These subcommands are:</p>
+<ul>
+<li><p><a href="https://redis.io/commands/latency-latest" target="_blank" rel="noopener">LATENCY LATEST</a> - returns the latest latency samples for all events.</p>
+</li>
+<li><p><a href="https://redis.io/commands/latency-history" target="_blank" rel="noopener">LATENCY HISTORY</a> - returns latency time series for a given event.</p>
+</li>
+<li><p><a href="https://redis.io/commands/latency-reset" target="_blank" rel="noopener">LATENCY RESET</a> - resets latency time series data for one or more events.</p>
+</li>
+<li><p><a href="https://redis.io/commands/latency-graph" target="_blank" rel="noopener">LATENCY GRAPH</a> - renders an ASCII-art graph of an event’s latency samples.</p>
+</li>
+<li><p><a href="https://redis.io/commands/latency-doctor" target="_blank" rel="noopener">LATENCY DOCTOR</a> - replies with a human-readable latency analysis report.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; latency doctor</span><br><span class="line"></span><br><span class="line">Dave, I have observed latency spikes in this Redis instance.</span><br><span class="line">You don&apos;t mind talking about it, do you Dave?</span><br><span class="line"></span><br><span class="line">1. command: 5 latency spikes (average 300ms, mean deviation 120ms,</span><br><span class="line">    period 73.40 sec). Worst all time event 500ms.</span><br><span class="line"></span><br><span class="line">I have a few advices for you:</span><br><span class="line"></span><br><span class="line">- Your current Slow Log configuration only logs events that are</span><br><span class="line">    slower than your configured latency monitor threshold. Please</span><br><span class="line">    use &apos;CONFIG SET slowlog-log-slower-than 1000&apos;.</span><br><span class="line">- Check your Slow Log to understand what are the commands you are</span><br><span class="line">    running which are too slow to execute. Please check</span><br><span class="line">    http://redis.io/commands/slowlog for more information.</span><br><span class="line">- Deleting, expiring or evicting (because of maxmemory policy)</span><br><span class="line">    large objects is a blocking operation. If you have very large</span><br><span class="line">    objects that are often deleted, expired, or evicted, try to</span><br><span class="line">    fragment those objects into multiple smaller objects.</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h1 id="Redis-slow-log"><a href="#Redis-slow-log" class="headerlink" title="Redis slow log"></a>Redis slow log</h1><p>// TODO</p>
+<p><a href="https://redis.io/commands/slowlog" target="_blank" rel="noopener">https://redis.io/commands/slowlog</a></p>
+<h1 id="Measuring-latency"><a href="#Measuring-latency" class="headerlink" title="Measuring latency"></a>Measuring latency</h1><p>If you are experiencing latency problems, you probably know how to measure it in the context of your application, or maybe your latency problem is very evident even macroscopically. However redis-cli can be used to measure the latency of a Redis server in milliseconds, just try:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli --latency -h `host` -p `port`</span><br></pre></td></tr></table></figure>
 
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://redis.io/topics/benchmarks" target="_blank" rel="noopener">https://redis.io/topics/benchmarks</a></li>
+<li><a href="https://redis.io/topics/latency-monitor" target="_blank" rel="noopener">https://redis.io/topics/latency-monitor</a></li>
+<li><a href="https://redis.io/topics/problems" target="_blank" rel="noopener">https://redis.io/topics/problems</a></li>
+<li><a href="https://redis.io/topics/latency" target="_blank" rel="noopener">https://redis.io/topics/latency</a></li>
+<li><a href="https://redis.io/commands/slowlog" target="_blank" rel="noopener">https://redis.io/commands/slowlog</a></li>
 </ul>
 
       
@@ -451,15 +481,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,19 +525,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -547,19 +577,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,11 +645,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,11 +657,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,7 +669,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,11 +717,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,11 +733,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,11 +749,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,11 +769,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

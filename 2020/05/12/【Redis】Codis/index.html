@@ -18,7 +18,12 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20200512-220845.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/603001-20151221142751031-143687455.png">
-<meta property="og:updated_time" content="2020-07-10T04:42:42.615Z">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710172659995.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710172931082.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/640-20200710173038453.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710173352086.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710173443736.png">
+<meta property="og:updated_time" content="2020-07-12T06:30:33.844Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="西维蜀黍 的博客">
 <meta name="twitter:description" content="CodisCodis 是一个分布式 Redis 解决方案， 对于上层的应用来说， 连接到 Codis Proxy 和连接原生的 Redis Server 没有显著区别 (不支持的命令列表)， 上层应用可以像使用单机的 Redis 一样使用， Codis 内部（其实是Codis Proxy）会处理请求的转发（转发到Codis Server）， 不停机的数据迁移等工作， 所有后边的一切事情， 对于前面">
@@ -244,38 +249,38 @@ var _hmt = _hmt || [];
 <li>轻松地实现高可用性和横向扩展</li>
 <li>不停机的数据迁移（当增加 Redis server的数量时）</li>
 </ul>
-<p><strong>Codis和Redis Cluster的区别：</strong></p>
-<p>Redis Cluster基于smart client和无中心的设计，client必须按key的哈希将请求直接发送到对应的节点。</p>
-<p>这意味着：使用官方cluster必须要等对应语言的redis driver对cluster支持的开发和不断成熟；client不能直接像单机一样使用pipeline来提高效率，想同时执行多个请求来提速必须在client端自行实现异步逻辑。 </p>
-<p>而因为Codis有中心节点（即基于proxy的设计），对client来说可以像对单机redis一样去操作proxy（除了一些命令不支持），还可以继续使用pipeline并且如果后台redis有多个的话速度会显著快于单redis的pipeline。同时Codis使用zookeeper来作为辅助，这意味着单纯对于redis集群来说需要额外的机器搭zk，不过对于很多已经在其他服务上用了zk的公司来说这不是问题：）</p>
-<h1 id="Pre-sharding"><a href="#Pre-sharding" class="headerlink" title="Pre-sharding"></a>Pre-sharding</h1><p>Codis 采用 Pre-sharding 的技术来实现数据的分片（sharding），默认分成 1024 个 槽（slots） (0-1023)，对于每个key来说，通过以下公式确定所属的 Slot Id：</p>
+<h2 id="相对于twemproxy的优劣？"><a href="#相对于twemproxy的优劣？" class="headerlink" title="相对于twemproxy的优劣？"></a>相对于twemproxy的优劣？</h2><p>codis和twemproxy最大的区别有两个：一个是codis支持动态水平扩展，对client完全透明不影响服务的情况下可以完成增减redis实例的操作；一个是codis是用go语言写的并支持多线程而twemproxy用C并只用单线程。 后者又意味着：codis在多核机器上的性能会好于twemproxy；codis的最坏响应时间可能会因为GC的STW而变大，不过go1.5发布后会显著降低STW的时间；如果只用一个CPU的话go语言的性能不如C，因此在一些短连接而非长连接的场景中，整个系统的瓶颈可能变成accept新tcp连接的速度，这时codis的性能可能会差于twemproxy。</p>
+<h2 id="相对于redis-cluster的优劣？"><a href="#相对于redis-cluster的优劣？" class="headerlink" title="相对于redis cluster的优劣？"></a>相对于redis cluster的优劣？</h2><p>redis cluster基于smart client和无中心的设计，client必须按key的哈希将请求直接发送到对应的节点。这意味着：使用官方cluster必须要等对应语言的redis driver对cluster支持的开发和不断成熟；client不能直接像单机一样使用pipeline来提高效率，想同时执行多个请求来提速必须在client端自行实现异步逻辑。 而codis因其有中心节点、基于proxy的设计，对client来说可以像对单机redis一样去操作proxy（除了一些命令不支持），还可以继续使用pipeline并且如果后台redis有多个的话速度会显著快于单redis的pipeline。同时codis使用zookeeper来作为辅助，这意味着单纯对于redis集群来说需要额外的机器搭zk，不过对于很多已经在其他服务上用了zk的公司来说这不是问题：）</p>
+<h1 id="Pre-sharding"><a href="#Pre-sharding" class="headerlink" title="Pre-sharding"></a>Pre-sharding</h1><p>Codis 采用 Pre-sharding 的技术来实现数据的分片（sharding），默认分成 1024 个槽（slots） (0-1023)，对于每个key来说，通过以下公式确定所属的 Slot Id：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SlotId = crc32(key) % 1024</span><br></pre></td></tr></table></figure>
 
 <p>每一个 slot 都会有一个且必须有一个特定的 server group id 来表示这个 slot 的数据由哪个 Codis-group（里面有且只有一个Codis-server master，可能还有一个或多个Codis-server slave） 来提供。数据的迁移也是以slot为单位的。</p>
-<p>slot 有关的操作</p>
-<p>数据迁移</p>
-<p>Codis 和 Redis Cluster</p>
-<p><a href="https://juejin.im/post/5c132b076fb9a04a08218eef" target="_blank" rel="noopener">https://juejin.im/post/5c132b076fb9a04a08218eef</a></p>
-<p><a href="https://zhuanlan.zhihu.com/p/50721277" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/50721277</a></p>
-<p><a href="https://dbaplus.cn/news-141-270-1.html" target="_blank" rel="noopener">https://dbaplus.cn/news-141-270-1.html</a></p>
-<p><a href="https://www.jianshu.com/p/6994cef7c675" target="_blank" rel="noopener">https://www.jianshu.com/p/6994cef7c675</a></p>
-<p><a href="https://blog.csdn.net/tiandao321/article/details/88353128" target="_blank" rel="noopener">https://blog.csdn.net/tiandao321/article/details/88353128</a></p>
-<p><a href="https://juejin.im/post/5a54a6fbf265da3e3f4c9048" target="_blank" rel="noopener">https://juejin.im/post/5a54a6fbf265da3e3f4c9048</a></p>
-<p><a href="https://www.cnblogs.com/ivictor/p/9762394.html" target="_blank" rel="noopener">https://www.cnblogs.com/ivictor/p/9762394.html</a></p>
-<p><a href="https://www.jianshu.com/p/87e06d81b597" target="_blank" rel="noopener">https://www.jianshu.com/p/87e06d81b597</a></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710172659995.png" alt="image-20200710172659995"></p>
 <ul>
-<li><h3 id="Codis-集群"><a href="#Codis-集群" class="headerlink" title="Codis 集群"></a><code>Codis</code> 集群</h3></li>
+<li>slot：分片信息，在redis当中仅仅表示一个数字，代表分片索引。每个分片会归属于具体的redis实例</li>
+<li>group:主要是虚拟结点，由多台redis机器组成，形成一主多从的模式，是逻辑意义上的结点</li>
 </ul>
-<p><code>Codis</code> 是一个代理中间件，用的是 <code>GO</code> 语言开发的，如下图，<code>Codis</code> 在系统的位置是这样的。</p>
-<p><code>Codis</code>分为四个部分，分别是<code>Codis Proxy (Codis-proxy)</code>、<code>Codis Dashboard (Codis-config)</code>、<code>Codis Redis (Codis-server)</code>和<code>ZooKeeper/Etcd</code>.</p>
-<p><code>Codis</code>就是起着一个中间代理的作用，能够把所有的<code>Redis</code>实例当成一个来使用，在客户端操作着<code>SDK</code>的时候和操作<code>Redis</code>的时候是一样的，没有差别。</p>
-<p>因为<code>Codis</code>是一个无状态的，所以可以增加多个<code>Codis</code>来提升<code>QPS</code>，同时也可以起着容灾的作用。</p>
-<h1 id="扩容操作"><a href="#扩容操作" class="headerlink" title="扩容操作"></a>扩容操作</h1><p><a href="https://www.cnblogs.com/chenny7/p/5063368.html" target="_blank" rel="noopener">https://www.cnblogs.com/chenny7/p/5063368.html</a></p>
-<p><a href="https://juejin.im/post/5c132b076fb9a04a08218eef" target="_blank" rel="noopener">https://juejin.im/post/5c132b076fb9a04a08218eef</a></p>
+<h1 id="Proxy-请求处理细节"><a href="#Proxy-请求处理细节" class="headerlink" title="Proxy 请求处理细节"></a>Proxy 请求处理细节</h1><p>如下图所示：该部分主要涉及到proxy的处理细节，涉及到如何接受一个请求到响应回包的过程：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710172931082.png" alt="image-20200710172931082"></p>
+<p>1）proxy接收客户端的连接之后，新建一个session,同时启动session中reader与writer两个协程，reader主要用于接收客户端请求数据并解析，对多key的场景下进行命令的拆分，然后将请求通过router进行分发到具体的redis实例，并将redis处理的数据结果写到通道到中，writer从通道中接收对应的结果，将写回给客户端。</p>
+<p>Router层主要是通过crc命令得到key对应的路由信息，从源码可以看到hashtag的特性，codis其实也是支持的。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/640-20200710173038453.png" alt="img"></p>
+<h1 id="高可用-amp-容灾-amp-故障转移"><a href="#高可用-amp-容灾-amp-故障转移" class="headerlink" title="高可用&amp;容灾&amp;故障转移"></a>高可用&amp;容灾&amp;故障转移</h1><p>哨兵集群如何保证redis高可用</p>
+<p>Sentinel（哨岗，哨兵）是Redis的高可用解决方案：由一个或多个Sentinel实例组成的Sentinel系统，可以监视任意多个主服务器，以及这些主服务器属下的所有的从服务器，并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器，然后由主服务器代替已下线的主服务器继续处理命令请求。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710173352086.png" alt="image-20200710173352086"></p>
+<p>通常来说要达到服务的高可用的效果需要做2个事情：故障探测与故障转移（即选主并做主从切换）。</p>
+<p>codis的架构本身分成proxy集群+redis集群，redis集群的高可用是由哨兵集群来保证的，那么proxy是如何感知redis主机故障，然后切换新主保证服务高可用的呢？</p>
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710173443736.png" alt="image-20200710173443736" style="zoom:67%;">
+
+<p>如上图所示，proxy本身会监听sentinle集群的+switch-master事件，该事件发出，意味着redis集群主机出现问题，sentinel集群开始进行选举并切换主机，proxy监听了sentinel的主从切换事件，收到主从切换事件之后，proxy会做一个动作，就是把所有sentinel上的集群所感知的当前认为的主机拉取出来，选取过半sentinel认为的主机当作目前的集群主机。</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://github.com/CodisLabs/Codis" target="_blank" rel="noopener">https://github.com/CodisLabs/Codis</a></li>
 <li><a href="https://github.com/CodisLabs/Codis/blob/release3.2/doc/tutorial_zh.md" target="_blank" rel="noopener">https://github.com/CodisLabs/Codis/blob/release3.2/doc/tutorial_zh.md</a></li>
 <li><a href="https://www.cnblogs.com/chenny7/p/5063368.html" target="_blank" rel="noopener">https://www.cnblogs.com/chenny7/p/5063368.html</a></li>
+<li><a href="https://my.oschina.net/u/658658/blog/500499" target="_blank" rel="noopener">https://my.oschina.net/u/658658/blog/500499</a></li>
+<li><a href="https://mp.weixin.qq.com/s/F68-e2umTQIq0aGfif58ow" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/F68-e2umTQIq0aGfif58ow</a></li>
+<li><a href="https://cloud.tencent.com/developer/article/1006262" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1006262</a></li>
+<li><a href="https://github.com/CodisLabs/codis/blob/release3.2/doc/FAQ_zh.md" target="_blank" rel="noopener">https://github.com/CodisLabs/codis/blob/release3.2/doc/FAQ_zh.md</a></li>
 </ul>
 
       
@@ -515,15 +520,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,19 +564,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,19 +616,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,11 +684,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,11 +696,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,7 +708,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,11 +756,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,11 +772,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,11 +788,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -803,11 +808,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

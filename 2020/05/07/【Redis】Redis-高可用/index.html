@@ -6,24 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Redis】Redis 集群 | 西维蜀黍 的博客</title>
+  <title>【Redis】Redis High-availability | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Redis集群当面对一个小型的Demo项目时，使用一台Redis服务器己经非常足够了，然而现实中的项目通常需要若干台Redis服务器的支持：  从结构上，单个Redis服务器会发生单点故障，同时一台服务器需要承受所有的请求负载。这就需要为数据生成多个副本并分配在不同的服务器上： 从容量上，单个Redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。  同时拥有多个Redis服务器后就会面">
 <meta name="keywords" content="Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Redis】Redis 集群">
-<meta property="og:url" content="http://swsmile.info/2020/05/07/【Redis】Redis-集群/index.html">
+<meta property="og:title" content="【Redis】Redis High-availability">
+<meta property="og:url" content="http://swsmile.info/2020/05/07/【Redis】Redis-高可用/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Redis集群当面对一个小型的Demo项目时，使用一台Redis服务器己经非常足够了，然而现实中的项目通常需要若干台Redis服务器的支持：  从结构上，单个Redis服务器会发生单点故障，同时一台服务器需要承受所有的请求负载。这就需要为数据生成多个副本并分配在不同的服务器上： 从容量上，单个Redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。  同时拥有多个Redis服务器后就会面">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200712141929372.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/0*fONf9qdXjpC-b444.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ee2707c6204aa8a5f4d7adce4ad52873.jpg">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123456671.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123728988.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190101200434738-6344274.png">
-<meta property="og:updated_time" content="2020-07-10T08:38:22.193Z">
+<meta property="og:updated_time" content="2020-07-12T06:30:14.628Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Redis】Redis 集群">
+<meta name="twitter:title" content="【Redis】Redis High-availability">
 <meta name="twitter:description" content="Redis集群当面对一个小型的Demo项目时，使用一台Redis服务器己经非常足够了，然而现实中的项目通常需要若干台Redis服务器的支持：  从结构上，单个Redis服务器会发生单点故障，同时一台服务器需要承受所有的请求负载。这就需要为数据生成多个副本并分配在不同的服务器上： 从容量上，单个Redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。  同时拥有多个Redis服务器后就会面">
-<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123456671.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200712141929372.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -194,19 +197,19 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-【Redis】Redis-集群" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【Redis】Redis-高可用" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      【Redis】Redis 集群
+      【Redis】Redis High-availability
     </h1>
   
 
         
-        <a href="/2020/05/07/【Redis】Redis-集群/" class="archive-article-date">
+        <a href="/2020/05/07/【Redis】Redis-高可用/" class="archive-article-date">
   	<time datetime="2020-05-07T09:16:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-07</time>
 </a>
         
@@ -220,9 +223,30 @@ var _hmt = _hmt || [];
 <li>从容量上，单个Redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。</li>
 </ul>
 <p>同时拥有多个Redis服务器后就会面临如何管理集群的问题，包括如何增加节点、故障恢复等操作。</p>
-<p>为此，下文将依次详细介绍Redis中的复制（replication）、哨兵（sentinel）和集群（cluster）的使用和原理。</p>
+<p>为此，下文将依次详细介绍Redis中的数据分片（data sharding）、复制（replication）、哨兵（sentinel）和集群（cluster）的使用和原理。</p>
 <a id="more"></a> 
 
+<h1 id="数据分片（Data-sharding）"><a href="#数据分片（Data-sharding）" class="headerlink" title="数据分片（Data sharding）"></a>数据分片（Data sharding）</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>长期以来，Redis 本身仅支持单实例，内存一般最多 10<del>20GB。这无法支撑大型线上业务系统的需求（比如当双11的时候，对于缓存容量的要求，往往会远高于平日）。而且也造成资源的利用率过低——毕竟现在服务器内存动辄 100</del>200GB。</p>
+<p>为解决单机承载能力不足和弹性设置容量的问题，我们就有了各种数据分片（data sharding）技术。</p>
+<p>下面一一做介绍。</p>
+<h2 id="客户端分片（Client-Sharding）"><a href="#客户端分片（Client-Sharding）" class="headerlink" title="客户端分片（Client Sharding）"></a>客户端分片（Client Sharding）</h2><h3 id="传统的客户端分片"><a href="#传统的客户端分片" class="headerlink" title="传统的客户端分片"></a>传统的客户端分片</h3><p>这种方案将分片工作放在业务程序端，程序代码根据预先设置的路由规则（比如，对key hash然后按 10 取模，结果为1则存到 Redis node1，结果为2则存到Redis node2，以此类推），直接对多个 Redis 实例进行分布式访问。</p>
+<p>Java redis客户端驱动 Jedis，支持Redis Sharding功能，即ShardedJedis以及结合缓存池的ShardedJedisPool。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200712141929372.png" alt="image-20200712141929372"></p>
+<p>这样的好处是，非常简单，服务端的Redis实例彼此独立，相互无关联，每个Redis实例像单服务器一样运行，非常容易线性扩展，系统的灵活性很强。因为其不依赖于第三方分布式中间件，实现方法和代码都自己掌控，可随时调整，不用担心踩到坑。</p>
+<p>另外，这种分片机制的性能比代理式更好（少了一个中间分发环节）。</p>
+<p>这实际上是一种静态分片技术。Redis 实例的增减，都得手工调整分片程序。</p>
+<p>客户端sharding的劣势也是很明显的。由于sharding处理放到客户端，规模进一步扩大时给运维带来挑战。客户端sharding不支持动态增删节点。服务端Redis实例群拓扑结构有变化时，每个客户端都需要更新调整。连接不能共享，当应用规模增大时，资源浪费制约优化。</p>
+<h3 id="新一代的客户端分片"><a href="#新一代的客户端分片" class="headerlink" title="新一代的客户端分片"></a>新一代的客户端分片</h3><p>Redis Cluster并非使用Porxy模式来连接集群节点，而是使用无中心节点的模式来组建集群（即没有coordinator）。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/0*fONf9qdXjpC-b444.png" alt="Image for post"></p>
+<p>这意味着，client连接Redis Cluster时，Redis Cluster需要告诉client一个特定的key存在哪个Redis master node。</p>
+<blockquote>
+<p>There are 16384 hash slots in Redis Cluster, and to compute what is the hash slot of a given key, we simply take the CRC16 of the key modulo 16384.</p>
+<p>每个 key 存放在这 16384（0～16383） 个哈希槽中的其中一个，每个Redis node 存储一部分哈希槽。</p>
+</blockquote>
+<h2 id="代理分片（Proxy-Sharding）"><a href="#代理分片（Proxy-Sharding）" class="headerlink" title="代理分片（Proxy Sharding）"></a>代理分片（Proxy Sharding）</h2><p>这种方案，将分片工作交给专门的代理程序来做。代理程序接收到来自业务程序的数据请求，根据路由规则，将这些请求分发给正确的 Redis 实例并返回给业务程序。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ee2707c6204aa8a5f4d7adce4ad52873.jpg" alt="高效运维最佳实践（03）：Redis集群技术及Codis实践"></p>
+<p>这样的好处是，业务程序不用关心后端 Redis 实例，运维起来也方便。虽然会因此带来些性能损耗，但对于 Redis 这种内存读写型应用，相对而言是能容忍的。</p>
+<p>这是我们推荐的集群实现方案。基于该机制的开源产品： Twemproxy、Codis。</p>
 <h1 id="复制（replication）"><a href="#复制（replication）" class="headerlink" title="复制（replication）"></a>复制（replication）</h1><p>通过持久化功能，Redis保证了即使在服务器重启的情况下也不会损失（或少量损失） 数据。但是由于数据是存储在一台服务器上的，如果这台服务器出现硬盘故障等问题，也会导致数据丢失。</p>
 <p>为了避免<strong>单点故障</strong>，通常的做法是将数据库复制多个副本以部署在不同的服务器上，这样即使有一台服务器出现故障，其他服务器依然可以继续提供服务。</p>
 <p>为此， Redis提供了复制（replication）功能，可以实现当Master Redis node中的数据更新后（进行了写操作），自动将更新的数据同步到所有的Slave Redis node上。但不支持主主复制。</p>
@@ -249,7 +273,7 @@ var _hmt = _hmt || [];
 <li><strong>主库的写能力受到单机的限制</strong>，可以考虑数据分片（data sharding），即将数据基于一定的规则（比如CRC16）存储到多个Redis node中；</li>
 <li><strong>主库的存储能力受到单机的限制</strong>，同样可以考虑数据分片（data sharding）。</li>
 </ul>
-<h1 id="哨兵（Sentinel）-High-Availability"><a href="#哨兵（Sentinel）-High-Availability" class="headerlink" title="哨兵（Sentinel）- High Availability"></a>哨兵（Sentinel）- High Availability</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>在一个典型的一主多从的Redis系统中， Slava Redis Node 在整个系统中起到了数据冗余备份和读写分离的作用。当 Master Redis Node 遇到异常中断服务后，运维人员可以通过<strong>手动的方式</strong>选择一个 Slava Redis Node 来升格为Master Redis Node ，以使得系统能够继续提供服务。</p>
+<h1 id="哨兵（Sentinel）-High-Availability"><a href="#哨兵（Sentinel）-High-Availability" class="headerlink" title="哨兵（Sentinel）- High Availability"></a>哨兵（Sentinel）- High Availability</h1><h2 id="Background-1"><a href="#Background-1" class="headerlink" title="Background"></a>Background</h2><p>在一个典型的一主多从的Redis系统中， Slava Redis Node 在整个系统中起到了数据冗余备份和读写分离的作用。当 Master Redis Node 遇到异常中断服务后，运维人员可以通过<strong>手动的方式</strong>选择一个 Slava Redis Node 来升格为Master Redis Node ，以使得系统能够继续提供服务。</p>
 <p>为此，Redis 2.8中提供了哨兵工具来实现自动化的系统监控和故障恢复功能。</p>
 <p>顾名思义，哨兵的作用就是监控Redis系统的运行状况。它的功能包括：</p>
 <ul>
@@ -309,6 +333,7 @@ var _hmt = _hmt || [];
 <li><a href="https://redis.io/topics/replication" target="_blank" rel="noopener">https://redis.io/topics/replication</a></li>
 <li><a href="https://redis.io/topics/cluster-tutorial" target="_blank" rel="noopener">https://redis.io/topics/cluster-tutorial</a></li>
 <li><a href="https://redis.io/topics/sentinel" target="_blank" rel="noopener">https://redis.io/topics/sentinel</a></li>
+<li><a href="https://www.infoq.cn/article/effective-ops-part-03/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=" target="_blank" rel="noopener">https://www.infoq.cn/article/effective-ops-part-03/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=</a></li>
 </ul>
 
       
@@ -532,15 +557,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -576,19 +601,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,19 +653,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,11 +721,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -708,11 +733,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,7 +745,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -768,11 +793,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,11 +809,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,11 +825,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -820,11 +845,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

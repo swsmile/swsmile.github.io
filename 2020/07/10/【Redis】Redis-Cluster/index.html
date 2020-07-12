@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【Cache System】Redis Cluster | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Redis ClusterRedis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 Redis 官方团队来实现。 Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizential scalibility），即当整个 Redis 集群出现存储容量或者性能 bottleneck 时，使用 Redis Cluster 可以通过增加新的">
+  <meta name="description" content="Redis ClusterRedis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 Redis 官方团队来实现。 在3.0之前为了解决容量高可用用方面的需求基本上只能通过客户端分片 + Redis sentinel或者代理（twemproxy、codis）方案解决。 Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizentia">
 <meta name="keywords" content="Cache System,Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Cache System】Redis Cluster">
 <meta property="og:url" content="http://swsmile.info/2020/07/10/【Redis】Redis-Cluster/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="Redis ClusterRedis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 Redis 官方团队来实现。 Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizential scalibility），即当整个 Redis 集群出现存储容量或者性能 bottleneck 时，使用 Redis Cluster 可以通过增加新的">
+<meta property="og:description" content="Redis ClusterRedis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 Redis 官方团队来实现。 在3.0之前为了解决容量高可用用方面的需求基本上只能通过客户端分片 + Redis sentinel或者代理（twemproxy、codis）方案解决。 Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizentia">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/0*fONf9qdXjpC-b444.png">
-<meta property="og:updated_time" content="2020-07-10T08:39:02.053Z">
+<meta property="og:updated_time" content="2020-07-12T06:30:21.430Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Cache System】Redis Cluster">
-<meta name="twitter:description" content="Redis ClusterRedis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 Redis 官方团队来实现。 Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizential scalibility），即当整个 Redis 集群出现存储容量或者性能 bottleneck 时，使用 Redis Cluster 可以通过增加新的">
+<meta name="twitter:description" content="Redis ClusterRedis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 Redis 官方团队来实现。 在3.0之前为了解决容量高可用用方面的需求基本上只能通过客户端分片 + Redis sentinel或者代理（twemproxy、codis）方案解决。 Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizentia">
 <meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/0*fONf9qdXjpC-b444.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
@@ -213,6 +213,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Redis-Cluster"><a href="#Redis-Cluster" class="headerlink" title="Redis Cluster"></a>Redis Cluster</h1><p>Redis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 <code>Redis</code> 官方团队来实现。</p>
+<p>在3.0之前为了解决容量高可用用方面的需求基本上只能通过客户端分片 + Redis sentinel或者代理（twemproxy、codis）方案解决。</p>
 <p>Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizential scalibility），即当整个 Redis 集群出现存储容量或者性能 bottleneck 时，使用 Redis Cluster 可以通过增加新的 master Redis node从而快速解决bottleneck。</p>
 <p>除此之外，Redis Cluster提供了强大的高可用机制（即 failure failover）。即当集群中任何一个master Redis node无法正常工作时（比如因为底层依赖的硬件故障、网络问题），它对应的 slave Redis node就会自动代替它（当然，这里有一个前提，是我们设置了slave Redis node）。</p>
 <p>与Codis 和 Twemproxy 不同的是：Redis Cluster并非使用Porxy模式来连接集群节点，而是使用无中心节点的模式来组建集群（即没有coordinator）。</p>
@@ -298,6 +299,17 @@ var _hmt = _hmt || [];
 </ul>
 <p>另外，Manual Failover分force和非force，区别在于：非force需要等从节点完全同步完主节点的数据后才进行failover，保证不丢失数据，在这过程中，原主节点停止写操作；而force不进行进行数据完整同步，直接进行failover。</p>
 <h2 id="集群状态检测"><a href="#集群状态检测" class="headerlink" title="集群状态检测"></a>集群状态检测</h2><p>集群有OK和FAIL两种状态，可以通过CLUSTER INFO命令查看。当集群发生配置变化时， 集群中的每个节点都会对它所知道的节点进行扫描，只要集群中至少有一个哈希槽不可用（即负责该哈希槽的主节点失效），集群就会进入FAIL状态，停止处理任何命令。<br>另外，当大部分主节点都进入PFAIL状态时，集群也会进入FAIL状态。这是因为要将一个节点从PFAIL状态改变为FAIL状态，必须要有大部分主节点（n/2+1）认可，当集群中的大部分主节点都进入PFAIL时，单凭少数节点是没有办法将一个节点标记为FAIL状态的。 然而集群中的大部分主节点(n/2+1)进入了下线状态，让集群变为FAIL，是为了防止少数存着主节点继续处理用户请求，这解决了出现网络分区时，一个可能被两个主节点负责的哈希槽，同时被用户进行读写操作（通过禁掉其中少数派读写操作，证保只有一个读写操作），造成数据丢失数据问题。<br>说明：上面n/2+1的n是指集群里有负责哈希槽的主节点个数。</p>
+<h1 id="扩容-amp-缩容"><a href="#扩容-amp-缩容" class="headerlink" title="扩容&amp;缩容"></a>扩容&amp;缩容</h1><h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>当集群出现容量限制或者其他一些原因需要扩容时，redis cluster提供了比较优雅的集群扩容方案。</p>
+<p>首先将新节点加入到集群中，可以通过在集群中任何一个客户端执行cluster meet 新节点ip:端口，或者通过redis-trib add node添加，新添加的节点默认在集群中都是主节点。</p>
+<p>迁移数据<br>迁移数据的大致流程是，首先需要确定哪些槽需要被迁移到目标节点，然后获取槽中key，将槽中的key全部迁移到目标节点，然后向集群所有主节点广播槽（数据）全部迁移到了目标节点。直接通过redis-trib工具做数据迁移很方便。 现在假设将节点A的槽10迁移到B节点，过程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">B:cluster setslot 10 importing A.nodeId</span><br><span class="line">A:cluster setslot 10 migrating B.nodeId</span><br></pre></td></tr></table></figure>
+
+<p>循环获取槽中key，将key迁移到B节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A:cluster getkeysinslot 10 100</span><br><span class="line">A:migrate B.ip B.port &quot;&quot; 0 5000 keys key1[ key2....]</span><br></pre></td></tr></table></figure>
+
+<p>向集群广播槽已经迁移到B节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cluster setslot 10 node B.nodeId</span><br></pre></td></tr></table></figure>
+
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://redis.io/topics/cluster-tutorial" target="_blank" rel="noopener">https://redis.io/topics/cluster-tutorial</a></li>
 <li><a href="https://www.cnblogs.com/kevingrace/p/7955725.html" target="_blank" rel="noopener">https://www.cnblogs.com/kevingrace/p/7955725.html</a></li>
@@ -523,15 +535,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,19 +579,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,19 +631,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,11 +699,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -699,11 +711,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -711,7 +723,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -759,11 +771,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,11 +787,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,11 +803,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -811,11 +823,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>
