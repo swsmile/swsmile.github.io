@@ -8,22 +8,24 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【OpenWrt】OpenWrt学习 | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Types of Virtual Network Interfaces aliases\: eth4:5, eth4:6, ..IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple add">
+  <meta name="description" content="OpenWrt 网络接口（Network Interfaces）物理网络接口（Physical Network Interfaces）eth0, eth8, radio0, wlan19, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC](http">
 <meta name="keywords" content="OpenWrt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【OpenWrt】OpenWrt学习">
 <meta property="og:url" content="http://swsmile.info/2020/07/03/【OpenWrt】OpenWrt学习/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="Types of Virtual Network Interfaces aliases\: eth4:5, eth4:6, ..IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple add">
+<meta property="og:description" content="OpenWrt 网络接口（Network Interfaces）物理网络接口（Physical Network Interfaces）eth0, eth8, radio0, wlan19, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC](http">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200705222803125.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704150203334.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704110420382.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704112333495.png">
-<meta property="og:updated_time" content="2020-07-10T02:38:40.686Z">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bridged.ap_v3.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/routed.ap_v3.png">
+<meta property="og:updated_time" content="2020-07-14T14:13:14.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【OpenWrt】OpenWrt学习">
-<meta name="twitter:description" content="Types of Virtual Network Interfaces aliases\: eth4:5, eth4:6, ..IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple add">
+<meta name="twitter:description" content="OpenWrt 网络接口（Network Interfaces）物理网络接口（Physical Network Interfaces）eth0, eth8, radio0, wlan19, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC](http">
 <meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200705222803125.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
@@ -215,24 +217,12 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- mor
+        <h1 id="OpenWrt-网络接口（Network-Interfaces）"><a href="#OpenWrt-网络接口（Network-Interfaces）" class="headerlink" title="OpenWrt 网络接口（Network Interfaces）"></a>OpenWrt 网络接口（Network Interfaces）</h1><h2 id="物理网络接口（Physical-Network-Interfaces）"><a href="#物理网络接口（Physical-Network-Interfaces）" class="headerlink" title="物理网络接口（Physical Network Interfaces）"></a>物理网络接口（Physical Network Interfaces）</h2><p><code>eth0</code>, <code>eth8</code>, <code>radio0</code>, <code>wlan19</code>, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](<a href="https://en.wikipedia.org/wiki/Network" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Network</a> interface controller), [WNIC](<a href="https://en.wikipedia.org/wiki/Wireless" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Wireless</a> network interface controller) 或其他一些 <a href="https://en.wikipedia.org/wiki/Modem" target="_blank" rel="noopener">Modem</a>。当[device driver](<a href="https://en.wikipedia.org/wiki/device" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/device</a> driver)被作为物理网络接口的驱动加载进内核，这些网络接口就可用了。</p>
+<p>任何物理网络接口是由操作系统为用户命名的软件的网络接口，以使得操作系统配置物理网络设备并且将其集成到程序和脚本中。</p>
+<a id="more"></a> 
 
-
-
-# OpenWrt 网络接口（Network Interfaces）
-
-## 物理网络接口（Physical Network Interfaces）
-
-`eth0`, `eth8`, `radio0`, `wlan19`, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC](https://en.wikipedia.org/wiki/Wireless network interface controller) 或其他一些 [Modem](https://en.wikipedia.org/wiki/Modem)。当[device driver](https://en.wikipedia.org/wiki/device driver)被作为物理网络接口的驱动加载进内核，这些网络接口就可用了。
-
-任何物理网络接口是由操作系统为用户命名的软件的网络接口，以使得操作系统配置物理网络设备并且将其集成到程序和脚本中。
-
-## 虚拟网络接口（Virtual Network Interfaces）
-
-`lo`, `eth0:1`, `eth0.1`, `vlan2`, `br0`, `pppoe-dsl`, `gre0`, `sit0` `tun0`, `imq0`, `teql0`, .. are virtual network interfaces that do NOT represent an existent hardware device but are linked to one (otherwise they would be useless). Virtual network interfaces were invented to give the system administrator maximum flexibility when configuring a Linux-based operating system. A virtual network interface is generally associated with a physical network interface (eth6) or another virtual interface (eth6.9) or be stand alone such as the [loopback interface](https://en.wikipedia.org/wiki/Loopback#Virtual_network_interface) `lo`.
-
-e --> 
-
+<h2 id="虚拟网络接口（Virtual-Network-Interfaces）"><a href="#虚拟网络接口（Virtual-Network-Interfaces）" class="headerlink" title="虚拟网络接口（Virtual Network Interfaces）"></a>虚拟网络接口（Virtual Network Interfaces）</h2><p><code>lo</code>, <code>eth0:1</code>, <code>eth0.1</code>, <code>vlan2</code>, <code>br0</code>, <code>pppoe-dsl</code>, <code>gre0</code>, <code>sit0</code> <code>tun0</code>, <code>imq0</code>, <code>teql0</code>, .. are virtual network interfaces that do NOT represent an existent hardware device but are linked to one (otherwise they would be useless). Virtual network interfaces were invented to give the system administrator maximum flexibility when configuring a Linux-based operating system. A virtual network interface is generally associated with a physical network interface (eth6) or another virtual interface (eth6.9) or be stand alone such as the <a href="https://en.wikipedia.org/wiki/Loopback#Virtual_network_interface" target="_blank" rel="noopener">loopback interface</a> <code>lo</code>.</p>
+<p>e –&gt; </p>
 <h3 id="Types-of-Virtual-Network-Interfaces"><a href="#Types-of-Virtual-Network-Interfaces" class="headerlink" title="Types of Virtual Network Interfaces"></a>Types of Virtual Network Interfaces</h3><ul>
 <li><p><strong><em>aliases\</em></strong>: <code>eth4:5</code>, <code>eth4:6</code>, ..<br>IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple address/prefixes per interface, but aliases are still supported for backwards compatibility. <a href="https://git.kernel.org/cgit/linux/kernel/git/stable/linux-stable.git/tree/Documentation/networking/alias.txt" target="_blank" rel="noopener">Documentation/networking/alias.txt</a></p>
 </li>
@@ -297,11 +287,48 @@ used to send packets over a [tunneling protocol](<a href="https://en.wikipedia.o
 <p>下面设置的含义是：WAN这个VLAN和WAN6 这个VLAN在同一个DMZ。</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704110420382.png" alt="image-20200704110420382"></p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704112333495.png" alt="image-20200704112333495"></p>
+<h2 id="桥接AP模式"><a href="#桥接AP模式" class="headerlink" title="桥接AP模式"></a>桥接AP模式</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bridged.ap_v3.png" alt="img"></p>
+<blockquote>
+<p>Bridged AP is to extend your existing wired host router to have wireless capabilities. Clients connecting to OpenWRT will get an IP address from the wired host router.</p>
+</blockquote>
+<p>即 OpenWrt 路由器只作为一个AP（不具有 NAT 和DHCP功能），通过 WIFI 连接到OpenWrt 路由器的设备由上一级路由器（在上图中，是192.168.1.1）来提供 NAT 和 DHCP 服务。</p>
+<h3 id="创建一个-interface"><a href="#创建一个-interface" class="headerlink" title="创建一个 interface"></a>创建一个 interface</h3><p>编辑 <code>/etc/config/network</code>，创建一个 interface，并为其设置一个IP地址，比如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">config interface swlan</span><br><span class="line">        option ifname eth0</span><br><span class="line">        option <span class="built_in">type</span> bridge</span><br><span class="line">        option proto static</span><br><span class="line">        option ipaddr 192.168.1.2</span><br><span class="line">        option netmask 255.255.255.0</span><br><span class="line">        option gateway 192.168.1.1</span><br><span class="line">        option dns 192.168.1.1</span><br></pre></td></tr></table></figure>
+
+<p>This IP address must be an <em>unused</em> one within the network subnet of the main router. You could also change <code>option proto static</code> to <code>option proto dhcp</code> and let the main router decide the AP（Openwrt路由器）’s address, but of course from then on the access point needs a DHCP server.</p>
+<p>如果你需要管理这个OpenWrt，可以直接访问 192.168.1.2 进入其Luci。</p>
+<h3 id="Disable-dnsmasq"><a href="#Disable-dnsmasq" class="headerlink" title="Disable dnsmasq"></a>Disable dnsmasq</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /etc/init.d/dnsmasq <span class="built_in">disable</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然这一步并没有太大的意义。</p>
+<h3 id="Connect-host-router-and-openwrt-router-correctly"><a href="#Connect-host-router-and-openwrt-router-correctly" class="headerlink" title="Connect host router and openwrt router correctly"></a>Connect host router and openwrt router correctly</h3><p>Ensure the host router is connected with a lan port of the openwrt, not the wan port!</p>
+<h3 id="Configure-and-enable-the-wireless-network"><a href="#Configure-and-enable-the-wireless-network" class="headerlink" title="Configure and enable the wireless network"></a>Configure and enable the wireless network</h3><p>In <code>/etc/config/wireless</code>, locate the existing <code>wifi-iface</code> section and change its network option to point to the newly created interface section.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">config wifi-iface</span><br><span class="line">        option device wifi0</span><br><span class="line">        option network swlan</span><br><span class="line">        option mode ap</span><br><span class="line">        option ssid OpenWrt</span><br><span class="line">        option encryption none</span><br></pre></td></tr></table></figure>
+
+<p>重点在于 <code>option network swlan1</code>，这样以后，通过 WIFI 连接到Openwrt路由器的设备将会由上一级路由器（在上图中，是192.168.1.1）来提供 NAT 和 DHCP 服务。</p>
+<p>Enable the new wireless network.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@OpenWrt:~<span class="comment"># ifup wifi</span></span><br><span class="line">root@OpenWrt:~<span class="comment"># wifi</span></span><br></pre></td></tr></table></figure>
+
+<p>如果希望通过特定有线端口连接到Openwrt路由器的设备也由上一级路由器（在上图中，是192.168.1.1）来提供 NAT 和 DHCP 服务，则可以修改<code>/etc/config/network</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">config interface &apos;swlan&apos;</span><br><span class="line">	option proto &apos;dhcp&apos;</span><br><span class="line">	option type &apos;bridge&apos;</span><br><span class="line">	option ifname &apos;lan2 lan3&apos;</span><br></pre></td></tr></table></figure>
+
+<p>比如，在上面我设置了连接到 lan2 和 lan3的设备也位于 swlan中。这样以后，通过 lan2 或者 lan3 有线端口连接到Openwrt路由器的设备也由上一级路由器（在上图中，是192.168.1.1）来提供 NAT 和 DHCP 服务。</p>
+<h3 id="管理-OpenWrt"><a href="#管理-OpenWrt" class="headerlink" title="管理 OpenWrt"></a>管理 OpenWrt</h3><p>想要增加管理口，就要让br-lan有个特殊的地址，PC直接接入lan口，设置pc的ip为静态，并设置与ap相同的子网掩码</p>
+<p>就可以让PC直接访问AP的管理界面</p>
+<p>在/etc/config/network中添加alias</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">root@openwrt:/etc/config# cat network </span><br><span class="line"> </span><br><span class="line">config interface &apos;loopback&apos;</span><br><span class="line">        option ifname &apos;lo&apos;</span><br><span class="line">        option proto &apos;static&apos;</span><br><span class="line">        option ipaddr &apos;127.0.0.1&apos;</span><br><span class="line">        option netmask &apos;255.0.0.0&apos;</span><br><span class="line"> </span><br><span class="line">config interface &apos;lan&apos;</span><br><span class="line">        option ifname &apos;eth2.1&apos;</span><br><span class="line">        option type &apos;bridge&apos;</span><br><span class="line">        option proto &apos;dhcp&apos;</span><br><span class="line">        #option ipaddr &apos;192.168.0.121&apos;</span><br><span class="line">        #option netmask &apos;255.255.255.0&apos;</span><br><span class="line">        #option gateway &apos;192.168.0.1&apos;</span><br><span class="line">        #option dns &apos;192.168.0.1&apos;</span><br><span class="line">        option macaddr &apos;00:01:42:60:3d:3c&apos;</span><br><span class="line"> </span><br><span class="line">config interface &apos;wan&apos;</span><br><span class="line">        option ifname &apos;eth2.2&apos;</span><br><span class="line">        option proto &apos;dhcp&apos;</span><br><span class="line">        option macaddr &apos;00:01:42:60:3d:3d&apos;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">config &apos;alias&apos;  ###添加br-lan的second ip</span><br><span class="line">        option &apos;interface&apos; &apos;lan&apos;</span><br><span class="line">        option &apos;proto&apos; &apos;static&apos;</span><br><span class="line">        option &apos;ipaddr&apos; &apos;10.0.0.7&apos;</span><br><span class="line">        option &apos;netmask&apos; &apos;255.255.255.0&apos;</span><br><span class="line">root@openwrt:/etc/config#</span><br></pre></td></tr></table></figure>
+
+<p>将pc的ip设置为10.0.0.100，子网掩码为255.255.255.0，就可以直接访问<a href="http://10.0.0.7进入ap的管理界面了！" target="_blank" rel="noopener">http://10.0.0.7进入ap的管理界面了！</a></p>
+<p>为了防止内网中也有同样的地址，可以添加多个alias，防止出现冲突现象，不过也不用多虑，因为当你要进入管理界面时需要连网线插入lan口，而ap一般都只有一个网口，所以也就不会有冲突。</p>
+<h2 id="路由AP混合模式（Routed-AP）"><a href="#路由AP混合模式（Routed-AP）" class="headerlink" title="路由AP混合模式（Routed AP）"></a>路由AP混合模式（Routed AP）</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/routed.ap_v3.png" alt="img"></p>
+<p><a href="https://oldwiki.archive.openwrt.org/doc/recipes/routedap" target="_blank" rel="noopener">https://oldwiki.archive.openwrt.org/doc/recipes/routedap</a></p>
+<h2 id="纯AP模式（Dumb-AP）"><a href="#纯AP模式（Dumb-AP）" class="headerlink" title="纯AP模式（Dumb AP）"></a>纯AP模式（Dumb AP）</h2><p><a href="http://wiki.openwrt.org/doc/recipes/dumbap" target="_blank" rel="noopener">http://wiki.openwrt.org/doc/recipes/dumbap</a></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://oldwiki.archive.openwrt.org/doc/networking/network.interfaces" target="_blank" rel="noopener">https://oldwiki.archive.openwrt.org/doc/networking/network.interfaces</a></li>
 <li><a href="https://oldwiki.archive.openwrt.org/doc/uci/network/switch" target="_blank" rel="noopener">https://oldwiki.archive.openwrt.org/doc/uci/network/switch</a></li>
 <li><a href="https://openwrt.org/zh-cn/doc/uci/network" target="_blank" rel="noopener">https://openwrt.org/zh-cn/doc/uci/network</a></li>
+<li><a href="https://oldwiki.archive.openwrt.org/doc/recipes/bridgedap" target="_blank" rel="noopener">https://oldwiki.archive.openwrt.org/doc/recipes/bridgedap</a></li>
 <li><a href="http://einverne.github.io/post/2017/03/openwrt-settings-and-tips.htmlde" target="_blank" rel="noopener">http://einverne.github.io/post/2017/03/openwrt-settings-and-tips.htmlde</a></li>
+<li><a href="https://www.openwrtdl.com/wordpress/openwrt下路由器的ap模式" target="_blank" rel="noopener">https://www.openwrtdl.com/wordpress/openwrt%E4%B8%8B%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84ap%E6%A8%A1%E5%BC%8F</a></li>
 </ul>
 
       
@@ -569,7 +596,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -585,11 +616,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,15 +684,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,11 +716,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,11 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,11 +788,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -805,11 +832,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

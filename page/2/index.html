@@ -679,95 +679,11 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- mor
-
-
-
-# OpenWrt 网络接口（Network Interfaces）
-
-## 物理网络接口（Physical Network Interfaces）
-
-`eth0`, `eth8`, `radio0`, `wlan19`, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](https://en.wikipedia.org/wiki/Network interface controller), [WNIC](https://en.wikipedia.org/wiki/Wireless network interface controller) 或其他一些 [Modem](https://en.wikipedia.org/wiki/Modem)。当[device driver](https://en.wikipedia.org/wiki/device driver)被作为物理网络接口的驱动加载进内核，这些网络接口就可用了。
-
-任何物理网络接口是由操作系统为用户命名的软件的网络接口，以使得操作系统配置物理网络设备并且将其集成到程序和脚本中。
-
-## 虚拟网络接口（Virtual Network Interfaces）
-
-`lo`, `eth0:1`, `eth0.1`, `vlan2`, `br0`, `pppoe-dsl`, `gre0`, `sit0` `tun0`, `imq0`, `teql0`, .. are virtual network interfaces that do NOT represent an existent hardware device but are linked to one (otherwise they would be useless). Virtual network interfaces were invented to give the system administrator maximum flexibility when configuring a Linux-based operating system. A virtual network interface is generally associated with a physical network interface (eth6) or another virtual interface (eth6.9) or be stand alone such as the [loopback interface](https://en.wikipedia.org/wiki/Loopback#Virtual_network_interface) `lo`.
-
-e --> 
-
-<h3 id="Types-of-Virtual-Network-Interfaces"><a href="#Types-of-Virtual-Network-Interfaces" class="headerlink" title="Types of Virtual Network Interfaces"></a>Types of Virtual Network Interfaces</h3><ul>
-<li><p><strong><em>aliases\</em></strong>: <code>eth4:5</code>, <code>eth4:6</code>, ..<br>IP-aliases are an obsolete way to manage multiple IP-addresses/masks per interface. Newer tools such as iproute2 support multiple address/prefixes per interface, but aliases are still supported for backwards compatibility. <a href="https://git.kernel.org/cgit/linux/kernel/git/stable/linux-stable.git/tree/Documentation/networking/alias.txt" target="_blank" rel="noopener">Documentation/networking/alias.txt</a></p>
-</li>
-<li><p><strong><em>VLANs\</em></strong>: <code>eth4.0</code>, <code>eth4.1</code>, <code>eth4.3</code>, <code>vlan0</code>, ..<br>are created to partition a single layer 2 network into multiple virtual ones. The drivers all participating network cards must support [IEEE 802.1Q](<a href="https://en.wikipedia.org/wiki/IEEE" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/IEEE</a> 802.1Q) and be configured accordingly. This standard allows for up to 4096 VLANs (12Bits).</p>
-</li>
-<li><p><strong><em>Stacked VLANs\</em></strong>: [IEEE 802.1ad](<a href="https://en.wikipedia.org/wiki/IEEE" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/IEEE</a> 802.1ad)-support was mainlined in <a href="http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=8ad227ff89a7e6f05d07cd0acfd95ed3a24450ca" target="_blank" rel="noopener">2013-04-19: net: vlan: add 802.1ad support</a> Configuration is done using <code>ip link</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ip link add link eth0 eth0.1000 type vlan proto 802.1ad id 1000</span><br><span class="line">ip link add link eth0.1000 eth0.1000.1000 type vlan proto 802.1q id 1000</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><em>bridgeds\</em></strong>: <code>br0</code>, <code>br-lan</code><br>are used to make multiple virtual or physical network interfaces act as if they were just one network interface (quasi the opposite of VLANs). Can also be used for VPN and bridged interfaces. The Linux Ethernet bridge can be used for connecting multiple Ethernet devices together. The connecting is fully transparent: hosts connected to one Ethernet device see hosts connected to the other Ethernet devices directly. <a href="https://forum.openwrt.org/viewtopic.php?id=45783" target="_blank" rel="noopener">understanding how bridge-interfaces work</a></p>
-</li>
-<li><p><strong><em>tunnel interfaces\</em></strong>: <code>pppoe-dsl</code>, <code>pppoa-dsl</code>, <code>tun0</code>, <code>vpn1</code>,
-used to send packets over a [tunneling protocol](<a href="https://en.wikipedia.org/wiki/tunneling" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/tunneling</a> protocol) such as [GRE](<a href="https://en.wikipedia.org/wiki/Generic" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Generic</a> Routing Encapsulation), <a href="https://en.wikipedia.org/wiki/IPsec" target="_blank" rel="noopener">IPsec</a> [PPPoE](<a href="https://en.wikipedia.org/wiki/Point-to-point" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Point-to-point</a> protocol over Ethernet), etc.</p>
-</li>
-<li><p><strong><em>special purpose\</em></strong>: <code>imq0, teql3</code><br>used to change the order of outgoing network packets, or incoming network packet</p>
-</li>
-<li><p><strong><em>wireless operating mode virtual interfaces\</em></strong>: <code>wlan0</code>, <code>wlan0_1</code>, <code>ath3</code>, <code>ath_monitor</code>, ..<br><a href="https://oldwiki.archive.openwrt.org/doc/howto/wireless.overview" target="_blank" rel="noopener">Linux wireless subsystem</a>: There is always one <em>physical network interface</em> for each WNIC called the <em>master interface</em>. The <em>master interface</em> is invisible. Then, depending on the wireless operating mode the master interface is configured to, <em>ad-hoc (IBSS), managed , AP , WDS, mesh point, monitor</em>, <em>wireless virtual network interfaces</em> with different properties are created. This is done automatically by default. When the WNIC driver is loaded, there always will be the master interface <em>and</em> (at least) one virtual interface!</p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><code>lo</code> 虚拟设备端口，自身回环设备，一般指向 127.0.0.1</li>
-<li><code>eth0</code> 物理网卡0， eth0.1 或者 eth0.2 都是从此设备虚拟而出。</li>
-<li><code>br-lan</code> 虚拟设备，用于 LAN 口设备桥接（bridge），以使多个虚拟（或物理）网络接口看起来好像他们仅有一个网络接口一样。目前路由器普遍将有线 LAN 口（一般四个）和 WIFI 无线接口桥接在一个局域网 （LAN）中。可以使用 <code>brctl show</code> 来查看使用情况。</li>
-<li><code>eth1</code> 如果路由器有两块物理网卡，一般 eth1 则作为 WAN 口</li>
-<li><code>wlan0</code> 一般是通过 2.4G WIFI 连接的设备组成的VLAN</li>
-<li><code>wlan1</code> 一般是通过 5G WIFI 连接的设备组成的VLAN</li>
-</ul>
-<p>可以使用如下命令来查看 <code>br-lan</code> 配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ brctl show</span><br><span class="line">bridge name					bridge id					STP enabled					interfaces</span><br><span class="line">br-lan					7fff.8c53c3e337c6						no		            lan2</span><br><span class="line">																															wlan0</span><br><span class="line">																															lan3</span><br><span class="line">																															wlan1</span><br><span class="line">																															lan1</span><br></pre></td></tr></table></figure>
-
-<p><code>br-lan</code> = lan1 + lan2 + lan3 + wlan0 + wlan1，即将通过有线 LAN 口和无线 WIFI 连接的设备都划到同一个局域网 LAN（相互之间可以互相访问，如果配置了特殊的防火墙规则除外）。</p>
-<h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>我们可以做个小实验，我通过网线路由器的 lan1，然后打开 YouTube 8K 视频并等待一段时间：</p>
-<p>lan1的 RX bytes（Receive bytes）变化：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RX bytes:373973 (365.2 KiB)  TX bytes:319941 (312.4 KiB)</span><br><span class="line">-&gt;</span><br><span class="line">RX bytes:10928410 (10.4 MiB)  TX bytes:1316063670 (1.2 GiB)</span><br></pre></td></tr></table></figure>
-
-<p>br-lan 的 TX bytes（Transmit bytes）变化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RX bytes:1145549 (1.0 MiB)  TX bytes:1281534 (1.2 MiB)</span><br><span class="line">-&gt;</span><br><span class="line">RX bytes:15108596 (14.4 MiB)  TX bytes:1327603944 (1.2 GiB)</span><br></pre></td></tr></table></figure>
-
-<p>eth0 的变化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RX bytes:2547340 (2.4 MiB)  TX bytes:2559632 (2.4 MiB)</span><br><span class="line">-&gt;</span><br><span class="line">RX bytes:1349165970 (1.2 GiB)  TX bytes:1353434420 (1.2 GiB)</span><br></pre></td></tr></table></figure>
-
-<p>wan 的变化：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RX bytes:1208653 (1.1 MiB)  TX bytes:1089786 (1.0 MiB)</span><br><span class="line">-&gt;</span><br><span class="line">RX bytes:1313855306 (1.2 GiB)  TX bytes:16209461 (15.4 MiB)</span><br></pre></td></tr></table></figure>
-
-<p>这说明：从Youtube Server的视频流量会先到达 wan口的 RX（体现在 wan 的 RX），然后被转发到 eth0（体现在 eth0 的 RX），再被转发到 br-lan（体现在 wan 的 TX），最终到达 lan（体现在 lan1 的 TX）。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200705222803125.png" alt="image-20200705222803125"></p>
-<hr>
-<p>类似地，</p>
-<ul>
-<li><p>如果我通过5G WIFI连接路由器（来播放YouTube 8K），wlan0的TX就会对应增加。</p>
-</li>
-<li><p>如果我通过lan1连接到路由器，进行大流量的TCP传输（路由器传输到连接 lan1 对应的设备）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">eth0</span><br><span class="line">RX bytes:151078628 (144.0 MiB)  TX bytes:151155830 (144.1 MiB)</span><br><span class="line">-&gt;</span><br><span class="line">RX bytes:28786916569 (26.8 GiB)  TX bytes:417208939 (397.8 MiB)</span><br><span class="line"></span><br><span class="line">br-lan</span><br><span class="line">RX bytes:11109876 (10.5 MiB)  TX bytes:136662101 (130.3 MiB)</span><br><span class="line">-&gt;</span><br><span class="line">RX bytes:27147493858 (25.2 GiB)  TX bytes:382216096 (364.5 MiB)</span><br><span class="line"></span><br><span class="line">lan1</span><br><span class="line">RX bytes:1342750 (1.2 MiB)  TX bytes:10436669 (9.9 MiB)</span><br><span class="line">-&gt;</span><br><span class="line">RX bytes:28059162930 (26.1 GiB)  TX bytes:33696055 (32.1 MiB)</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-</li>
-</ul>
-<h1 id="各种模式"><a href="#各种模式" class="headerlink" title="各种模式"></a>各种模式</h1><h2 id="路由器模式"><a href="#路由器模式" class="headerlink" title="路由器模式"></a>路由器模式</h2><p><strong>路由器模式</strong>也就是最常见的无线模式，通过有线连接路由器 WAN 口至互联网，并发射无线提供局域网络。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704150203334.png" alt="image-20200704150203334"></p>
-<p>下面设置的含义是：WAN这个VLAN和WAN6 这个VLAN在同一个DMZ。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704110420382.png" alt="image-20200704110420382"></p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200704112333495.png" alt="image-20200704112333495"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://oldwiki.archive.openwrt.org/doc/networking/network.interfaces" target="_blank" rel="noopener">https://oldwiki.archive.openwrt.org/doc/networking/network.interfaces</a></li>
-<li><a href="https://oldwiki.archive.openwrt.org/doc/uci/network/switch" target="_blank" rel="noopener">https://oldwiki.archive.openwrt.org/doc/uci/network/switch</a></li>
-<li><a href="https://openwrt.org/zh-cn/doc/uci/network" target="_blank" rel="noopener">https://openwrt.org/zh-cn/doc/uci/network</a></li>
-<li><a href="http://einverne.github.io/post/2017/03/openwrt-settings-and-tips.htmlde" target="_blank" rel="noopener">http://einverne.github.io/post/2017/03/openwrt-settings-and-tips.htmlde</a></li>
-</ul>
-
+        <h1 id="OpenWrt-网络接口（Network-Interfaces）"><a href="#OpenWrt-网络接口（Network-Interfaces）" class="headerlink" title="OpenWrt 网络接口（Network Interfaces）"></a>OpenWrt 网络接口（Network Interfaces）</h1><h2 id="物理网络接口（Physical-Network-Interfaces）"><a href="#物理网络接口（Physical-Network-Interfaces）" class="headerlink" title="物理网络接口（Physical Network Interfaces）"></a>物理网络接口（Physical Network Interfaces）</h2><p><code>eth0</code>, <code>eth8</code>, <code>radio0</code>, <code>wlan19</code>, .. 这些符号总是代表着真实存在的网络设备。 例如： [NIC](<a href="https://en.wikipedia.org/wiki/Network" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Network</a> interface controller), [WNIC](<a href="https://en.wikipedia.org/wiki/Wireless" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Wireless</a> network interface controller) 或其他一些 <a href="https://en.wikipedia.org/wiki/Modem" target="_blank" rel="noopener">Modem</a>。当[device driver](<a href="https://en.wikipedia.org/wiki/device" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/device</a> driver)被作为物理网络接口的驱动加载进内核，这些网络接口就可用了。</p>
+<p>任何物理网络接口是由操作系统为用户命名的软件的网络接口，以使得操作系统配置物理网络设备并且将其集成到程序和脚本中。</p>
+        
+          <a class="article-more-a" href="/2020/07/03/【OpenWrt】OpenWrt学习/#more">more >></a>
+        
       
 
       
@@ -1046,7 +962,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1062,11 +982,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1134,15 +1050,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1166,11 +1082,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1210,11 +1126,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1238,11 +1154,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1282,11 +1198,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
