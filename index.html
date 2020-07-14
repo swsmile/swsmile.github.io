@@ -287,19 +287,7 @@ var _hmt = _hmt || [];
 <p>除此之外，Redis Cluster提供了强大的高可用机制（即 failure failover）。即当集群中任何一个master Redis node无法正常工作时（比如因为底层依赖的硬件故障、网络问题），它对应的 slave Redis node就会自动代替它（当然，这里有一个前提，是我们设置了slave Redis node）。</p>
 <p>与Codis 和 Twemproxy 不同的是：Redis Cluster并非使用Porxy模式来连接集群节点，而是使用无中心节点的模式来组建集群（即没有coordinator）。</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/0*fONf9qdXjpC-b444.png" alt="Image for post"></p>
-<p>Redis Cluster实现在多个节点之间进行数据共享，即使部分节点失效或者无法进行通讯时，Cluster仍然可以继续处理请求。若每个主节点都有一个从节点支持，在主节点下线或者无法与集群的大多数节点进行通讯的情况下， 从节点提升为主节点，并提供服务，保证Cluster正常运行.</p>
-<h2 id="Redis-Cluster-数据分片（Data-Sharding）"><a href="#Redis-Cluster-数据分片（Data-Sharding）" class="headerlink" title="Redis Cluster 数据分片（Data Sharding）"></a>Redis Cluster 数据分片（Data Sharding）</h2><p>Redis Cluster的数据分片是通过哈希槽（hash slot）实现的，而不是使用一致性哈希，即 consistent hashing。</p>
-<p>There are 16384 hash slots in Redis Cluster, and to compute what is the hash slot of a given key, we simply take the CRC16 of the key modulo 16384.</p>
-<p>Every node in a Redis Cluster is responsible for a subset of the hash slots, so for example you may have a cluster with 3 nodes, where:</p>
-<ul>
-<li>Node A contains hash slots from 0 to 5500.</li>
-<li>Node B contains hash slots from 5501 to 11000.</li>
-<li>Node C contains hash slots from 11001 to 16383.</li>
-</ul>
-<p>每个 key 存放在这 16384（0～16383） 个哈希槽中的其中一个，每个Redis node 存储一部分哈希槽。</p>
-<p>This allows to add and remove nodes in the cluster easily. For example if I want to add a new node D, I need to move some hash slot from nodes A, B, C to D. Similarly if I want to remove node A from the cluster I can just move the hash slots served by A to B and C. When the node A will be empty I can remove it from the cluster completely.</p>
-<p>Because moving hash slots from a node to another does not require to stop operations, adding and removing nodes, or changing the percentage of hash slots hold by nodes, does not require any downtime.</p>
-<p>Redis Cluster supports multiple key operations as long as all the keys involved into a single command execution (or whole transaction, or Lua script execution) all belong to the same hash slot. The user can force multiple keys to be part of the same hash slot by using a concept called <em>hash tags</em>.</p>
+<p>Redis Cluster实现在多个节点之间进行数据共享，即使部分节点失效或者无法进行通讯时，Cluster仍然可以继续处理请求。若每个主节点都有一个从节点支持，在主节点下线或者无法与集群的大多数节点进行通讯的情况下， 从节点提升为主节点，并提供服务，保证Cluster正常运行。</p>
         
           <a class="article-more-a" href="/2020/07/10/【Redis】Redis-Cluster/#more">more >></a>
         
@@ -945,11 +933,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -989,7 +977,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1001,7 +989,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1077,11 +1065,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1109,11 +1097,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1181,11 +1169,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1197,11 +1185,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1221,15 +1209,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
