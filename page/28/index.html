@@ -191,6 +191,177 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Python】Python几种常用的测试框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/06/【Python】Python几种常用的测试框架/">【Python】Python 几种常用的测试框架</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/06/【Python】Python几种常用的测试框架/" class="archive-article-date">
+  	<time datetime="2019-08-06T14:16:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="常见的测试框架"><a href="#常见的测试框架" class="headerlink" title="常见的测试框架"></a>常见的测试框架</h1><h2 id="1-Unittest"><a href="#1-Unittest" class="headerlink" title="1 Unittest"></a>1 Unittest</h2><p>   unittest是Python内置的标准类库。它的API跟Java的JUnit、.net的NUnit，C++的CppUnit很相似。</p>
+<p>   通过继承unittest.TestCase来创建一个测试用例。</p>
+<p>  具体请参考<a href="https://docs.python.org/2/library/unittest.html" target="_blank" rel="noopener">文档</a>。</p>
+<p>  举个例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> x + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTest</span><span class="params">(unittest.TestCase)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.assertEqual(fun(<span class="number">3</span>), <span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/08/06/【Python】Python几种常用的测试框架/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/06/【Python】Python几种常用的测试框架/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Architecture】高并发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/06/【Architecture】高并发/">【Architecture】高并发</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/06/【Architecture】高并发/" class="archive-article-date">
+  	<time datetime="2019-08-06T03:59:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="实现高并发的思路"><a href="#实现高并发的思路" class="headerlink" title="实现高并发的思路"></a>实现高并发的思路</h1><h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><p>数据库的分库分表</p>
+<p>数据库读写分离-主从复制 -&gt;增加读性能</p>
+<p>双主复制</p>
+<p>增加 Redis</p>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h2><ul>
+<li>DNS 负载均衡</li>
+<li>反向代理负载均衡<ul>
+<li>IP负载均衡</li>
+<li>直接路由</li>
+</ul>
+</li>
+</ul>
+<h2 id="静态资源"><a href="#静态资源" class="headerlink" title="静态资源"></a>静态资源</h2><p>动态静态资源分离，静态资源使用 CDN 加速。</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><h3 id="镜像集群模式"><a href="#镜像集群模式" class="headerlink" title="镜像集群模式"></a>镜像集群模式</h3><p>创建的queue无论元数据还是queue里的消息都会存在于多个实例上，</p>
+<p>每次写消息到queue的时候，都会自动把消息到多个实例的queue里进行消息同步。</p>
+<p>这样的话任何一个机器宕机了别的实例都可以用提供服务，这样就做到了真正的高可用了。</p>
+<h3 id="异步（提高并行）"><a href="#异步（提高并行）" class="headerlink" title="异步（提高并行）"></a>异步（提高并行）</h3><p>减少响应所需时间</p>
+<h3 id="削峰"><a href="#削峰" class="headerlink" title="削峰"></a>削峰</h3><p>消息队列具有很好的削峰作用的功能——即通过异步处理，将短时间高并发产生的事务消息存储在消息队列中，从而削平高峰期的并发事务。</p>
+        
+          <a class="article-more-a" href="/2019/08/06/【Architecture】高并发/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/06/【Architecture】高并发/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Architecture】中台" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -691,186 +862,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Distributed-System】SOA与MicroService" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/04/【Distributed-System】SOA与MicroService/">【Distributed System】SOA 与 MicroServices</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/04/【Distributed-System】SOA与MicroService/" class="archive-article-date">
-  	<time datetime="2019-08-04T13:26:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>要知道，我们对 SOA 概念的理解其实是在不断的变化。</p>
-</blockquote>
-<h1 id="SOA（Service-Oriented-Architecture，服务导向架构）"><a href="#SOA（Service-Oriented-Architecture，服务导向架构）" class="headerlink" title="SOA（Service Oriented Architecture，服务导向架构）"></a>SOA（Service Oriented Architecture，服务导向架构）</h1><p>从最初的 SOA 概念来说，SOA 主要为了解决一个大系统中不同子系统的<strong>相互操作性（interopearability）</strong>，即为了实现这个大系统，我们希望能够复用已经存在或者说已经开发好的小系统（它们可能基于不同的编程语言，甚至运行在不同的操作系统下）。因此，这也可以描述为系统的集成（integration）问题。</p>
-<p>因此，在那时候，我们有了 ESB （Enterprise Service Bus，企业服务总线）、WSDL、BPEL 和 SOAP 等等这些概念。它们都是为了解决系统的集成问题而诞生的。</p>
-<h1 id="企业服务总线（Enterprise-Service-Bus，ESB）"><a href="#企业服务总线（Enterprise-Service-Bus，ESB）" class="headerlink" title="企业服务总线（Enterprise Service Bus，ESB）"></a>企业服务总线（Enterprise Service Bus，ESB）</h1><p><strong>企业服务总线（Enterprise Service Bus，ESB）</strong>的概念是从服务导向架构（Service Oriented Architecture， SOA）发展而来。SOA描述了一种IT基础设施的应用集成模型；其中的软构件集是以一种定义清晰的层次化结构来相互耦合。一个ESB是一个预先组装的SOA实现，它包含了实现SOA分层目标所必需的基础功能部件。 </p>
-<p>在企业计算领域，企业服务总线是指由中间件基础设施产品技术实现的、 通过事件驱动和基于XML消息引擎，为更复杂的面向服务的架构提供的软件架构的构造物。企业服务总线通常在企业消息系统上提供一个抽象层，使得集成架构师能够不用编码而是利用消息的价值完成集成工作。</p>
-<p>需要明确的是，企业服务总线本质上解决的是一个大系统的集成问题，或者说这个大系统中不同子系统之间相互依赖的问题。</p>
-<h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>假设一下你通过银行前端的应用登入银行，会发生什么呢？</p>
-<ol>
-<li>会显示你的名字</li>
-<li>会显示你的账号余额</li>
-<li>会展示你的信用卡和借记卡</li>
-<li>会列出你的共同基金</li>
-<li>会列出一些你可能感兴趣的，预先被计算好的，有吸引力收益的借贷产品</li>
-</ol>
-<p>现在，很可能所有这些模块都来自于不同的系统和应用，通过各种接口把数据展示出来</p>
-<ol>
-<li>是来自在linux和Oracle的CRM系统</li>
-<li>是来自z/OS大型机的COBOL系统</li>
-<li>据说是来自大型机，但是他们的嘴巴很紧，不肯告诉你任何事情，只提供CSV文件。</li>
-<li>来自跑在Windows的混合着PHP和Ruby</li>
-<li>来自Postgresql，Python和Java，跑在Linux和Solaris的</li>
-</ol>
-<p>在下图，每条不同宽度或者样式的线表示了app之间的调用</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215635384.png" alt="image-20190804215635384"></p>
-<p>如果你觉得上面这种情况你还可以勉强维护，那下面这种情况呢？</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804215656112.png" alt="image-20190804215656112"></p>
-<p>你可以处理400个吗？2000个怎么样？每个应用都有自己独特的生态系统，都需要用10个物理服务器或者设备跑在上面。所以，就好比有2万个移动的群体散落在大陆上，并且有着各自的技术的或者文化的边界。 所有这些群体彼此之间需要不断的，持续的交换信息，聊天，一刻也停不下来。</p>
-<p>对这种情况，有个很好的名字，叫一团糟。</p>
-        
-          <a class="article-more-a" href="/2019/08/04/【Distributed-System】SOA与MicroService/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/04/【Distributed-System】SOA与MicroService/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Docker】减小Docker镜像体积" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/04/【Docker】减小Docker镜像体积/">【Docker】减小 Docker 镜像体积</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/04/【Docker】减小Docker镜像体积/" class="archive-article-date">
-  	<time datetime="2019-08-04T12:49:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在构建 Docker 容器时，应该尽量想办法获得体积更小的镜像，因为传输和部署体积较小的镜像速度更快。</p>
-<p>但 RUN 语句总是会创建一个新层，而且在生成镜像之前还需要使用很多中间文件，在这种情况下，该如何获得体积更小的镜像呢？</p>
-        
-          <a class="article-more-a" href="/2019/08/04/【Docker】减小Docker镜像体积/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Docker/" class="article-tag-list-link color2">Docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/04/【Docker】减小Docker镜像体积/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/27/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="page-number current">28</span><a class="page-number" href="/page/29/">29</a><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/29/">Next &raquo;</a>
@@ -981,11 +972,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1009,6 +1000,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1021,27 +1020,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1077,15 +1068,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1109,15 +1100,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1253,11 +1244,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">

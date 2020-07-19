@@ -191,6 +191,182 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【MySQL】-MySQL中的各种数据类型转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/31/【MySQL】-MySQL中的各种数据类型转换/">【MySQL】MySQL 中的各种数据类型转换</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/31/【MySQL】-MySQL中的各种数据类型转换/" class="archive-article-date">
+  	<time datetime="2020-01-31T11:07:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Int-gt-varcher"><a href="#Int-gt-varcher" class="headerlink" title="Int -&gt; varcher"></a>Int -&gt; varcher</h1><p>将Int 转为varchar可以用 concat函数，比如 <code>concat(8,’0′)</code> 得到字符串 ’80′。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> core_channel;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">procedure</span> <span class="keyword">if</span> <span class="keyword">exists</span> insert_channel;</span><br><span class="line"></span><br><span class="line">delimiter //</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">procedure</span> insert_channel()</span><br><span class="line">wholeblock:<span class="keyword">BEGIN</span></span><br><span class="line">  <span class="keyword">declare</span> <span class="keyword">str</span> <span class="built_in">VARCHAR</span>(<span class="number">255</span>) <span class="keyword">default</span> <span class="string">''</span>;</span><br><span class="line">  <span class="keyword">declare</span> x <span class="built_in">INT</span> <span class="keyword">default</span> <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">SET</span> x = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  WHILE x &lt;= 10 DO</span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> core_channel (<span class="keyword">name</span>) <span class="keyword">values</span> (<span class="keyword">CONCAT</span>(<span class="string">"name"</span>,x));</span><br><span class="line">    <span class="keyword">SET</span> x = x + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">END</span> <span class="keyword">WHILE</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">select</span> <span class="keyword">str</span>;</span><br><span class="line"><span class="keyword">END</span>//</span><br><span class="line"></span><br><span class="line"><span class="keyword">call</span> insert_channel	();</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/31/【MySQL】-MySQL中的各种数据类型转换/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/31/【MySQL】-MySQL中的各种数据类型转换/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【MySQL】命名习惯" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/31/【MySQL】命名习惯/">【MySQL】命名习惯</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/31/【MySQL】命名习惯/" class="archive-article-date">
+  	<time datetime="2020-01-31T11:04:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>MySQL naming conventions</p>
+<ul>
+<li>Use meaningful names. </li>
+<li>Avoid MySQL reserved keywords.</li>
+<li>Use lower_case_underscores.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Database: prefix &lt;project name&gt; and suffix “_db”</th>
+<th>e.g. CMS_chat_db</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Table: suffix “_tab”</td>
+<td>e.g. order_tab</td>
+</tr>
+<tr>
+<td>Field:</td>
+<td>e.g. create_time</td>
+</tr>
+<tr>
+<td>Index: joined keys with prefix “idx_”</td>
+<td>e.g. idx_key1_key2</td>
+</tr>
+</tbody></table>
+        
+          <a class="article-more-a" href="/2020/01/31/【MySQL】命名习惯/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/31/【MySQL】命名习惯/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】Go-命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -713,162 +889,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Raspbeery】树莓派玩耍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/29/【Raspbeery】树莓派玩耍/">【Raspbeery Pi】树莓派玩耍</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/29/【Raspbeery】树莓派玩耍/" class="archive-article-date">
-  	<time datetime="2020-01-29T09:54:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="查看树莓派系统的位数"><a href="#查看树莓派系统的位数" class="headerlink" title="查看树莓派系统的位数"></a>查看树莓派系统的位数</h1><p>安装软件的时候想查看树莓派系统是32位还是64位就出现了以下的操作，具体命令及作用如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">getconf LONG_BIT        # 查看系统位数</span><br><span class="line">uname -a            # kernel 版本</span><br><span class="line">/opt/vc/bin/vcgencmd  version   # firmware版本</span><br><span class="line">strings /boot/start.elf  |  grep VC_BUILD_ID    # firmware版本</span><br><span class="line">cat /proc/version       # kernel</span><br><span class="line">cat /etc/os-release     # OS版本资讯</span><br><span class="line">cat /etc/issue          # Linux distro 版本</span><br><span class="line">cat /etc/debian_version     # Debian版本编号</span><br></pre></td></tr></table></figure>
-
-<p>虽然树莓派3b的硬件支持64位的系统，但是官方的系统还是32位的，主要应该是为了兼容之前的硬件。</p>
-<h1 id="Error"><a href="#Error" class="headerlink" title="Error"></a>Error</h1><h2 id="Error1-cannot-currently-show-the-desktop-vnc"><a href="#Error1-cannot-currently-show-the-desktop-vnc" class="headerlink" title="Error1 - cannot currently show the desktop vnc"></a>Error1 - cannot currently show the desktop vnc</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo raspi-config</span><br></pre></td></tr></table></figure>
-
-<p>Advanced Options &gt; Resolution, select the appropriate resolution.</p>
-        
-          <a class="article-more-a" href="/2020/01/29/【Raspbeery】树莓派玩耍/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">RaspbeeryPi</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/RaspbeeryPi/" class="article-tag-list-link color2">RaspbeeryPi</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/29/【Raspbeery】树莓派玩耍/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Network】电信光猫内网穿透" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/29/【Network】电信光猫内网穿透/">【Network】电信光猫内网穿透</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/29/【Network】电信光猫内网穿透/" class="archive-article-date">
-  	<time datetime="2020-01-29T09:50:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Environmental-Info"><a href="#Environmental-Info" class="headerlink" title="Environmental Info"></a>Environmental Info</h1><p>天翼网关-GPON，型号: PT921G</p>
-        
-          <a class="article-more-a" href="/2020/01/29/【Network】电信光猫内网穿透/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Network/" class="article-tag-list-link color3">Network</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/29/【Network】电信光猫内网穿透/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/11/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/13/">Next &raquo;</a>
@@ -979,11 +999,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1007,6 +1027,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1019,27 +1047,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1075,15 +1095,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1107,15 +1127,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1251,11 +1271,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">

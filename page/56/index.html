@@ -191,6 +191,177 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Operating-System】并发控制（Concurrency Control）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/17/【Operating-System】并发控制（Concurrency Control）/">【并发控制】乐观并发控制（Optimistic Concurrency Control）与悲观并发控制（Pessimistic Concurrency Control）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/17/【Operating-System】并发控制（Concurrency Control）/" class="archive-article-date">
+  	<time datetime="2019-02-17T06:40:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h1><blockquote>
+<p>2020.6.1 update：今天和室友讨论，发现大家都看的是 “乐观锁、悲观锁，这一篇就够了！” （<a href="https://segmentfault.com/a/1190000016611415）来学习乐观并发控制和悲观并发控制。" target="_blank" rel="noopener">https://segmentfault.com/a/1190000016611415）来学习乐观并发控制和悲观并发控制。</a></p>
+<p>然而，这篇文章中提到了“乐观锁”的概念，而这个词本身就是自相矛盾的，i.e., 锁（lock），或者称为互斥锁（mutex）本身就是基于悲观并发控制思想，所以根本不存在“乐观锁”这种锁。取而代之，将其称为“乐观并发控制思想”则相对更合适。</p>
+<p>其实，搜索一下”optimistic locking”，发现仍然还是有很多的结果，这说明这其实不是因为翻译的原因。</p>
+<p>今天突然意识到了这个问题，于是重新更新了这篇 blog。</p>
+</blockquote>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="并发控制（Concurrency-Control）"><a href="#并发控制（Concurrency-Control）" class="headerlink" title="并发控制（Concurrency Control）"></a>并发控制（Concurrency Control）</h2><p>需要并发控制（Concurrency Control），其实是为了实现某些一致性规则（consistency rules）。</p>
+<p>需要并发控制的一些场景：</p>
+<ul>
+<li>实现数据库的 ACID 中的一致性（consistency）</li>
+<li>编程中的实现互斥（mutual exclusion），比如Java中的 <code>synchrinzed</code> 方法 </li>
+</ul>
+<p>对应地，如果需要并发控制机制，但又没有应用任何并发控制机制，自然会产生某些问题，典型的包括：</p>
+<ul>
+<li>Read-copy-update</li>
+<li>The lost update problem: A second transaction writes a second value of a data-item (datum) on top of a first value written by a first concurrent transaction, and the first value is lost to other transactions running concurrently which need, by their precedence, to read the first value. The transactions that have read the wrong value end with incorrect results.</li>
+<li>The dirty read problem: Transactions read a value written by a transaction that has been later aborted. This value disappears from the database upon abort, and should not have been read by any transaction (“dirty read”). The reading transactions end with incorrect results.</li>
+<li>The incorrect summary problem: While one transaction takes a summary over the values of all the instances of a repeated data-item, a second transaction updates some instances of that data-item. The resulting summary does not reflect a correct result for any (usually needed for correctness) precedence order between the two transactions (if one is executed before the other), but rather some random result, depending on the timing of the updates, and whether certain update results have been included in the summary or not.</li>
+</ul>
+<h2 id="悲观并发控制（Pessimistic-Concurrency-Control）与乐观并发控制（Optimistic-Concurrency-Control）"><a href="#悲观并发控制（Pessimistic-Concurrency-Control）与乐观并发控制（Optimistic-Concurrency-Control）" class="headerlink" title="悲观并发控制（Pessimistic Concurrency Control）与乐观并发控制（Optimistic Concurrency Control）"></a>悲观并发控制（Pessimistic Concurrency Control）与乐观并发控制（Optimistic Concurrency Control）</h2><p>乐观并发控制（Optimistic Concurrency Control）对应于生活中乐观的人总是想着事情往好的方向发展，悲观并发控制（Pessimistic Concurrency Control）对应于生活中悲观的人总是想着事情往坏的方向发展。这两种人各有优缺点，不能不以场景而定说一种人好于另外一种人。</p>
+        
+          <a class="article-more-a" href="/2019/02/17/【Operating-System】并发控制（Concurrency Control）/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Operating System</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/OperatingSystem/" class="article-tag-list-link color1">OperatingSystem</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/17/【Operating-System】并发控制（Concurrency Control）/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Operating-System】进程-进程与线程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/14/【Operating-System】进程-进程与线程/">【Operating System】进程 - 进程与线程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/14/【Operating-System】进程-进程与线程/" class="archive-article-date">
+  	<time datetime="2019-02-14T04:01:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="进程（Process）"><a href="#进程（Process）" class="headerlink" title="进程（Process）"></a>进程（Process）</h1><h2 id="进程的概念"><a href="#进程的概念" class="headerlink" title="进程的概念"></a>进程的概念</h2><p>进程（Process）是操作系统管理资源的基本单元。</p>
+<p>一个进程对应有一块<strong>（内存）地址空间（address space）</strong>，进程可以对这块自己的地址空间进行任意的读写，这块地址空间中包括可以执行的程序（executable program）代码区、数据区（program’s data）和栈（stack）。</p>
+<p>同时，操作系统会维护一个<strong>进程表（process table）</strong>，进程表是一个数组，用于管理当前系统中所有的进程。</p>
+        
+          <a class="article-more-a" href="/2019/02/14/【Operating-System】进程-进程与线程/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Operating System</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/OperatingSystem/" class="article-tag-list-link color1">OperatingSystem</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/02/14/【Operating-System】进程-进程与线程/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Operating-System】系统调用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -643,156 +814,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Java】多线程-线程基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/31/【Java】多线程-线程基础/">【Java】多线程-线程基础</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/31/【Java】多线程-线程基础/" class="archive-article-date">
-  	<time datetime="2019-01-31T10:39:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="线程的实现"><a href="#线程的实现" class="headerlink" title="线程的实现"></a>线程的实现</h1><p><strong>Thread类</strong>是专门用来创建线程和对线程进行操作的类。当某个类继承了Thread类之后，该类就叫做一个<strong>线程类</strong>。</p>
-        
-          <a class="article-more-a" href="/2019/01/31/【Java】多线程-线程基础/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/31/【Java】多线程-线程基础/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Java】多线程-Java中的线程状态及状态切换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/31/【Java】多线程-Java中的线程状态及状态切换/">【Java】多线程 - Java中的线程状态及状态切换</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/31/【Java】多线程-Java中的线程状态及状态切换/" class="archive-article-date">
-  	<time datetime="2019-01-31T10:33:21.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Java-的线程状态"><a href="#Java-的线程状态" class="headerlink" title="Java 的线程状态"></a>Java 的线程状态</h1><p>Java 语言中定义了 6 种线程状态，在任意一个时间点，一个线程有且只有其中一种状态，这 6 种状态是：</p>
-        
-          <a class="article-more-a" href="/2019/01/31/【Java】多线程-Java中的线程状态及状态切换/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/31/【Java】多线程-Java中的线程状态及状态切换/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/55/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/54/">54</a><a class="page-number" href="/page/55/">55</a><span class="page-number current">56</span><a class="page-number" href="/page/57/">57</a><a class="page-number" href="/page/58/">58</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/57/">Next &raquo;</a>
@@ -903,11 +924,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -931,6 +952,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -943,27 +972,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -999,15 +1020,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1031,15 +1052,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1175,11 +1196,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
