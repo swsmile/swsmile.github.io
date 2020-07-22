@@ -191,6 +191,88 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【MySQL】Out-of-range-value-for-column" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/">【MySQL】Out of range value for column</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/25/【MySQL】Out-of-range-value-for-column/" class="archive-article-date">
+  	<time datetime="2020-04-25T07:34:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> test_tinyint;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_tinyint (</span><br><span class="line">    <span class="keyword">num</span> <span class="built_in">tinyint</span></span><br><span class="line">) <span class="keyword">engine</span>=<span class="keyword">innodb</span> <span class="keyword">charset</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_tinyint <span class="keyword">values</span>(<span class="number">-100</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_tinyint <span class="keyword">values</span>(<span class="number">255</span>);</span><br></pre></td></tr></table></figure>
+
+<p>执行第7行的代码时候报错”Out of range value for column ‘num’ at row 7”，这其实是因为（Signed 的） <code>TINYINT</code> 的范围是 -128 到 127，而 255 超过了这个范围。</p>
+<p>如果把第3行的num字段定义改为”num tinyint unsigned”，第7行的插入就不会报错了。但是第6行的插入-100又报错了，因为无符号整型是无法表示负数的。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200425154320835.png" alt="image-20200425154320835"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.6/en/out-of-range-and-overflow.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.6/en/out-of-range-and-overflow.html</a></li>
+</ul>
+        
+          <a class="article-more-a" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Architecture】连接池" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -778,86 +860,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【DistributedSystem】无服务器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/11/【DistributedSystem】无服务器/">【Distributed System】无服务器（Serverless）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/11/【DistributedSystem】无服务器/" class="archive-article-date">
-  	<time datetime="2020-04-11T09:53:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是无服务器计算？"><a href="#什么是无服务器计算？" class="headerlink" title="什么是无服务器计算？"></a>什么是无服务器计算？</h1><p>“无服务器”是云计算中资源抽象的极致体现。从它的命名上你就可以看出，所谓“无服务器”就是想让用户感觉不到服务器的存在，这是因为有一朵巨大的云在底层进行着支撑。这样你可以完全专注于业务逻辑的编写，而不再关心任何基础设施。</p>
-<p>我们在前面课程的讨论中，其实已经接触到了一些广义上的无服务器 PaaS 服务，比如第 13 讲中的无服务器查询服务和第 14 讲中的无服务器容器服务。甚至第 9 讲中的对象存储服务，它理论上来说也是符合无服务器特征的，<strong>因为你不用关心究竟是什么样的机器和多少机器在背后支撑它。</strong></p>
-<p>今天我们要来专门讨论的，是经典的无服务器计算服务（Serverless Computing）。“无服务器”这个名称，就是从这种灵活的计算服务起源的。</p>
-<p>如果把无服务器计算和容器类服务一起比较的话，这两种云上计算类服务有着共同的优势和特点，比如说，它们都支持细粒度封装和易于大规模扩展。但这两者也有很不一样的地方。</p>
-<p>如果说容器是给予了我们很大的定制空间，让你更加容易地按照自己的需要，来进行应用程序的拆分和封装；那么无服务器则是完全屏蔽了计算资源，它是在真正地引导你不再去关心底层环境，你只要遵循标准方式来直接编写业务代码就可以了。</p>
-<p>而且在粒度上，无服务器会允许你拆分得更细致、更轻量。你甚至可以把每一个具有独立功能的函数，来作为一个单独的服务进行部署和运行。这也是为什么，在有些云计算的分类方法下，无服务器计算能够单独“开宗立派”，被称为<strong>函数即服务（Function-as-a-Service，FaaS）</strong>的原因。</p>
-        
-          <a class="article-more-a" href="/2020/04/11/【DistributedSystem】无服务器/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/11/【DistributedSystem】无服务器/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
@@ -992,23 +994,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1021,6 +1007,22 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1096,7 +1098,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,7 +1106,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1128,19 +1130,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1240,11 +1242,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">

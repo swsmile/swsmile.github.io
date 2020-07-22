@@ -191,6 +191,83 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Docker】Docker-常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/23/【Docker】Docker-常用命令/">【Docker】Docker 常用命令</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/23/【Docker】Docker-常用命令/" class="archive-article-date">
+  	<time datetime="2020-05-23T12:17:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="镜像管理"><a href="#镜像管理" class="headerlink" title="镜像管理"></a>镜像管理</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前本机有的镜像</span></span><br><span class="line">$ docker image ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 image 文件从仓库抓取到本地</span></span><br><span class="line">$ docker image pull library/hello-world</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除镜像</span></span><br><span class="line">$ docker rmi &lt;image id&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="容器管理"><a href="#容器管理" class="headerlink" title="容器管理"></a>容器管理</h1><h2 id="查看当前容器"><a href="#查看当前容器" class="headerlink" title="查看当前容器"></a>查看当前容器</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前运行的容器</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="comment"># 查看全部容器（包括曾经运行，但现在已经被停止的）</span></span><br><span class="line">docker ps -a</span><br><span class="line"><span class="comment"># 列出本机正在运行的容器：</span></span><br><span class="line">$ docker container ls</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/05/23/【Docker】Docker-常用命令/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Docker/" class="article-tag-list-link color2">Docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/23/【Docker】Docker-常用命令/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Redis】Codis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -778,84 +855,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Redis】Redis-Key长度与性能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/05/07/【Redis】Redis-Key长度与性能/">【Redis】Redis Key长度与性能</a>
-    </h1>
-  
-
-        
-        <a href="/2020/05/07/【Redis】Redis-Key长度与性能/" class="archive-article-date">
-  	<time datetime="2020-05-07T08:35:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h1><p>我们知道，在Redis中，get和set操作的time complexity均为O(1)。然而，当我们提供一个超长的key给Redis时，理论上，Redis需要花费更多内存来存储这个key。</p>
-<p>因此，key的长度有没有可能影响Redis的性能呢？</p>
-<h1 id="Benchmark-Script"><a href="#Benchmark-Script" class="headerlink" title="Benchmark Script"></a>Benchmark Script</h1><p>在key为不同长度（包含的字符长度）时，Redis 的get和set操作的Performance（QPS）测试脚本</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Test the length of key in Redis will influence performance..."</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (( c=1; c&lt;=100000000000000; c=c*10 ))</span><br><span class="line"><span class="keyword">do</span>  </span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"Current length: <span class="variable">$&#123;c&#125;</span>"</span></span><br><span class="line">   redis-cli flushall</span><br><span class="line">   redis-benchmark -n 1000000 -t <span class="built_in">set</span>,get -r <span class="variable">$&#123;c&#125;</span> -q</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-Key长度与性能/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-Key长度与性能/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -990,23 +989,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1019,6 +1002,22 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1094,7 +1093,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1102,7 +1101,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1126,19 +1125,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1238,11 +1237,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
