@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721232219694.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/prometheus_architecture.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/prometheus-exporter.png">
-<meta property="og:updated_time" content="2020-07-22T14:43:40.494Z">
+<meta property="og:updated_time" content="2020-07-22T15:32:35.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Performance】Prometheus 学习">
 <meta name="twitter:description" content="Prometheus强大的查询语言PromQLPrometheus内置了一个强大的数据查询语言PromQL。 通过PromQL可以实现对监控数据的查询、聚合。同时PromQL也被应用于数据可视化(如Grafana)以及告警当中。 通过PromQL可以轻松回答类似于以下问题：  在过去一段时间中95%应用延迟时间的分布范围？ 预测在4小时后，磁盘空间占用大致会是什么情况？ CPU占用率前5位的服务有">
@@ -234,7 +234,11 @@ var _hmt = _hmt || [];
 <p>同时Prometheus还支持与其他的监控系统进行集成：Graphite， Statsd， Collected， Scollector， muini， Nagios等。</p>
 <p>Prometheus社区还提供了大量第三方实现的监控数据采集支持：JMX， CloudWatch， EC2， MySQL， PostgresSQL， Haskell， Bash， SNMP， Consul， Haproxy， Mesos， Bind， CouchDB， Django， Memcached， RabbitMQ， Redis， RethinkDB， Rsyslog等等。</p>
 <h2 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h2><p>Prometheus Server中自带了一个Prometheus UI，通过这个UI可以方便地直接对数据进行查询，并且支持直接以图形化的形式展示数据。同时Prometheus还提供了一个独立的基于Ruby On Rails的Dashboard解决方案Promdash。最新的Grafana可视化工具也已经提供了完整的Prometheus支持，基于Grafana可以创建更加精美的监控图标。基于Prometheus提供的API还可以实现自己的监控可视化UI。</p>
-<h1 id="安装Prometheus-Server"><a href="#安装Prometheus-Server" class="headerlink" title="安装Prometheus Server"></a>安装Prometheus Server</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> VERSION=2.19.2</span><br><span class="line">$ curl -LO  https://github.com/prometheus/prometheus/releases/download/v<span class="variable">$VERSION</span>/prometheus-<span class="variable">$VERSION</span>.darwin-amd64.tar.gz</span><br><span class="line">$ tar -xzf prometheus-<span class="variable">$&#123;VERSION&#125;</span>.darwin-amd64.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> prometheus-<span class="variable">$&#123;VERSION&#125;</span>.darwin-amd64</span><br></pre></td></tr></table></figure>
+<h1 id="安装Prometheus-Server"><a href="#安装Prometheus-Server" class="headerlink" title="安装Prometheus Server"></a>安装Prometheus Server</h1><p><strong>macOS</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> VERSION=2.19.2</span><br><span class="line">$ curl -LO  https://github.com/prometheus/prometheus/releases/download/v<span class="variable">$VERSION</span>/prometheus-<span class="variable">$VERSION</span>.darwin-amd64.tar.gz</span><br><span class="line">$ tar -xzf prometheus-<span class="variable">$&#123;VERSION&#125;</span>.darwin-amd64.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> prometheus-<span class="variable">$&#123;VERSION&#125;</span>.darwin-amd64</span><br></pre></td></tr></table></figure>
+
+<p><strong>Linux</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -LO https://github.com/prometheus/prometheus/releases/download/v2.19.2/prometheus-2.19.2.linux-amd64.tar.gz</span><br><span class="line">$ tar -xzf prometheus-2.19.2.linux-amd64.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> prometheus-2.19.2.linux-amd64/</span><br></pre></td></tr></table></figure>
 
 <p>解压后当前目录会包含默认的Prometheus配置文件promethes.yml:</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># my global config</span></span><br><span class="line"><span class="attr">global:</span></span><br><span class="line">  <span class="attr">scrape_interval:</span>     <span class="string">15s</span> <span class="comment"># Set the scrape interval to every 15 seconds. Default is every 1 minute.</span></span><br><span class="line">  <span class="attr">evaluation_interval:</span> <span class="string">15s</span> <span class="comment"># Evaluate rules every 15 seconds. The default is every 1 minute.</span></span><br><span class="line">  <span class="comment"># scrape_timeout is set to the global default (10s).</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Alertmanager configuration</span></span><br><span class="line"><span class="attr">alerting:</span></span><br><span class="line">  <span class="attr">alertmanagers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span></span><br><span class="line">      <span class="comment"># - alertmanager:9093</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Load rules once and periodically evaluate them according to the global 'evaluation_interval'.</span></span><br><span class="line"><span class="attr">rule_files:</span></span><br><span class="line">  <span class="comment"># - "first_rules.yml"</span></span><br><span class="line">  <span class="comment"># - "second_rules.yml"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># A scrape configuration containing exactly one endpoint to scrape:</span></span><br><span class="line"><span class="comment"># Here it's Prometheus itself.</span></span><br><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="comment"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'prometheus'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># metrics_path defaults to '/metrics'</span></span><br><span class="line">    <span class="comment"># scheme defaults to 'http'.</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9090']</span></span><br></pre></td></tr></table></figure>
@@ -252,19 +256,22 @@ var _hmt = _hmt || [];
 <h1 id="安装Node-Exporter"><a href="#安装Node-Exporter" class="headerlink" title="安装Node Exporter"></a>安装Node Exporter</h1><p>在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。<strong>Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。</strong></p>
 <p>从上面的描述中可以看出Exporter可以是一个相对开放的概念，其可以是一个独立运行的程序独立于监控目标以外，也可以是直接内置在监控目标中。只要能够向Prometheus提供标准格式的监控样本数据即可。</p>
 <p>这里为了能够采集到主机的运行指标如CPU, 内存，磁盘等信息。我们可以使用<a href="https://github.com/prometheus/node_exporter" target="_blank" rel="noopener">Node Exporter</a>。</p>
-<p>Node Exporter同样采用Golang编写，并且不存在任何的第三方依赖，只需要下载，解压即可运行。可以从<a href="https://prometheus.io/download/获取最新的node" target="_blank" rel="noopener">https://prometheus.io/download/获取最新的node</a> exporter版本的二进制包。</p>
+<p>Node Exporter同样采用Golang编写，并且不存在任何的第三方依赖，只需要下载，解压即可运行。可以从 <a href="https://prometheus.io/download/" target="_blank" rel="noopener">https://prometheus.io/download/</a> 获取最新的node exporter版本的二进制包。</p>
+<p><strong>macOS</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl -OL https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.darwin-amd64.tar.gz</span><br><span class="line">$ tar -xzf node_exporter-1.0.1.darwin-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
+<p><strong>Linux</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl -OL https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz</span><br><span class="line">$ tar -xzf node_exporter-1.0.1.darwin-amd64.tar.gz</span><br></pre></td></tr></table></figure>
+
 <p>运行node exporter:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> node_exporter-1.0.1.darwin-amd64</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> node_exporter-1.0.1.darwin-amd64</span><br><span class="line">$ ./node_exporter</span><br></pre></td></tr></table></figure>
 
 <p>启动成功后，可以看到以下输出：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INFO[0000] Listening on :9100                            source=&quot;node_exporter.go:76&quot;</span><br></pre></td></tr></table></figure>
 
 <p>访问<a href="http://localhost:9100/可以看到以下页面：" target="_blank" rel="noopener">http://localhost:9100/可以看到以下页面：</a></p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png" alt="image-20200721185609311"></p>
-<p>Node Exporter页面</p>
-<h2 id="初始Node-Exporter监控指标"><a href="#初始Node-Exporter监控指标" class="headerlink" title="初始Node Exporter监控指标"></a>初始Node Exporter监控指标</h2><p>访问<a href="http://localhost:9100/metrics，可以看到当前node" target="_blank" rel="noopener">http://localhost:9100/metrics，可以看到当前node</a> exporter获取到的当前主机的所有监控数据，如下所示：</p>
+<h2 id="初始Node-Exporter监控指标"><a href="#初始Node-Exporter监控指标" class="headerlink" title="初始Node Exporter监控指标"></a>初始Node Exporter监控指标</h2><p>访问<a href="http://localhost:9100/metrics" target="_blank" rel="noopener">http://localhost:9100/metrics</a> ，可以看到当前node exporter获取到的当前主机的所有监控数据，如下所示：</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185637394.png" alt="image-20200721185637394"></p>
 <p>每一个监控指标之前都会有一段类似于如下形式的信息：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># HELP node_cpu Seconds the cpus spent in each mode.</span><br><span class="line"># TYPE node_cpu counter</span><br><span class="line">node_cpu&#123;cpu=&quot;cpu0&quot;,mode=&quot;idle&quot;&#125; 362812.7890625</span><br><span class="line"># HELP node_load1 1m load average.</span><br><span class="line"># TYPE node_load1 gauge</span><br><span class="line">node_load1 3.0703125</span><br></pre></td></tr></table></figure>
@@ -657,6 +664,15 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
+    <a href="/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter-学习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【Performance】Node Exporter 学习
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/07/22/【Performance】Grafana-学习/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">【Performance】Grafana 学习</div>
@@ -776,15 +792,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -820,15 +836,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -841,10 +861,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -872,7 +888,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -884,19 +900,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -908,6 +924,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
@@ -916,15 +936,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -948,11 +964,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -960,11 +976,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1020,19 +1036,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
