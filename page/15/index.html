@@ -191,6 +191,169 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】Web-Framework-Gin-使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/【Golang】Web-Framework-Gin-使用/">【Golang】Web Framework - Gin 使用</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/【Golang】Web-Framework-Gin-使用/" class="archive-article-date">
+  	<time datetime="2020-01-12T09:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><p>gin 框架中采用的路由库是 httprouter。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建带有默认中间件的路由:</span></span><br><span class="line"><span class="comment">// 日志与恢复中间件</span></span><br><span class="line">router := gin.Default()</span><br><span class="line"></span><br><span class="line">router.GET(<span class="string">"/someGet"</span>, getting)</span><br><span class="line">router.POST(<span class="string">"/somePost"</span>, posting)</span><br><span class="line">router.PUT(<span class="string">"/somePut"</span>, putting)</span><br><span class="line">router.DELETE(<span class="string">"/someDelete"</span>, deleting)</span><br><span class="line">router.PATCH(<span class="string">"/somePatch"</span>, patching)</span><br><span class="line">router.HEAD(<span class="string">"/someHead"</span>, head)</span><br><span class="line">router.OPTIONS(<span class="string">"/someOptions"</span>, options)</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/12/【Golang】Web-Framework-Gin-使用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/12/【Golang】Web-Framework-Gin-使用/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Golang】Print" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/【Golang】Print/">【Golang】Print</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/【Golang】Print/" class="archive-article-date">
+  	<time datetime="2020-01-12T09:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Println-与Printf"><a href="#Println-与Printf" class="headerlink" title="Println 与Printf"></a>Println 与Printf</h1><p>Println 与Printf 都是fmt 包中的公共方法，在需要打印信息时，会用到这二个函数，那么这二个函数有什么区别呢？</p>
+<ul>
+<li><code>Println()</code>：可以打印出字符串，和变量；</li>
+<li><code>Printf()</code>：只可以打印出格式化的字符串，可以输出字符串类型的变量，不可以输出整形变量和整形</li>
+</ul>
+<p>也就是说，当需要格式化输出信息时一般选择 Printf，其他时候用 Println 就可以了，比如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="number">10</span></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	fmt.Println(<span class="string">"abc"</span>,<span class="string">"d"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"%d"</span>,a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们发现：</p>
+<ul>
+<li>在调用<code>fmt.Println()</code>时，可以提供多个 string，且在打印时，会自动在这些 string 之间加上空格。</li>
+<li>在调用<code>fmt.Printf()</code>时，需要指定 format，如 C 语言中那样。</li>
+</ul>
+        
+          <a class="article-more-a" href="/2020/01/12/【Golang】Print/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/12/【Golang】Print/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Format】csv" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -775,168 +938,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【WordPress】修改站点域名" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/01/【WordPress】修改站点域名/">【WordPress】修改站点域名</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/01/【WordPress】修改站点域名/" class="archive-article-date">
-  	<time datetime="2019-12-01T08:45:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a> 
-
-
-
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> wp_options <span class="keyword">SET</span> option_value = <span class="keyword">replace</span>(option_value, <span class="string">'uomaa.cn'</span>,<span class="string">'uomaa.org.cn'</span>) ;</span><br><span class="line"><span class="keyword">UPDATE</span> wp_posts <span class="keyword">SET</span> post_content = <span class="keyword">replace</span>(post_content, <span class="string">'uomaa.cn'</span>,<span class="string">'uomaa.org.cn'</span>) ;</span><br><span class="line"><span class="keyword">UPDATE</span> wp_comments <span class="keyword">SET</span> comment_content = <span class="keyword">replace</span>(comment_content, <span class="string">'uomaa.cn'</span>, <span class="string">'uomaa.org.cn'</span>) ;</span><br><span class="line"><span class="keyword">UPDATE</span> wp_comments <span class="keyword">SET</span> comment_author_url = <span class="keyword">replace</span>(comment_author_url, <span class="string">'uomaa.cn'</span>, <span class="string">'uomaa.org.cn'</span>) ;</span><br></pre></td></tr></table></figure>
-
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">WordPress</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/WordPress/" class="article-tag-list-link color5">WordPress</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/01/【WordPress】修改站点域名/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Python】常见错误" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/28/【Python】常见错误/">【Python】常见错误</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/28/【Python】常见错误/" class="archive-article-date">
-  	<time datetime="2019-11-28T09:17:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Variable"><a href="#Variable" class="headerlink" title="Variable"></a>Variable</h1><h2 id="未定义的-variable"><a href="#未定义的-variable" class="headerlink" title="未定义的 variable"></a>未定义的 variable</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>len(abc)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;console&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">NameError: name <span class="string">'abc'</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</span><br></pre></td></tr></table></figure>
-
-<h1 id="Dict"><a href="#Dict" class="headerlink" title="Dict"></a>Dict</h1><h2 id="不存在的-Key"><a href="#不存在的-Key" class="headerlink" title="不存在的 Key"></a>不存在的 Key</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = &#123;&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a[<span class="string">"s"</span>]</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;console&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">KeyError: <span class="string">'s'</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h1><h2 id="未定义的函数"><a href="#未定义的函数" class="headerlink" title="未定义的函数"></a>未定义的函数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>fun()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;console&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">NameError: name <span class="string">'fun'</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = <span class="literal">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a()</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;console&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">TypeError: <span class="string">'NoneType'</span> object <span class="keyword">is</span> <span class="keyword">not</span> callable</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/11/28/【Python】常见错误/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/28/【Python】常见错误/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
     </nav>
   
 
@@ -1040,11 +1044,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1068,6 +1072,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1080,14 +1088,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -1096,11 +1096,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1108,7 +1108,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1140,10 +1144,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1152,11 +1152,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1164,11 +1164,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1177,6 +1177,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1192,11 +1196,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1204,15 +1208,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1220,11 +1220,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1248,15 +1252,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1268,6 +1272,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
@@ -1276,11 +1284,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1308,19 +1316,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

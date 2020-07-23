@@ -191,6 +191,169 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Django】Django-ORM-文档整理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/17/【Django】Django-ORM-文档整理/">【Django】Django ORM - 文档整理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/17/【Django】Django-ORM-文档整理/" class="archive-article-date">
+  	<time datetime="2019-11-17T13:57:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="DB-Doc"><a href="#DB-Doc" class="headerlink" title="DB Doc"></a>DB Doc</h5><p>Index for DB: <a href="https://docs.djangoproject.com/en/2.2/topics/db/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.2/topics/db/</a></p>
+<ul>
+<li>Making queries：<a href="https://docs.djangoproject.com/en/1.11/topics/db/queries/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/1.11/topics/db/queries/</a></li>
+<li>Database access optimization - <a href="https://docs.djangoproject.com/en/1.11/topics/db/optimization/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/1.11/topics/db/optimization/</a></li>
+<li>When QuerySets are evaluated - <a href="https://docs.djangoproject.com/en/2.2/topics/db/queries/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/2.2/topics/db/queries/</a></li>
+</ul>
+<h5 id="API-Doc"><a href="#API-Doc" class="headerlink" title="API Doc"></a>API Doc</h5><p>QuerySet API reference：<a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/1.11/ref/models/querysets/</a></p>
+<p>Performance and optimization - <a href="https://docs.djangoproject.com/en/1.11/topics/performance/" target="_blank" rel="noopener">https://docs.djangoproject.com/en/1.11/topics/performance/</a></p>
+        
+          <a class="article-more-a" href="/2019/11/17/【Django】Django-ORM-文档整理/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/17/【Django】Django-ORM-文档整理/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Django】Django-ORM-性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/17/【Django】Django-ORM-性能优化/">【Django】Django ORM - 性能优化</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/17/【Django】Django-ORM-性能优化/" class="archive-article-date">
+  	<time datetime="2019-11-17T12:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>你可以使用 <code>python manage.py shell</code> 来让 ORM 执行查询以玩耍：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python manage.py shell</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> core <span class="keyword">import</span> models</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = models.User.objects[<span class="number">0</span>:<span class="number">5</span>]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>如果你使用 MySQL，还可以结合General Log来实时查看 MySQL的 SQL 执行日志以进行验证（Visit <a href="https://swsmile.info/2019/11/17/%E3%80%90MySQL%E3%80%91%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95/">【MySQL】日志记录</a> for more details）。</p>
+<h1 id="最重要的原则-Work-at-the-appropriate-level"><a href="#最重要的原则-Work-at-the-appropriate-level" class="headerlink" title="最重要的原则: Work at the appropriate level"></a>最重要的原则: Work at the appropriate level</h1><p>意思就是说要在对应的 level (M V C) 做对应的事。e.g. 如果计算 court, 在最低的数据库 level 里是最快的（如果只需要知道此记录是否存在的话，用 <code>exists()</code> 会更快）。<br>但要 <code>注意</code>: queryset 是 lazy 的，所以有时候在 higher level （例如模板）里控制 queryset 是否真的执行，说不定会更高效。</p>
+<p>下面这段代码很好的解释了不同 level 的意思:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># QuerySet operation on the database</span></span><br><span class="line"><span class="comment"># fast, because that's what databases are good at</span></span><br><span class="line">my_bicycles.count()</span><br><span class="line"></span><br><span class="line"><span class="comment"># counting Python objects</span></span><br><span class="line"><span class="comment"># slower, because it requires a database query anyway, and processing</span></span><br><span class="line"><span class="comment"># of the Python objects</span></span><br><span class="line">len(my_bicycles)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Django template filter</span></span><br><span class="line"><span class="comment"># slower still, because it will have to count them in Python anyway,</span></span><br><span class="line"><span class="comment"># and because of template language overheads</span></span><br><span class="line">\&#123;\&#123; my_bicycles|length \&#125;\&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/11/17/【Django】Django-ORM-性能优化/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/17/【Django】Django-ORM-性能优化/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Django】Django-ORM-使-DB-Schema-生效" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -722,163 +885,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/">【Architectural Pattern】前端框架中的 MVC、MVP 和 MVVM</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/" class="archive-article-date">
-  	<time datetime="2019-11-10T13:57:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-原始的MVC-（Model-View-Controller）"><a href="#1-原始的MVC-（Model-View-Controller）" class="headerlink" title="1 原始的MVC （Model - View - Controller）"></a>1 原始的MVC （Model - View - Controller）</h1><p><strong>MVC （Model - View - Controller）架构</strong>是一种当前非常流行的<strong>架构模式（Architectural Pattern）</strong>，被广泛使用于传统的桌面GUI（Graphical user interface）、Web应用和手机移动应用中。</p>
-        
-          <a class="article-more-a" href="/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Architectural Pattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ArchitecturalPattern/" class="article-tag-list-link color1">ArchitecturalPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Distributed-System】分布式 session" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/10/【Distributed-System】分布式 session/">【Distributed System】分布式 session（Distributed Seesion）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/10/【Distributed-System】分布式 session/" class="archive-article-date">
-  	<time datetime="2019-11-10T11:52:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>Session的作用？</p>
-<p>Session 是客户端与服务器通讯会话跟踪技术，服务器与客户端保持整个通讯的会话基本信息。</p>
-<p>客户端在第一次访问服务端的时候，服务端会响应一个sessionId并且将它存入到本地cookie中，在之后的访问会将cookie中的sessionId放入到请求头中去访问服务器，如果通过这个sessionid没有找到对应的数据那么服务器会创建一个新的sessionid并且响应给客户端。</p>
-<p>分布式Session存在的问题？</p>
-<p>假设第一次访问服务A生成一个sessionid并且存入cookie中，第二次却访问服务B客户端会在cookie中读取sessionid加入到请求头中，如果在服务B通过sessionid没有找到对应的数据那么它创建一个新的并且将sessionid返回给客户端,这样并不能共享我们的Session无法达到我们想要的目的。</p>
-        
-          <a class="article-more-a" href="/2019/11/10/【Distributed-System】分布式 session/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/10/【Distributed-System】分布式 session/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/16/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/18/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/16/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/18/">Next &raquo;</a>
     </nav>
   
 
@@ -982,11 +991,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1010,6 +1019,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1022,14 +1035,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -1038,11 +1043,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1050,7 +1055,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1082,10 +1091,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1094,11 +1099,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1106,11 +1111,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1119,6 +1124,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1134,11 +1143,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1146,15 +1155,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1162,11 +1167,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1190,15 +1199,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1210,6 +1219,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
@@ -1218,11 +1231,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1250,19 +1263,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

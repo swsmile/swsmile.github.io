@@ -191,6 +191,172 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Redis】查看连接信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/【Redis】查看连接信息/">【Redis】查看连接信息</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/【Redis】查看连接信息/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:34:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="查看-Redis-当前连接数-最大连接数"><a href="#查看-Redis-当前连接数-最大连接数" class="headerlink" title="查看 Redis 当前连接数/最大连接数"></a>查看 Redis 当前连接数/最大连接数</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; info clients</span><br><span class="line"><span class="comment">#Clients</span></span><br><span class="line">connected_clients:621</span><br><span class="line">client_longest_output_list:0</span><br><span class="line">client_biggest_input_buf:0</span><br><span class="line">blocked_clients:0</span><br><span class="line">127.0.0.1:6379&gt;</span><br><span class="line">方法2：config get maxclients 可以查询redis允许的最大连接数</span><br><span class="line"></span><br><span class="line">127.0.0.1:6379&gt; CONFIG GET maxclients</span><br><span class="line">    <span class="comment">##1) "maxclients"</span></span><br><span class="line">    <span class="comment">##2) "10000"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="修改-Redis-最大连接数"><a href="#修改-Redis-最大连接数" class="headerlink" title="修改 Redis 最大连接数"></a>修改 Redis 最大连接数</h1><h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><p>在2.6之后版本，可以修改最大连接数配置，默认10000，可以在redis.conf配置文件中修改</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># maxclients 10000</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><p>config set maxclients num 可以设置redis允许的最大连接数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; CONFIG <span class="built_in">set</span> maxclients 10</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure>
+
+<p>启动redis.service服务时加参数–maxclients 100000来设置最大连接数限制</p>
+<h2 id="方法3"><a href="#方法3" class="headerlink" title="方法3"></a>方法3</h2><p>启动redis.service服务时加参数–maxclients 100000来设置最大连接数限制</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-server --maxclients 100000 -f /etc/redis.conf</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/04/21/【Redis】查看连接信息/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/【Redis】查看连接信息/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Redis】设置密码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/【Redis】设置密码/">【Redis】设置密码</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/【Redis】设置密码/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:32:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -h 1.1.1.1 -p 11299</span><br><span class="line">1.1.1.1:11299&gt; config <span class="built_in">set</span> requirepass <span class="string">"&lt;your password&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<p>如果设置了密码，但是没有输入密码，在get时，就会出现下面错误</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -h 1.1.1.1 -p 11299</span><br><span class="line">1.1.1.1:11299&gt; get s</span><br><span class="line">(error) NOAUTH Authentication required.</span><br></pre></td></tr></table></figure>
+
+<h1 id="验证密码"><a href="#验证密码" class="headerlink" title="验证密码"></a>验证密码</h1><p>密码验证成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1.1.1.1:11299&gt; auth &lt;your password&gt;</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/04/21/【Redis】设置密码/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/【Redis】设置密码/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Linux】命令-iostat-查看IO实时监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -686,178 +852,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【MySQL】用户和权限管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/29/【MySQL】用户和权限管理/">【MySQL】用户和权限管理</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/29/【MySQL】用户和权限管理/" class="archive-article-date">
-  	<time datetime="2020-03-29T05:46:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MySQL权限"><a href="#MySQL权限" class="headerlink" title="MySQL权限"></a>MySQL权限</h1><p>关于MySQL的权限简单的理解就是MySQL允许你做你全力以内的事情，不可以越界。比如只允许你执行select操作，那么你就不能执行update操作。只允许你从某台机器上连接MySQL，那么你就不能从除那台机器以外的其他机器连接MySQL。</p>
-<p>那么MySQL的权限是如何实现的呢？这就要说到MySQL的两阶段验证，下面详细介绍：</p>
-<ul>
-<li>第一阶段：服务器首先会检查你是否允许连接。因为创建用户的时候会加上主机限制，可以限制成本地、某个IP、某个IP段、以及任何地方等，只允许你从配置的指定地方登陆。</li>
-<li>第二阶段：如果你能连接，MySQL会检查你发出的每个请求，看你是否有足够的权限实施它。比如你要更新某个表、或者查询某个表，Mysql会查看你对哪个表或者某个列是否有权限。再比如，你要运行某个存储过程，MySQL会检查你对存储过程是否有执行权限等。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2020/03/29/【MySQL】用户和权限管理/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/29/【MySQL】用户和权限管理/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【MySQL】MySQL安全性设置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/29/【MySQL】MySQL安全性设置/">【MySQL】MySQL安全性设置</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/29/【MySQL】MySQL安全性设置/" class="archive-article-date">
-  	<time datetime="2020-03-29T05:00:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a> 
-
-
-
-<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">hostname localhost</span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line">// yRqyGEKK is the DB name for WordPress</span><br><span class="line">CREATE DATABASE yRqyGEKK;</span><br><span class="line"></span><br><span class="line">// Create a specific user who can only aceess WordPress&apos;s DB</span><br><span class="line">CREATE USER wordpressuser@localhost IDENTIFIED BY &apos;password&apos;;</span><br><span class="line">GRANT ALL PRIVILEGES ON yRqyGEKK.* TO wordpressuser@localhost IDENTIFIED BY &apos;password&apos;;</span><br><span class="line">FLUSH PRIVILEGES;</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>使用随机字符串作为 MySQL 中服务于WordPress 的 DB name。</p>
-</li>
-<li><p>为该 DB 创建特定的用户，该用户只具有对该 DB 中所有 table 的增删查改权限（最小权限原则）。当然，在上面的例子中，我为该用户赋予了对该 DB 中所有 table 的所有权限</p>
-</li>
-<li><p>无法从外部连接MySQL，只能在本机（<code>localhost</code>）连接并访问</p>
-</li>
-</ul>
-<h2 id="连接管理"><a href="#连接管理" class="headerlink" title="连接管理"></a>连接管理</h2><h3 id="允许MySQL被外部连接访问"><a href="#允许MySQL被外部连接访问" class="headerlink" title="允许MySQL被外部连接访问"></a>允许MySQL被外部连接访问</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//登录数据库</span><br><span class="line">mysql -u root -p</span><br><span class="line"></span><br><span class="line">use mysql;</span><br><span class="line">select user,host from user;</span><br><span class="line">update user set host=&apos;%&apos; where user=&apos;root&apos;;</span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">// 或者</span><br><span class="line">GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; WITH GRANT OPTION;</span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line">sudo netstat -an | grep 3306</span><br></pre></td></tr></table></figure>
-
-<p>​    </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/29/【MySQL】MySQL安全性设置/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
     </nav>
   
 
@@ -961,11 +958,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -989,6 +986,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1001,14 +1002,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -1017,11 +1010,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1029,7 +1022,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1061,10 +1058,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1073,11 +1066,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1085,11 +1078,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1098,6 +1091,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1113,11 +1110,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1125,15 +1122,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1141,11 +1134,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1169,15 +1166,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1189,6 +1186,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
@@ -1197,11 +1198,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1229,19 +1230,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,25 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Performance】Prometheus - Node Exporter | 西维蜀黍 的博客</title>
+  <title>【Performance】Prometheus - Exporter - Redis Exporter | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
-<meta name="keywords" content="Performance">
+  <meta name="keywords" content="Performancede">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Performance】Prometheus - Node Exporter">
-<meta property="og:url" content="http://swsmile.info/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter-学习/index.html">
+<meta property="og:title" content="【Performance】Prometheus - Exporter - Redis Exporter">
+<meta property="og:url" content="http://swsmile.info/2020/07/23/【Performance】Prometheus-Exporter-Redis-Exporter/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185637394.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200723201717192.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200722232824605.png">
-<meta property="og:updated_time" content="2020-07-23T15:25:53.849Z">
+<meta property="og:updated_time" content="2020-07-23T15:57:40.169Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Performance】Prometheus - Node Exporter">
-<meta name="twitter:description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
-<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png">
+<meta name="twitter:title" content="【Performance】Prometheus - Exporter - Redis Exporter">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -195,104 +187,35 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-【Performance】Prometheus-Exporter-Node-Exporter-学习" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【Performance】Prometheus-Exporter-Redis-Exporter" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      【Performance】Prometheus - Node Exporter
+      【Performance】Prometheus - Exporter - Redis Exporter
     </h1>
   
 
         
-        <a href="/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter-学习/" class="archive-article-date">
-  	<time datetime="2020-07-22T15:25:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-22</time>
+        <a href="/2020/07/23/【Performance】Prometheus-Exporter-Redis-Exporter/" class="archive-article-date">
+  	<time datetime="2020-07-23T15:57:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="安装Node-Exporter"><a href="#安装Node-Exporter" class="headerlink" title="安装Node Exporter"></a>安装Node Exporter</h1><blockquote>
-<p>在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。<strong>Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。</strong></p>
-<p>xporter可以是一个相对开放的概念，其可以是一个独立运行的程序独立于监控目标以外，也可以是直接内置在监控目标中。只要能够向Prometheus提供标准格式的监控样本数据即可。</p>
-<p>这里为了能够采集到主机的运行指标如CPU, 内存，磁盘等信息。我们可以使用<a href="https://github.com/prometheus/node_exporter" target="_blank" rel="noopener">Node Exporter</a> 。</p>
-</blockquote>
-<p>Node Exporter同样采用Golang编写，并且不存在任何的第三方依赖，只需要下载，解压即可运行。可以从 <a href="https://prometheus.io/download/" target="_blank" rel="noopener">https://prometheus.io/download/</a> 获取最新的node exporter版本的二进制包。</p>
-<a id="more"></a> 
+        <a id="more"></a> 
 
-<p><strong>macOS</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl -OL https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.darwin-amd64.tar.gz</span><br><span class="line">$ tar -xzf node_exporter-1.0.1.darwin-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
-<p><strong>Linux</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl -OL https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz</span><br><span class="line">$ tar -xzf node_exporter-1.0.1.darwin-amd64.tar.gz</span><br></pre></td></tr></table></figure>
 
-<p>运行node exporter:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> node_exporter-1.0.1.darwin-amd64</span><br><span class="line">$ ./node_exporter</span><br></pre></td></tr></table></figure>
 
-<p>启动成功后，可以看到以下输出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">level=info ts=2020-07-22T15:10:28.758Z <span class="built_in">caller</span>=node_exporter.go:177 msg=<span class="string">"Starting node_exporter"</span> version=<span class="string">"(version=1.0.1, branch=HEAD, revision=3715be6ae899f2a9b9dbfd9c39f3e09a7bd4559f)"</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.758Z <span class="built_in">caller</span>=node_exporter.go:178 msg=<span class="string">"Build context"</span> build_context=<span class="string">"(go=go1.14.4, user=root@1f76dbbcfa55, date=20200616-12:44:12)"</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:105 msg=<span class="string">"Enabled collectors"</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=arp</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=bcache</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=bonding</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=btrfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=conntrack</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=cpu</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=cpufreq</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=diskstats</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=edac</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=entropy</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=filefd</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=filesystem</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=hwmon</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=infiniband</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=ipvs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=loadavg</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=mdadm</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=meminfo</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=netclass</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=netdev</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=netstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=nfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=nfsd</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=powersupplyclass</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=pressure</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=rapl</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=schedstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=sockstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=softnet</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=<span class="built_in">stat</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=textfile</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=thermal_zone</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=time</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=timex</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=udp_queues</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=uname</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=vmstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=xfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=zfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.761Z <span class="built_in">caller</span>=node_exporter.go:191 msg=<span class="string">"Listening on"</span> address=:9100</span><br><span class="line">level=info ts=2020-07-22T15:10:28.761Z <span class="built_in">caller</span>=tls_config.go:170 msg=<span class="string">"TLS is disabled and it cannot be enabled on the fly."</span> http2=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
 
-<p>访问 <a href="http://localhost:9100/" target="_blank" rel="noopener">http://localhost:9100/</a> 可以看到以下页面：</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png" alt="image-20200721185609311"></p>
-<h2 id="初识-Node-Exporter-监控-metrics"><a href="#初识-Node-Exporter-监控-metrics" class="headerlink" title="初识 Node Exporter 监控 metrics"></a>初识 Node Exporter 监控 metrics</h2><p>访问<a href="http://localhost:9100/metrics" target="_blank" rel="noopener">http://localhost:9100/metrics</a> ，可以看到当前node exporter获取到的当前主机的所有监控数据，如下所示：</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185637394.png" alt="image-20200721185637394"></p>
-<p>每一个监控指标之前都会有一段类似于如下形式的信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># HELP node_cpu Seconds the cpus spent in each mode.</span><br><span class="line"># TYPE node_cpu counter</span><br><span class="line">node_cpu&#123;cpu=&quot;cpu0&quot;,mode=&quot;idle&quot;&#125; 362812.7890625</span><br><span class="line"># HELP node_load1 1m load average.</span><br><span class="line"># TYPE node_load1 gauge</span><br><span class="line">node_load1 3.0703125</span><br></pre></td></tr></table></figure>
 
-<p>其中HELP用于解释当前指标的含义，TYPE则说明当前指标的数据类型。在上面的例子中node_cpu的注释表明当前指标是cpu0上idle进程占用CPU的总时间，CPU占用时间是一个只增不减的度量指标，从类型中也可以看出node_cpu的数据类型是计数器（counter），与该指标的实际含义一致。又例如node_load1该指标反映了当前主机在最近一分钟以内的负载情况，系统的负载情况会随系统资源的使用而变化，因此node_load1反映的是当前状态，数据可能增加也可能减少，从注释中可以看出当前指标类型为仪表盘（gauge），与指标反映的实际含义一致。</p>
-<p>除了这些以外，在当前页面中根据物理主机系统的不同，你还可能看到如下监控指标：</p>
-<ul>
-<li>node_boot_time：系统启动时间</li>
-<li>node_cpu：系统CPU使用量</li>
-<li>node<em>disk*</em>：磁盘IO</li>
-<li>node<em>filesystem*</em>：文件系统用量</li>
-<li>node_load1：系统负载</li>
-<li>node<em>memeory*</em>：内存使用量</li>
-<li>node<em>network*</em>：网络带宽</li>
-<li>node_time：当前系统时间</li>
-<li>go_*：node exporter中go相关指标</li>
-<li>process_*：node exporter自身进程相关运行指标</li>
-</ul>
-<h1 id="通过-Prometheus-UI-（Prometheus-expression-browser）查看-Metrics"><a href="#通过-Prometheus-UI-（Prometheus-expression-browser）查看-Metrics" class="headerlink" title="通过 Prometheus UI （Prometheus expression browser）查看 Metrics"></a>通过 Prometheus UI （Prometheus expression browser）查看 Metrics</h1><p>Your locally running Prometheus instance needs to be properly configured in order to access Node Exporter metrics. The following <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config" target="_blank" rel="noopener"><code>scrape_config</code></a> block (in a <code>prometheus.yml</code> configuration file) will tell the Prometheus instance to scrape from the Node Exporter via <code>localhost:9100</code>:</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'node'</span></span><br><span class="line">  <span class="attr">static_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9100']</span></span><br></pre></td></tr></table></figure>
 
-<p>Metrics specific to the Node Exporter are prefixed with <code>node_</code> and include metrics like <code>node_cpu_seconds_total</code> and <code>node_exporter_build_info</code>.</p>
-<p>Click on the links below to see some example metrics:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Metric</th>
-<th align="left">Meaning</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>rate(node_cpu_seconds_total{mode=&quot;system&quot;}[1m])</code></td>
-<td align="left">The average amount of CPU time spent in system mode, per second, over the last minute (in seconds)</td>
-</tr>
-<tr>
-<td align="left"><code>node_filesystem_avail_bytes</code></td>
-<td align="left">The filesystem space available to non-root users (in bytes)</td>
-</tr>
-<tr>
-<td align="left"><code>rate(node_network_receive_bytes_total[1m])</code></td>
-<td align="left">The average network traffic received, per second, over the last minute (in bytes)</td>
-</tr>
-</tbody></table>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200723201717192.png" alt="image-20200723201717192"></p>
-<h1 id="Grafana查看"><a href="#Grafana查看" class="headerlink" title="Grafana查看"></a>Grafana查看</h1><p>Prometheus虽然自带了web页面，但一般会和更专业的Grafana配套做指标的可视化，Grafana有很多模板，用于更友好地展示出指标的情况，如</p>
-<ul>
-<li><a href="https://grafana.com/dashboards/8919" target="_blank" rel="noopener">https://grafana.com/dashboards/8919</a></li>
-<li><a href="https://grafana.com/grafana/dashboards/1860" target="_blank" rel="noopener">https://grafana.com/grafana/dashboards/1860</a></li>
-</ul>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200722232824605.png" alt="image-20200722232824605"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://prometheus.io/docs/guides/node-exporter/" target="_blank" rel="noopener">https://prometheus.io/docs/guides/node-exporter/</a></li>
-<li><a href="https://github.com/prometheus/node_exporter" target="_blank" rel="noopener">https://github.com/prometheus/node_exporter</a></li>
-<li><a href="https://yunlzheng.gitbook.io/prometheus-book/parti-prometheus-ji-chu/quickstart/prometheus-quick-start/use-node-exporter" target="_blank" rel="noopener">https://yunlzheng.gitbook.io/prometheus-book/parti-prometheus-ji-chu/quickstart/prometheus-quick-start/use-node-exporter</a></li>
-</ul>
+
 
       
 
@@ -306,7 +229,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Performance</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Performancede</a>
         		</li>
       		
 		</ul>
@@ -387,18 +310,9 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2020/07/22/【Performance】Promethues-Exporter/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          【Performance】Promethues - Exporter
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/07/22/【Performance】Prometheus-学习/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【Performance】Prometheus 学习</div>
+    <a href="/2020/07/23/【Performance】Prometheus-深入/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Performance】Prometheus 深入</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -515,11 +429,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -543,6 +457,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -555,14 +473,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -571,11 +481,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -583,7 +493,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,10 +529,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -627,11 +537,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,11 +549,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -652,6 +562,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,11 +581,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,15 +593,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,11 +605,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,15 +637,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,6 +657,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
@@ -751,11 +669,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,19 +701,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
