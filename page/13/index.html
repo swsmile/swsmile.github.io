@@ -191,6 +191,143 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】类型-指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/30/【Golang】类型-指针/">【Golang】指针（Pointers）</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/30/【Golang】类型-指针/" class="archive-article-date">
+  	<time datetime="2020-01-30T06:59:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="指针（Pointers）"><a href="#指针（Pointers）" class="headerlink" title="指针（Pointers）"></a>指针（Pointers）</h1><p>我们都知道，变量是一种使用方便的占位符，用于引用计算机内存地址。</p>
+<p>Go 语言的取地址符是 &amp;，放到一个变量前使用就会返回相应变量的内存地址。</p>
+<ul>
+<li>在一个指针类型的变量前面加上 * 号（前缀）来获取指针所指向的内容。</li>
+<li>在一个非指针类型的变量前面加上 &amp; 来获取一个变量所存储的内存地址的地址值</li>
+</ul>
+<p>以下实例演示了变量在内存中地址：</p>
+<p>实例</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int</span> = <span class="number">10</span> <span class="comment">//声明非指针变量</span></span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"变量的地址: %x\n"</span>, &amp;a)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> ip *<span class="keyword">int</span> <span class="comment">//声明指针变量</span></span><br><span class="line">	ip = &amp;a     <span class="comment">//指针变量的存储地址</span></span><br><span class="line">	</span><br><span class="line">	fmt.Printf(<span class="string">"变量的值: %d\n"</span>, *ip)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行以上代码输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">变量的地址: c0000180b8</span><br><span class="line">变量的值: 10</span><br></pre></td></tr></table></figure>
+
+<h2 id="什么是指针（指针变量）"><a href="#什么是指针（指针变量）" class="headerlink" title="什么是指针（指针变量）"></a>什么是指针（指针变量）</h2><p>一个指针变量保存了一个值的内存地址。</p>
+<p>类似于变量和常量，在使用指针前你需要声明指针。指针声明格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var var_name *var-type</span><br></pre></td></tr></table></figure>
+
+<p>var-type 为指针类型，var_name 为指针变量名，* 号用于指定变量是作为一个指针。以下是有效的指针声明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var ip *int        /* 指向整型*/</span><br><span class="line">var fp *float32    /* 指向浮点型 */</span><br></pre></td></tr></table></figure>
+
+<p>本例中这是一个指向 int 和 float32 的指针。</p>
+<h2 id="如何使用指针"><a href="#如何使用指针" class="headerlink" title="如何使用指针"></a>如何使用指针</h2><p>指针使用流程：</p>
+<ul>
+<li>定义指针变量。</li>
+<li>为指针变量赋值。</li>
+<li>访问指针变量中指向地址的值。</li>
+</ul>
+<p>在一个指针类型的变量前面加上 * 号（前缀）来获取指针所指向的内容。</p>
+<p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">  var a int= 20  */\* 声明实际变量 \*/*</span><br><span class="line">  var ip *int     */\* 声明指针变量 \*/*</span><br><span class="line"></span><br><span class="line">  ip = &amp;a  */\* 指针变量的存储地址 \*/*</span><br><span class="line"></span><br><span class="line">  fmt.Printf(&quot;a 变量的地址是: %x\n&quot;, &amp;a  )</span><br><span class="line"></span><br><span class="line">  */\* 指针变量的存储地址 \*/*</span><br><span class="line">  fmt.Printf(&quot;ip 变量储存的指针地址: %x\n&quot;, ip )</span><br><span class="line"></span><br><span class="line">  */\* 使用指针访问值 \*/*</span><br><span class="line">  fmt.Printf(&quot;*ip 变量的值: %d\n&quot;, *ip )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上实例执行输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a 变量的地址是: 20818a220</span><br><span class="line">ip 变量储存的指针地址: 20818a220</span><br><span class="line">*ip 变量的值: 20</span><br></pre></td></tr></table></figure>
+
+<h2 id="Go-空指针-nil"><a href="#Go-空指针-nil" class="headerlink" title="Go 空指针 - nil"></a>Go 空指针 - <code>nil</code></h2><p>当一个指针被定义后没有分配到任何变量时，它的值为 nil。</p>
+<p>nil 指针也称为空指针。</p>
+<p>nil在概念上和其它语言的null、None、nil、NULL一样，都指代零值或空值。</p>
+<p>一个指针变量通常缩写为 ptr。</p>
+<p>查看以下实例：</p>
+<p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">  var ptr *int</span><br><span class="line"></span><br><span class="line">  fmt.Printf(&quot;ptr 的值为 : %x\n&quot;, ptr  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上实例输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ptr 的值为 : 0</span><br></pre></td></tr></table></figure>
+
+<p>空指针判断：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(ptr != nil)     /* ptr 不是空指针 */</span><br><span class="line">if(ptr == nil)    /* ptr 是空指针 */</span><br></pre></td></tr></table></figure>
+
+<h2 id="Go-语言指针作为函数参数"><a href="#Go-语言指针作为函数参数" class="headerlink" title="Go 语言指针作为函数参数"></a>Go 语言指针作为函数参数</h2><p>Go 语言允许向函数传递指针，只需要在函数定义的参数上设置为指针类型即可。</p>
+<p>以下实例演示了如何向函数传递指针，并在函数调用后修改函数内的值，：</p>
+<p>实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">  */\* 定义局部变量 \*/*</span><br><span class="line">  var a int = 100</span><br><span class="line">  var b int= 200</span><br><span class="line"></span><br><span class="line">  fmt.Printf(&quot;交换前 a 的值 : %d\n&quot;, a )</span><br><span class="line">  fmt.Printf(&quot;交换前 b 的值 : %d\n&quot;, b )</span><br><span class="line"></span><br><span class="line">  */\* 调用函数用于交换值</span><br><span class="line">  \* &amp;a 指向 a 变量的地址</span><br><span class="line">  \* &amp;b 指向 b 变量的地址</span><br><span class="line">  \*/*</span><br><span class="line">  swap(&amp;a, &amp;b);</span><br><span class="line"></span><br><span class="line">  fmt.Printf(&quot;交换后 a 的值 : %d\n&quot;, a )</span><br><span class="line">  fmt.Printf(&quot;交换后 b 的值 : %d\n&quot;, b )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func swap(x *int, y *int) &#123;</span><br><span class="line">  var temp int</span><br><span class="line">  temp = *x   */\* 保存 x 地址的值 \*/*</span><br><span class="line">  *x = *y    */\* 将 y 赋值给 x \*/*</span><br><span class="line">  *y = temp   */\* 将 temp 赋值给 y \*/*</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上实例允许输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">交换前 a 的值 : 100</span><br><span class="line">交换前 b 的值 : 200</span><br><span class="line">交换后 a 的值 : 200</span><br><span class="line">交换后 b 的值 : 100</span><br></pre></td></tr></table></figure>
+
+<h1 id="amp-取地址符"><a href="#amp-取地址符" class="headerlink" title="&amp; - 取地址符"></a>&amp; - 取地址符</h1><p>我们都知道，变量是一种使用方便的占位符，用于引用计算机内存地址。</p>
+<p>Go 语言的取地址符是 &amp;，放到一个变量前使用就会返回当前变量的内存地址。</p>
+<p>以下实例演示了变量在内存中地址：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">var</span> a <span class="keyword">int</span> = <span class="number">10</span> </span><br><span class="line"></span><br><span class="line">  fmt.Printf(<span class="string">"变量的地址: %x\n"</span>, &amp;a  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行以上代码输出结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">变量的地址: 20818a220</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/30/【Golang】类型-指针/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/30/【Golang】类型-指针/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】类型转换 - 获取变量类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -734,94 +871,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】Go-的环境变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/12/【Golang】Go-的环境变量/">【Golang】Golang 的环境变量</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/12/【Golang】Go-的环境变量/" class="archive-article-date">
-  	<time datetime="2020-01-12T12:31:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。</p>
-<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h1><p> go get和其他 go 工具等会用到GOPATH环境变量。</p>
-<p> GOPATH是作为编译后二进制的存放目的地和import包时的搜索路径（其实也是你的工作目录, 你可以在src下创建你自己的go源文件, 然后开始工作）。</p>
-<p>GOPATH之下主要包含三个目录: bin、pkg、src：</p>
-<ul>
-<li><p>bin目录主要存放可执行文件（第三方包中包含的可执行文件）；</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$GOPATH</span></span><br><span class="line">/Users/wei.shi/go</span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/bin</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/Users/wei.shi/go/bin</span><br><span class="line">$ ls</span><br><span class="line">air                gin                httptest           mockgen            richgo             test_kafka_client</span><br><span class="line">data_pipeline      goimports          ips_event_consumer protoc-gen-go      spkit</span><br><span class="line">easytags           golangci-lint      item_discount      realize            test_client</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>pkg目录存放编译好的库文件, 主要是*.a文件；</p>
-</li>
-<li><p>src目录下主要存放go的源文件。</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir gopath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在~/.bash_profile中添加如下语句:</span></span><br><span class="line">GOPATH=/Users/username/gopath</span><br><span class="line"><span class="comment"># GOPATH可以是一个目录列表, 通过 go get下载的第三方库, 都会被下载到 src 文件夹中</span></span><br><span class="line"><span class="comment"># 而且，还需要把GOPATH中的可执行目录也配置到环境变量中, 否则你自行下载的第三方go工具就无法使用了, 操作如下:</span></span><br><span class="line"><span class="comment"># 在~/bash_profile（或者~/.zshrc，根据你使用什么 bash 决定）中增加下面这行</span></span><br><span class="line"><span class="built_in">export</span> <span class="variable">$PATH</span>:<span class="variable">$GOPATH</span>/bin</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/01/12/【Golang】Go-的环境变量/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/12/【Golang】Go-的环境变量/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
@@ -928,11 +977,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -968,6 +1017,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -980,7 +1033,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -989,14 +1046,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1028,6 +1077,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1036,15 +1089,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1052,15 +1097,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1100,11 +1149,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1204,15 +1253,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

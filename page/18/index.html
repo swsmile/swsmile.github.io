@@ -191,6 +191,82 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【hexo】使用-s3-作为-hexo-图库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/10/【hexo】使用-s3-作为-hexo-图库/">【hexo】使用 AWS s3 作为 hexo 图库</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/10/【hexo】使用-s3-作为-hexo-图库/" class="archive-article-date">
+  	<time datetime="2019-11-10T10:25:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AWS-s3"><a href="#AWS-s3" class="headerlink" title="AWS s3"></a>AWS s3</h1><p>AWS 的对象存储服务。</p>
+<h1 id="CloudFront-Distribution"><a href="#CloudFront-Distribution" class="headerlink" title="CloudFront Distribution"></a>CloudFront Distribution</h1><p>CloudFront Distribution 是AWS的内容分发（CDN）使得全球各地都能以最快的速度访问到AWS最近的节点（对于中国，最近的是东京，经测，也已经足够快），并且可绑定或者生产SSL证书。</p>
+        
+          <a class="article-more-a" href="/2019/11/10/【hexo】使用-s3-作为-hexo-图库/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/hexo/" class="article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/10/【hexo】使用-s3-作为-hexo-图库/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【JQuery】获取对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -790,86 +866,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Django】Django-ORM-查询数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/10/【Django】Django-ORM-查询数据/">【Django】Django ORM - 查询数据</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/10/【Django】Django-ORM-查询数据/" class="archive-article-date">
-  	<time datetime="2019-11-10T08:20:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="exclude"><a href="#exclude" class="headerlink" title="exclude()"></a>exclude()</h1><p>Calling <code>filter()</code> again on a queryset clones it and adds new parameters with an AND operator. Note that multiple keyword parameters can be specified in a single function call.</p>
-<p>Conversely, <code>exclude()</code> clones a queryset and adds any new parameters with an AND NOT operator:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>queryset = Employee.objects.filter(first_name=<span class="string">"Roger"</span>, age=<span class="number">27</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>queryset2 = queryset.filter(last_name=<span class="string">"Jolly"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>queryset3 = queryset.exclude(last_name=<span class="string">"Jolly"</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>any(employee.first_name != <span class="string">"Roger"</span> <span class="keyword">for</span> employee <span class="keyword">in</span> queryset2)<span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>any(employee.last_name != <span class="string">"Jolly"</span> <span class="keyword">for</span> employee <span class="keyword">in</span> queryset2)<span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>all(employee.last_name != <span class="string">"Jolly"</span> <span class="keyword">for</span> employee <span class="keyword">in</span> queryset3)<span class="literal">True</span></span><br></pre></td></tr></table></figure>
-
-<p>To retrieve all objects in the table with no parameters, use the <code>all()</code> function instead of <code>filter()</code>. <code>all()</code> can also be used to create a clone of an existing queryset (more on this later).</p>
-<p>Iterating through querysets exposes the query results as instances of the associated Model.</p>
-        
-          <a class="article-more-a" href="/2019/11/10/【Django】Django-ORM-查询数据/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/10/【Django】Django-ORM-查询数据/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/17/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="page-number current">18</span><a class="page-number" href="/page/19/">19</a><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/19/">Next &raquo;</a>
@@ -976,11 +972,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1016,6 +1012,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -1028,7 +1028,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1037,14 +1041,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1076,6 +1072,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1084,15 +1084,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1100,15 +1092,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1148,11 +1144,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1252,15 +1248,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

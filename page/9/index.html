@@ -191,6 +191,101 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Linux】命令-iostat-查看IO实时监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/【Linux】命令-iostat-查看IO实时监控/">【Linux】iostat - 查看IO实时监控</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/【Linux】命令-iostat-查看IO实时监控/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:24:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h1><p>iostat主要用于监控系统设备的IO负载情况，iostat首次运行时显示自系统启动开始的各项统计信息，之后运行iostat将显示自上次运行该命令以后的统计信息。用户可以通过指定统计的次数和时间来获得所需的统计信息。</p>
+<h1 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h1><p>-C 显示CPU使用情况</p>
+<p>-d 显示磁盘使用情况</p>
+<p>-k 以 KB 为单位显示</p>
+<p>-m 以 M 为单位显示</p>
+<p>-N 显示磁盘阵列(LVM) 信息</p>
+<p>-n 显示NFS 使用情况</p>
+<p>-p[磁盘] 显示磁盘和分区的情况</p>
+<p>-t 显示终端和CPU的信息</p>
+<p>-x 显示详细信息</p>
+<p>-V 显示版本信息</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ iostat</span><br><span class="line">Linux xx-generic (xx.com) 	04/21/20 	_x86_64_	(64 CPU)</span><br><span class="line"></span><br><span class="line">avg-cpu:  %user   %nice %system %iowait  %steal   %idle</span><br><span class="line">           0.01    0.00    0.00    0.00    0.00   99.99</span><br><span class="line"></span><br><span class="line">Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn</span><br><span class="line">sda               0.00         0.01         0.00        188         16</span><br></pre></td></tr></table></figure>
+
+<h2 id="d-显示磁盘使用情况"><a href="#d-显示磁盘使用情况" class="headerlink" title="-d 显示磁盘使用情况"></a>-d 显示磁盘使用情况</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ iostat -d</span><br><span class="line">Linux xx-generic (xx.com) 	04/21/20 	_x86_64_	(64 CPU)</span><br><span class="line"></span><br><span class="line">Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn</span><br><span class="line">sda               0.00         0.01         0.00        196         16</span><br></pre></td></tr></table></figure>
+
+<p>参数 -d 表示，显示设备（磁盘）使用状态；</p>
+<h2 id="k-以-KB-为单位显示"><a href="#k-以-KB-为单位显示" class="headerlink" title="-k 以 KB 为单位显示"></a>-k 以 KB 为单位显示</h2><p>-k某些使用block为单位的列强制使用Kilobytes为单位；2表示，数据显示每隔2秒刷新一次。</p>
+<p>输出如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ iostat -d -k 1 10</span><br><span class="line">Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn</span><br><span class="line">sda              39.29        21.14         1.44  441339807   29990031</span><br><span class="line">sda1              0.00         0.00         0.00       1623        523</span><br><span class="line">sda2              1.32         1.43         4.54   29834273   94827104</span><br><span class="line">sda3              6.30         0.85        24.95   17816289  520725244</span><br><span class="line">sda5              0.85         0.46         3.40    9543503   70970116</span><br><span class="line">sda6              0.00         0.00         0.00        550        236</span><br><span class="line">sda7              0.00         0.00         0.00        406          0</span><br><span class="line">sda8              0.00         0.00         0.00        406          0</span><br><span class="line">sda9              0.00         0.00         0.00        406          0</span><br><span class="line">sda10            60.68        18.35        71.43  383002263 1490928140</span><br><span class="line"></span><br><span class="line">Device:            tps    kB_read/s    kB_wrtn/s    kB_read    kB_wrtn</span><br><span class="line">sda             327.55      5159.18       102.04       5056        100</span><br><span class="line">sda1              0.00         0.00         0.00          0          0</span><br></pre></td></tr></table></figure>
+
+<h2 id="每隔多久print一次IO信息"><a href="#每隔多久print一次IO信息" class="headerlink" title="每隔多久print一次IO信息"></a>每隔多久print一次IO信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ iostat &lt;frequency&gt;</span><br><span class="line"></span><br><span class="line">e.g. 每隔1s</span><br><span class="line">$ iostat 1</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/04/21/【Linux】命令-iostat-查看IO实时监控/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/【Linux】命令-iostat-查看IO实时监控/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【MySQL】学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -760,83 +855,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【MySQL】操作-查看log" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/29/【MySQL】操作-查看log/">【MySQL】查看log</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/29/【MySQL】操作-查看log/" class="archive-article-date">
-  	<time datetime="2020-03-29T03:54:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="查看运行log"><a href="#查看运行log" class="headerlink" title="查看运行log"></a>查看运行log</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Depends on your mysql version</span><br><span class="line">$ systemctl status mysqld.service</span><br><span class="line">$ systemctl status mysqld.service</span><br><span class="line">● mariadb.service - MariaDB database server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/mariadb.service; enabled; vendor preset: disabled)</span><br><span class="line">   Active: inactive (dead) since Mon 2020-01-20 23:18:07 UTC; 2 months 7 days ago</span><br><span class="line"> Main PID: 10307 (code=exited, status=0/SUCCESS)</span><br><span class="line"></span><br><span class="line">Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 查看<span class="built_in">log</span>路径</span><br><span class="line">$ cat /etc/my.cnf</span><br><span class="line">[mysqld]</span><br><span class="line">datadir=/var/lib/mysql</span><br><span class="line">socket=/var/lib/mysql/mysql.sock</span><br><span class="line"><span class="comment"># Disabling symbolic-links is recommended to prevent assorted security risks</span></span><br><span class="line">symbolic-links=0</span><br><span class="line"><span class="comment"># Settings user and group are ignored when systemd is used.</span></span><br><span class="line"><span class="comment"># If you need to run mysqld under a different user or group,</span></span><br><span class="line"><span class="comment"># customize your systemd unit file for mariadb according to the</span></span><br><span class="line"><span class="comment"># instructions in http://fedoraproject.org/wiki/Systemd</span></span><br><span class="line"></span><br><span class="line">[mysqld_safe]</span><br><span class="line"><span class="built_in">log</span>-error=/var/<span class="built_in">log</span>/mariadb/mariadb.log</span><br><span class="line">pid-file=/var/run/mariadb/mariadb.pid</span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># include all files from the config directory</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">!includedir /etc/my.cnf.d</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/03/29/【MySQL】操作-查看log/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/29/【MySQL】操作-查看log/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
@@ -943,11 +961,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -983,6 +1001,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -995,7 +1017,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1004,14 +1030,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1043,6 +1061,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1051,15 +1073,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1067,15 +1081,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1115,11 +1133,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1219,15 +1237,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

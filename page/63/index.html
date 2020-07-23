@@ -191,6 +191,81 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Design-Pattern】行为类模式-备忘者模式-（Memento-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/11/【Design-Pattern】行为类模式-备忘者模式-（Memento-Pattern/">【Design Pattern】行为类模式 -- 备忘者模式（Memento Pattern)</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/11/【Design-Pattern】行为类模式-备忘者模式-（Memento-Pattern/" class="archive-article-date">
+  	<time datetime="2018-11-11T13:53:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-动机"><a href="#1-动机" class="headerlink" title="1 动机"></a>1 动机</h1><p><strong>备忘录模式（Memento Pattern）</strong>，又称为<strong>快照模式（Snapshot Pattern）</strong>，为对象提供了恢复到先前状态的能力（通过<strong>回滚（rollback）</strong>）。</p>
+        
+          <a class="article-more-a" href="/2018/11/11/【Design-Pattern】行为类模式-备忘者模式-（Memento-Pattern/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Design Pattern</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DesignPattern/" class="article-tag-list-link color4">DesignPattern</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/11/【Design-Pattern】行为类模式-备忘者模式-（Memento-Pattern/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Design-Pattern】创建类模式-单例模式-Singleton-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -729,89 +804,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/">【Operating System】I/O - 同步、异步与阻塞、非阻塞I/O问题</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/" class="archive-article-date">
-  	<time datetime="2018-11-06T07:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="软硬件层面的同步-异步"><a href="#软硬件层面的同步-异步" class="headerlink" title="软硬件层面的同步/异步"></a>软硬件层面的同步/异步</h1><h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><p>在现代操作系统中，I/O是一种与外围设备（peripherals）进行数据交换的方式，I/O包括读或写数据到磁盘/SSD中，或通过网络发送/接收数据，显示信息到显示器上，接收鼠标或键盘的输入。</p>
-<p>因此，我们通常说的I/O，不仅仅只限于磁盘文件的读写。*nix将计算机抽象了一番，磁盘文件、硬件、套接字等几乎所有计算机资源都被抽象为了文件。</p>
-<p>实现硬件层面异步的机制称为<strong>硬件中断（hardware interrupt）</strong>。</p>
-<p>在典型的硬件<strong>同步（synchronous）</strong>场景中，当CPU请求外围设备读取数据时，CPU会进入一个无限循环（infinite loop），在循环中CPU需要不断去检查外围设备是否已经将数据读取到了，这个过程称为轮询（poll）。</p>
-<p>而在现代硬件中，当CPU向外围设备发送I/O请求后，就会立刻去执行其他CPU指令（而不是不断的轮询）。当外围设备将数据准备完成后，它会通过电路中断（circuit interrupt）向CPU发送一个信号（signal）。这就是典型的<strong>硬件异步（asynchronous）</strong>场景。因此，CPU就不再需要静静的等待且不断轮询直到外围设备将数据准备完成，因而大大的提高了CPU的利用率。</p>
-<h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><p>操作系统作为一层中间件，抽象了硬件设备，向应用程序以系统调用（System Call）的形式提供I/O操作服务。</p>
-<p>类似地，当应用程序（通过调用系统调用）发起一个I/O操作后，操作系统会调用对应的设备驱动（device driver）以操作硬件进行这个I/O操作。</p>
-<p>对于这个应用程序来说，如果此时需要静静的等待（或者不断的轮询），直到数据被准备完成后，这就是<strong>软件层面的同步</strong>，这样的编程方式称之为<strong>同步编程（synchronous programming）</strong>。</p>
-<p>如果操作系统允许应用程序声明一个回调函数（callback），且当I/O操作完成后，操作系统会自动调用这个回调函数，这就是<strong>软件层面的异步</strong>，这样的编程方式称为<strong>异步编程（asynchronous programming）</strong>。</p>
-        
-          <a class="article-more-a" href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Operating System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/OperatingSystem/" class="article-tag-list-link color1">OperatingSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/62/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/61/">61</a><a class="page-number" href="/page/62/">62</a><span class="page-number current">63</span><a class="page-number" href="/page/64/">64</a><a class="page-number" href="/page/65/">65</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/64/">Next &raquo;</a>
@@ -918,11 +910,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -958,6 +950,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -970,7 +966,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -979,14 +979,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1018,6 +1010,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1026,15 +1022,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1042,15 +1030,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1090,11 +1082,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1194,15 +1186,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

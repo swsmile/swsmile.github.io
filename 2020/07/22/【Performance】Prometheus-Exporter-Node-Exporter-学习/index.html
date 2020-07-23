@@ -6,23 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Performance】Node Exporter 学习 | 西维蜀黍 的博客</title>
+  <title>【Performance】Prometheus - Node Exporter | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
 <meta name="keywords" content="Performance">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Performance】Node Exporter 学习">
+<meta property="og:title" content="【Performance】Prometheus - Node Exporter">
 <meta property="og:url" content="http://swsmile.info/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter-学习/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185637394.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200722233513753.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200723201717192.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200722232824605.png">
-<meta property="og:updated_time" content="2020-07-22T15:53:55.764Z">
+<meta property="og:updated_time" content="2020-07-23T15:25:53.849Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Performance】Node Exporter 学习">
+<meta name="twitter:title" content="【Performance】Prometheus - Node Exporter">
 <meta name="twitter:description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
 <meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png">
   
@@ -202,7 +202,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      【Performance】Node Exporter 学习
+      【Performance】Prometheus - Node Exporter
     </h1>
   
 
@@ -237,12 +237,12 @@ var _hmt = _hmt || [];
 
 <p>访问 <a href="http://localhost:9100/" target="_blank" rel="noopener">http://localhost:9100/</a> 可以看到以下页面：</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png" alt="image-20200721185609311"></p>
-<h2 id="初始Node-Exporter监控指标"><a href="#初始Node-Exporter监控指标" class="headerlink" title="初始Node Exporter监控指标"></a>初始Node Exporter监控指标</h2><p>访问<a href="http://localhost:9100/metrics" target="_blank" rel="noopener">http://localhost:9100/metrics</a> ，可以看到当前node exporter获取到的当前主机的所有监控数据，如下所示：</p>
+<h2 id="初识-Node-Exporter-监控-metrics"><a href="#初识-Node-Exporter-监控-metrics" class="headerlink" title="初识 Node Exporter 监控 metrics"></a>初识 Node Exporter 监控 metrics</h2><p>访问<a href="http://localhost:9100/metrics" target="_blank" rel="noopener">http://localhost:9100/metrics</a> ，可以看到当前node exporter获取到的当前主机的所有监控数据，如下所示：</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185637394.png" alt="image-20200721185637394"></p>
 <p>每一个监控指标之前都会有一段类似于如下形式的信息：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># HELP node_cpu Seconds the cpus spent in each mode.</span><br><span class="line"># TYPE node_cpu counter</span><br><span class="line">node_cpu&#123;cpu=&quot;cpu0&quot;,mode=&quot;idle&quot;&#125; 362812.7890625</span><br><span class="line"># HELP node_load1 1m load average.</span><br><span class="line"># TYPE node_load1 gauge</span><br><span class="line">node_load1 3.0703125</span><br></pre></td></tr></table></figure>
 
-<p>其中HELP用于解释当前指标的含义，TYPE则说明当前指标的数据类型。在上面的例子中node_cpu的注释表明当前指标是cpu0上idle进程占用CPU的总时间，CPU占用时间是一个只增不减的度量指标，从类型中也可以看出node_cpu的数据类型是计数器(counter)，与该指标的实际含义一致。又例如node_load1该指标反映了当前主机在最近一分钟以内的负载情况，系统的负载情况会随系统资源的使用而变化，因此node_load1反映的是当前状态，数据可能增加也可能减少，从注释中可以看出当前指标类型为仪表盘(gauge)，与指标反映的实际含义一致。</p>
+<p>其中HELP用于解释当前指标的含义，TYPE则说明当前指标的数据类型。在上面的例子中node_cpu的注释表明当前指标是cpu0上idle进程占用CPU的总时间，CPU占用时间是一个只增不减的度量指标，从类型中也可以看出node_cpu的数据类型是计数器（counter），与该指标的实际含义一致。又例如node_load1该指标反映了当前主机在最近一分钟以内的负载情况，系统的负载情况会随系统资源的使用而变化，因此node_load1反映的是当前状态，数据可能增加也可能减少，从注释中可以看出当前指标类型为仪表盘（gauge），与指标反映的实际含义一致。</p>
 <p>除了这些以外，在当前页面中根据物理主机系统的不同，你还可能看到如下监控指标：</p>
 <ul>
 <li>node_boot_time：系统启动时间</li>
@@ -256,8 +256,32 @@ var _hmt = _hmt || [];
 <li>go_*：node exporter中go相关指标</li>
 <li>process_*：node exporter自身进程相关运行指标</li>
 </ul>
-<h1 id="Prometheus查看"><a href="#Prometheus查看" class="headerlink" title="Prometheus查看"></a>Prometheus查看</h1><p>类似 <code>go_gc_duration_seconds</code> 和 <code>node_cpu</code> 就是 metric 的名称，如果使用了Prometheus，则可以在 <code>http://${IP}:9090/</code> 页面的指标中搜索到以上的指标：</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200722233513753.png" alt="image-20200722233513753"></p>
+<h1 id="通过-Prometheus-UI-（Prometheus-expression-browser）查看-Metrics"><a href="#通过-Prometheus-UI-（Prometheus-expression-browser）查看-Metrics" class="headerlink" title="通过 Prometheus UI （Prometheus expression browser）查看 Metrics"></a>通过 Prometheus UI （Prometheus expression browser）查看 Metrics</h1><p>Your locally running Prometheus instance needs to be properly configured in order to access Node Exporter metrics. The following <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config" target="_blank" rel="noopener"><code>scrape_config</code></a> block (in a <code>prometheus.yml</code> configuration file) will tell the Prometheus instance to scrape from the Node Exporter via <code>localhost:9100</code>:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">'node'</span></span><br><span class="line">  <span class="attr">static_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['localhost:9100']</span></span><br></pre></td></tr></table></figure>
+
+<p>Metrics specific to the Node Exporter are prefixed with <code>node_</code> and include metrics like <code>node_cpu_seconds_total</code> and <code>node_exporter_build_info</code>.</p>
+<p>Click on the links below to see some example metrics:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Metric</th>
+<th align="left">Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>rate(node_cpu_seconds_total{mode=&quot;system&quot;}[1m])</code></td>
+<td align="left">The average amount of CPU time spent in system mode, per second, over the last minute (in seconds)</td>
+</tr>
+<tr>
+<td align="left"><code>node_filesystem_avail_bytes</code></td>
+<td align="left">The filesystem space available to non-root users (in bytes)</td>
+</tr>
+<tr>
+<td align="left"><code>rate(node_network_receive_bytes_total[1m])</code></td>
+<td align="left">The average network traffic received, per second, over the last minute (in bytes)</td>
+</tr>
+</tbody></table>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200723201717192.png" alt="image-20200723201717192"></p>
 <h1 id="Grafana查看"><a href="#Grafana查看" class="headerlink" title="Grafana查看"></a>Grafana查看</h1><p>Prometheus虽然自带了web页面，但一般会和更专业的Grafana配套做指标的可视化，Grafana有很多模板，用于更友好地展示出指标的情况，如</p>
 <ul>
 <li><a href="https://grafana.com/dashboards/8919" target="_blank" rel="noopener">https://grafana.com/dashboards/8919</a></li>
@@ -491,11 +515,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,6 +555,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -543,7 +571,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -552,14 +584,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,6 +615,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -599,15 +627,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,15 +635,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,11 +687,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,15 +791,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

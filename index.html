@@ -191,6 +191,75 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Linux】安装oh-my-zsh" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/23/【Linux】安装oh-my-zsh/">【Linux】安装 oh-my-zsh</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/23/【Linux】安装oh-my-zsh/" class="archive-article-date">
+  	<time datetime="2020-07-23T12:22:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install git</span><br><span class="line">$ sudo apt install zsh</span><br><span class="line">$ chsh -s $(<span class="built_in">which</span> zsh)</span><br><span class="line">$ sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH" target="_blank" rel="noopener">https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH</a></li>
+<li><a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank" rel="noopener">https://github.com/ohmyzsh/ohmyzsh</a></li>
+</ul>
+        
+          <a class="article-more-a" href="/2020/07/23/【Linux】安装oh-my-zsh/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Diary/" class="article-tag-list-link color1">Diary</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/23/【Linux】安装oh-my-zsh/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Performance】Promethues-Exporter" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -279,7 +348,7 @@ var _hmt = _hmt || [];
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter-学习/">【Performance】Node Exporter 学习</a>
+      <a class="article-title" href="/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter-学习/">【Performance】Prometheus - Node Exporter</a>
     </h1>
   
 
@@ -734,95 +803,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Redis】Redis-Cluster" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/10/【Redis】Redis-Cluster/">【Cache System】Redis Cluster</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/10/【Redis】Redis-Cluster/" class="archive-article-date">
-  	<time datetime="2020-07-10T07:47:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Redis-Cluster"><a href="#Redis-Cluster" class="headerlink" title="Redis Cluster"></a>Redis Cluster</h1><p>Redis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 <code>Redis</code> 官方团队来实现。</p>
-<p>在3.0之前为了解决容量高可用用方面的需求基本上只能通过客户端分片 + Redis sentinel或者代理（twemproxy、codis）方案解决。</p>
-<p>Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizential scalibility），即当整个 Redis 集群出现存储容量或者性能 bottleneck 时，使用 Redis Cluster 可以通过增加新的 master Redis node从而快速解决bottleneck。</p>
-<p>除此之外，Redis Cluster提供了强大的高可用机制（即 failure failover）。即当集群中任何一个master Redis node无法正常工作时（比如因为底层依赖的硬件故障、网络问题），它对应的 slave Redis node就会自动代替它（当然，这里有一个前提，是我们设置了slave Redis node）。</p>
-<p>与Codis 和 Twemproxy 不同的是：Redis Cluster并非使用Porxy模式来连接集群节点，而是使用无中心节点的模式来组建集群（即没有coordinator）。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/0*fONf9qdXjpC-b444.png" alt="Image for post"></p>
-<p>Redis Cluster实现在多个节点之间进行数据共享，即使部分节点失效或者无法进行通讯时，Cluster仍然可以继续处理请求。若每个主节点都有一个从节点支持，在主节点下线或者无法与集群的大多数节点进行通讯的情况下， 从节点提升为主节点，并提供服务，保证Cluster正常运行。</p>
-        
-          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-Cluster/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Cache System</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/CacheSystem/" class="article-tag-list-link color2">CacheSystem</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-Cluster/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -929,11 +909,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -969,6 +949,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -981,7 +965,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -990,14 +978,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1029,6 +1009,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1037,15 +1021,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1053,15 +1029,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1101,11 +1081,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1205,15 +1185,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

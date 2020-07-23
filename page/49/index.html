@@ -191,6 +191,87 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Java】垃圾回收-垃圾收集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/26/【Java】垃圾回收-垃圾收集/">【Java】垃圾收集（Garbage Collection）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/26/【Java】垃圾回收-垃圾收集/" class="archive-article-date">
+  	<time datetime="2019-03-26T04:31:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>程序计数器、虚拟机栈和本地方法栈3个区域随线程而生，随线程而灭。</p>
+<p>栈中的栈帧随着方法的进入和推出，而进行着出栈和进栈操作。每一个栈帧中分配多少内存基本上是在类结构确定下来就已知的。</p>
+<p>因此这几个区域的内存分配和回收都具有确定性，在方法结束或线程结束时，内存就跟随着回收了。</p>
+<p>而Java堆和方法区则不一样，一个接口的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存也可能不一样，只有在程序处于运行期间，才知道创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器关注的就是这部分内存。</p>
+<hr>
+<p><strong>对于从事C和C++程序开发的开发人员来说</strong>，在内存管理领域，他们既是拥有最高权利的皇帝，也是从事最基础工作的劳动人民—–既拥有每一个对象的所有权，又担负着每一个对象从生命开始到终结的维护责任。<br> <strong>对于Java程序员来说，</strong>虚拟机的自动内存分配机制的帮助下，不再需要为每一个new操作去写配对的delete/free代码，而且不容易出现内存泄露和内存溢出问题，看起来由虚拟机管理内存一切都很美好。不过，也正是因为Java程序员把内存控制的权利交给Java虚拟机，一旦出现内存泄露和溢出方面的问题，如果不了解虚拟机是怎样使用内存的，那排查错误将会是一项异常艰难的工作。</p>
+<h1 id="判断对象已死-哪些内存需要回收"><a href="#判断对象已死-哪些内存需要回收" class="headerlink" title="判断对象已死 - 哪些内存需要回收"></a>判断对象已死 - <strong>哪些内存需要回收</strong></h1><p>堆中几乎存放着Java世界中所有的对象实例，垃圾收集器在对堆回收之前，第一件事情就是要确定这些对象哪些还“存活”着，哪些对象已经“死去”（即不可能再被任何途径使用的对象）。</p>
+        
+          <a class="article-more-a" href="/2019/03/26/【Java】垃圾回收-垃圾收集/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/26/【Java】垃圾回收-垃圾收集/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Java】Java关键字-final关键字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -732,81 +813,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Java】集合类-集合框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/15/【Java】集合类-集合框架/">【Java】集合类-集合框架</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/15/【Java】集合类-集合框架/" class="archive-article-date">
-  	<time datetime="2019-03-15T07:54:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h1><h2 id="Collection接口"><a href="#Collection接口" class="headerlink" title="Collection接口"></a>Collection接口</h2><p>集合框架（均实现了Collection接口）有自己的接口和实现，主要分为Set接口，List接口和Queue接口。</p>
-        
-          <a class="article-more-a" href="/2019/03/15/【Java】集合类-集合框架/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/15/【Java】集合类-集合框架/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/48/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><a class="page-number" href="/page/48/">48</a><span class="page-number current">49</span><a class="page-number" href="/page/50/">50</a><a class="page-number" href="/page/51/">51</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/50/">Next &raquo;</a>
@@ -913,11 +919,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -953,6 +959,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -965,7 +975,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -974,14 +988,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1013,6 +1019,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1021,15 +1031,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1037,15 +1039,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1085,11 +1091,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1189,15 +1195,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

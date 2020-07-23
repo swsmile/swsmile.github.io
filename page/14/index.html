@@ -191,6 +191,94 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】Go-的环境变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/【Golang】Go-的环境变量/">【Golang】Golang 的环境变量</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/【Golang】Go-的环境变量/" class="archive-article-date">
+  	<time datetime="2020-01-12T12:31:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。</p>
+<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h1><p> go get和其他 go 工具等会用到GOPATH环境变量。</p>
+<p> GOPATH是作为编译后二进制的存放目的地和import包时的搜索路径（其实也是你的工作目录, 你可以在src下创建你自己的go源文件, 然后开始工作）。</p>
+<p>GOPATH之下主要包含三个目录: bin、pkg、src：</p>
+<ul>
+<li><p>bin目录主要存放可执行文件（第三方包中包含的可执行文件）；</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$GOPATH</span></span><br><span class="line">/Users/wei.shi/go</span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/bin</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/Users/wei.shi/go/bin</span><br><span class="line">$ ls</span><br><span class="line">air                gin                httptest           mockgen            richgo             test_kafka_client</span><br><span class="line">data_pipeline      goimports          ips_event_consumer protoc-gen-go      spkit</span><br><span class="line">easytags           golangci-lint      item_discount      realize            test_client</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pkg目录存放编译好的库文件, 主要是*.a文件；</p>
+</li>
+<li><p>src目录下主要存放go的源文件。</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir gopath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在~/.bash_profile中添加如下语句:</span></span><br><span class="line">GOPATH=/Users/username/gopath</span><br><span class="line"><span class="comment"># GOPATH可以是一个目录列表, 通过 go get下载的第三方库, 都会被下载到 src 文件夹中</span></span><br><span class="line"><span class="comment"># 而且，还需要把GOPATH中的可执行目录也配置到环境变量中, 否则你自行下载的第三方go工具就无法使用了, 操作如下:</span></span><br><span class="line"><span class="comment"># 在~/bash_profile（或者~/.zshrc，根据你使用什么 bash 决定）中增加下面这行</span></span><br><span class="line"><span class="built_in">export</span> <span class="variable">$PATH</span>:<span class="variable">$GOPATH</span>/bin</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/12/【Golang】Go-的环境变量/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/12/【Golang】Go-的环境变量/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】依赖-Golang 依赖管理-go-mod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -766,83 +854,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Format】csv" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/12/【Format】csv/">【Format】csv</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/12/【Format】csv/" class="archive-article-date">
-  	<time datetime="2020-01-12T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一个奇怪的-Scenario"><a href="#一个奇怪的-Scenario" class="headerlink" title="一个奇怪的 Scenario"></a>一个奇怪的 Scenario</h1><p>如果你的机器上装了 Microsoft Excel 的话，.csv 文件默认是被 Excel 打开的。</p>
-<p>需要注意的是，当你双击一个.csv 文件，Excel 打开它以后即使不做任何的修改，在关闭的时候 Excel 往往会提示是否要改成正确的文件格式，这个时候如果选择“是”，因为 Excel 认为.CSV 文件中的数字是要用科学记数法来表示的，Excel 会把 CSV 文件中所有的数字用科学计数来表示（2.54932E+5 这种形式），这样操作之后，只是在 Excel 中显示的时候会不正常，而 csv 文件由于是纯文本文件，在使用上没有影响；如果选择了“否”，那么会提示你以 xls 格式另存为 Excel 的一个副本。</p>
-<p>所以，建议把 .csv 的默认打开方式改成任意一个文本编辑器。</p>
-        
-          <a class="article-more-a" href="/2020/01/12/【Format】csv/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Format</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Format/" class="article-tag-list-link color2">Format</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/12/【Format】csv/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
@@ -949,11 +960,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -989,6 +1000,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -1001,7 +1016,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1010,14 +1029,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1049,6 +1060,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1057,15 +1072,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1073,15 +1080,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1121,11 +1132,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1225,15 +1236,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

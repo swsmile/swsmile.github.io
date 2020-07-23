@@ -191,6 +191,89 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/">【Operating System】I/O - 同步、异步与阻塞、非阻塞I/O问题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/" class="archive-article-date">
+  	<time datetime="2018-11-06T07:47:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="软硬件层面的同步-异步"><a href="#软硬件层面的同步-异步" class="headerlink" title="软硬件层面的同步/异步"></a>软硬件层面的同步/异步</h1><h2 id="硬件"><a href="#硬件" class="headerlink" title="硬件"></a>硬件</h2><p>在现代操作系统中，I/O是一种与外围设备（peripherals）进行数据交换的方式，I/O包括读或写数据到磁盘/SSD中，或通过网络发送/接收数据，显示信息到显示器上，接收鼠标或键盘的输入。</p>
+<p>因此，我们通常说的I/O，不仅仅只限于磁盘文件的读写。*nix将计算机抽象了一番，磁盘文件、硬件、套接字等几乎所有计算机资源都被抽象为了文件。</p>
+<p>实现硬件层面异步的机制称为<strong>硬件中断（hardware interrupt）</strong>。</p>
+<p>在典型的硬件<strong>同步（synchronous）</strong>场景中，当CPU请求外围设备读取数据时，CPU会进入一个无限循环（infinite loop），在循环中CPU需要不断去检查外围设备是否已经将数据读取到了，这个过程称为轮询（poll）。</p>
+<p>而在现代硬件中，当CPU向外围设备发送I/O请求后，就会立刻去执行其他CPU指令（而不是不断的轮询）。当外围设备将数据准备完成后，它会通过电路中断（circuit interrupt）向CPU发送一个信号（signal）。这就是典型的<strong>硬件异步（asynchronous）</strong>场景。因此，CPU就不再需要静静的等待且不断轮询直到外围设备将数据准备完成，因而大大的提高了CPU的利用率。</p>
+<h2 id="软件"><a href="#软件" class="headerlink" title="软件"></a>软件</h2><p>操作系统作为一层中间件，抽象了硬件设备，向应用程序以系统调用（System Call）的形式提供I/O操作服务。</p>
+<p>类似地，当应用程序（通过调用系统调用）发起一个I/O操作后，操作系统会调用对应的设备驱动（device driver）以操作硬件进行这个I/O操作。</p>
+<p>对于这个应用程序来说，如果此时需要静静的等待（或者不断的轮询），直到数据被准备完成后，这就是<strong>软件层面的同步</strong>，这样的编程方式称之为<strong>同步编程（synchronous programming）</strong>。</p>
+<p>如果操作系统允许应用程序声明一个回调函数（callback），且当I/O操作完成后，操作系统会自动调用这个回调函数，这就是<strong>软件层面的异步</strong>，这样的编程方式称为<strong>异步编程（asynchronous programming）</strong>。</p>
+        
+          <a class="article-more-a" href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Operating System</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/OperatingSystem/" class="article-tag-list-link color1">OperatingSystem</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/06/【Operating-System】IO-同步、异步与阻塞、非阻塞I-O问题/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Node-js】Node-js的Event-Loop与异步IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -743,89 +826,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【MySQL】MySQL常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/23/【MySQL】MySQL常用命令/">【MySQL】MySQL 常用命令</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/23/【MySQL】MySQL常用命令/" class="archive-article-date">
-  	<time datetime="2018-02-23T15:31:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="0-启动-MySQL-服务"><a href="#0-启动-MySQL-服务" class="headerlink" title="0 启动 MySQL 服务"></a>0 启动 MySQL 服务</h1><p><strong>启动<code>MySQL</code>服务：</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ mysql.server start</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">$ /usr/<span class="built_in">local</span>/mysql/bin/mysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">$ sudo /usr/<span class="built_in">local</span>/mysql/support-files/mysql.server start</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/f986acd9-6f0d-4699-947e-7c1da76762d8.png" alt=""></p>
-<p>停止与重启 MySQL 服务：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># stop</span></span><br><span class="line">$ mysql.server stop</span><br><span class="line"></span><br><span class="line"><span class="comment"># restart</span></span><br><span class="line">$ mysql.server restart</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>MySQL配置文件默认路径：/usr/local/mysql/support-files/，也可以通过<code>mysql --verbose --help | grep my.cnf</code>来查找。</p>
-<h1 id="1-连接MySQL"><a href="#1-连接MySQL" class="headerlink" title="1 连接MySQL"></a>1 连接MySQL</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mysql -h &lt;主机地址&gt; -u &lt;用户名&gt; -p &lt;用户密码&gt;</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/02/23/【MySQL】MySQL常用命令/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/23/【MySQL】MySQL常用命令/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/63/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/62/">62</a><a class="page-number" href="/page/63/">63</a><span class="page-number current">64</span><a class="page-number" href="/page/65/">65</a><a class="page-number" href="/page/66/">66</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><a class="extend next" rel="next" href="/page/65/">Next &raquo;</a>
@@ -932,11 +932,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -972,6 +972,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -984,7 +988,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -993,14 +1001,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1032,6 +1032,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1040,15 +1044,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1056,15 +1052,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,11 +1104,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1208,15 +1208,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
