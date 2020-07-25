@@ -191,6 +191,92 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Python】线程-多进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/23/【Python】线程-多进程/">【Python】线程 - 多进程</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/23/【Python】线程-多进程/" class="archive-article-date">
+  	<time datetime="2019-09-23T09:22:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>Unix/Linux操作系统提供了一个<code>fork()</code>系统调用，它非常特殊。</p>
+<p>对普通函数的调用，调用一次，返回一次。</p>
+<p>但是，调用<code>fork()</code>一次，返回两次，因为操作系统自动把当前进程（称为父进程）复制了一份（称为子进程），然后，分别在父进程和子进程内返回。</p>
+<p>子进程永远返回<code>0</code>，而父进程返回子进程的ID。这样做的理由是，一个父进程可以fork出很多子进程，所以，父进程要记下每个子进程的ID，而子进程只需要调用<code>getppid()</code>就可以拿到父进程的ID。</p>
+<p>Python的<code>os</code>模块封装了常见的系统调用，其中就包括<code>fork</code>，可以在Python程序中轻松创建子进程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Process (%s) start...'</span> % os.getpid())</span><br><span class="line"><span class="comment"># Only works on Unix/Linux/Mac:</span></span><br><span class="line">pid = os.fork()</span><br><span class="line"><span class="keyword">if</span> pid == <span class="number">0</span>:</span><br><span class="line">    print(<span class="string">'I am child process (%s) and my parent is %s.'</span> % (os.getpid(), os.getppid()))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'I (%s) just created a child process (%s).'</span> % (os.getpid(), pid))</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Process (<span class="number">876</span>) start...</span><br><span class="line">I (<span class="number">876</span>) just created a child process (<span class="number">877</span>).</span><br><span class="line">I am child process (<span class="number">877</span>) <span class="keyword">and</span> my parent <span class="keyword">is</span> <span class="number">876.</span></span><br></pre></td></tr></table></figure>
+
+<p>由于Windows没有<code>fork</code>调用，上面的代码在Windows上无法运行。而Mac系统是基于BSD（Unix的一种）内核，所以，在Mac下运行是没有问题的，推荐大家用Mac学Python！</p>
+<p>有了<code>fork</code>调用，一个进程在接到新任务时就可以复制出一个子进程来处理新任务，常见的Apache服务器就是由父进程监听端口，每当有新的http请求时，就fork出子进程来处理新的http请求。</p>
+        
+          <a class="article-more-a" href="/2019/09/23/【Python】线程-多进程/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/23/【Python】线程-多进程/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Linux】命令-cut命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -787,172 +873,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Network】IP-IPv4地址" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/21/【Network】IP-IPv4地址/">【Network】IPv4 地址</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/21/【Network】IP-IPv4地址/" class="archive-article-date">
-  	<time datetime="2019-08-21T14:23:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a> 
-
-
-
-
-
-<h1 id="IPv4-地址"><a href="#IPv4-地址" class="headerlink" title="IPv4 地址"></a>IPv4 地址</h1><p>IP地址由32位二进制数组成，这个地址通常分成 4 段，每 8 个二进制为一段。</p>
-<p>但是，为便于使用，常以XXX.XXX.XXX.XXX形式表现，每组XXX代表小于或等于255的十进制数，比如大家非常熟悉的 192.168.0.1。</p>
-<p>IP 地址分为两个部分：</p>
-<ul>
-<li><strong>网络 ID</strong></li>
-<li><strong>主机 ID</strong></li>
-</ul>
-<p>但是具体哪部分属于网络 ID，哪些属于主机 ID 并没有规定。因为有些网络是需要很多主机的，这样的话代表主机 ID 的部分就要更多，但是有些网络需要的主机很少，这样主机 ID 的部分就应该少一些。</p>
-<h1 id="IPv4-地址的类别"><a href="#IPv4-地址的类别" class="headerlink" title="IPv4 地址的类别"></a>IPv4 地址的类别</h1><p>地址可分为A、B、C、D、E五大类，其中E类属于特殊保留地址。</p>
-<p>绝大部分 IP 地址属于以下几类：</p>
-<ul>
-<li><strong>A 类地址</strong>：IP 地址的前 8 位代表网络 ID ，后 24 位代表主机 ID。</li>
-<li><strong>B 类地址</strong>：IP 地址的前 16 位代表网络 ID ，后 16 位代表主机 ID。</li>
-<li><strong>C 类地址</strong>：IP 地址的前 24 位代表网络 ID ，后 8 位代表主机 ID。</li>
-</ul>
-<p>这里能够很明显的看出 A 类地址能够提供出的网络的数量相对较少，但是每个网络可以拥有相对非常多的主机。</p>
-<h2 id="A类地址"><a href="#A类地址" class="headerlink" title="A类地址"></a>A类地址</h2><ul>
-<li>A类地址第1字节为网络地址，其它3个字节为主机地址。它的第1个字节的第一位固定为0。</li>
-<li>A类地址网络号范围：0.0.0.0—127.0.0.0，地址范围：0.0.0.0到127.255.255.255。</li>
-<li>A类地址中的私有地址和保留地址：<ul>
-<li>10.X.X.X是私有地址（所谓的私有地址就是在互联网上不使用，而被用在局域网络中的地址），范围是 10.0.0.0—10.255.255.255。</li>
-<li>127.X.X.X是保留地址，用做循环测试用的。</li>
-</ul>
-</li>
-</ul>
-<h2 id="B类地址"><a href="#B类地址" class="headerlink" title="B类地址"></a>B类地址</h2><ul>
-<li>B类地址第1字节和第2字节为网络地址，其它2个字节为主机地址。它的第1个字节的前两位固定为10。</li>
-<li>B类地址网络号范围：128.0.0.0—191.255.0.0。地址范围128.0.0.0到191.255.255.255。</li>
-<li>B类地址的私有地址和保留地址：<ul>
-<li>172.16.0.0—172.31.255.255是私有地址</li>
-<li>169.254.X.X是保留地址。如果你的IP地址是自动获取IP地址，而你在网络上又没有找到可用的DHCP服务器。就会得到其中一个IP。</li>
-<li>191.255.255.255是广播地址，不能分配。</li>
-</ul>
-</li>
-</ul>
-<h2 id="C类地址"><a href="#C类地址" class="headerlink" title="C类地址"></a>C类地址</h2><ul>
-<li>C类地址第1字节、第2字节和第3个字节为网络地址，第4个字节为主机地址。另外第1个字节的前三位固定为110。</li>
-<li>C类地址网络号范围：192.0.0.0—223.255.255.0。地址范围 192.0.0.0到223.255.255.255。</li>
-<li>C类地址中的私有地址：<ul>
-<li>192.168.X.X是私有地址，范围为 192.168.0.0—192.168.255.255。</li>
-</ul>
-</li>
-</ul>
-<h2 id="D类地址"><a href="#D类地址" class="headerlink" title="D类地址"></a>D类地址</h2><ul>
-<li>D类地址不区分网络地址和主机地址，它的第1个字节的前四位固定为1110。</li>
-<li>D类地址范围：224.0.0.0—239.255.255.255</li>
-</ul>
-<h2 id="E类地址"><a href="#E类地址" class="headerlink" title="E类地址"></a>E类地址</h2><ul>
-<li>E类地址不分网络地址和主机地址，它的第1个字节的前五位固定为11110。</li>
-<li>E类地址范围：240.0.0.0—255.255.255.254</li>
-</ul>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190430222654389.png" alt="image-20190430222654389"></p>
-<h1 id="特殊的-IPv4-地址"><a href="#特殊的-IPv4-地址" class="headerlink" title="特殊的 IPv4 地址"></a>特殊的 IPv4 地址</h1><h2 id="直接广播地址"><a href="#直接广播地址" class="headerlink" title="直接广播地址"></a>直接广播地址</h2><p>在A类、B类、C类IP地址中，全是 1 的主机 ID 代表广播，是用于向该网络中的全部主机方法消息的。 IP 地址为 130.100.255.255 就是网络 ID 为 130.100 网络的广播地址（二进制 IP 地址中全是 1 ，转换为十进制就是 255 ）。</p>
-<h2 id="受限广播地址（”limited-broadcast”-destination-address）"><a href="#受限广播地址（”limited-broadcast”-destination-address）" class="headerlink" title="受限广播地址（”limited broadcast” destination address）"></a>受限广播地址（”limited broadcast” destination address）</h2><p>广播通信是一对所有的通信方式。若一个IP地址的二进制数全为1，也就是255.255.255.255，则这个地址用于定义整个互联网。如果设备想使IP数据报被整个Internet所接收，就发送这个目的地址全为1的广播包。</p>
-<p>但这样会给整个互联网带来灾难性的负担，因此网络上的所有路由器都阻止具有这种类型的分组被转发出去，使这样的广播仅限于本地网段。</p>
-<h2 id="环回地址"><a href="#环回地址" class="headerlink" title="环回地址"></a>环回地址</h2><p>以十进制 127 开头的地址都是环回地址。目的地址是环回地址的消息，其实是由本地发送和接收的。主要是用于测试 TCP/IP 软件是否正常工作。我们用 ping 功能的时候，一般用的环回地址是 127.0.0.1。</p>
-<h2 id="专用地址"><a href="#专用地址" class="headerlink" title="专用地址"></a>专用地址</h2><p>IP地址空间中，有一些IP地址被定义为专用地址，这样的地址不能为Internet网络的设备分配，只能在企业内部使用，因此也称为私有地址。若要在Internet网上使用这样的地址，必须使用网络地址转换或者端口映射技术。</p>
-<p>这些专有地址是：</p>
-<ul>
-<li>10/8 地址范围：10.0.0.0到10.255.255.255，共有 $2^{24}$ 个地址。</li>
-<li>172.16/12 地址范围：172.16.0.0至172.31.255.255，共有 $2^{20}$ 个地址。</li>
-<li>192.168/16 地址范围：192.168.0.0至192.168.255.255，共有 $2^{16}$ 个地址。</li>
-</ul>
-<h1 id="子网掩码（subnet-mask）"><a href="#子网掩码（subnet-mask）" class="headerlink" title="子网掩码（subnet mask）"></a>子网掩码（subnet mask）</h1><p>//TODO</p>
-<p><a href="https://www.cnblogs.com/hibernation/p/3275279.html" target="_blank" rel="noopener">https://www.cnblogs.com/hibernation/p/3275279.html</a></p>
-<h1 id="CIDR（Classless-Inter-Domain-Routing）"><a href="#CIDR（Classless-Inter-Domain-Routing）" class="headerlink" title="CIDR（Classless Inter-Domain Routing）"></a>CIDR（Classless Inter-Domain Routing）</h1><p>CIDR notation 其实概念也很直白，它不再粗暴的以字节为粒度来切分 IP 地址，而是精确到 bit 位，我们看一个典型的 CIDR notation：</p>
-<blockquote>
-<p>123.121.114.144/23</p>
-</blockquote>
-<p>注意 IP 地址后面的 /23，这就是 CIDR notation，它表示 IP 地址的前 23 bits 为 Network ID，剩余的 9 bits 为 Host ID。23 并不是 8 的倍数，我们将切分的精读提高到了 bit。我们可以通过简单的位运算，得到具体的 Network ID 和 Host ID，我们将 IP 地址和 /23 先转为二进制：</p>
-<blockquote>
-<p>01111011.01111001.01110010.10010000    IP 地址</p>
-<p>11111111.11111111.11111110.00000000    /23  subnet mask</p>
-</blockquote>
-<p>上面两个二进制进行与操作，我们就可以得到 Network ID 和  Host ID：</p>
-<blockquote>
-<p>01111011.01111001.01110010.00000000    Network ID</p>
-<p>00000000.00000000.00000000.10010000    Host ID</p>
-</blockquote>
-<p>再将二进制转换为十进制，我们就得到了便于理解的 Network ID：123.121.114.0。由于 Host ID 占用 9 个 bits，这个子网里一共可以有 2 的 9 次方个主机数，也就是 512 个主机，这个子网网段的起始地址为 123.121.114.0，结束地址为  123.121.115.255。我们对于某一个网段内的 IP 地址，有个约定，第一个地址为 Network ID，最后一个地址是该子网内的 Broadcast ID，那么剩下的可用于子网内设备的 IP 地址数量就是 510 个了。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li>Oracle System Administration Guide: IP Services - <a href="https://docs.oracle.com/cd/E19683-01/806-4075/ipov-10/index.html" target="_blank" rel="noopener">https://docs.oracle.com/cd/E19683-01/806-4075/ipov-10/index.html</a></li>
-<li>Comer, D.E., 1995. Internetworking with TCP/IP, Vol. I: Principles, Protocols, and Architecture, 3/e.</li>
-<li>TCP/IP 协议 - <a href="https://juejin.im/entry/57a2b0742e958a006679dae0" target="_blank" rel="noopener">https://juejin.im/entry/57a2b0742e958a006679dae0</a></li>
-<li>关于 TCP/IP，必知必会的十个问题 - <a href="https://juejin.im/post/598ba1d06fb9a03c4d6464ab" target="_blank" rel="noopener">https://juejin.im/post/598ba1d06fb9a03c4d6464ab</a></li>
-<li>网络编程懒人入门(九)：通俗讲解，有了IP地址，为何还要用MAC地址？ - <a href="http://www.52im.net/thread-2067-1-1.html" target="_blank" rel="noopener">http://www.52im.net/thread-2067-1-1.html</a></li>
-<li>面试时，你被问到过 TCP/IP 协议吗? - <a href="https://juejin.im/post/58e36d35b123db15eb748856" target="_blank" rel="noopener">https://juejin.im/post/58e36d35b123db15eb748856</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Network/" class="article-tag-list-link color3">Network</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/21/【Network】IP-IPv4地址/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/26/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="page-number current">27</span><a class="page-number" href="/page/28/">28</a><a class="page-number" href="/page/29/">29</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/28/">Next &raquo;</a>
@@ -1059,11 +979,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1087,10 +1007,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1103,11 +1019,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1116,6 +1028,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1231,6 +1151,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
@@ -1239,15 +1163,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1287,11 +1207,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1299,15 +1219,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
