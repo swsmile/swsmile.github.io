@@ -191,6 +191,84 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Django】通过-ORM-访问-MySQL，插入-Emoji-报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/31/【Django】通过-ORM-访问-MySQL，插入-Emoji-报错/">【Django】通过 ORM 访问 MySQL，插入 Emoji 报错</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/31/【Django】通过-ORM-访问-MySQL，插入-Emoji-报错/" class="archive-article-date">
+  	<time datetime="2019-10-31T12:24:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>paras = &#123;<span class="string">u'name'</span>: <span class="string">u'\U0001f600'</span>&#125;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> core <span class="keyword">import</span> models</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>models.Channel.objects.create(**paras)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">    ...</span><br><span class="line">  File <span class="string">"/Library/Python/2.7/site-packages/pymysql/err.py"</span>, line <span class="number">109</span>, <span class="keyword">in</span> raise_mysql_exception</span><br><span class="line">    <span class="keyword">raise</span> errorclass(errno, errval)</span><br><span class="line">InternalError: (<span class="number">1366</span>, <span class="string">u"Incorrect string value: '\\xF0\\x9F\\x98\\x80' for column 'name' at row 1"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>通过 ORM插入一条数据，在其中的一个类型为varchar的字段中插入一个 Emoji 表情，我插的是😀（对应的字符串为<code>u&#39;\U0001f600&#39;</code>），插入后：提示以下错误：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;InternalError&#125;(<span class="number">1366</span>, <span class="string">u"Incorrect string value: '\\xF0\\x9F\\x98\\x80' for column 'name' at row 1"</span>)</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/10/31/【Django】通过-ORM-访问-MySQL，插入-Emoji-报错/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/31/【Django】通过-ORM-访问-MySQL，插入-Emoji-报错/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【MySQL】MySQL-的存储引擎（Storage-Engines）-MyISAM-与-InnoDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -838,116 +916,6 @@ e.g. <code>func_get_uid</code></li>
 
 
   
-    <article id="post-【Architecture】Design-API-Design" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/28/【Architecture】Design-API-Design/">【Architecture】Design - API Design</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/28/【Architecture】Design-API-Design/" class="archive-article-date">
-  	<time datetime="2019-10-28T05:01:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="HTTP-REST-APIs"><a href="#HTTP-REST-APIs" class="headerlink" title="HTTP REST APIs"></a>HTTP REST APIs</h1><h2 id="URL"><a href="#URL" class="headerlink" title="URL"></a>URL</h2><h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>The following sections present a few real world examples on how to apply resource-oriented API design to large scale services. You can find more examples in the <a href="https://github.com/googleapis/googleapis" target="_blank" rel="noopener">Google APIs</a> repository.</p>
-<p>In these examples, the asterisk indicates one specific resource out of the list.</p>
-<h4 id="Gmail-API"><a href="#Gmail-API" class="headerlink" title="Gmail API"></a>Gmail API</h4><p>The Gmail API service implements the Gmail API and exposes most of Gmail functionality. It has the following resource model:</p>
-<ul>
-<li><p>API service: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  - A collection of users:```users/*```. Each user has the following resources.</span><br><span class="line">    - A collection of messages: `users/*/messages/*`.</span><br><span class="line">    - A collection of threads: `users/*/threads/*`.</span><br><span class="line">    - A collection of labels: `users/*/labels/*`.</span><br><span class="line">    - A collection of change history: `users/*/history/*`.</span><br><span class="line">    - A resource representing the user profile: `users/*/profile`.</span><br><span class="line">    - A resource representing user settings: `users/*/settings`.</span><br><span class="line"></span><br><span class="line">#### Cloud Pub/Sub API</span><br><span class="line"></span><br><span class="line">The `pubsub.googleapis.com` service implements the [Cloud Pub/Sub API](https://cloud.google.com/pubsub), which defines the following resource model:</span><br><span class="line"></span><br><span class="line">- API service:`pubsub.googleapis.com`</span><br><span class="line"></span><br><span class="line">  - A collection of topics: `projects/*/topics/*`.</span><br><span class="line">- A collection of subscriptions: `projects/*/subscriptions/*`.</span><br><span class="line"></span><br><span class="line">**NOTE:** Other implementations of the Pub/Sub API may choose different resource naming schemes.</span><br><span class="line"></span><br><span class="line">#### Cloud Spanner API</span><br><span class="line"></span><br><span class="line">The `spanner.googleapis.com` service implements the [Cloud Spanner API](https://cloud.google.com/spanner), which defines the following resource model:</span><br><span class="line"></span><br><span class="line">- API service:```spanner.googleapis.com</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>A collection of instances:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">    - A collection of instance operations: `projects/*/instances/*/operations/*`.</span><br><span class="line">    - A collection of databases: `projects/*/instances/*/databases/*`.</span><br><span class="line">    - A collection of database operations: `projects/*/instances/*/databases/*/operations/*`.</span><br><span class="line">    - A collection of database sessions: `projects/*/instances/*/databases/*/sessions/*`.</span><br><span class="line"></span><br><span class="line">&lt;!-- more --&gt; </span><br><span class="line"></span><br><span class="line">## Methods</span><br><span class="line"></span><br><span class="line">The following table describes how to map standard methods to HTTP methods:</span><br><span class="line"></span><br><span class="line">| Standard Method                                              | HTTP Mapping    | HTTP Request Body | HTTP Response Body        |</span><br><span class="line">| :----------------------------------------------------------- | :-------------- | :---------------- | :------------------------ |</span><br><span class="line">| [`List`](https://cloud.google.com/apis/design/standard_methods#list) | `GET `          | N/A               | Resource* list            |</span><br><span class="line">| [`Get`](https://cloud.google.com/apis/design/standard_methods#get) | `GET `          | N/A               | Resource*                 |</span><br><span class="line">| [`Create`](https://cloud.google.com/apis/design/standard_methods#create) | `POST `         | Resource          | Resource*                 |</span><br><span class="line">| [`Update`](https://cloud.google.com/apis/design/standard_methods#update) | `PUT or PATCH ` | Resource          | Resource*                 |</span><br><span class="line">| [`Delete`](https://cloud.google.com/apis/design/standard_methods#delete) | `DELETE `       | N/A               | `google.protobuf.Empty`** |</span><br><span class="line"></span><br><span class="line">*The resource returned from `List`, `Get`, `Create`, and `Update` methods **may** contain partial data if the methods support response field masks, which specify a subset of fields to be returned. In some cases, the API platform natively supports field masks for all methods.</span><br><span class="line"></span><br><span class="line">### List</span><br><span class="line"></span><br><span class="line">The `List` method takes a collection name and zero or more parameters as input, and returns a list of resources that match the input.</span><br><span class="line"></span><br><span class="line">`List` is commonly used to search for resources. `List` is suited to data from a single collection that is bounded in size and not cached. For broader cases, the [custom method](https://cloud.google.com/apis/design/custom_methods) `Search` **should** be used.</span><br><span class="line"></span><br><span class="line">A batch get (such as a method that takes multiple resource IDs and returns an object for each of those IDs) **should** be implemented as a custom `BatchGet` method, rather than a `List`. However, if you have an already-existing `List` method that provides the same functionality, you **may** reuse the `List` method for this purpose instead. If you are using a custom `BatchGet` method, it **should** be mapped to `HTTP GET`.</span><br><span class="line"></span><br><span class="line">HTTP mapping:</span><br><span class="line"></span><br><span class="line">- The `List` method **must** use an HTTP `GET` verb.</span><br><span class="line">- The request message field(s) receiving the name of the collection whose resources are being listed **should** map to the URL path. If the collection name maps to the URL path, the last segment of the URL template (the [collection ID](https://cloud.google.com/apis/design/resource_names#CollectionId)) **must** be literal.</span><br><span class="line">- All remaining request message fields **shall** map to the URL query parameters.</span><br><span class="line">- There is no request body; the API configuration **must not** declare a `body` clause.</span><br><span class="line">- The response body **should** contain a list of resources along with optional metadata.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### Get</span><br><span class="line"></span><br><span class="line">The `Get` method takes a resource name, zero or more parameters, and returns the specified resource.</span><br><span class="line"></span><br><span class="line">HTTP mapping:</span><br><span class="line"></span><br><span class="line">- The `Get` method **must** use an HTTP `GET` verb.</span><br><span class="line">- The request message field(s) receiving the resource name **should** map to the URL path.</span><br><span class="line">- All remaining request message fields **shall** map to the URL query parameters.</span><br><span class="line">- There is no request body; the API configuration **must not** declare a `body` clause.</span><br><span class="line">- The returned resource **shall** map to the entire response body.</span><br><span class="line"></span><br><span class="line">### Create</span><br><span class="line"></span><br><span class="line">### Update</span><br><span class="line"></span><br><span class="line">### Delete</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### Custom Methods</span><br><span class="line"></span><br><span class="line">Custom methods refer to API methods besides the 5 standard methods. They **should** only be used for functionality that cannot be easily expressed via standard methods. In general, API designers **should** choose standard methods over custom methods whenever feasible. Standard Methods have simpler and well-defined semantics that most developers are familiar with, so they are easier to use and less error prone. Another advantage of standard methods is the API platform has better understanding and support for standard methods, such as billing, error handling, logging, monitoring.</span><br><span class="line"></span><br><span class="line">A custom method can be associated with a resource, a collection, or a service. It **may** take an arbitrary request and return an arbitrary response, and also supports streaming request and response.</span><br><span class="line"></span><br><span class="line">#### URL</span><br><span class="line"></span><br><span class="line">For custom methods, they **should** use the following generic HTTP mapping:</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<p><a href="https://service.name/v1/some/resource/name:customVerb" target="_blank" rel="noopener">https://service.name/v1/some/resource/name:customVerb</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">The reason to use `:` instead of `/` to separate the custom verb from the resource name is to support arbitrary paths. For example, undelete a file can map to `POST /files/a/long/file/name:undelete`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### Use Cases</span><br><span class="line"></span><br><span class="line">Some additional scenarios where custom methods may be the right choice:</span><br><span class="line"></span><br><span class="line">- **Reboot a virtual machine.** The design alternatives could be &quot;create a reboot resource in collection of reboots&quot; which feels disproportionately complex, or &quot;virtual machine has a mutable state which the client can update from RUNNING to RESTARTING&quot; which would open questions as to which other state transitions are possible. Moreover, reboot is a well-known concept that can translate well to a custom method which intuitively meets developer expectations.</span><br><span class="line">- **Send mail.** Creating an email message should not necessarily send it (draft). Compared to the design alternative (move a message to an &quot;Outbox&quot; collection) custom method has the advantage of being more discoverable by the API user and models the concept more directly.</span><br><span class="line">- **Promote an employee.** If implemented as a standard `update`, the client would have to replicate the corporate policies governing the promotion process to ensure the promotion happens to the correct level, within the same career ladder etc.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## Standard Fields</span><br><span class="line"></span><br><span class="line">This section describes a set of standard message field definitions that should be used when similar concepts are needed. This will ensure the same concept has the same name and semantics across different APIs.</span><br><span class="line"></span><br><span class="line">| Name              | Type                                                         | Description                                                  |</span><br><span class="line">| :---------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |</span><br><span class="line">| `name`            | `string`                                                     | The `name` field should contain the [relative resource name](https://cloud.google.com/apis/design/resource_names#relative_resource_name). |</span><br><span class="line">| `parent`          | `string`                                                     | For resource definitions and List/Create requests, the `parent` field should contain the parent [relative resource name](https://cloud.google.com/apis/design/resource_names#relative_resource_name). |</span><br><span class="line">| `create_time`     | [`Timestamp`](https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) | The creation timestamp of an entity.                         |</span><br><span class="line">| `update_time`     | [`Timestamp`](https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) | The last update timestamp of an entity. Note: update_time is updated when create/patch/delete operation is performed. |</span><br><span class="line">| `delete_time`     | [`Timestamp`](https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) | The deletion timestamp of an entity, only if it supports retention. |</span><br><span class="line">| `expire_time`     | [`Timestamp`](https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) | The expiration timestamp of an entity if it happens to expire. |</span><br><span class="line">| `start_time`      | [`Timestamp`](https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) | The timestamp marking the beginning of some time period.     |</span><br><span class="line">| `end_time`        | [`Timestamp`](https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) | The timestamp marking the end of some time period or operation (regardless of its success). |</span><br><span class="line">| `read_time`       | [`Timestamp`](https://github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) | The timestamp at which a particular an entity should be read (if used in a request) or was read (if used in a response). |</span><br><span class="line">| `time_zone`       | `string`                                                     | The time zone name. It should be an [IANA TZ](http://www.iana.org/time-zones) name, such as &quot;America/Los_Angeles&quot;. For more information, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. |</span><br><span class="line">| `region_code`     | `string`                                                     | The Unicode country/region code (CLDR) of a location, such as &quot;US&quot; and &quot;419&quot;. For more information, see http://www.unicode.org/reports/tr35/#unicode_region_subtag. |</span><br><span class="line">| `language_code`   | `string`                                                     | The BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see http://www.unicode.org/reports/tr35/#Unicode_locale_identifier. |</span><br><span class="line">| `mime_type`       | `string`                                                     | An IANA published MIME type (also referred to as media type). For more information, see https://www.iana.org/assignments/media-types/media-types.xhtml. |</span><br><span class="line">| `display_name`    | `string`                                                     | The display name of an entity.                               |</span><br><span class="line">| `title`           | `string`                                                     | The official name of an entity, such as company name. It should be treated as the formal version of `display_name`. |</span><br><span class="line">| `description`     | `string`                                                     | One or more paragraphs of text description of an entity.     |</span><br><span class="line">| `filter`          | `string`                                                     | The standard filter parameter for List methods.              |</span><br><span class="line">| `query`           | `string`                                                     | The same as `filter` if being applied to a search method (ie [`:search`](https://cloud.google.com/apis/design/custom_methods#common_custom_methods)) |</span><br><span class="line">| `page_token`      | `string`                                                     | The pagination token in the List request.                    |</span><br><span class="line">| `page_size`       | `int32`                                                      | The pagination size in the List request.                     |</span><br><span class="line">| `total_size`      | `int32`                                                      | The total count of items in the list irrespective of pagination. |</span><br><span class="line">| `next_page_token` | `string`                                                     | The next pagination token in the List response. It should be used as `page_token` for the following request. An empty value means no more result. |</span><br><span class="line">| `order_by`        | `string`                                                     | Specifies the result ordering for List requests.             |</span><br><span class="line">| `request_id`      | `string`                                                     | A unique string id used for detecting duplicated requests.   |</span><br><span class="line">| `resume_token`    | `string`                                                     | An opaque token used for resuming a streaming request.       |</span><br><span class="line">| `labels`          | `map`                                                        | Represents Cloud resource labels.                            |</span><br><span class="line">| `deleted`         | `bool`                                                       | If a resource allows undelete behavior, it must have a `deleted` field indicating the resource is deleted. |</span><br><span class="line">| `show_deleted`    | `bool`                                                       | If a resource allows undelete behavior, the corresponding List method must have a `show_deleted` field so client can discover the deleted resources. |</span><br><span class="line">| `update_mask`     | [`FieldMask`](https://github.com/google/protobuf/blob/master/src/google/protobuf/field_mask.proto) | It is used for `Update` request message for performing partial update on a resource. This mask is relative to the resource, not to the request message. |</span><br><span class="line">| `validate_only`   | `bool`                                                       | If true, it indicates that the given request should only be validated, not executed. |</span><br><span class="line"></span><br><span class="line">## Error</span><br><span class="line"></span><br><span class="line">If you are a server developer, you should generate errors with enough information to help client developers understand and address the problem. At the same time, you must be aware of the security and privacy of the user data, and avoid disclosing sensitive information in the error message and error details, since errors are often logged and may be accessible by others. For example, an error message like &quot;Client IP address is not on whitelist 128.0.0.0/8&quot; exposes information about the server-side policy, which may not be accessible to the user.</span><br><span class="line"></span><br><span class="line">### Error Codes</span><br><span class="line"></span><br><span class="line">Google APIs **must** use the canonical error codes defined by [`google.rpc.Code`](https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto). Individual APIs **should** avoid defining additional error codes, since developers are very unlikely to write logic to handle a large number of error codes. For reference, handling an average of 3 error codes per API call would mean most application logic would just be for error handling, which would not be a good developer experience.</span><br><span class="line"></span><br><span class="line">### Error Messages</span><br><span class="line"></span><br><span class="line">The error message should help users **understand and resolve** the API error easily and quickly. In general, consider the following guidelines when writing error messages:</span><br><span class="line"></span><br><span class="line">- Do not assume the user is an expert user of your API. Users could be client developers, operations people, IT staff, or end-users of apps.</span><br><span class="line">- Do not assume the user knows anything about your service implementation or is familiar with the context of the errors (such as log analysis).</span><br><span class="line">- When possible, error messages should be constructed such that a technical user (but not necessarily a developer of your API) can respond to the error and correct it.</span><br><span class="line">- Keep the error message brief. If needed, provide a link where a confused reader can ask questions, give feedback, or get more information that doesn&apos;t cleanly fit in an error message. Otherwise, use the details field to expand.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## Naming Convertions</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 存疑</span><br><span class="line"></span><br><span class="line">要不要保留 HTTP Method Code，比如 404、500，还是用错误码来表示异常情况（此时，所有 REST APIs 都返回 200 的 status code）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Traditional RPC APIs</span><br><span class="line"></span><br><span class="line">## Methods</span><br><span class="line"></span><br><span class="line">Only `GET` and `POST` method are allowed. We don&apos;t use `PUT` and `DELETE` in project.</span><br><span class="line"></span><br><span class="line">`GET` method is used to retrieve information from server, while `POST` requests are generally used to add / update / delete the data on server.</span><br><span class="line"></span><br><span class="line">- One notable exception is that, API that pass array to fetch batch data from server could be in `POST` method. This is because it is awkward to pass array of data to server using query string. You can pass array in JSON object in `POST` body. e.g.</span><br></pre></td></tr></table></figure>
-
-<h1 id="Simple-request"><a href="#Simple-request" class="headerlink" title="Simple request"></a>Simple request</h1><p>POST /api/order/get_list</p>
-<p>{“orders”:[100001, 100002]}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="Complex-request"><a href="#Complex-request" class="headerlink" title="Complex request"></a>Complex request</h1><p>POST /api/item/get_list</p>
-<p>{“items”:[{“shopid”:1000,”itemid”:100001},{“shopid”:1000,”itemid”:100002}]}</p>
-<pre><code>
-
-
-# Reference
-
-- https://cloud.google.com/apis/design/
-
-
-
-
-
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ArchitectureDesign</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ArchitectureDesign/" class="article-tag-list-link color4">ArchitectureDesign</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/28/【Architecture】Design-API-Design/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/21/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/23/">Next &raquo;</a>
@@ -1054,15 +1022,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1110,11 +1078,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1122,7 +1086,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1182,7 +1150,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1190,7 +1158,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1266,11 +1234,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1282,11 +1250,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1310,11 +1278,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">

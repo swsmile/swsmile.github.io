@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【ZooKeeper】安装 | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。 https://www.apache.org/dyn/closer.lua/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz">
+  <meta name="description" content="Prerequisition安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。">
 <meta name="keywords" content="ZooKeeper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【ZooKeeper】安装">
 <meta property="og:url" content="http://swsmile.info/2020/07/25/【ZooKeeper】安装/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。 https://www.apache.org/dyn/closer.lua/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz">
+<meta property="og:description" content="Prerequisition安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-25T08:37:54.537Z">
+<meta property="og:updated_time" content="2020-07-25T10:35:57.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【ZooKeeper】安装">
-<meta name="twitter:description" content="安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。 https://www.apache.org/dyn/closer.lua/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz">
+<meta name="twitter:description" content="Prerequisition安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -210,10 +210,41 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
+        <h1 id="Prerequisition"><a href="#Prerequisition" class="headerlink" title="Prerequisition"></a>Prerequisition</h1><p>安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。</p>
+<a id="more"></a> 
 
-<p>安装 ZooKeeper 之前需要先安装 JDK, 关于 JDK 的安装这里不再赘述。</p>
-<p><a href="https://www.apache.org/dyn/closer.lua/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz" target="_blank" rel="noopener">https://www.apache.org/dyn/closer.lua/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz</a></p>
+<h1 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h1><p><a href="https://zookeeper.apache.org/releases.html" target="_blank" rel="noopener">https://zookeeper.apache.org/releases.html</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -O https://downloads.apache.org/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz</span><br><span class="line">$ tar -zxf apache-zookeeper-3.6.1-bin.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> apache-zookeeper-3.6.1-bin</span><br><span class="line">$ mkdir data</span><br></pre></td></tr></table></figure>
+
+<h1 id="Configuring-ZooKeeper"><a href="#Configuring-ZooKeeper" class="headerlink" title="Configuring ZooKeeper"></a>Configuring ZooKeeper</h1><p>Create a configuration file named <code>zoo.cfg</code> at <code>/opt/zookeeper/conf</code>. You can create and open a file using <code>nano</code> or your favorite editor:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nano /home/parallels/apache-zookeeper-3.6.1-bin/conf/zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p>Add the following set of properties and values to that file:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tickTime=2000</span><br><span class="line">initLimit=10</span><br><span class="line">syncLimit=5</span><br><span class="line">dataDir=/home/parallels/apache-zookeeper-3.6.1-bin/data</span><br><span class="line">clientPort=2181</span><br></pre></td></tr></table></figure>
+
+<p>A <code>tickTime</code> of 2000 milliseconds is the suggested interval between heartbeats. A shorter interval could lead to system overhead with limited benefits. The <code>dataDir</code> parameter points to the path defined by the symbolic link you created in the previous section. Conventionally, ZooKeeper uses port <code>2181</code> to listen for client connections. In most situations, 60 allowed client connections are plenty for development and testing.</p>
+<p>Save the file and exit the editor.</p>
+<p>You have configured ZooKeeper and are ready to start the server.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bin/zkServer.sh start</span><br><span class="line">/usr/bin/java</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /home/parallels/apache-zookeeper-3.6.1-bin/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
+
+<p>如果出现：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bin/zkServer.sh start</span><br><span class="line">/usr/bin/java</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /home/parallels/apache-zookeeper-3.6.1/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... FAILED TO START</span><br></pre></td></tr></table></figure>
+
+<p>则可以检查对应log：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cat logs/zookeeper-parallels-server-parallels-Parallels-Virtual-Platform.out</span><br><span class="line">Error: Could not find or load main class org.apache.zookeeper.server.quorum.QuorumPeerMain</span><br><span class="line">Caused by: java.lang.ClassNotFoundException: org.apache.zookeeper.server.quorum.QuorumPeerMain</span><br></pre></td></tr></table></figure>
+
+<p>这是因为你下载的不是binary，而是source code。我们要下载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -O https://downloads.apache.org/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1-bin.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>而不是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl - O https://downloads.apache.org/zookeeper/zookeeper-3.6.1/apache-zookeeper-3.6.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h1 id="Testing-the-Standalone-Installation"><a href="#Testing-the-Standalone-Installation" class="headerlink" title="Testing the Standalone Installation"></a>Testing the Standalone Installation</h1><p>Connect to the local ZooKeeper server with the following command:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ bin/zkCli.sh -server 127.0.0.1:2181</span><br><span class="line">Connecting to 127.0.0.1:2181</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[zk: 127.0.0.1:2181(CONNECTED) 0]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-an-apache-zookeeper-cluster-on-ubuntu-18-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-an-apache-zookeeper-cluster-on-ubuntu-18-04</a></li>
+</ul>
 
       
 
@@ -307,6 +338,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/07/25/【ZooKeeper】学习/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【ZooKeeper】学习
+        
+      </div>
+    </a>
   
   
     <a href="/2020/07/25/【Java】安装/" id="article-nav-older" class="article-nav-link-wrap">
@@ -427,15 +467,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,11 +523,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -495,7 +531,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -555,7 +595,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,7 +603,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,11 +679,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,11 +695,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -683,11 +723,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">

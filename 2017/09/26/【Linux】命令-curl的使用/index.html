@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bb23d5eb-421b-4d32-b220-8182de61c1b3.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/60187e73-4dc5-45ad-a8b7-a1a2fc633b40.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/e932a615-2e41-40af-8f29-9027b86cb066.png">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.364Z">
+<meta property="og:updated_time" content="2020-07-25T10:09:42.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Linux】命令 - curl 的使用">
 <meta name="twitter:description" content="获取网页源码1$ curl http://www.google.com/  将显示该页面的网页源码（HTML）：">
@@ -216,7 +216,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="获取网页源码"><a href="#获取网页源码" class="headerlink" title="获取网页源码"></a>获取网页源码</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl http://www.google.com/</span><br></pre></td></tr></table></figure>
+        <h1 id="获取网页源码"><a href="#获取网页源码" class="headerlink" title="获取网页源码"></a>获取网页源码</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl http://www.google.com/</span><br></pre></td></tr></table></figure>
 
 <p>将显示该页面的<code>网页源码</code>（HTML）：</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a11136a2-d531-465c-86d3-147440c8f8ff.png" alt=""></p>
@@ -227,18 +227,42 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -i https://www.google.com/</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2e0258d7-8821-4be3-bb1a-b702e48563c9.png" alt=""></p>
-<h2 id="保存到指定文件中"><a href="#保存到指定文件中" class="headerlink" title="保存到指定文件中"></a>保存到指定文件中</h2><p><strong>通过<code>-o</code>可指定文件名，并将内容保存到指定的文件中。</strong></p>
+<h1 id="o-保存到指定文件中"><a href="#o-保存到指定文件中" class="headerlink" title="-o - 保存到指定文件中"></a><code>-o</code> - 保存到指定文件中</h1><p><strong>通过<code>-o</code>可指定文件名，并将内容保存到指定的文件中。</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -o a.html https://www.google.com/</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bb23d5eb-421b-4d32-b220-8182de61c1b3.png" alt=""></p>
 <p>即将对应的<code>html</code>内容保存到了<code>a.html</code>文件中。</p>
 <p>打开<code>a.html</code>即可看到对应内容：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/60187e73-4dc5-45ad-a8b7-a1a2fc633b40.png" alt=""></p>
-<hr>
 <p><strong><code>-o</code>通常用于下载并保存文件。</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -o tokyo.bin http://speedtest.tokyo.linode.com/100MB-tokyo.bin</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/e932a615-2e41-40af-8f29-9027b86cb066.png" alt=""></p>
-<h5 id="C可对大文件进行断点续传"><a href="#C可对大文件进行断点续传" class="headerlink" title="-C可对大文件进行断点续传"></a><code>-C</code>可对大文件进行断点续传</h5>
+<h1 id="A-指定-User-Agent"><a href="#A-指定-User-Agent" class="headerlink" title="-A - 指定 User-Agent"></a><code>-A</code> - 指定 User-Agent</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -A <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'</span> https://google.com</span><br></pre></td></tr></table></figure>
+
+<h1 id="H-指定HTTP-Headers"><a href="#H-指定HTTP-Headers" class="headerlink" title="-H - 指定HTTP Headers"></a><code>-H</code> - 指定HTTP Headers</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -H <span class="string">'User-Agent: php/1.0'</span> https://google.com</span><br></pre></td></tr></table></figure>
+
+<h1 id="b-指定Cookie"><a href="#b-指定Cookie" class="headerlink" title="-b - 指定Cookie"></a><code>-b</code> - 指定Cookie</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -b <span class="string">'foo=bar'</span> https://google.com</span><br></pre></td></tr></table></figure>
+
+<p>上面命令会生成一个标头<code>Cookie: foo=bar</code>，向服务器发送一个名为<code>foo</code>、值为<code>bar</code>的 Cookie。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -b <span class="string">'foo1=bar;foo2=bar2'</span> https://google.com</span><br></pre></td></tr></table></figure>
+
+<p>上面命令发送两个 Cookie。</p>
+<h1 id="d-设置HTTP-Body"><a href="#d-设置HTTP-Body" class="headerlink" title="-d - 设置HTTP Body"></a><code>-d</code> - 设置HTTP Body</h1><p><code>-d</code>参数用于发送 POST 请求的数据体。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -d<span class="string">'login=emma＆password=123'</span>-X POST https://google.com/login</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">$ curl -d <span class="string">'login=emma'</span> -d <span class="string">'password=123'</span> -X POST  https://google.com/login</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>-d</code>参数以后，HTTP 请求会自动加上标头<code>Content-Type : application/x-www-form-urlencoded</code>。并且会自动将请求转为 POST 方法，因此可以省略<code>-X POST</code>。</p>
+<p><code>-d</code>参数可以读取本地文本文件的数据，向服务器发送。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -d <span class="string">'@data.txt'</span> https://google.com/login</span><br></pre></td></tr></table></figure>
+
+<p>上面命令读取<code>data.txt</code>文件的内容，作为数据体向服务器发送。</p>
+<h1 id="O-将服务器回应保存成文件，并将-URL-的最后部分当作文件名"><a href="#O-将服务器回应保存成文件，并将-URL-的最后部分当作文件名" class="headerlink" title="-O - 将服务器回应保存成文件，并将 URL 的最后部分当作文件名"></a><code>-O</code> - 将服务器回应保存成文件，并将 URL 的最后部分当作文件名</h1><p><code>-O</code>参数将服务器回应保存成文件，并将 URL 的最后部分当作文件名。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ curl -O https://www.example.com/foo/bar.html</span><br></pre></td></tr></table></figure>
+
+<p>上面命令将服务器回应保存成文件，文件名为<code>bar.html</code>。</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://www.ruanyifeng.com/blog/2019/09/curl-reference.html" target="_blank" rel="noopener">https://www.ruanyifeng.com/blog/2019/09/curl-reference.html</a></li>
+</ul>
+
       
 
       
@@ -460,15 +484,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -516,11 +540,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -528,7 +548,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,7 +612,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,7 +620,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,11 +696,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -688,11 +712,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,11 +740,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">

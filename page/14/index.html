@@ -191,6 +191,88 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】类型转换 - 获取变量类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/30/【Golang】类型转换 - 获取变量类型/">【Golang】类型转换 - 获取变量类型</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/30/【Golang】类型转换 - 获取变量类型/" class="archive-article-date">
+  	<time datetime="2020-01-30T06:32:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果某个函数的入参的类型是 <code>interface{}</code>，有下面几种方法可以获取入参的类型：</p>
+<h1 id="获取入参类型的方法"><a href="#获取入参类型的方法" class="headerlink" title="获取入参类型的方法"></a>获取入参类型的方法</h1><h2 id="1-反射"><a href="#1-反射" class="headerlink" title="1 反射"></a>1 反射</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    v := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(typeof(v))</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">typeof</span><span class="params">(v <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> reflect.TypeOf(v).String()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p>其实，<code>fmt.Sprintf(&quot;%T&quot;)</code> 底层也是用反射实现的：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *pp)</span> <span class="title">printArg</span><span class="params">(arg <span class="keyword">interface</span>&#123;&#125;, verb <span class="keyword">rune</span>)</span></span> &#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="comment">// Special processing considerations.</span></span><br><span class="line">	<span class="comment">// %T (the value's type) and %p (its address) are special; we always do them first.</span></span><br><span class="line">	<span class="keyword">switch</span> verb &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">'T'</span>:</span><br><span class="line">		p.fmt.fmtS(reflect.TypeOf(arg).String())</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">  ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Usage:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    v := <span class="string">"hello world"</span></span><br><span class="line">    fmt.Println(typeof(v))</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">typeof</span><span class="params">(v <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%T"</span>, v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/30/【Golang】类型转换 - 获取变量类型/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/30/【Golang】类型转换 - 获取变量类型/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Linux】CentOS-安装Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -740,103 +822,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】依赖-Golang 依赖管理-go-mod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/12/【Golang】依赖-Golang 依赖管理-go-mod/">【Golang】Golang 依赖管理 - go module</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/12/【Golang】依赖-Golang 依赖管理-go-mod/" class="archive-article-date">
-  	<time datetime="2020-01-12T12:24:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="go-mod-命令"><a href="#go-mod-命令" class="headerlink" title="go mod 命令"></a>go mod 命令</h1><h2 id="如何使用-go-mod"><a href="#如何使用-go-mod" class="headerlink" title="如何使用 go mod"></a>如何使用 go mod</h2><p>在默认情况下，$GOPATH 默认情况下是不支持 go mudules 的。</p>
-<p>在.zshrc 或者.bashrc中声明环境变量：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># go module</span></span><br><span class="line"><span class="built_in">export</span> GO111MODULE=on</span><br></pre></td></tr></table></figure>
-
-<p>使声明立刻生效（以.zshrc 为例）：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure>
-
-<p>我们 $GOPATH 以外的目录创建一个 testmod 的包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir testmod</span><br><span class="line">$ <span class="built_in">cd</span> testmod</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">'package testmod</span></span><br><span class="line"><span class="string">		import "fmt"</span></span><br><span class="line"><span class="string">	func SayHello(name string) string &#123;</span></span><br><span class="line"><span class="string">   return fmt.Sprintf("Hello, %s", name)</span></span><br><span class="line"><span class="string">&#125;'</span> &gt;&gt; testmod.go初始化 module：</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go mod init github.com/sw/testmod</span><br><span class="line">go: creating new go.mod: module github.com/sw/testmod</span><br></pre></td></tr></table></figure>
-
-<p>以上命令会在项目中创建一个 go.mod 文件，初始化内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module github.com/sw/testmod</span><br></pre></td></tr></table></figure>
-
-<p>这时，我们的项目已经成为了一个 module 了。</p>
-<p>然后在该目录下执行 <code>go build netproc.go</code> ，就可以了。你将看到：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go build netproc.go</span><br><span class="line">go: finding github.com/mitchellh/go-wordwrap latest</span><br><span class="line">go: finding github.com/maruel/panicparse/stack latest</span><br><span class="line">go: finding github.com/nsf/termbox-go latest</span><br></pre></td></tr></table></figure>
-
-<p>go命令（<code>go build</code>, <code>go test</code>, 甚至<code>go list</code>）被执行时，就会下载依赖包，并把依赖信息添加到 go.mod 文件中，自动修改后 go.mod文件新内容如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module github.com/silenceshell/netproc</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    github.com/gizak/termui v2<span class="number">.2</span><span class="number">.0</span>+incompatible</span><br><span class="line">    github.com/maruel/panicparse v1<span class="number">.1</span><span class="number">.1</span> <span class="comment">// indirect</span></span><br><span class="line">    github.com/mattn/<span class="keyword">go</span>-runewidth v0<span class="number">.0</span><span class="number">.3</span> <span class="comment">// indirect</span></span><br><span class="line">    github.com/mitchellh/<span class="keyword">go</span>-wordwrap v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20180828145344</span><span class="number">-9e67</span>c67572bc <span class="comment">// indirect</span></span><br><span class="line">    github.com/nsf/termbox-<span class="keyword">go</span> v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20180819125858</span>-b66b20ab708e <span class="comment">// indirect</span></span><br><span class="line">    github.com/spf13/pflag v1<span class="number">.0</span><span class="number">.2</span> <span class="comment">// indirect</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>可见，go.mod中记录了依赖包及其版本号。</p>
-        
-          <a class="article-more-a" href="/2020/01/12/【Golang】依赖-Golang 依赖管理-go-mod/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/12/【Golang】依赖-Golang 依赖管理-go-mod/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
@@ -943,15 +928,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -999,11 +984,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1011,7 +992,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1071,7 +1056,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1079,7 +1064,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1155,11 +1140,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,11 +1156,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1199,11 +1184,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
