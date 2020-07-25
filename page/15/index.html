@@ -191,6 +191,81 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】使用-gRPC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/【Golang】使用-gRPC/">【Golang】Golang 使用 gRPC</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/【Golang】使用-gRPC/" class="archive-article-date">
+  	<time datetime="2020-01-12T12:20:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="定义-gRPC的-proto"><a href="#定义-gRPC的-proto" class="headerlink" title="定义 gRPC的.proto"></a>定义 gRPC的.proto</h1><figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> helloworld;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The greeting service definition.</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Greeter</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Sends a greeting</span></span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> SayHello (HelloRequest) <span class="keyword">returns</span> (HelloReply) &#123;&#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">// The request message containing the user's name.</span></span><br><span class="line"><span class="function">message HelloRequest &#123;</span></span><br><span class="line"><span class="function">  string name = 1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The response message containing the greetings</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloReply</span> </span>&#123;</span><br><span class="line">  <span class="built_in">string</span> <span class="class"><span class="keyword">message</span> = 1;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/12/【Golang】使用-gRPC/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/12/【Golang】使用-gRPC/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】mysql-Go-连接-MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -783,156 +858,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Linux】资源使用问题排查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/09/【Linux】资源使用问题排查/">【Linux】资源使用问题排查</a>
-    </h1>
-  
-
-        
-        <a href="/2019/12/09/【Linux】资源使用问题排查/" class="archive-article-date">
-  	<time datetime="2019-12-09T11:26:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>要判断系统瓶颈问题，有时需几个 sar 命令选项结合起来；</p>
-<ul>
-<li>怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看</li>
-<li>怀疑内存存在瓶颈，可用sar -B、sar -r 和 sar -W 等来查看</li>
-<li>怀疑I/O存在瓶颈，可用 sar -b 和 sar -d 等来查看</li>
-</ul>
-<h1 id="监测工具"><a href="#监测工具" class="headerlink" title="监测工具"></a>监测工具</h1><h2 id="sar-找出系统瓶颈的利器"><a href="#sar-找出系统瓶颈的利器" class="headerlink" title="`sar - 找出系统瓶颈的利器"></a>`sar - 找出系统瓶颈的利器</h2><p>sar是System Activity Reporter（系统活动情况报告）的缩写。sar工具将对系统当前的状态进行取样，然后通过计算数据和比例来表达系统的当前运行状态。它的特点是可以连续对系统取样，获得大量的取样数据；取样数据和分析的结果都可以存入文件，所需的负载很小。sar是目前Linux上最为全面的系统性能分析工具之一，可以从14个大方面对系统的活动进行报告，包括文件的读写情况、系统调用的使用情况、串口、CPU效率、内存使用状况、进程活动及IPC有关的活动等，使用也是较为复杂。</p>
-<p>sar是查看操作系统报告指标的各种工具中，最为普遍和方便的；它有两种用法；</p>
-<ol>
-<li>追溯过去的统计数据（默认）</li>
-<li>周期性的查看当前数据</li>
-</ol>
-<h2 id="iostat-监视I-O子系统"><a href="#iostat-监视I-O子系统" class="headerlink" title="iostat - 监视I/O子系统"></a><code>iostat</code> - 监视I/O子系统</h2><p>iostat是I/O statistics（输入/输出统计）的缩写，用来动态监视系统的磁盘操作活动。</p>
-<p>通过iostat方便查看CPU、网卡、tty设备、磁盘、CD-ROM 等等设备的活动情况, 负载信息。</p>
-<h3 id="命令参数"><a href="#命令参数" class="headerlink" title="命令参数"></a>命令参数</h3><ul>
-<li>-C 显示CPU使用情况</li>
-<li>-d 显示磁盘使用情况</li>
-<li>-k 以 KB 为单位显示</li>
-<li>-m 以 M 为单位显示</li>
-<li>-N 显示磁盘阵列(LVM) 信息</li>
-<li>-n 显示NFS 使用情况</li>
-<li>-p[磁盘] 显示磁盘和分区的情况</li>
-<li>-t 显示终端和CPU的信息</li>
-<li>-x 显示详细信息</li>
-<li>-V 显示版本信息</li>
-</ul>
-<h2 id="vmstat-监视内存使用情况"><a href="#vmstat-监视内存使用情况" class="headerlink" title="vmstat - 监视内存使用情况"></a><code>vmstat</code> - 监视内存使用情况</h2><p>vmstat是Virtual Meomory Statistics（虚拟内存统计）的缩写，可实时动态监视操作系统的虚拟内存、进程、CPU活动。</p>
-<h3 id="vmstat的语法"><a href="#vmstat的语法" class="headerlink" title="vmstat的语法"></a>vmstat的语法</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vmstat [-V] [-n] [delay [count]]</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>-V表示打印出版本信息；</li>
-<li>-n表示在周期性循环输出时，输出的头部信息仅显示一次；</li>
-<li>delay是两次输出之间的延迟时间；</li>
-<li>count是指按照这个时间间隔统计的次数。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$vmstat</span> 5 5</span><br><span class="line">procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----</span><br><span class="line">r  b   swpd   free   buff  cache   si   so    bi    bo   <span class="keyword">in</span>   cs us sy id wa st</span><br><span class="line">6  0      0 27900472 204216 28188356    0    0     0     9    1    2 11 14 75  0  0</span><br><span class="line">9  0      0 27900380 204228 28188360    0    0     0    13 33312 126221 22 20 58  0  0</span><br><span class="line">2  0      0 27900340 204240 28188364    0    0     0    10 32755 125566 22 20 58  0  0</span><br></pre></td></tr></table></figure>
-
-<h3 id="字段说明"><a href="#字段说明" class="headerlink" title="字段说明"></a>字段说明</h3><ul>
-<li>Procs（进程）:<ul>
-<li>r: 运行队列中进程数量</li>
-<li>b: 等待IO的进程数量</li>
-</ul>
-</li>
-<li>Memory（内存）:<ul>
-<li>swpd: 使用虚拟内存大小</li>
-<li>free: 可用内存大小</li>
-<li>buff: 用作缓冲的内存大小</li>
-<li>cache: 用作缓存的内存大小</li>
-</ul>
-</li>
-<li>Swap:<ul>
-<li>si: 每秒从交换区写到内存的大小</li>
-<li>so: 每秒写入交换区的内存大小</li>
-</ul>
-</li>
-<li>IO：（现在的Linux版本块的大小为1024bytes）<ul>
-<li>bi: 每秒读取的块数</li>
-<li>bo: 每秒写入的块数</li>
-</ul>
-</li>
-<li>system：<ul>
-<li>in: 每秒中断数，包括时钟中断</li>
-<li>cs: 每秒上下文切换数</li>
-</ul>
-</li>
-<li>CPU（以百分比表示）<ul>
-<li>us: 用户进程执行时间(user time)</li>
-<li>sy: 系统进程执行时间(system time)</li>
-<li>id: 空闲时间(包括IO等待时间)</li>
-<li>wa: 等待IO时间</li>
-</ul>
-</li>
-</ul>
-<h1 id="查看-CPU使用"><a href="#查看-CPU使用" class="headerlink" title="查看 CPU使用"></a>查看 CPU使用</h1><h2 id="top"><a href="#top" class="headerlink" title="top"></a>top</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br></pre></td></tr></table></figure>
-
-<p>查看已经被使用的内存比例、暂用内存较多的进程。</p>
-        
-          <a class="article-more-a" href="/2019/12/09/【Linux】资源使用问题排查/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/12/09/【Linux】资源使用问题排查/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
@@ -1039,11 +964,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1135,19 +1060,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1167,15 +1092,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1211,15 +1136,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1227,15 +1148,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
+                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
+                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1247,7 +1172,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1255,7 +1180,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1267,11 +1192,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1279,11 +1204,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1291,11 +1220,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1307,15 +1236,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1323,7 +1248,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">
