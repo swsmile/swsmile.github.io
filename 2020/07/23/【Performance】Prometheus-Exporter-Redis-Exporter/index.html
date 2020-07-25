@@ -8,15 +8,20 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【Performance】Prometheus - Exporter - Redis Exporter | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="Performancede">
+  <meta name="description" content="Build and run locally1234$ git clone https://github.com/oliver006/redis_exporter.git$ cd redis_exporter$ go build .$ nohup /home/parallels/redis_exporter/redis_exporter &amp;amp;">
+<meta name="keywords" content="Performancede">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Performance】Prometheus - Exporter - Redis Exporter">
 <meta property="og:url" content="http://swsmile.info/2020/07/23/【Performance】Prometheus-Exporter-Redis-Exporter/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
+<meta property="og:description" content="Build and run locally1234$ git clone https://github.com/oliver006/redis_exporter.git$ cd redis_exporter$ go build .$ nohup /home/parallels/redis_exporter/redis_exporter &amp;amp;">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-23T15:57:40.169Z">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200725155829122.png">
+<meta property="og:updated_time" content="2020-07-25T08:05:41.890Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Performance】Prometheus - Exporter - Redis Exporter">
+<meta name="twitter:description" content="Build and run locally1234$ git clone https://github.com/oliver006/redis_exporter.git$ cd redis_exporter$ go build .$ nohup /home/parallels/redis_exporter/redis_exporter &amp;amp;">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200725155829122.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -207,15 +212,22 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
+        <h1 id="Build-and-run-locally"><a href="#Build-and-run-locally" class="headerlink" title="Build and run locally"></a>Build and run locally</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/oliver006/redis_exporter.git</span><br><span class="line">$ <span class="built_in">cd</span> redis_exporter</span><br><span class="line">$ go build .</span><br><span class="line">$ nohup /home/parallels/redis_exporter/redis_exporter &amp;</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a> 
 
+<h1 id="Basic-Prometheus-Configuration"><a href="#Basic-Prometheus-Configuration" class="headerlink" title="Basic Prometheus Configuration"></a>Basic Prometheus Configuration</h1><p>Add a block to the <code>scrape_configs</code> of your prometheus.yml config file:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">scrape_configs:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">job_name:</span> <span class="string">redis_exporter</span></span><br><span class="line">    <span class="attr">static_configs:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">targets:</span> <span class="string">['&lt;&lt;REDIS-EXPORTER-HOSTNAME&gt;&gt;:9121']</span></span><br></pre></td></tr></table></figure>
 
+<p>and adjust the host name accordingly.</p>
+<h1 id="See-Metrics-from-Grafana"><a href="#See-Metrics-from-Grafana" class="headerlink" title="See Metrics from Grafana"></a>See Metrics from Grafana</h1><p>Grafana Dashboard for Redis: <a href="https://grafana.com/grafana/dashboards/763" target="_blank" rel="noopener">https://grafana.com/grafana/dashboards/763</a></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200725155829122.png" alt="image-20200725155829122"></p>
+<p>Trigger some Redis call:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-benchmark -n 1000000 -r 10000000 -q -h 192.168.2.204</span><br></pre></td></tr></table></figure>
 
-
-
-
-
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://github.com/oliver006/redis_exporter#prometheus-configuration-to-scrape-multiple-redis-hosts" target="_blank" rel="noopener">https://github.com/oliver006/redis_exporter#prometheus-configuration-to-scrape-multiple-redis-hosts</a></li>
+</ul>
 
       
 
@@ -309,6 +321,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/07/24/【Golang】Golang-安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【Golang】Golang 安装
+        
+      </div>
+    </a>
   
   
     <a href="/2020/07/23/【Performance】Prometheus-深入/" id="article-nav-older" class="article-nav-link-wrap">
@@ -429,11 +450,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -489,15 +510,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -525,6 +546,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
@@ -538,10 +563,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,11 +582,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,11 +602,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,15 +614,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,11 +626,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,15 +658,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,15 +690,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -685,11 +702,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,11 +722,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
