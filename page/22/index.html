@@ -191,6 +191,108 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Django】Django-uWSGI-Nginx-配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/28/【Django】Django-uWSGI-Nginx-配置/">【Django】Django 项目部署到 uWSGI + Nginx 作为生产环境</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/28/【Django】Django-uWSGI-Nginx-配置/" class="archive-article-date">
+  	<time datetime="2019-10-28T13:07:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Workflow"><a href="#Workflow" class="headerlink" title="Workflow"></a>Workflow</h1><p>当客户端发出一个 HTTP 请求后，是如何转到我们的应用程序处理并返回的呢？</p>
+<p>我根据其架构组成的不同将这个过程的实现分为两种情况：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191028215442798.png" alt="image-20191028215442798"></p>
+<h2 id="两级结构"><a href="#两级结构" class="headerlink" title="两级结构"></a>两级结构</h2><p>在两级结构中：</p>
+<ul>
+<li>uWSGI可以作为WSGI Server（WSGI 服务器），它基于了 HTTP 协议、 WSGI 协议和 usgi 协议；</li>
+<li>Flask应用可以作为 WSGI Application，基于 WSGI 协议实现。</li>
+</ul>
+<p>当有客户端发来请求，uWSGI接受请求，调用 WSGI Application （或者说Flask应用）。当WSGI Application处理完成后，将结果返回给uWSGI，uWSGI构造相应的 HTTP Response，最终将结果返回给客户端。 </p>
+<p>通常来说，Flask等Web框架会自己附带一个 WSGI 服务器(这就是 Flask 应用可以直接启动的原因)，但是这只是在开发阶段被用到而言。在生产环境中，仍然需要将 Flask 部署到一个高性能的 WSGI Server 中，比如 uWSGI。</p>
+<h2 id="三级结构"><a href="#三级结构" class="headerlink" title="三级结构"></a>三级结构</h2><p>在三级结构中：</p>
+<ul>
+<li>uWSGI Server 作为中间件，它基于WSGI 协议与Nginx通信，同时与实现了 WSGI 协议的 WSGI Application（比如一个 Flask Application）进行通信</li>
+</ul>
+<p>当有客户端发来请求，Nginx先做处理静态资源（静态资源是Nginx的强项），无法处理的动态请求以 WSGI 协议的格式转发给 WSGI Application（比如一个 Flask Application）。</p>
+<p>这里，我们多了一层反向代理有什么好处？</p>
+<ul>
+<li>提高Web server性能（uWSGI处理静态资源不如nginx）nginx会在收到一个完整的http请求后再转发给wWSGI)</li>
+<li>Nginx可以做负载均衡（客户端是和Nginx交互而不是uWSGI），以提升高可用</li>
+</ul>
+        
+          <a class="article-more-a" href="/2019/10/28/【Django】Django-uWSGI-Nginx-配置/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Django</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Django/" class="article-tag-list-link color2">Django</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Nginx/" class="article-tag-list-link color1">Nginx</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/28/【Django】Django-uWSGI-Nginx-配置/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【HTTP】Web-Server-和-CGI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -853,86 +955,6 @@ e.g. <code>func_get_uid</code></li>
 
 
   
-    <article id="post-【Redis】自动过期" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/28/【Redis】自动过期/">【Redis】自动过期</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/28/【Redis】自动过期/" class="archive-article-date">
-  	<time datetime="2019-10-28T03:52:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="自动过期"><a href="#自动过期" class="headerlink" title="自动过期"></a>自动过期</h1><p>Redis中有个设置时间过期的功能，通过 <code>setex</code> 或者 <code>expire</code> 关键字来实现。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; hset expire:me name tom</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">redis 127.0.0.1:6379&gt; hget expire:me name</span><br><span class="line"><span class="string">"tom"</span></span><br><span class="line"> </span><br><span class="line">redis 127.0.0.1:6379&gt; expire expire:me 20</span><br><span class="line">(<span class="built_in">integer</span>) 1</span><br><span class="line">redis 127.0.0.1:6379&gt; ttl expire:me     <span class="comment"># 获得还有多久过期，比如这里就是就有 19 秒才过期</span></span><br><span class="line">(<span class="built_in">integer</span>) 19</span><br><span class="line"> </span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"> </span><br><span class="line">redis 127.0.0.1:6379&gt; ttl expire:me</span><br><span class="line">(<span class="built_in">integer</span>) -1</span><br><span class="line">redis 127.0.0.1:6379&gt; hget expire:me name</span><br></pre></td></tr></table></figure>
-
-<p>即对存储在Redis数据库中的键值对（key-value pair）可以设置一个过期时间。作为一个缓存数据库，这是非常实用的。如我们一般项目中的token、登录信息或者短信验证码都是有时间限制的，按照传统的数据库处理方式，一般都是自己判断过期，这样无疑会严重影响项目性能。</p>
-<p>Redis对存储值的过期处理实际上是针对该值的键（key）处理的，即时间的设置也是设置key的有效时间。</p>
-<p>Expires字典保存了所有键的过期时间，Expires也被称为过期字段。 </p>
-        
-          <a class="article-more-a" href="/2019/10/28/【Redis】自动过期/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/28/【Redis】自动过期/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/21/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="page-number current">22</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/23/">Next &raquo;</a>
@@ -1083,19 +1105,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1108,6 +1126,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1135,11 +1157,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1151,7 +1173,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1211,7 +1233,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1219,11 +1241,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1231,11 +1249,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1247,7 +1269,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1255,7 +1277,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1267,11 +1289,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1315,11 +1337,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
