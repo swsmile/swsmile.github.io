@@ -191,6 +191,86 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【MySQL】用户和权限管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/29/【MySQL】用户和权限管理/">【MySQL】用户和权限管理</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/29/【MySQL】用户和权限管理/" class="archive-article-date">
+  	<time datetime="2020-03-29T05:46:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MySQL权限"><a href="#MySQL权限" class="headerlink" title="MySQL权限"></a>MySQL权限</h1><p>关于MySQL的权限简单的理解就是MySQL允许你做你全力以内的事情，不可以越界。比如只允许你执行select操作，那么你就不能执行update操作。只允许你从某台机器上连接MySQL，那么你就不能从除那台机器以外的其他机器连接MySQL。</p>
+<p>那么MySQL的权限是如何实现的呢？这就要说到MySQL的两阶段验证，下面详细介绍：</p>
+<ul>
+<li>第一阶段：服务器首先会检查你是否允许连接。因为创建用户的时候会加上主机限制，可以限制成本地、某个IP、某个IP段、以及任何地方等，只允许你从配置的指定地方登陆。</li>
+<li>第二阶段：如果你能连接，MySQL会检查你发出的每个请求，看你是否有足够的权限实施它。比如你要更新某个表、或者查询某个表，Mysql会查看你对哪个表或者某个列是否有权限。再比如，你要运行某个存储过程，MySQL会检查你对存储过程是否有执行权限等。</li>
+</ul>
+        
+          <a class="article-more-a" href="/2020/03/29/【MySQL】用户和权限管理/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/29/【MySQL】用户和权限管理/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【MySQL】MySQL安全性设置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -785,215 +865,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】类型-数据类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/15/【Golang】类型-数据类型/">【Golang】数据类型</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/15/【Golang】类型-数据类型/" class="archive-article-date">
-  	<time datetime="2020-03-15T09:46:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h1><table>
-<thead>
-<tr>
-<th align="left">序号</th>
-<th align="left">类型</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left"><strong>布尔型（boolean type）</strong></td>
-<td align="left">布尔型的值只可以是常量 true 或者 false。一个简单的例子：var b bool = true。</td>
-</tr>
-<tr>
-<td align="left">2</td>
-<td align="left"><strong>数字类型（numeric type）</strong></td>
-<td align="left">整型（integer values） int 和浮点型（floating-point values） float32、float64，Go 语言支持整型和浮点型数字，并且支持复数，其中位的运算采用补码。</td>
-</tr>
-<tr>
-<td align="left">3</td>
-<td align="left"><strong>字符串类型（string type）</strong></td>
-<td align="left">字符串就是一串固定长度的字符连接起来的字符序列。Go 的字符串是由单个字节连接起来的。Go 语言的字符串的字节使用 UTF-8 编码标识 Unicode 文本。</td>
-</tr>
-<tr>
-<td align="left">4</td>
-<td align="left"><strong>派生类型:</strong></td>
-<td align="left">包括：(a) 指针类型（Pointer）(b) 数组类型(c) 结构化类型(struct)(d) Channel 类型(e) 函数类型(f) 切片类型(g) 接口类型（interface）(h) Map 类型</td>
-</tr>
-</tbody></table>
-<h1 id="布尔型（boolean-type）"><a href="#布尔型（boolean-type）" class="headerlink" title="布尔型（boolean type）"></a><strong>布尔型</strong>（boolean type）</h1><p> 布尔型的值只可以是常量 true 或者 false。一个简单的例子：var b bool = true。  </p>
-<h1 id="数字类型（numeric-type）"><a href="#数字类型（numeric-type）" class="headerlink" title="数字类型（numeric type）"></a>数字类型（numeric type）</h1><h2 id="整型（Integer-types）"><a href="#整型（Integer-types）" class="headerlink" title="整型（Integer types）"></a>整型（Integer types）</h2><p>Go 也有基于架构的类型，例如：int、uint 和 uintptr。</p>
-<table>
-<thead>
-<tr>
-<th align="left">序号</th>
-<th align="left">类型和描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left"><strong>uint8</strong> 无符号（unsigned） 8 位整型 （0 到 255）</td>
-</tr>
-<tr>
-<td align="left">2</td>
-<td align="left"><strong>uint16</strong> 无符号 16 位整型 （0 到 65535）</td>
-</tr>
-<tr>
-<td align="left">3</td>
-<td align="left"><strong>uint32</strong> 无符号 32 位整型 （0 到 4294967295）</td>
-</tr>
-<tr>
-<td align="left">4</td>
-<td align="left"><strong>uint64</strong> 无符号 64 位整型 （0 到 18446744073709551615）</td>
-</tr>
-<tr>
-<td align="left">5</td>
-<td align="left"><strong>int8</strong> 有符号（signed） 8 位整型 （-128 到 127）</td>
-</tr>
-<tr>
-<td align="left">6</td>
-<td align="left"><strong>int16</strong> 有符号 16 位整型 (-32768 到 32767)</td>
-</tr>
-<tr>
-<td align="left">7</td>
-<td align="left"><strong>int32</strong> 有符号 32 位整型 (-2147483648 到 2147483647)</td>
-</tr>
-<tr>
-<td align="left">8</td>
-<td align="left"><strong>int64</strong> 有符号 64 位整型 (-9223372036854775808 到 9223372036854775807)</td>
-</tr>
-</tbody></table>
-<h2 id="浮点型（Floating-point-Numbers）"><a href="#浮点型（Floating-point-Numbers）" class="headerlink" title="浮点型（Floating-point Numbers）"></a>浮点型（Floating-point Numbers）</h2><table>
-<thead>
-<tr>
-<th align="left">序号</th>
-<th align="left">类型</th>
-<th align="left">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left"><strong>float32</strong></td>
-<td align="left">IEEE-754 32位浮点型数</td>
-</tr>
-<tr>
-<td align="left">2</td>
-<td align="left"><strong>float64</strong></td>
-<td align="left">IEEE-754 64位浮点型数</td>
-</tr>
-<tr>
-<td align="left">3</td>
-<td align="left"><strong>complex64</strong></td>
-<td align="left">32 位实数（real part）和虚数（imaginary part）</td>
-</tr>
-<tr>
-<td align="left">4</td>
-<td align="left"><strong>complex128</strong></td>
-<td align="left">64 位实数和虚数</td>
-</tr>
-</tbody></table>
-<h2 id="其他数字类型"><a href="#其他数字类型" class="headerlink" title="其他数字类型"></a>其他数字类型</h2><p>以下列出了其他更多的数字类型：</p>
-<table>
-<thead>
-<tr>
-<th align="left">序号</th>
-<th align="left">类型和描述</th>
-<th align="left"></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1</td>
-<td align="left"><strong>byte</strong></td>
-<td align="left">类似 uint8</td>
-</tr>
-<tr>
-<td align="left">2</td>
-<td align="left"><strong>rune</strong></td>
-<td align="left">类似 int32</td>
-</tr>
-<tr>
-<td align="left">3</td>
-<td align="left"><strong>uint</strong></td>
-<td align="left">32 或 64 位</td>
-</tr>
-<tr>
-<td align="left">4</td>
-<td align="left"><strong>int</strong></td>
-<td align="left">与 uint 一样大小</td>
-</tr>
-<tr>
-<td align="left">5</td>
-<td align="left"><strong>uintptr</strong></td>
-<td align="left">无符号整型，用于存放一个指针</td>
-</tr>
-</tbody></table>
-        
-          <a class="article-more-a" href="/2020/03/15/【Golang】类型-数据类型/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/15/【Golang】类型-数据类型/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
@@ -1128,18 +999,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -1152,6 +1011,18 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
@@ -1160,15 +1031,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1236,11 +1107,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1288,11 +1159,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1308,19 +1179,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1352,11 +1223,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1384,10 +1255,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
@@ -1400,11 +1267,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">
