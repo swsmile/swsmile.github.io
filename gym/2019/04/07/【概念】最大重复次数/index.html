@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/gym/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          【概念】最大重复次数 - 西维蜀黍的健身Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://swsmile.info/gym/2019/04/07/【概念】最大重复次数/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/gym/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/gym/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/gym/css/highlight.css">
+
+    <link rel="stylesheet" href="/gym/css/widget.css">
+
+    <link rel="stylesheet" href="/gym/css/rocket.css">
+
+    <link rel="stylesheet" href="/gym/css/signature.css">
+
+    <link rel="stylesheet" href="/gym/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('../../../../img/tag-bg.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/gym/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/gym/tags/#概念" title="概念">概念</a>
+                            
+                        </div>
+                        <h1>【概念】最大重复次数</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 西维蜀黍 on
+                            2019-04-07
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/gym/">西维蜀黍的健身 Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/gym/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/gym/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/gym/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/gym/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <p><strong>从理论上来说：是否存在</strong>“最佳增肌次数”？</p>
+<p>想从理论角度上来看待这个问题的话，我们得先了解一下“力量耐力连续体”。</p>
+<p>Strength-endurance continuum或力量耐力连续体，是在1945年由一位叫做Thomas DeLorme科学家发现的。而其意思是，<strong>不同的训练次数会导致不同的适应结果，举大重量低次数会使力量上升，举小重量高次数会使耐力上升</strong>。这个连续体通常还伴随着一张解释图：</p>
+<p><img src="assets/image-20190413105252539.png" alt="image-20190413105252539"></p>
+<p>*RM或Repetition Maximum或最大重复次数指，在一定重量下能做的最高训练次数。例如：小黑可以负重20kg引体向上，但他只能做1个，不能做2个，那就是1RM。如果能负重20kg做5个，那就是5RM。</p>
+<p>从这幅图片我们可以明白：如果把训练次数控制在1-5RM，主要练习力量。如果是8-12RM，主要增肌。如果&gt;15RM，主要练肌肉耐力。</p>
+<p>这就是为什么，传统思想认为有“最佳训练次数”的说法，不过还有其它原因。</p>
+<p>接着，传统思想认为8-12RM的增肌效果最好是因为，8-12RM可以练习到所有的肌纤维。</p>
+<p>我们知道，每块骨骼肌是由成千上万的肌纤维所组成的，而肌纤维大致地可以分成两种：</p>
+<p>I型肌纤维，也被称为红肌纤维或慢缩肌纤维。这些纤维的收缩速度慢、力度比II型小一点，但持续收缩的时间更长，也不易疲劳。</p>
+<p>II型肌纤维，也被称为白肌纤维或快缩肌纤维。这些纤维的收缩速度快很多，力度比I型大一点，但持续收缩的时间不长，很容易疲劳。</p>
+<p>你可能会问，这两种肌纤维和增肌训练有什么关系？</p>
+<p>研究发现，<strong>大重量低次数训练主要会使用到</strong><strong>II</strong><strong>型肌纤维，所以力量训练主要会使</strong><strong>II</strong><strong>型肌纤维增长</strong>。相反，<strong>小重量高次数训练主要会使用到</strong><strong>I</strong><strong>型肌纤维，所以耐力训练主要会使</strong><strong>I</strong><strong>型肌纤维增长</strong>。</p>
+<p><strong>假设你的目地是最大化增肌，那一定得练习到</strong><strong>I</strong><strong>型以及</strong><strong>II</strong><strong>型肌纤维</strong>。所以，如果能把训练次数控制在8-12RM，所使用的重量就够重，可以刺激到II型肌纤维的增长，但训练次数也够多，能刺激I型肌纤维的增长。</p>
+<p>这就是人们认为8-12RM是最佳的训练次数，因为8-12RM可以同时练习到慢缩和快缩肌纤维。</p>
+<p><strong>肌肉肥大（</strong>**=**<strong>肌肉增长的科学术语）分为两种：肌原纤维肥大和肌质肥大</strong>。</p>
+<p>肌原纤维肥大指肌肉内据有收缩性元素体积的增加，比如肌蛋白、肌纤维等等。</p>
+<p>肌质肥大指肌细胞外基质的膨胀，也就是非收缩性元素的膨胀，比如肌肉内的水份、糖原、矿物质等等。</p>
+<p>想要最大化地增肌，两种肥大都要顾及到。而科学家们发现，<strong>大重量低次数训练（<strong><strong>1-5RM</strong></strong>）主要刺激到肌原纤维肥大，而小重量高次数训练（</strong><strong>&gt;12RM</strong>**）主要刺激到肌质肥大。**</p>
+<p>这就是为什么中等重量中等次数的8-12RM再次被认为是最佳次数。</p>
+<p>最后还有一个原因，那就是肌肉增长的两大原理：</p>
+<p>·<strong>肌肉拉力</strong>。简单地来说，我们在做任何抗阻力训练时，肌肉会受到一定的拉力，而这种拉力会刺激肌肉增长。肌肉拉力越强，刺激肥大的反应越强烈。换句话说，训练时用的重量越大，肌肉增长效果越好。可肌肉拉力是有限的，到了一定程度后，重量就算再重，效果不一定更好。这就是为什么虽然力量举运动员平时训练所使用的重量比健美运动员更重，但前者的肌肉含量却没后者高。</p>
+<p>·<strong>代谢性应激</strong>。简单地来说，我们在做抗阻力训练时，练习的肌肉内会产生一些代谢产物，比如乳酸、氢离子、无机磷酸盐。这些代谢产物会使肌肉膨胀，而这种膨胀会威胁到肌细胞，因此使肌细胞变大。</p>
+<p>科学家们发现，<strong>大重量低次数训练主要运用到了肌肉拉力的原理，而且还主要刺激肌原纤维肥大</strong>。反而，<strong>小重量高次数训练主要运用到了代谢性应激的原理，而且还主要刺激肌质肥大</strong>。如果我们把训练次数控制在两者之间的话（8-12RM），就能运用到以上两种原理。</p>
+<p>如果把以上几点全部结合在一副图片里：</p>
+<p>这就是为什么，从理论上来说，最佳增肌次数是8-12RM，因为这个次数可以平均地使用到I型和II型肌纤维，平均地刺激到肌原纤维和肌质肥大，平均地运用到肌肉拉力和代谢性应激两个肥大原理。</p>
+<p>不过理论还是理论，我们得看看，那些直接对比不同训练次数的科学研究的结果如何。</p>
+<p><strong>从科学上来说：是否存在</strong>**“<strong><strong>最佳增肌次数</strong></strong>”**<strong>？</strong></p>
+<p>先从这篇1999年的科学研究开始：</p>
+<p>科学家们招来了24位平均24.2岁男士，并把他们分成了两组。<strong>第一组是高重量</strong><strong>4RM</strong><strong>力量训练组，第二组是中等重量</strong><strong>10RM</strong><strong>增肌训练组，两组的训练量（训练次数</strong><strong>x</strong><strong>训练组数</strong><strong>x</strong><strong>训练重量）同等</strong>。训练量同等很重要，因为这样一来研究人员就可以控制两组之间所有会影响到增肌效果的因素，只看不同训练次数的效果。整个实验持续了10周，每周训练3次，每次隔48小时。<strong>10</strong><strong>周后结果发现，两组的手臂肌肉都有明显的增长，但两组之间并没有差异</strong>。</p>
+<p>再来看看这篇2000年的研究：</p>
+<p>试验者一共有25人，全都是41-60岁之间的女士。她们被分成了两组，<strong>第一组是高重量低次数组，训练次数是</strong><strong>8RM</strong>**，使用重量是<strong><strong>1RM</strong></strong>的<strong><strong>80%</strong></strong>。第二组是低重量高次数组，训练次数是<strong><strong>16RM</strong></strong>，使用重量是<strong><strong>1RM</strong></strong>的<strong><strong>40%</strong>。两组的训练量（训练次数x训练组数x训练重量）同等。<strong>6</strong></strong>个月后发现，两组之间的增肌效果没有明显差异**。</p>
+<p>在另一项2000年的实验里：</p>
+<p>24位18-30岁的男士参加了这项研究，并被分成三组。<strong>第一组</strong><strong>3-5RM</strong>**，第二组<strong><strong>13-15RM</strong></strong>，第三组<strong><strong>23-25RM</strong>。<strong>不过这次三组的训练量（训练次数</strong></strong>x<strong><strong>训练组数</strong></strong>x**<strong>训练重量）并未统一</strong>。科学家们量了三组的大腿维度并发现，<strong>后两组的大腿维度明显比第一组更高</strong>。但当研究人员测量股直肌的肌肉厚度时，发现三组之间没有区别。</p>
+<p>然后在这项2002年的研究里：</p>
+<p>科学家们招来了32位平均22.5岁的男士，并把他们分成了三组。<strong>第一组</strong><strong>3-5RM</strong>**，第二组<strong><strong>9-11RM</strong></strong>，第三组**<strong>20-28RM</strong>。三组的训练量（训练次数x训练组数x训练重量）同等。<strong>结果发现，第一组和第二组都有明显的增肌效果，但第三组的增肌效果却未能达到统计性差异</strong>（也就是他们有一点的增肌效果，但从统计角度上来讲不够明显）。<strong>不过前两组之间不存在明显的区别</strong>。</p>
+<p>最后在这项2014年的研究里：</p>
+<p>20位男性年轻大学生参加了这项试验，并被随机地分到了两组。<strong>第一组是</strong><strong>3RM</strong><strong>力量训练组，第二组是</strong><strong>10RM</strong><strong>增肌训练组</strong>，两组的训练量（训练次数x训练组数x训练重量）同等。<strong>科学家们测量了两组的肱二头肌厚度，发现两组之间并没有明显的区别</strong>。</p>
+<p>还有好几项类似的研究都指向相同的结论：</p>
+<p><strong>无论训练次数在</strong><strong>1-5RM</strong><strong>或</strong><strong>8-12RM</strong>**，只要训练量足够以及所使用的重量够重，都会有类似的增肌效果。可如果训练次数过高，重量过低（比如****&gt;20RM****），就算训练量相同，增肌效果也没有大重量低次数或中等重量中等次数效果好。**</p>
+<p>所以从科学角度上来讲，传统的“8-12RM是最佳的增肌次数”并不成立，也没有所谓的最佳增肌训练次数。任何&lt;20RM的训练次数，只要总训练量足够、训练重量够重，都可以有明显的增肌效果。</p>
+<p>原来我们又以为错了？！但仔细想想自己的训练过程中，确实没有特别在意数量和重量，整个增肌过程中只是在组数上有比较严格的要求。</p>
+<p><strong>从实际上来说：是否存在</strong>**“<strong><strong>最佳增肌次数</strong></strong>”**<strong>？</strong></p>
+<p>科学研究始终还是科学研究，研究设置和研究结果的实用度还受到限制：在实际训练里，没有人会去做3组10RM或7组3RM深蹲，因为根本完成不了；RM代表最高训练次数，如果在第一组真的做了10RM或3RM，第二组的训练次数肯定受影响。所以我们得从实际训练的角度上来看看，是否存在最佳增肌次数？</p>
+<p>在这之前，我想读者们记住一点：这篇文章是以读者们为健身小白的角度而写的。新手和中高手们的训练方法很不同。新手们的训练方案很简单，所需的训练量很低。相反，中高手们的训练方案很复杂，所需的训练量也很高，因此两者的训练次数也会有很大的区别。假设8-12RM对于中高手来说是最佳的增肌次数，但对于新手来说就不一定。</p>
+<p>想要好好回答这个问题，我们得问自己：“对于新手增肌来说，什么最重要？”</p>
+<p>在前一篇文章里我说过，<strong>对于增肌训练来说，有三个最最最重要的点：训练动作、训练量、渐进超负荷</strong>。我们从这三点出发，看看是否存在最佳增肌次数？</p>
+<p><strong>训练动作</strong></p>
+<p>对于新手来说，不应该浪费时间做单关节动作，应该全部以多关节动作为主，比如引体向上、双力臂、俯卧撑、波比跳、倒立撑等等。。。</p>
+<p>最常见的几个多关节杠铃动作包括引体向上、双力臂、臂屈伸、俯卧撑、倒立撑。对于这几个动作来说，4-8个应该最合适，经典的3x5、5x5、2x4、4x6训练法都是以这些动作为主，把训练次数控制在5个左右。这里是针对肌肉增长来说，如果自己可以完成更多的数量，可以选择负重，或者做偏重来增加难度。<strong>训练量</strong></p>
+<p>科学家们发现，<strong>训练量可能是对肌肉肥大最有影响力的因素，两者之间存在着一种线性关系。也就是说，训练量越高，增肌效果越好</strong>。</p>
+<p>科学家们计算训练量的方法是：训练重量x训练组数x训练次数=训练量。不过对于增肌人群来说，训练量可以更简单地算为：训练组数x训练次数=训练量。</p>
+<p>研究发现，<strong>想要一块肌肉群增长，每次训练应该达到</strong><strong>40-70</strong><strong>下</strong>。现在我们想想看，如果训练次数过低（&lt;4），就很难积累足够的训练量。假设我的腿部需要40个深蹲才可以增长，如果我选择每组只做3个，那得做13组才能接近40个！所以如果训练次数过低，很难达到足够的训练量。相反，如果我选择做15个，只用做3组就可以了，但我所使用的重量就要降低到75kg甚至更低。在这种情况下，虽然训练量足够，但所使用的重量不够刺激肌肉增长。如果将训练次数控制在这两者之间的话，不仅可以使用足够的重量来刺激肌肉增长，还可以轻松地堆积训练量。</p>
+<p>所以想要同时使用足够的重量来刺激肌肉肥大，并轻松地堆积训练量的话，最好把训练次数控制在两者之间。也就是说，从训练量角度来说，训练次数应该控制在6-12，同理可以推演到街头健身的训练中。</p>
+<p><strong>渐进超负荷</strong></p>
+<p><strong>渐进超负荷的意思就是</strong><strong>慢慢地增加负荷量</strong>。负荷量可以用重量或组数或次数来表示。因此，渐进超负荷的意思就是慢慢地加重量、组数或次数。而最佳的渐进超负荷方法就是慢慢地加重量。而最佳确保重量慢慢变重的方法就是确保自己的力量在慢慢上涨。也就是说，<strong>想要确保肌肉持续增长，得确保自己的力量在上升</strong>。根据力量耐力连续体，如果想力量上涨，训练次数一定要低，重量要够重，通常4-6下都被视为力量训练次数。</p>
+<p>你可能会说：“为什么只关注加重量，加组数或次数也可以算为超负荷吗？”</p>
+<p>是的，加组数或次数也算是超负荷，<strong>但能加的组数和次数有限，不可能一直往上加，到了一定程度之后，就无法继续进步</strong>。到了这时，他如果想再加组数或次数，就有更多的进步空间；<strong>所以对于增肌来说，力量的增长也十分重要</strong>。</p>
+<p>所以从渐进超负荷角度来讲，想要充分地运用到这个原理，最好做力量型的训练，把训练次数控制在4-6个。</p>
+<p><strong>总结</strong></p>
+<p>“最佳增肌训练次数”到底是否存在？</p>
+<p>简单黑白地答案是：不存在。</p>
+<p><strong>只要总训练量足够，使用的重量够重，确保渐进超负荷，任何训练次数都可以帮助增肌。不过从实际角度上来讲，某些训练动作（为了确保渐进超负荷）最好控制在一定的次数范围内</strong>（最起码对于新手来说）：</p>
+<p>·<strong>多关节杠铃、哑铃、铃壶训练最好控制在</strong><strong>4-8</strong><strong>个</strong>，然后每次试着加一点重量。</p>
+<p>·<strong>以自身重量或哑铃为主的多关节动作最好控制在</strong><strong>8-12</strong><strong>个</strong>。先从8个开始，等到可以做12个之后，再加点重量，或者增加动作难度或者加大力臂，再降回到8个，再试着进步。</p>
+<p>·<strong>单关节和器械为主的动作最好控制在</strong><strong>10</strong><strong>个以上</strong>，比如10-15个。先从10开始，等到可以做15个之后，再加点重量，降回到10个，再试着进步。</p>
+<h1><span id="reference">Reference</span></h1>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/gym/2019/04/07/【训练部位】胸大肌/" data-toggle="tooltip" data-placement="top" title="【训练部位】胸大肌">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/gym/2019/04/07/【训练部位】腹肌/" data-toggle="tooltip" data-placement="top" title="【训练部位】腹肌（Abs）">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Reference</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/gym/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/gym/tags/#概念" title="概念">概念</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://swsmile.info" target="_blank">My Technical Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://swsmile.info/2019/04/07/【概念】最大重复次数/";
+    var disqus_url = "http://swsmile.info/2019/04/07/【概念】最大重复次数/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/swsmile666">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/swsmile666">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 西维蜀黍 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/gym/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/gym/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/gym/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://swsmile.info/gym/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = '-UA-78769787-2';
+    var _gaDomain = 'gym';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4481376a6b117446f0ad6f2b9b796afc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/en/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/en/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://swsmile.info/gym/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

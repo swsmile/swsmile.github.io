@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/en/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          [Architecture] Message Oriented Middleware - Wei&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://swsmile.info/en/2018/11/24/Architecture-Message-Oriented-Middleware/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/en/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/en/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/en/css/highlight.css">
+
+    <link rel="stylesheet" href="/en/css/widget.css">
+
+    <link rel="stylesheet" href="/en/css/rocket.css">
+
+    <link rel="stylesheet" href="/en/css/signature.css">
+
+    <link rel="stylesheet" href="/en/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('../../../../img/tag-bg.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/en/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/en/tags/#Architecture" title="Architecture">Architecture</a>
+                            
+                        </div>
+                        <h1>[Architecture] Message Oriented Middleware</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Wei Shi on
+                            2018-11-24
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/en/">Wei&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/en/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/en/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/en/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/en/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="message-oriented-middleware-mom">Message Oriented Middleware (MOM)</span></h1>
+<p><strong>Message Oriented Middleware is a concept that involves the passing of data between applications using a communication channel that carries self-contained units of information (messages).</strong></p>
+<p>Note that since the <strong>message broker</strong> is the most component in a Message Oriented Middleware, therefore, message broker sometimes is used with Message Oriented Middleware interchangeably.</p>
+<p>In a MOM-based communication environment, <strong>messages are usually sent and received asynchronously</strong>. Using message-based communications, applications are abstractly <strong>decoupled</strong>; senders (producers) and receivers (consumers) are never aware of each other. Instead, they send and receive messages to and from the messaging system. It is the responsibility of the messaging system (MOM) to get the messages to their intended destinations.</p>
+<p><img src="assets/image-20181124090234424-3050154-3050191.png" alt="image-20181124090234424"></p>
+<h2><span id="messaging-system">Messaging System</span></h2>
+<p><strong>The messaging system is the core of a Message Oriented Middleware</strong>, which is responsible for managing the connection points between multiple messaging clients, and for managing multiple channels of communication between the connection points.</p>
+<p>The messaging system is usually implemented as a software process, which is commonly known as a message server or a message broker. Message servers are usually capable of being grouped together to form clusters that provide advanced capabilities such as load balancing, fault tolerance, and sophisticated routing using managed security domains.</p>
+<h2><span id="mom-and-esb">MOM and ESB</span></h2>
+<p>Enterprise messaging is at the core of an ESB architecture. A MOM is a key part of the ESB architecture, as it provides the underpinnings of the network of virtual channels that an ESB uses to route messages throughout an extended enterprise and beyond.</p>
+<h2><span id="messaging-models-pubsub-and-p2p">Messaging Models: Pub/sub and P2P</span></h2>
+<p><strong>There are two kinds of scenarios in terms of the maximum number of the conmuser applications for a specific message:</strong></p>
+<ul>
+<li>The <strong>publish-and-subscribe (pub/sub) model</strong> is intended for a <strong>one-to-many broadcast</strong>（Multicast） of information</li>
+<li>The <strong>point-to-point (P2P) model</strong> is intended for a <strong>one-to-one communication</strong> （Unicast） between two specific applications.</li>
+</ul>
+<p><strong>Pub/sub model</strong></p>
+<p>In the pub/sub model, <strong>multiple consumers may register an interest with, or subscribe to, a topic</strong>. A producer sends a message on that channel by publishing on that <strong>topic</strong>. Each subscriber receives a copy of that message.</p>
+<p><strong>Point-to-point (P2P) model</strong></p>
+<p>In the point-to-point model, <strong>only one consumer may receive a message that is sent to a queue</strong>.</p>
+<p>A point-to-point queue may have multiple consumers listening for the purposes of load-balancing or “hot backup”; however, only one receiver may consume each individual message.</p>
+<p>There may also be no receivers listening, in which case the message stays in the queue until a receiver attaches itself to the queue to retrieve messages.</p>
+<p>In the publish-and-subscribe model, messages not flagged as reliable can be discarded if no subscribers are registered to receive them at the time they are published.</p>
+<h2><span id="message-transmission-direction">Message Transmission Direction</span></h2>
+<p><strong>There are two kinds of scenarios in terms of the message transmission direction when using MOM:</strong></p>
+<ul>
+<li><strong>One-way communication</strong>: The whole process involves that an application send a message to the messaging system, and the messaging system then fowards the messages to their intended destination(s) (another application(s)).</li>
+<li><strong>Two-way communication</strong> (synchronous or asynchronous request/response, known as The Request/Reply Messaging Pattern): The whole process involves:
+<ul>
+<li>An application (requestor) send a request message to the messaging system</li>
+<li>The messaging system then fowards the messages to the specific application (replier)</li>
+<li>Once the replier application finishes the processing the of request message, it sends a response message back to the the messaging system</li>
+<li>The messaging system routes this message back to the requestor application, with a correlation ID that is used to correlate the request message with the response message.</li>
+</ul>
+</li>
+</ul>
+<p><img src="assets/image-20181124144951888-3070991.png" alt="image-20181124144951888"></p>
+<h1><span id="mon-versus-rpc">MON versus RPC</span></h1>
+<p><strong>Messaging</strong> allow for loose coupling of components in which an application doesn’t need to know the intimate details of how to reach and interface with other applications, While Remote Procedure Call (RPC) is a <strong>typical tightly coupled</strong> communication approach, i.e., when one procedure calls another, it must wait for the called procedure to return before it can do anything else.</p>
+<p>When choosing a type of communication infrastructure, it is important to consider the <strong>tradeoffs</strong> between loosely coupled and tightly coupled interfaces, and asynchronous and synchronous interaction modes.</p>
+<h2><span id="remote-procedure-call-rpc">Remote Procedure Call (RPC)</span></h2>
+<p><strong>In RPC-style programming, an object and its methods (or a procedure and its parameters) are “remoted” such that an invocation of a procedure or method can happen across a network separation.</strong></p>
+<p>The application making the procedure calls is known as a “client,” and the remote implementation is referred to as a “server” or “service.” The client executes what looks like a local method invocation or procedure call.</p>
+<p>Technologies using RPC-style communication include <strong>Common Object Request Broker Architecture (CORBA)</strong>, <strong>Remote Method Invocation (RMI)</strong>, <strong>DCOM</strong>, <strong>ActiveX</strong>, <strong>Sun-RPC</strong>, <strong>Java API for XML-RPC (JAX-RPC)</strong>, and <strong>Simple Object Access Protocol v1.0 and v1.1</strong>.</p>
+<h3><span id="tightly-coupled-interfaces">Tightly Coupled Interfaces</span></h3>
+<p>In a tightly coupled RPC environment, each application needs to know the intimate details of how every other application wants to be communicated with—the number of methods it exposes and the details of the parameters that each method accepts.</p>
+<h3><span id="loosely-coupled-interactions">Loosely Coupled Interactions</span></h3>
+<p>Asynchronous messaging allows each communication operation between two processes to be a standalone unit of work. Each participant in a multistep business process flow need only be concerned with <strong>ensuring that it can send a message to the messaging system</strong>.</p>
+<p>However, there are <strong>side effects</strong> due to these loose coupling. Since producers (senders) don’t know the existences of consumers (receivers), if the consumer applications fail for any reason, the producers know nothing about it, which results in the difficulties of  error handling. Meanwhile, debugging code and modifying application workflows become more difficult as well.</p>
+<h1><span id="asynchronous-message-reliability">Asynchronous Message Reliability</span></h1>
+<p>With asynchrony comes the need for reliability. When an application sends an asynchronous message, there often needs to be some sort of assurance that the message will get to where it needs to go.</p>
+<h2><span id="message-persistence">Message Persistence</span></h2>
+<p>When messages are marked <strong>persistent</strong>, it is the responsibility of the messaging system to utilize a <strong>store-and-forward mechanism</strong> to fulfill its contract with the sender. The storage mechanism is used for <strong>persisting messages to disk</strong> to ensure that it can be recovered if there is a failure of either the messaging system or the consuming client. The forwarding mechanism is responsible for retrieving messages from storage, and subsequently routing and delivering them.</p>
+<h2><span id="message-acknowledgments">Message Acknowledgments</span></h2>
+<p>Message acknowledgment at the wire protocol level is a key factor in guaranteed messaging. The acknowledgment protocol allows the messaging system to monitor the progress of a message so that it knows whether the message was successfully produced and consumed. With this knowledge, the messaging system can manage the distribution of messages and guarantee their delivery.</p>
+<h1><span id="standards-and-protocols">Standards and protocols</span></h1>
+<p>An early attempt to make message queuing more ubiquitous was Sun Microsystems’ JMS specification, which provided a Java-only abstraction of a client API.</p>
+<p>Several  protocol standards have emerged which are used in open source message queue implementations:</p>
+<ul>
+<li>Advanced Message Queuing Protocol (AMQP) – feature-rich message queue protocol, approved as ISO/IEC 19464 since April 2014</li>
+<li>Streaming Text Oriented Messaging Protocol (STOMP) – simple, text-oriented message protocol</li>
+<li>MQTT (formerly MQ Telemetry Transport) - lightweight message queue protocol especially for embedded devices</li>
+<li>XMPP (eXtensible Messaging and Presence Protocol) is a communications protocol for message-oriented middleware based on XML (Extensible Markup Language).</li>
+</ul>
+<h1><span id="example">Example</span></h1>
+<p>There are a number of open source choices of messaging middleware systems (known as message broker software), including <strong>Apache ActiveMQ</strong>, Apache Kafka, Apache Qpid, <strong>Apache RocketMQ</strong>, Beanstalkd, Enduro/X, HTTPSQS[6], JBoss Messaging, JORAM, <strong>RabbitMQ</strong>, Sun Open Message Queue, and Tarantool.</p>
+<h3><span id="apache-activemq">Apache ActiveMQ</span></h3>
+<p>Apache ActiveMQ is a typical message-oriented middleware written in Java together with a full Java Message Service (JMS) client.</p>
+<p>It supports a relatively large number of transport protocols, including OpenWire, STOMP, MQTT, AMQP, REST, and WebSockets.</p>
+<h3><span id="rabbitmq">RabbitMQ</span></h3>
+<p>RabbitMQ is another open source message-oriented middleware that originally implemented the Advanced Message Queuing Protocol (AMQP) and has since been extended with a plug-in architecture to support Streaming Text Oriented Messaging Protocol (STOMP), Message Queuing Telemetry Transport (MQTT), and other protocols.</p>
+<h1><span id="reference">Reference</span></h1>
+<ul>
+<li>Chappell, D., 2004. <em>Enterprise service bus</em>. &quot; O’Reilly Media, Inc.&quot;. - Chapter 5</li>
+<li>Sun Java System Message Queue 4.3 Technical Overview - <a href="https://docs.oracle.com/cd/E19316-01/820-6424/aeraq/index.html" target="_blank" rel="noopener">https://docs.oracle.com/cd/E19316-01/820-6424/aeraq/index.html</a></li>
+<li><a href="https://stackoverflow.com/questions/2868800/what-is-an-mq-and-why-do-i-want-to-use-it" target="_blank" rel="noopener">https://stackoverflow.com/questions/2868800/what-is-an-mq-and-why-do-i-want-to-use-it</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Message_broker" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Message_broker</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Message-oriented_middleware" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Message-oriented_middleware</a></li>
+<li><a href="https://medium.com/@itmarketplace.net/why-messaging-based-architecture-14b1e22a3278" target="_blank" rel="noopener">https://medium.com/@itmarketplace.net/why-messaging-based-architecture-14b1e22a3278</a></li>
+</ul>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/en/2018/11/24/IoT-Node-js-MQTT-Demo/" data-toggle="tooltip" data-placement="top" title="[IoT] Node.js MQTT Demo">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/en/2018/11/15/Software-Engineering-Software-Testing/" data-toggle="tooltip" data-placement="top" title="[Software Engineering] Software Testing">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Message Oriented Middleware (MOM)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">Messaging System</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">MOM and ESB</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">Messaging Models: Pub/sub and P2P</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text">Message Transmission Direction</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">MON versus RPC</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">Remote Procedure Call (RPC)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.1.</span> <span class="toc-nav-text">Tightly Coupled Interfaces</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.2.</span> <span class="toc-nav-text">Loosely Coupled Interactions</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Asynchronous Message Reliability</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">Message Persistence</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">Message Acknowledgments</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Standards and protocols</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Example</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.0.1.</span> <span class="toc-nav-text">Apache ActiveMQ</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.0.2.</span> <span class="toc-nav-text">RabbitMQ</span></a></li></ol></li></ol><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Reference</span></a></li>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/en/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/en/tags/#Architecture" title="Architecture">Architecture</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://swsmile.info" target="_blank">My Chinese Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://swsmile.info/2018/11/24/Architecture-Message-Oriented-Middleware/";
+    var disqus_url = "http://swsmile.info/2018/11/24/Architecture-Message-Oriented-Middleware/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/swsmile666">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/swsmile">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/weishi1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wei Shi 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/en/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/en/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/en/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://swsmile.info/en/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-78769787-2';
+    var _gaDomain = 'en';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4481376a6b117446f0ad6f2b9b796afc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/en/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/en/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://swsmile.info/en/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

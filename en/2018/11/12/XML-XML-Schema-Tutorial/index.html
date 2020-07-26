@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/en/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          [XML] XML Schema Tutorial - Wei&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://swsmile.info/en/2018/11/12/XML-XML-Schema-Tutorial/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/en/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/en/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/en/css/highlight.css">
+
+    <link rel="stylesheet" href="/en/css/widget.css">
+
+    <link rel="stylesheet" href="/en/css/rocket.css">
+
+    <link rel="stylesheet" href="/en/css/signature.css">
+
+    <link rel="stylesheet" href="/en/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('../../../../img/tag-bg.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/en/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/en/tags/#XML" title="XML">XML</a>
+                            
+                        </div>
+                        <h1>[XML] XML Schema Tutorial</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Wei Shi on
+                            2018-11-12
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/en/">Wei&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/en/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/en/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/en/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/en/archive/">Archives</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="a-reference-to-an-xml-schema">A Reference to an XML Schema</span></h2>
+<p>This XML document has a reference to an XML Schema:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;note</span><br><span class="line">xmlns=&quot;https://www.w3schools.com&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;https://www.w3schools.com/xml/note.xsd&quot;&gt;</span><br><span class="line">  &lt;to&gt;Tove&lt;/to&gt;</span><br><span class="line">  &lt;from&gt;Jani&lt;/from&gt;</span><br><span class="line">  &lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">  &lt;body&gt;Don&apos;t forget me this weekend!&lt;/body&gt;</span><br><span class="line">&lt;/note&gt;</span><br></pre></td></tr></table></figure>
+<h1><span id="xsd-the-ltschemagt-element">XSD - The <code>&lt;schema&gt;</code> Element</span></h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">The `&lt;schema&gt;` element is the root element of every XML Schema.</span><br><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:schema&gt;</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+<p>The <code>&lt;schema&gt;</code> element may contain some attributes. A schema declaration often looks something like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</span><br><span class="line">targetNamespace=&quot;https://www.w3schools.com&quot;</span><br><span class="line">xmlns=&quot;https://www.w3schools.com&quot;</span><br><span class="line">elementFormDefault=&quot;qualified&quot;&gt;</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p>The following fragment:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</span><br></pre></td></tr></table></figure>
+<p>indicates that <strong>the elements and data types used</strong> in the schema come from the “<a href="http://www.w3.org/2001/XMLSchema" target="_blank" rel="noopener">http://www.w3.org/2001/XMLSchema</a>” namespace. It also specifies that the elements and data types that come from the “<a href="http://www.w3.org/2001/XMLSchema" target="_blank" rel="noopener">http://www.w3.org/2001/XMLSchema</a>” namespace should be prefixed with xs:</p>
+<hr>
+<p>This fragment:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">targetNamespace=&quot;https://www.w3schools.com&quot;</span><br></pre></td></tr></table></figure>
+<p>indicates that <strong>the elements defined by this schema</strong> (note, to, from, heading, body.) come from the “<a href="https://www.w3schools.com" target="_blank" rel="noopener">https://www.w3schools.com</a>” namespace.</p>
+<hr>
+<p>This fragment:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns=&quot;https://www.w3schools.com&quot;</span><br></pre></td></tr></table></figure>
+<p>indicates that the <strong>default namespace</strong> is “<a href="https://www.w3schools.com" target="_blank" rel="noopener">https://www.w3schools.com</a>”.</p>
+<h3><span id="referencing-a-schema-in-an-xml-document">Referencing a Schema in an XML Document</span></h3>
+<p>This XML document has a reference to an XML Schema:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;note xmlns=&quot;https://www.w3schools.com&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;https://www.w3schools.com note.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;to&gt;Tove&lt;/to&gt;</span><br><span class="line">&lt;from&gt;Jani&lt;/from&gt;</span><br><span class="line">&lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">&lt;body&gt;Don&apos;t forget me this weekend!&lt;/body&gt;</span><br><span class="line">&lt;/note&gt;</span><br></pre></td></tr></table></figure>
+<p>The following fragment:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns=&quot;https://www.w3schools.com&quot;</span><br></pre></td></tr></table></figure>
+<p>specifies the default namespace declaration. This declaration tells the schema-validator that all the elements used in this XML document are declared in the “<a href="https://www.w3schools.com" target="_blank" rel="noopener">https://www.w3schools.com</a>” namespace.</p>
+<p>Once you have the XML Schema Instance namespace available:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br></pre></td></tr></table></figure>
+<p>you can use the schemaLocation attribute. This attribute has two values, separated by a space. The first value is the namespace to use. The second value is the location of the XML schema to use for that namespace:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xsi:schemaLocation=&quot;https://www.w3schools.com note.xsd&quot;</span><br></pre></td></tr></table></figure>
+<h1><span id="xsd-simple-elements">XSD Simple Elements</span></h1>
+<h3><span id="defining-a-simple-element">Defining a Simple Element</span></h3>
+<p>The syntax for defining a simple element is:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;xxx&quot; type=&quot;yyy&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>where xxx is the name of the element and yyy is the data type of the element.</p>
+<p>XML Schema has a lot of built-in data types. The most common types are:</p>
+<ul>
+<li>xs:string</li>
+<li>xs:decimal</li>
+<li>xs:integer</li>
+<li>xs:boolean</li>
+<li>xs:date</li>
+<li>xs:time</li>
+</ul>
+<h5><span id="example">Example</span></h5>
+<p>Here are some XML elements:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;lastname&gt;Refsnes&lt;/lastname&gt;</span><br><span class="line">&lt;age&gt;36&lt;/age&gt;</span><br><span class="line">&lt;dateborn&gt;1970-03-27&lt;/dateborn&gt;</span><br></pre></td></tr></table></figure>
+<p>And here are the corresponding simple element definitions:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;age&quot; type=&quot;xs:integer&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;dateborn&quot; type=&quot;xs:date&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="default-and-fixed-values-for-simple-elements">Default and Fixed Values for Simple Elements</span></h3>
+<p>Simple elements may have a <strong>default value</strong> OR a <strong>fixed value specified</strong>.</p>
+<p><strong>A default value is automatically assigned to the element when no other value is specified.</strong></p>
+<p>In the following example the default value is “red”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;color&quot; type=&quot;xs:string&quot; default=&quot;red&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>A fixed value is also automatically assigned to the element, and you cannot specify another value.</strong></p>
+<p>In the following example the fixed value is “red”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;color&quot; type=&quot;xs:string&quot; fixed=&quot;red&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h1><span id="xsd-attributes">XSD Attributes</span></h1>
+<h3><span id="what-is-an-attribute">What is an Attribute?</span></h3>
+<p>Simple elements cannot have attributes. If an element has attributes, it is considered to be of a complex type. But the attribute itself is always declared as a simple type.</p>
+<h3><span id="how-to-define-an-attribute">How to Define an Attribute?</span></h3>
+<p>The syntax for defining an attribute is:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;xxx&quot; type=&quot;yyy&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>where xxx is the name of the attribute and yyy specifies the data type of the attribute.</p>
+<p>XML Schema has a lot of <strong>built-in data types</strong>. The most common types are:</p>
+<ul>
+<li>xs:string</li>
+<li>xs:decimal</li>
+<li>xs:integer</li>
+<li>xs:boolean</li>
+<li>xs:date</li>
+<li>xs:time</li>
+</ul>
+<h5><span id="example">Example</span></h5>
+<p>Here is an XML element with an attribute:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;lastname lang=&quot;EN&quot;&gt;Smith&lt;/lastname&gt;</span><br></pre></td></tr></table></figure>
+<p>And here is the corresponding attribute definition:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="default-and-fixed-values-for-attributes">Default and Fixed Values for Attributes</span></h3>
+<p>Attributes may have a default value OR a fixed value specified.</p>
+<h5><span id="a-default-value-is-automatically-assigned-to-the-attribute-when-no-other-value-is-specified">A default value is automatically assigned to the attribute when no other value is specified.</span></h5>
+<p>In the following example the default value is “EN”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; default=&quot;EN&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>A fixed value is also automatically assigned to the attribute, and you cannot specify another value.</strong></p>
+<p>In the following example the fixed value is “EN”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; fixed=&quot;EN&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="optional-and-required-attributes">Optional and Required Attributes</span></h3>
+<p><strong>Attributes are optional by default</strong>. To specify that <strong>the attribute is required</strong>, use the “use” attribute:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; use=&quot;required&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<h5><span id="restrictions-on-content">Restrictions on Content</span></h5>
+<p>When an XML element or attribute has a data type defined, it puts restrictions on the element’s or attribute’s content.</p>
+<p>If an XML element is of type “xs:date” and contains a string like “Hello World”, the element will not validate.</p>
+<h1><span id="xsd-restrictionsfacets">XSD Restrictions/Facets</span></h1>
+<h3><span id="restrictions-on-values">Restrictions on Values</span></h3>
+<p>The following example defines an element called “age” with a restriction. <strong>The value of age cannot be lower than 0 or greater than 120</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;age&quot;&gt;</span><br><span class="line">  &lt;xs:simpleType&gt;</span><br><span class="line">    &lt;xs:restriction base=&quot;xs:integer&quot;&gt;</span><br><span class="line">      &lt;xs:minInclusive value=&quot;0&quot;/&gt;</span><br><span class="line">      &lt;xs:maxInclusive value=&quot;120&quot;/&gt;</span><br><span class="line">    &lt;/xs:restriction&gt;</span><br><span class="line">  &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="restrictions-on-a-set-of-values">Restrictions on a Set of Values</span></h3>
+<p>To limit the content of an XML element to a set of acceptable values, we would use the enumeration constraint.</p>
+<p>The example below defines an element called “car” with a restriction. The only acceptable values are: Audi, Golf, BMW:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;car&quot;&gt;</span><br><span class="line">  &lt;xs:simpleType&gt;</span><br><span class="line">    &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">      &lt;xs:enumeration value=&quot;Audi&quot;/&gt;</span><br><span class="line">      &lt;xs:enumeration value=&quot;Golf&quot;/&gt;</span><br><span class="line">      &lt;xs:enumeration value=&quot;BMW&quot;/&gt;</span><br><span class="line">    &lt;/xs:restriction&gt;</span><br><span class="line">  &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>The example above could also have been written like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;car&quot; type=&quot;carType&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:simpleType name=&quot;carType&quot;&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Audi&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Golf&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;BMW&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="restrictions-on-a-series-of-values">Restrictions on a Series of Values</span></h3>
+<p>To limit the content of an XML element to define a series of numbers or letters that can be used, we would use the pattern constraint.</p>
+<p>The example below defines an element called “letter” with a restriction. The only acceptable value is ONE of the LOWERCASE letters from a to z:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot;&gt;</span><br><span class="line">  &lt;xs:simpleType&gt;</span><br><span class="line">    &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">      &lt;xs:pattern value=&quot;[a-z]&quot;/&gt;</span><br><span class="line">    &lt;/xs:restriction&gt;</span><br><span class="line">  &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="restrictions-on-length">Restrictions on Length</span></h3>
+<p>To limit the length of a value in an element, we would use the length, maxLength, and minLength constraints.</p>
+<p>This example defines an element called “password” with a restriction. The value must be exactly eight characters:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;password&quot;&gt;</span><br><span class="line">  &lt;xs:simpleType&gt;</span><br><span class="line">    &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">      &lt;xs:length value=&quot;8&quot;/&gt;</span><br><span class="line">    &lt;/xs:restriction&gt;</span><br><span class="line">  &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>This example defines another element called “password” with a restriction. The value must be minimum five characters and maximum eight characters:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;password&quot;&gt;</span><br><span class="line">  &lt;xs:simpleType&gt;</span><br><span class="line">    &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">      &lt;xs:minLength value=&quot;5&quot;/&gt;</span><br><span class="line">      &lt;xs:maxLength value=&quot;8&quot;/&gt;</span><br><span class="line">    &lt;/xs:restriction&gt;</span><br><span class="line">  &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h1><span id="xsd-complex-elements">XSD Complex Elements</span></h1>
+<h3><span id="what-is-a-complex-element">What is a Complex Element?</span></h3>
+<p>A complex element is an XML element that contains other elements and/or attributes.</p>
+<p><strong>There are four kinds of complex elements:</strong></p>
+<ul>
+<li>empty elements</li>
+<li>elements that contain only other elements</li>
+<li>elements that contain only text</li>
+<li>elements that contain both other elements and text</li>
+</ul>
+<p><strong>Note: Each of these elements may contain attributes as well!</strong></p>
+<h3><span id="how-to-define-a-complex-element">How to Define a Complex Element</span></h3>
+<p>Look at this complex XML element, “employee”, which contains only other elements:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;employee&gt;</span><br><span class="line">  &lt;firstname&gt;John&lt;/firstname&gt;</span><br><span class="line">  &lt;lastname&gt;Smith&lt;/lastname&gt;</span><br><span class="line">&lt;/employee&gt;</span><br></pre></td></tr></table></figure>
+<p>We can define a complex element in an XML Schema two different ways:</p>
+<h5><span id="1-the-employee-element-can-be-declared-directly-by-naming-the-element-like-this">1. The “employee” element can be declared directly by naming the element, like this:</span></h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;employee&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>If you use the method described above, only the “employee” element can use the specified complex type. Note that the child elements, “firstname” and “lastname”, are surrounded by the <code>&lt;sequence&gt;</code> indicator. This means that the child elements must appear <strong>in the same order as they are declared</strong>.</p>
+<h5><span id="2-the-employee-element-can-have-a-type-attribute-that-refers-to-the-name-of-the-complex-type-to-use">2. The “employee” element can have a type attribute that refers to the name of the complex type to use:</span></h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;employee&quot; type=&quot;personinfo&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;personinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;s</span><br></pre></td></tr></table></figure>
+<h3><span id="complex-text-only-elements">Complex Text-Only Elements</span></h3>
+<p>This type contains only simple content (text and attributes), therefore we add a simpleContent element around the content. <strong>When using simple content, you must define an extension OR a restriction within the simpleContent element</strong>, like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;somename&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:extension base=&quot;basetype&quot;&gt;</span><br><span class="line">        ....</span><br><span class="line">        ....</span><br><span class="line">      &lt;/xs:extension&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br><span class="line"></span><br><span class="line">OR</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;somename&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:restriction base=&quot;basetype&quot;&gt;</span><br><span class="line">        ....</span><br><span class="line">        ....</span><br><span class="line">      &lt;/xs:restriction&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h5><span id="tip-use-the-extensionrestriction-element-to-expand-or-to-limit-the-base-simple-type-for-the-element">Tip: Use the extension/restriction element to expand or to limit the base simple type for the element.</span></h5>
+<p>Here is an example of an XML element, “shoesize”, that contains text-only:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;shoesize country=&quot;france&quot;&gt;35&lt;/shoesize&gt;</span><br></pre></td></tr></table></figure>
+<p>The following example declares a complexType, “shoesize”. The content is defined as an integer value, and the “shoesize” element also contains an attribute named “country”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;shoesize&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:extension base=&quot;xs:integer&quot;&gt;</span><br><span class="line">        &lt;xs:attribute name=&quot;country&quot; type=&quot;xs:string&quot; /&gt;</span><br><span class="line">      &lt;/xs:extension&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h1><span id="xsd-mixed-content">XSD Mixed Content</span></h1>
+<p>A mixed complex type element can contain attributes, elements, and text.</p>
+<p>Complex Types with Mixed Content<br>
+An XML element, “letter”, that contains both text and other elements:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;letter&gt;</span><br><span class="line">  Dear Mr.&lt;name&gt;John Smith&lt;/name&gt;.</span><br><span class="line">  Your order &lt;orderid&gt;1032&lt;/orderid&gt;</span><br><span class="line">  will be shipped on &lt;shipdate&gt;2001-07-13&lt;/shipdate&gt;.</span><br><span class="line">&lt;/letter&gt;</span><br></pre></td></tr></table></figure>
+<p>The following schema declares the “letter” element:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot;&gt;</span><br><span class="line">  &lt;xs:complexType mixed=&quot;true&quot;&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;orderid&quot; type=&quot;xs:positiveInteger&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;shipdate&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>Complex Types with Mixed Content<br>
+An XML element, “letter”, that contains both text and other elements:</p>
+<letter>
+  Dear Mr.<name>John Smith</name>.
+  Your order <orderid>1032</orderid>
+  will be shipped on <shipdate>2001-07-13</shipdate>.
+</letter>
+The following schema declares the "letter" element:
+<p>&lt;xs:element name=“letter”&gt;<br>
+&lt;xs:complexType mixed=“true”&gt;<br>
+&lt;xs:sequence&gt;<br>
+&lt;xs:element name=“name” type=“xs:string”/&gt;<br>
+&lt;xs:element name=“orderid” type=“xs:positiveInteger”/&gt;<br>
+&lt;xs:element name=“shipdate” type=“xs:date”/&gt;<br>
+&lt;/xs:sequence&gt;<br>
+&lt;/xs:complexType&gt;<br>
+&lt;/xs:element&gt;</p>
+<h1><span id="xsd-indicators">XSD Indicators</span></h1>
+<h3><span id="indicators">Indicators</span></h3>
+<h5><span id="there-are-seven-indicators">There are seven indicators:</span></h5>
+<p>Order indicators:</p>
+<ul>
+<li>All</li>
+<li>Choice</li>
+<li>Sequence</li>
+</ul>
+<p>Occurrence indicators:</p>
+<ul>
+<li>maxOccurs</li>
+<li>minOccurs</li>
+</ul>
+<p>Group indicators:</p>
+<ul>
+<li>Group name</li>
+<li>attributeGroup name</li>
+</ul>
+<h2><span id="order-indicators">Order Indicators</span></h2>
+<p>**Order indicators are used to define the order of the elements.<br>
+**</p>
+<h3><span id="all-indicator">All Indicator</span></h3>
+<p>The <code>&lt;all&gt;</code> indicator specifies that <strong>the child elements can appear in any order,</strong> and that <strong>each child element must occur only once</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:all&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:all&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Note: When using the <code>&lt;all&gt;</code> indicator you can set the <code>&lt;minOccurs&gt;</code> indicator to 0 or 1 and the <code>&lt;maxOccurs&gt;</code> indicator can only be set to 1 (the <code>&lt;minOccurs&gt;</code> and <code>&lt;maxOccurs&gt;</code> are described later).</strong></p>
+<h3><span id="choice-indicator">Choice Indicator</span></h3>
+<p>The <code>&lt;choice&gt;</code> indicator specifies that <strong>either one child element or another can occur</strong>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:choice&gt;</span><br><span class="line">      &lt;xs:element name=&quot;employee&quot; type=&quot;employee&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;member&quot; type=&quot;member&quot;/&gt;</span><br><span class="line">    &lt;/xs:choice&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h3><span id="sequence-indicator">Sequence Indicator</span></h3>
+<p>The <code>&lt;sequence&gt;</code> indicator specifies that the child elements must** appear in a specific order**:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">   &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h2><span id="occurrence-indicators">Occurrence Indicators</span></h2>
+<p><strong>Occurrence indicators are used to define how often an element can occur.</strong></p>
+<p>**Note: **For all “Order” and “Group” indicators (any, all, choice, sequence, group name, and group reference) the default value for maxOccurs and minOccurs is 1.</p>
+<h3><span id="maxoccurs-indicator">maxOccurs Indicator</span></h3>
+<p>**The <code>&lt;maxOccurs&gt;</code> indicator specifies the maximum number of times an element can occur:<br>
+**</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;full_name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;child_name&quot; type=&quot;xs:string&quot; maxOccurs=&quot;10&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>The example above indicates that the “child_name” element can occur a minimum of one time (the default value for minOccurs is 1) and a maximum of ten times in the “person” element.</p>
+<h3><span id="minoccurs-indicator">minOccurs Indicator</span></h3>
+<h5><span id="the-ltminoccursgt-indicator-specifies-the-minimum-number-of-times-an-element-can-occur">The <code>&lt;minOccurs&gt;</code> indicator specifies the minimum number of times an element can occur:</span></h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;full_name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;child_name&quot; type=&quot;xs:string&quot;</span><br><span class="line">      maxOccurs=&quot;10&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>The example above indicates that the “child_name” element can occur a minimum of zero times and a maximum of ten times in the “person” element.</p>
+<p>Tip: To allow an element to appear an unlimited number of times, use the maxOccurs=“unbounded” statement:</p>
+<h3><span id="group-indicators">Group Indicators</span></h3>
+<p>Group indicators are used to define related sets of elements.</p>
+<h4><span id="element-groups">Element Groups</span></h4>
+<p>Element groups are defined with the group declaration, like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:group name=&quot;groupname&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/xs:group&gt;</span><br></pre></td></tr></table></figure>
+<p>You must define an all, choice, or sequence element inside the group declaration. The following example defines a group named “persongroup”, that defines a group of elements that must occur in an exact sequence:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:group name=&quot;persongroup&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:group&gt;</span><br></pre></td></tr></table></figure>
+<p>After you have defined a group, you can reference it in another definition, like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:group name=&quot;persongroup&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:group&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;person&quot; type=&quot;personinfo&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;personinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:group ref=&quot;persongroup&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;country&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<h4><span id="attribute-groups">Attribute Groups</span></h4>
+<p>Attribute groups are defined with the attributeGroup declaration, like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attributeGroup name=&quot;groupname&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/xs:attributeGroup&gt;</span><br></pre></td></tr></table></figure>
+<p>The following example defines an attribute group named “personattrgroup”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attributeGroup name=&quot;personattrgroup&quot;&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">&lt;/xs:attributeGroup&gt;</span><br></pre></td></tr></table></figure>
+<p>After you have defined an attribute group, you can reference it in another definition, like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attributeGroup name=&quot;personattrgroup&quot;&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">&lt;/xs:attributeGroup&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:attributeGroup ref=&quot;personattrgroup&quot;/&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h1><span id="xsd-the-ltanygt-element">XSD The <code>&lt;any&gt;</code> Element</span></h1>
+<p>The <code>&lt;any&gt;</code> element enables us to extend the XML document with elements not specified by the schema!</p>
+<h3><span id="the-ltanygt-element">The <code>&lt;any&gt;</code> Element</span></h3>
+<p>The <code>&lt;any&gt;</code> element enables us to extend the XML document with elements not specified by the schema.</p>
+<p>The following example is a fragment from an XML schema called “family.xsd”. It shows a declaration for the “person” element. By using the <code>&lt;any&gt;</code> element we can extend (after <code>&lt;lastname&gt;</code>) the content of “person” with any element:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:any minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>Now we want to extend the “person” element with a “children” element. In this case we can do so, even if the author of the schema above never declared any “children” element.</p>
+<p>Look at this schema file, called “children.xsd”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</span><br><span class="line">targetNamespace=&quot;https://www.w3schools.com&quot;</span><br><span class="line">xmlns=&quot;https://www.w3schools.com&quot;</span><br><span class="line">elementFormDefault=&quot;qualified&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;children&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;childname&quot; type=&quot;xs:string&quot;</span><br><span class="line">      maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br><span class="line"></span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+<p>The XML file below (called “Myfamily.xml”), uses components from two different schemas; “family.xsd” and “children.xsd”:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line"></span><br><span class="line">&lt;persons xmlns=&quot;http://www.microsoft.com&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://www.microsoft.com family.xsd</span><br><span class="line">https://www.w3schools.com children.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;person&gt;</span><br><span class="line">  &lt;firstname&gt;Hege&lt;/firstname&gt;</span><br><span class="line">  &lt;lastname&gt;Refsnes&lt;/lastname&gt;</span><br><span class="line">  &lt;children&gt;</span><br><span class="line">    &lt;childname&gt;Cecilie&lt;/childname&gt;</span><br><span class="line">  &lt;/children&gt;</span><br><span class="line">&lt;/person&gt;</span><br><span class="line"></span><br><span class="line">&lt;person&gt;</span><br><span class="line">  &lt;firstname&gt;Stale&lt;/firstname&gt;</span><br><span class="line">  &lt;lastname&gt;Refsnes&lt;/lastname&gt;</span><br><span class="line">&lt;/person&gt;</span><br><span class="line"></span><br><span class="line">&lt;/persons&gt;</span><br></pre></td></tr></table></figure>
+<p>The XML file above is valid because the schema “family.xsd” allows us to extend the “person” element with an optional element after the “lastname” element.</p>
+<p>The <code>&lt;any&gt;</code> and <code>&lt;anyAttribute&gt;</code> elements are used to make EXTENSIBLE documents! They allow documents to contain additional elements that are not declared in the main XML schema.</p>
+<h1><span id="reference">Reference</span></h1>
+<p><a href="https://www.w3schools.com/xml/schema_schema.asp" target="_blank" rel="noopener">https://www.w3schools.com/xml/schema_schema.asp</a></p>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/en/2018/11/12/Database-Relationship-between-Tables/" data-toggle="tooltip" data-placement="top" title="[Database] Relationship between Tables">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/en/2018/11/12/XQuery-XQuery-Tutorial/" data-toggle="tooltip" data-placement="top" title="[XQuery] XQuery Tutorial">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">A Reference to an XML Schema</span></a></li></ol><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD - The &lt;schema&gt; Element</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.</span> <span class="toc-nav-text">Referencing a Schema in an XML Document</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD Simple Elements</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.</span> <span class="toc-nav-text">Defining a Simple Element</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.0.1.</span> <span class="toc-nav-text">Example</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.2.</span> <span class="toc-nav-text">Default and Fixed Values for Simple Elements</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD Attributes</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.</span> <span class="toc-nav-text">What is an Attribute?</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.2.</span> <span class="toc-nav-text">How to Define an Attribute?</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.2.0.1.</span> <span class="toc-nav-text">Example</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.3.</span> <span class="toc-nav-text">Default and Fixed Values for Attributes</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.3.0.1.</span> <span class="toc-nav-text">A default value is automatically assigned to the attribute when no other value is specified.</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.4.</span> <span class="toc-nav-text">Optional and Required Attributes</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.4.0.1.</span> <span class="toc-nav-text">Restrictions on Content</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD Restrictions/Facets</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.</span> <span class="toc-nav-text">Restrictions on Values</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.2.</span> <span class="toc-nav-text">Restrictions on a Set of Values</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.3.</span> <span class="toc-nav-text">Restrictions on a Series of Values</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.4.</span> <span class="toc-nav-text">Restrictions on Length</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD Complex Elements</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.</span> <span class="toc-nav-text">What is a Complex Element?</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.2.</span> <span class="toc-nav-text">How to Define a Complex Element</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.2.0.1.</span> <span class="toc-nav-text">1. The “employee” element can be declared directly by naming the element, like this:</span></a></li><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.2.0.2.</span> <span class="toc-nav-text">2. The “employee” element can have a type attribute that refers to the name of the complex type to use:</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.3.</span> <span class="toc-nav-text">Complex Text-Only Elements</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.3.0.1.</span> <span class="toc-nav-text">Tip: Use the extension/restriction element to expand or to limit the base simple type for the element.</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD Mixed Content</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD Indicators</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.</span> <span class="toc-nav-text">Indicators</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.0.1.</span> <span class="toc-nav-text">There are seven indicators:</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Order Indicators</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text">All Indicator</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text">Choice Indicator</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text">Sequence Indicator</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Occurrence Indicators</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text">maxOccurs Indicator</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text">minOccurs Indicator</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-5"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.0.1.</span> <span class="toc-nav-text">The &lt;minOccurs&gt; indicator specifies the minimum number of times an element can occur:</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.</span> <span class="toc-nav-text">Group Indicators</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.1.</span> <span class="toc-nav-text">Element Groups</span></a></li><li class="toc-nav-item toc-nav-level-4"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.3.2.</span> <span class="toc-nav-text">Attribute Groups</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">XSD The &lt;any&gt; Element</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">0.1.</span> <span class="toc-nav-text">The &lt;any&gt; Element</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number"></span> <span class="toc-nav-text">Reference</span></a>
+        
+        </li></div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/en/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/en/tags/#XML" title="XML">XML</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://swsmile.info" target="_blank">My Chinese Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://swsmile.info/2018/11/12/XML-XML-Schema-Tutorial/";
+    var disqus_url = "http://swsmile.info/2018/11/12/XML-XML-Schema-Tutorial/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/swsmile666">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/swsmile">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/weishi1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wei Shi 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/en/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/en/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/en/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://swsmile.info/en/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-78769787-2';
+    var _gaDomain = 'en';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4481376a6b117446f0ad6f2b9b796afc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/en/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/en/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://swsmile.info/en/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
