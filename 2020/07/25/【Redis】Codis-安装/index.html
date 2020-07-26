@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【Redis】Codis 安装 | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Prerequisition安装Go安装Java安装Zookeeper">
+  <meta name="description" content="Prerequisition安装Go12$ echo &amp;quot;export GOPATH=/home/parallels/go&amp;quot; &amp;gt; .zshrc$ echo &amp;quot;export GOROOT=/usr/lib/go-1.14&amp;quot; &amp;gt; .zshrc  安装Java安装Zookeeper安装 autoconf1$ sudo apt-get install">
 <meta name="keywords" content="Cache System,Redis,Codis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Redis】Codis 安装">
 <meta property="og:url" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="Prerequisition安装Go安装Java安装Zookeeper">
+<meta property="og:description" content="Prerequisition安装Go12$ echo &amp;quot;export GOPATH=/home/parallels/go&amp;quot; &amp;gt; .zshrc$ echo &amp;quot;export GOROOT=/usr/lib/go-1.14&amp;quot; &amp;gt; .zshrc  安装Java安装Zookeeper安装 autoconf1$ sudo apt-get install">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-25T10:42:01.838Z">
+<meta property="og:updated_time" content="2020-07-25T16:02:06.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Redis】Codis 安装">
-<meta name="twitter:description" content="Prerequisition安装Go安装Java安装Zookeeper">
+<meta name="twitter:description" content="Prerequisition安装Go12$ echo &amp;quot;export GOPATH=/home/parallels/go&amp;quot; &amp;gt; .zshrc$ echo &amp;quot;export GOROOT=/usr/lib/go-1.14&amp;quot; &amp;gt; .zshrc  安装Java安装Zookeeper安装 autoconf1$ sudo apt-get install">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -212,7 +212,20 @@ var _hmt = _hmt || [];
       
         <a id="more"></a> 
 
-<h1 id="Prerequisition"><a href="#Prerequisition" class="headerlink" title="Prerequisition"></a>Prerequisition</h1><h2 id="安装Go"><a href="#安装Go" class="headerlink" title="安装Go"></a>安装Go</h2><h2 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h2><h2 id="安装Zookeeper"><a href="#安装Zookeeper" class="headerlink" title="安装Zookeeper"></a>安装Zookeeper</h2>
+<h1 id="Prerequisition"><a href="#Prerequisition" class="headerlink" title="Prerequisition"></a>Prerequisition</h1><h2 id="安装Go"><a href="#安装Go" class="headerlink" title="安装Go"></a>安装Go</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;export GOPATH=/home/parallels/go&quot; &gt; .zshrc</span><br><span class="line">$ echo &quot;export GOROOT=/usr/lib/go-1.14&quot; &gt; .zshrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h2><h2 id="安装Zookeeper"><a href="#安装Zookeeper" class="headerlink" title="安装Zookeeper"></a>安装Zookeeper</h2><h2 id="安装-autoconf"><a href="#安装-autoconf" class="headerlink" title="安装 autoconf"></a>安装 autoconf</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install autoconf</span><br></pre></td></tr></table></figure>
+
+<h1 id="手动编译"><a href="#手动编译" class="headerlink" title="手动编译"></a>手动编译</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p <span class="variable">$GOPATH</span>/src/github.com/CodisLabs</span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$_</span> &amp;&amp; git <span class="built_in">clone</span> https://github.com/CodisLabs/codis.git -b release3.2</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"export PATH=<span class="variable">$GOPATH</span>/src/github.com/CodisLabs/codis/bin:<span class="variable">$PATH</span>"</span> &gt; ~/.zshrc</span><br><span class="line">$ sudo make</span><br></pre></td></tr></table></figure>
+
+<h1 id="Binary"><a href="#Binary" class="headerlink" title="Binary"></a>Binary</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -OL https://github.com/CodisLabs/codis/releases/download/3.2.2/codis3.2.2-go1.8.5-linux.zip</span><br><span class="line">$ unzip codis3.2.2-go1.8.5-linux.zip</span><br><span class="line">$ <span class="built_in">cd</span> codis3.2.2-go1.8.5-linux</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-dashboard</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://github.com/CodisLabs/codis/blob/release3.2/doc/tutorial_zh.md" target="_blank" rel="noopener">https://github.com/CodisLabs/codis/blob/release3.2/doc/tutorial_zh.md</a></li>
+</ul>
+
       
 
       
@@ -450,15 +463,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -510,15 +523,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,15 +559,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -630,11 +643,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,11 +675,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,11 +691,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -698,11 +711,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,15 +755,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>
