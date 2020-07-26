@@ -191,6 +191,94 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【OpenWrt】小米路由器mini刷OpenWRT" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/30/【OpenWrt】小米路由器mini刷OpenWRT/">【OpenWrt】小米路由器mini刷OpenWRT</a>
+    </h1>
+  
+
+        
+        <a href="/2019/01/30/【OpenWrt】小米路由器mini刷OpenWRT/" class="archive-article-date">
+  	<time datetime="2019-01-30T07:41:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="刷小米官方开发版ROM"><a href="#刷小米官方开发版ROM" class="headerlink" title="刷小米官方开发版ROM"></a>刷小米官方开发版ROM</h1><p>从<a href="http://www.miwifi.com/miwifi_download.html" target="_blank" rel="noopener">http://www.miwifi.com/miwifi_download.html</a> ，下载并刷入小米官方开发版ROM。</p>
+<h1 id="刷SSH以获得root权限"><a href="#刷SSH以获得root权限" class="headerlink" title="刷SSH以获得root权限"></a>刷SSH以获得root权限</h1><p>刷入小米官方开发版ROM（miwifi_r1cm_firmware_2e9b9_2.21.109.bin）后，获取SSH权限（期间需要下载一个miwifi_ssh.bin工具包，并通过U盘写入路由器）。</p>
+<h1 id="刷OpenWrt"><a href="#刷OpenWrt" class="headerlink" title="刷OpenWrt"></a>刷OpenWrt</h1><h2 id="下载OpenWrt"><a href="#下载OpenWrt" class="headerlink" title="下载OpenWrt"></a>下载OpenWrt</h2><p>从downloads.openwrt.org，下载最新的OpenWrt ROM，当前（2019.1.29）最新的OpenWrt版本为18.06.1。</p>
+<p>下载地址：<a href="https://downloads.openwrt.org/releases/18.06.1/targets/ramips/mt7620/openwrt-18.06.1-ramips-mt7620-miwifi-mini-squashfs-sysupgrade.bin。" target="_blank" rel="noopener">https://downloads.openwrt.org/releases/18.06.1/targets/ramips/mt7620/openwrt-18.06.1-ramips-mt7620-miwifi-mini-squashfs-sysupgrade.bin。</a></p>
+<h2 id="scp-以将-bin到路由器"><a href="#scp-以将-bin到路由器" class="headerlink" title="scp 以将.bin到路由器"></a>scp 以将.bin到路由器</h2><h2 id="刷入镜像"><a href="#刷入镜像" class="headerlink" title="刷入镜像"></a>刷入镜像</h2><p>使用 <code>mtd</code> 刷入镜像</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mtd -r write /tmp/openwrt|pandorabox|lede.bin firmware</span><br></pre></td></tr></table></figure>
+
+<p>如遇以下报错，改 <code>firmware</code> 为 <code>OS1</code> 即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Could not open mtd device: firmware</span><br><span class="line">Can&apos;t open device for writing!</span><br></pre></td></tr></table></figure>
+
+<p>到这里，等待刷入镜像，路由器自动重启，过一会才能登录。</p>
+<p><strong>注意！！！当系统安装完成后， LEDE 的指示灯是红色的，我在刷完之后，以为路由器显示红色指示灯，是因为成砖了，折腾了半天（事实上已经OpenWrt安装完成了）</strong></p>
+<p><strong>而且刷完系统默认不开启无线网络，需要用网线连接到 LAN 口。</strong></p>
+<p>总结一句，千万注意刷完后，别管路由器的灯。而直接用网线将PC与路由器相连。</p>
+        
+          <a class="article-more-a" href="/2019/01/30/【OpenWrt】小米路由器mini刷OpenWRT/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OpenWrt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/OpenWrt/" class="article-tag-list-link color3">OpenWrt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/01/30/【OpenWrt】小米路由器mini刷OpenWRT/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Network】高性能网络编程-C10K问题与高性能网络编程入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -756,81 +844,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Distributed-System】分布式事务-三阶段提交" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/09/【Distributed-System】分布式事务-三阶段提交/">【Distributed System】分布式事务 - 三阶段提交</a>
-    </h1>
-  
-
-        
-        <a href="/2019/01/09/【Distributed-System】分布式事务-三阶段提交/" class="archive-article-date">
-  	<time datetime="2019-01-09T08:04:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="三阶段提交（Three-phase-Commit）"><a href="#三阶段提交（Three-phase-Commit）" class="headerlink" title="三阶段提交（Three-phase Commit）"></a>三阶段提交（Three-phase Commit）</h1><p>由于二阶段提交存在着诸如同步阻塞、单点问题、数据不一致等缺陷。所以，研究者们在二阶段提交的基础上做了改进，提出了三阶段提交。</p>
-        
-          <a class="article-more-a" href="/2019/01/09/【Distributed-System】分布式事务-三阶段提交/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/09/【Distributed-System】分布式事务-三阶段提交/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/59/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/58/">58</a><a class="page-number" href="/page/59/">59</a><span class="page-number current">60</span><a class="page-number" href="/page/61/">61</a><a class="page-number" href="/page/62/">62</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/61/">Next &raquo;</a>
@@ -937,15 +950,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -997,15 +1010,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1037,11 +1050,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1049,7 +1058,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1069,11 +1082,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1081,7 +1094,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1149,11 +1162,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1169,11 +1182,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1181,15 +1194,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1197,11 +1206,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1213,15 +1226,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1237,7 +1246,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1246,6 +1255,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>

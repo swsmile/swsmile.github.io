@@ -22,8 +22,9 @@
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/5cd1d22b37597.jpg">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/5cd1d22ba62d5.jpg">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/architecture-20200725235134004.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/435188-20180412214429759-1005871251.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/27612-20170625122232991-2069801308-20200725234555675.png">
-<meta property="og:updated_time" content="2020-07-26T10:40:45.550Z">
+<meta property="og:updated_time" content="2020-07-26T10:53:17.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Microservices】常见服务注册&#x2F;发现实现框架">
 <meta name="twitter:description" content="EurekaEureka是在Java语言上，基于Restful Api开发的服务注册与发现组件，由Netflix开源。遗憾的是，目前Eureka仅开源到1.X版本，2.X版本已经宣布闭源。">
@@ -399,6 +400,8 @@ var _hmt = _hmt || [];
 <p>官方推荐 Zookeeper。</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/architecture-20200725235134004.png" alt="home"></p>
 <p>在Dubbo架构图中，可以看到注册中心（Registry）位于顶端，所有的服务治理相关的操作都围绕它进行。服务提供者（Provider）注册到注册中心，服务消费者（Comsumer）到注册中心订阅，同时，注册中心中的变更也会通知服务消费者。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/435188-20180412214429759-1005871251.png" alt="img"></p>
+<p>面对服务消费方，当业务逻辑中需要调用一个服务时，真正调用的其实是 Dubbo 创建的一个 Proxy，该 Proxy 会把调用转化成调用指定的 Invoker（Cluster 将 Directory 中的多个 Invoker 伪装成一个 Invoker，对上层透明，伪装过程包含了容错逻辑，调用失败后，重试另一个（通过 LoadBalance），Invoker 封装了 Provider 地址及 Service 接口信息）。而在这一系列的委托调用的过程里就完成了服务治理的逻辑，最终完成调用。</p>
 <h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>目前，SpringCloud可以说是最流行的微服务架构，SpingCloud整个体系功能完备，与Spring框架完美契合，开箱即用，极大降低了落地微服务架构的开发成本。在SpringCloud中，也是支持多种注册中心的：</p>
 <ul>
 <li>Spring Cloud Netflix Eureka</li>
@@ -521,6 +524,15 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
+    <a href="/2020/07/26/【Microservices】服务调用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【Microservices】服务调用
+        
+      </div>
+    </a>
+  
   
     <a href="/2020/07/26/【VPN】Terminal-运行-Cisco-AnyConnect-VPN/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">【VPN】Terminal 运行 Cisco AnyConnect VPN</div>
@@ -640,15 +652,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -700,15 +712,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -740,11 +752,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -752,7 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,11 +784,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,7 +796,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -852,11 +864,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -872,11 +884,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -884,15 +896,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -900,11 +908,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -916,15 +928,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -940,7 +948,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -949,6 +957,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>
