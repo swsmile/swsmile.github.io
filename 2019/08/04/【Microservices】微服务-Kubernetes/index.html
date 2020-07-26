@@ -6,27 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Distributed System】微服务（Microservice Architecture） | 西维蜀黍 的博客</title>
+  <title>【Distributed System】微服务 - Kubernetes 初步 | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="传统的Web开发方式先来看看传统的web开发方式，通过对比比较容易理解什么是Microservice Architecture。和Microservice相对应的，这种方式一般被称为Monolithic（比较难传神的翻译）。所有的功能打包在一个 WAR包里，基本没有外部依赖（除了容器），部署在一个JEE容器（Tomcat，JBoss，WebLogic）里，包含了 DO/DAO，Service，UI">
-<meta name="keywords" content="Distributed System">
+  <meta name="description" content="KubernetesKubernetes 是 Google 团队发起并维护的基于 Docker 的开源容器集群管理系统，它不仅支持常见的云平台，而且支持内部数据中心。 建于 Docker 之上的 Kubernetes 可以构建一个容器的调度服务，其目的是让用户透过 Kubernetes 集群来进行云端容器集群的管理，而无需用户进行复杂的设置工作。系统会自动选取合适的工作节点来执行具体的容器集群调度">
+<meta name="keywords" content="Microservices">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Distributed System】微服务（Microservice Architecture）">
-<meta property="og:url" content="http://swsmile.info/2019/07/31/【Distributed-System】微服务/index.html">
+<meta property="og:title" content="【Distributed System】微服务 - Kubernetes 初步">
+<meta property="og:url" content="http://swsmile.info/2019/08/04/【Microservices】微服务-Kubernetes/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="传统的Web开发方式先来看看传统的web开发方式，通过对比比较容易理解什么是Microservice Architecture。和Microservice相对应的，这种方式一般被称为Monolithic（比较难传神的翻译）。所有的功能打包在一个 WAR包里，基本没有外部依赖（除了容器），部署在一个JEE容器（Tomcat，JBoss，WebLogic）里，包含了 DO/DAO，Service，UI">
+<meta property="og:description" content="KubernetesKubernetes 是 Google 团队发起并维护的基于 Docker 的开源容器集群管理系统，它不仅支持常见的云平台，而且支持内部数据中心。 建于 Docker 之上的 Kubernetes 可以构建一个容器的调度服务，其目的是让用户透过 Kubernetes 集群来进行云端容器集群的管理，而无需用户进行复杂的设置工作。系统会自动选取合适的工作节点来执行具体的容器集群调度">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223214598.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804222019214.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223530360.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223613176.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223819652.png">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223834620.png">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.308Z">
+<meta property="og:updated_time" content="2020-07-26T04:06:48.425Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Distributed System】微服务（Microservice Architecture）">
-<meta name="twitter:description" content="传统的Web开发方式先来看看传统的web开发方式，通过对比比较容易理解什么是Microservice Architecture。和Microservice相对应的，这种方式一般被称为Monolithic（比较难传神的翻译）。所有的功能打包在一个 WAR包里，基本没有外部依赖（除了容器），部署在一个JEE容器（Tomcat，JBoss，WebLogic）里，包含了 DO/DAO，Service，UI">
-<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223214598.png">
+<meta name="twitter:title" content="【Distributed System】微服务 - Kubernetes 初步">
+<meta name="twitter:description" content="KubernetesKubernetes 是 Google 团队发起并维护的基于 Docker 的开源容器集群管理系统，它不仅支持常见的云平台，而且支持内部数据中心。 建于 Docker 之上的 Kubernetes 可以构建一个容器的调度服务，其目的是让用户透过 Kubernetes 集群来进行云端容器集群的管理，而无需用户进行复杂的设置工作。系统会自动选取合适的工作节点来执行具体的容器集群调度">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -197,109 +190,31 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-【Distributed-System】微服务" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【Microservices】微服务-Kubernetes" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      【Distributed System】微服务（Microservice Architecture）
+      【Distributed System】微服务 - Kubernetes 初步
     </h1>
   
 
         
-        <a href="/2019/07/31/【Distributed-System】微服务/" class="archive-article-date">
-  	<time datetime="2019-07-31T14:30:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
+        <a href="/2019/08/04/【Microservices】微服务-Kubernetes/" class="archive-article-date">
+  	<time datetime="2019-08-04T14:33:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="传统的Web开发方式"><a href="#传统的Web开发方式" class="headerlink" title="传统的Web开发方式"></a>传统的Web开发方式</h1><p>先来看看传统的web开发方式，通过对比比较容易理解什么是Microservice Architecture。和Microservice相对应的，这种方式一般被称为Monolithic（比较难传神的翻译）。所有的功能打包在一个 WAR包里，基本没有外部依赖（除了容器），部署在一个JEE容器（Tomcat，JBoss，WebLogic）里，包含了 DO/DAO，Service，UI等所有逻辑。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223214598.png" alt="image-20190731223214598"></p>
-<p>Monolithic比较适合小项目，优点是：</p>
-<p>1、开发简单直接，集中式管理</p>
-<p>2、基本不会重复开发</p>
-<p>3、功能都在本地，没有分布式的管理开销和调用开销</p>
-<p>它的缺点也非常明显，特别对于互联网公司来说（不一一列举了）：</p>
-<p>1、开发效率低：所有的开发在一个项目改代码，递交代码相互等待，代码冲突不断</p>
-<p>2、代码维护难：代码功能耦合在一起，新人不知道何从下手</p>
-<p>3、部署不灵活：构建时间长，任何小修改必须重新构建整个项目，这个过程往往很长</p>
-<p>4、稳定性不高：一个微不足道的小问题，可以导致整个应用挂掉</p>
-<p>5、扩展性不够：无法满足高并发情况下的业务需求</p>
-<h1 id="Microservice-Architecture"><a href="#Microservice-Architecture" class="headerlink" title="Microservice Architecture"></a>Microservice Architecture</h1><p>所以，现在主流的设计一般会采用Microservice Architecture，就是基于微服务的架构。简单来说，微服务的目的是有效的拆分应用，实现敏捷开发和部署。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190804222019214.png" alt="image-20190804222019214"></p>
+        <h1 id="Kubernetes"><a href="#Kubernetes" class="headerlink" title="Kubernetes"></a>Kubernetes</h1><p><code>Kubernetes</code> 是 Google 团队发起并维护的基于 Docker 的开源容器集群管理系统，它不仅支持常见的云平台，而且支持内部数据中心。</p>
+<p>建于 Docker 之上的 <code>Kubernetes</code> 可以构建一个容器的调度服务，其目的是让用户透过 <code>Kubernetes</code> 集群来进行云端容器集群的管理，而无需用户进行复杂的设置工作。系统会自动选取合适的工作节点来执行具体的容器集群调度处理工作。其核心概念是 <code>Container Pod</code>。一个 <code>Pod</code> 由一组工作于同一物理工作节点的容器构成。这些组容器拥有相同的网络命名空间、IP以及存储配额，也可以根据实际情况对每一个 <code>Pod</code> 进行端口映射。此外，<code>Kubernetes</code> 工作节点会由主系统进行管理，节点包含了能够运行 Docker 容器所用到的服务。</p>
 <a id="more"></a> 
 
-<h2 id="SOA-vs-Microservice"><a href="#SOA-vs-Microservice" class="headerlink" title="SOA vs Microservice"></a>SOA vs Microservice</h2><p>除了Smart endpoints and dumb pipes都很容易理解对吗？相信很多人都会问一个问题，这是不是就是SOA换了个概念，挂羊头卖狗肉啊，有说法把Microservice叫成 Lightway SOA。也有很多传统砖家跳出来说Microservice就是SOA。其实Martin也没否认SOA和Microservice的关系。</p>
-<p>我个人理解，Microservice是SOA的传承，但一个最本质的区别就在于Smart endpoints and dumb pipes，或者说是真正的分布式的、去中心化的。Smart endpoints and dumb pipes本质就是去ESB，把所有的“思考”逻辑包括路由、消息解析等放在服务内部（Smart endpoints），去掉一个大一统的ESB，服务间轻（dumb pipes）通信，是比SOA更彻底的拆分。</p>
-<h2 id="HOW-怎么具体实践微服务"><a href="#HOW-怎么具体实践微服务" class="headerlink" title="HOW - 怎么具体实践微服务"></a><strong>HOW - 怎么具体实践微服务</strong></h2><p>听上去好像都不错，具体怎么落地啊？这需要回答下面几个问题：</p>
-<p>1、客户端如何访问这些服务？</p>
-<p>2、服务之间如何通信？</p>
-<p>3、这么多服务，怎么找?</p>
-<p>4、服务挂了怎么办？</p>
-<p>5、客户端如何访问这些服务？</p>
-<p>原来的Monolithic方式开发，所有的服务都是本地的，UI可以直接调用，现在按功能拆分成独立的服务，跑在独立的一般都在独立的虚拟机上的 Java进程了。客户端UI如何访问他的？后台有N个服务，前台就需要记住管理N个服务，一个服务下线/更新/升级，前台就要重新部署，这明显不服务我们 拆分的理念，特别当前台是移动应用的时候，通常业务变化的节奏更快。另外，N个小服务的调用也是一个不小的网络开销。还有一般微服务在系统内部，通常是无状态的，用户登录信息和权限管理最好有一个统一的地方维护管理（OAuth）。</p>
-<p>所以，一般在后台N个服务和UI之间一般会一个代理或者叫API Gateway，他的作用包括</p>
-<p>1、提供统一服务入口，让微服务对前台透明</p>
-<p>2、聚合后台的服务，节省流量，提升性能</p>
-<p>3、提供安全，过滤，流控等API管理功能</p>
-<p>我的理解其实这个API Gateway可以有很多广义的实现办法，可以是一个软硬一体的盒子，也可以是一个简单的MVC框架，甚至是一个Node.js的服务端。他们最重要的作 用是为前台（通常是移动应用）提供后台服务的聚合，提供一个统一的服务出口，解除他们之间的耦合，不过API Gateway也有可能成为单点故障点或者性能的瓶颈。</p>
-<p>一般用过Taobao Open Platform的就能很容易的体会，TAO就是这个API Gateway。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223530360.png" alt="image-20190731223530360"></p>
-<h3 id="服务之间如何通信？"><a href="#服务之间如何通信？" class="headerlink" title="服务之间如何通信？"></a><strong>服务之间如何通信？</strong></h3><p>因为所有的微服务都是独立的Java进程跑在独立的虚拟机上，所以服务间的通行就是IPC（inter process communication），已经有很多成熟的方案。现在基本最通用的有两种方式。这几种方式，展开来讲都可以写本书，而且大家一般都比较熟悉细节了， 就不展开讲了。</p>
-<p>1、同步调用</p>
-<p>2、REST（JAX-RS，Spring Boot）</p>
-<p>3、RPC（Thrift, Dubbo）</p>
-<p>4、异步消息调用(Kafka, Notify, MetaQ)</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223613176.png" alt="image-20190731223613176"> </p>
-<p>一般同步调用比较简单，一致性强，但是容易出调用问题，性能体验上也会差些，特别是调用层次多的时候。RESTful和RPC的比较也是一个很有意 思的话题。</p>
-<p>一般REST基于HTTP，更容易实现，更容易被接受，服务端实现技术也更灵活些，各个语言都能支持，同时能跨客户端，对客户端没有特殊的要 求，只要封装了HTTP的SDK就能调用，所以相对使用的广一些。RPC也有自己的优点，传输协议更高效，安全更可控，特别在一个公司内部，如果有统一个 的开发规范和统一的服务框架时，他的开发效率优势更明显些。就看各自的技术积累实际条件，自己的选择了。</p>
-<p>而异步消息的方式在分布式系统中有特别广泛的应用，他既能减低调用服务之间的耦合，又能成为调用之间的缓冲，确保消息积压不会冲垮被调用方，同时能 保证调用方的服务体验，继续干自己该干的活，不至于被后台性能拖慢。</p>
-<p>不过需要付出的代价是一致性的减弱，需要接受数据最终一致性；还有就是后台服务一般要 实现幂等性，因为消息发送出于性能的考虑一般会有重复（保证消息的被收到且仅收到一次对性能是很大的考验）；最后就是必须引入一个独立的broker，如 果公司内部没有技术积累，对broker分布式管理也是一个很大的挑战。</p>
-<h3 id="这么多服务，怎么找"><a href="#这么多服务，怎么找" class="headerlink" title="这么多服务，怎么找?"></a><strong>这么多服务，怎么找?</strong></h3><p>在微服务架构中，一般每一个服务都是有多个拷贝，来做负载均衡。一个服务随时可能下线，也可能应对临时访问压力增加新的服务节点。服务之间如何相互 感知？服务如何管理？这就是服务发现的问题了。</p>
-<p>一般有两类做法，也各有优缺点。基本都是通过zookeeper等类似技术做服务注册信息的分布式管理。当 服务上线时，服务提供者将自己的服务信息注册到ZK（或类似框架），并通过心跳维持长链接，实时更新链接信息。服务调用者通过ZK寻址，根据可定制算法， 找到一个服务，还可以将服务信息缓存在本地以提高性能。当服务下线时，ZK会发通知给服务客户端。</p>
-<p>1、客户端做：优点是架构简单，扩展灵活，只对服务注册器依赖。缺点是客户端要维护所有调用服务的地址，有技术难度，一般大公司都有成熟的内部框架支持，比如Dubbo。</p>
-<p>2、服务端做：优点是简单，所有服务对于前台调用方透明，一般在小公司在云服务上部署的应用采用的比较多。</p>
-<p> <img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223819652.png" alt="image-20190731223819652"></p>
-<p>这么多服务，服务挂了怎么办？</p>
-<p>前面提到，Monolithic方式开发一个很大的风险是，把所有鸡蛋放在一个篮子里，一荣俱荣，一损俱损。而分布式最大的特性就是网络是不可靠 的。通过微服务拆分能降低这个风险，不过如果没有特别的保障，结局肯定是噩梦。</p>
-<p>我们刚遇到一个线上故障就是一个很不起眼的SQL计数功能，在访问量上升 时，导致数据库load彪高，影响了所在应用的性能，从而影响所有调用这个应用服务的前台应用。所以当我们的系统是由一系列的服务调用链组成的时候，我们 必须确保任一环节出问题都不至于影响整体链路。相应的手段有很多：</p>
-<p>1、重试机制</p>
-<p>2、限流</p>
-<p>3、熔断机制</p>
-<p>4、负载均衡</p>
-<p>5、降级（本地缓存）</p>
-<p>这些方法基本上都很明确通用，就不详细说明了。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190731223834620.png" alt="image-20190731223834620"></p>
-<p><strong>WHY - 微服务的应用</strong></p>
-<p>这里有一个图非常好的总结微服务架构需要考虑的问题，包括</p>
-<p>1、API Gateway</p>
-<p>2、服务间调用</p>
-<p>3、服务发现</p>
-<p>4、服务容错</p>
-<p>5、服务部署</p>
-<p>6、数据调用</p>
-<h2 id="微服务的优点和缺点"><a href="#微服务的优点和缺点" class="headerlink" title="微服务的优点和缺点"></a>微服务的优点和缺点</h2><p>微服务的优点和缺点（或者说挑战）一样明显。</p>
-<p>1、优点</p>
-<p>2、开发简单</p>
-<p>3、技术栈灵活</p>
-<p>4、服务独立无依赖</p>
-<p>5、独立按需扩展</p>
-<p>6、可用性高</p>
-<p>7、缺点（挑战）</p>
-<p>8、多服务运维难度</p>
-<p>9、系统部署依赖</p>
-<p>10、服务间通信成本</p>
-<p>11、数据一致性</p>
-<p>12、系统集成测试</p>
-<p>13、重复工作</p>
-<p>14、性能监控</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li>基于Spring Boot+Cloud构建微云架构 - <a href="https://mp.weixin.qq.com/s/3pt-jhSKwtgKHnfMeHX-GA" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/3pt-jhSKwtgKHnfMeHX-GA</a></li>
-</ul>
+
 
       
 
@@ -313,7 +228,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Microservices</a>
         		</li>
       		
 		</ul>
@@ -325,7 +240,7 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
+        			<a href="/categories/Microservices/" class="article-tag-list-link color4">Microservices</a>
         		</li>
       		
 		</ul>
@@ -394,18 +309,18 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2019/08/01/【Distributed-System】消息队列-RabbitMQ/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/08/05/【Architecture】系统架构考虑/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【Distributed System】消息队列-RabbitMQ
+          【Architecture】系统架构考虑
         
       </div>
     </a>
   
   
-    <a href="/2019/07/31/【Spring】Spring-框架/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【Spring】Spring 框架</div>
+    <a href="/2019/08/04/【Distributed-System】SOA与MicroService/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Distributed System】SOA 与 MicroServices</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -522,11 +437,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -606,6 +521,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Microservices</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Django</a>
               </li>
              
@@ -638,11 +557,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,15 +645,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,11 +669,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,19 +689,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -794,11 +713,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -814,15 +737,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>

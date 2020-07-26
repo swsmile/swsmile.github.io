@@ -191,6 +191,171 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】使用-使用-UUID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/【Golang】使用-使用-UUID/">【Golang】Golang 使用 UUID</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/【Golang】使用-使用-UUID/" class="archive-article-date">
+  	<time datetime="2020-01-12T12:49:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是-UUID？"><a href="#什么是-UUID？" class="headerlink" title="什么是 UUID？"></a>什么是 UUID？</h1><p>UUID 是Universally Unique Identifier的缩写，即通用唯一识别码。</p>
+<p>uuid的目的是让分布式系统中的所有元素，都能有唯一的辨识资讯，而不需要透过中央控制端来做辨识资讯的指定。如此一来，每个人都可以建立不与其它人冲突的 uuid。</p>
+<p>A universally unique identifier (UUID) is a 128-bit number used to identify information in computer systems.</p>
+        
+          <a class="article-more-a" href="/2020/01/12/【Golang】使用-使用-UUID/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/12/【Golang】使用-使用-UUID/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Golang】Go-的环境变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/12/【Golang】Go-的环境变量/">【Golang】Golang 的环境变量</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/12/【Golang】Go-的环境变量/" class="archive-article-date">
+  	<time datetime="2020-01-12T12:31:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。</p>
+<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h1><p> go get和其他 go 工具等会用到GOPATH环境变量。</p>
+<p> GOPATH是作为编译后二进制的存放目的地和import包时的搜索路径（其实也是你的工作目录, 你可以在src下创建你自己的go源文件, 然后开始工作）。</p>
+<p>GOPATH之下主要包含三个目录: bin、pkg、src：</p>
+<ul>
+<li><p>bin目录主要存放可执行文件（第三方包中包含的可执行文件）；</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$GOPATH</span></span><br><span class="line">/Users/wei.shi/go</span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/bin</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/Users/wei.shi/go/bin</span><br><span class="line">$ ls</span><br><span class="line">air                gin                httptest           mockgen            richgo             test_kafka_client</span><br><span class="line">data_pipeline      goimports          ips_event_consumer protoc-gen-go      spkit</span><br><span class="line">easytags           golangci-lint      item_discount      realize            test_client</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pkg目录存放编译好的库文件, 主要是*.a文件；</p>
+</li>
+<li><p>src目录下主要存放go的源文件。</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir gopath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在~/.bash_profile中添加如下语句:</span></span><br><span class="line">GOPATH=/Users/username/gopath</span><br><span class="line"><span class="comment"># GOPATH可以是一个目录列表, 通过 go get下载的第三方库, 都会被下载到 src 文件夹中</span></span><br><span class="line"><span class="comment"># 而且，还需要把GOPATH中的可执行目录也配置到环境变量中, 否则你自行下载的第三方go工具就无法使用了, 操作如下:</span></span><br><span class="line"><span class="comment"># 在~/bash_profile（或者~/.zshrc，根据你使用什么 bash 决定）中增加下面这行</span></span><br><span class="line"><span class="built_in">export</span> <span class="variable">$PATH</span>:<span class="variable">$GOPATH</span>/bin</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/01/12/【Golang】Go-的环境变量/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/12/【Golang】Go-的环境变量/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】依赖-Golang 依赖管理-go-mod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -679,173 +844,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】Print" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/12/【Golang】Print/">【Golang】Print</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/12/【Golang】Print/" class="archive-article-date">
-  	<time datetime="2020-01-12T09:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Println-与Printf"><a href="#Println-与Printf" class="headerlink" title="Println 与Printf"></a>Println 与Printf</h1><p>Println 与Printf 都是fmt 包中的公共方法，在需要打印信息时，会用到这二个函数，那么这二个函数有什么区别呢？</p>
-<ul>
-<li><code>Println()</code>：可以打印出字符串，和变量；</li>
-<li><code>Printf()</code>：只可以打印出格式化的字符串，可以输出字符串类型的变量，不可以输出整形变量和整形</li>
-</ul>
-<p>也就是说，当需要格式化输出信息时一般选择 Printf，其他时候用 Println 就可以了，比如：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="number">10</span></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">	fmt.Println(<span class="string">"abc"</span>,<span class="string">"d"</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"%d"</span>,a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们发现：</p>
-<ul>
-<li>在调用<code>fmt.Println()</code>时，可以提供多个 string，且在打印时，会自动在这些 string 之间加上空格。</li>
-<li>在调用<code>fmt.Printf()</code>时，需要指定 format，如 C 语言中那样。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2020/01/12/【Golang】Print/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/12/【Golang】Print/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Format】csv" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/12/【Format】csv/">【Format】csv</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/12/【Format】csv/" class="archive-article-date">
-  	<time datetime="2020-01-12T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一个奇怪的-Scenario"><a href="#一个奇怪的-Scenario" class="headerlink" title="一个奇怪的 Scenario"></a>一个奇怪的 Scenario</h1><p>如果你的机器上装了 Microsoft Excel 的话，.csv 文件默认是被 Excel 打开的。</p>
-<p>需要注意的是，当你双击一个.csv 文件，Excel 打开它以后即使不做任何的修改，在关闭的时候 Excel 往往会提示是否要改成正确的文件格式，这个时候如果选择“是”，因为 Excel 认为.CSV 文件中的数字是要用科学记数法来表示的，Excel 会把 CSV 文件中所有的数字用科学计数来表示（2.54932E+5 这种形式），这样操作之后，只是在 Excel 中显示的时候会不正常，而 csv 文件由于是纯文本文件，在使用上没有影响；如果选择了“否”，那么会提示你以 xls 格式另存为 Excel 的一个副本。</p>
-<p>所以，建议把 .csv 的默认打开方式改成任意一个文本编辑器。</p>
-        
-          <a class="article-more-a" href="/2020/01/12/【Format】csv/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Format</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Format/" class="article-tag-list-link color2">Format</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/12/【Format】csv/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/71/">71</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/14/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/16/">Next &raquo;</a>
     </nav>
   
 
@@ -949,11 +950,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1033,6 +1034,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Microservices</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Django</a>
               </li>
              
@@ -1065,11 +1070,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1153,15 +1158,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1177,11 +1182,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1197,19 +1202,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1221,11 +1226,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1241,15 +1250,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>
