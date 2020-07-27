@@ -932,8 +932,14 @@ var _hmt = _hmt || [];
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727231701198.png" alt="image-20200727231701198"></p>
 <p>GROUP 输入 1，Add Server 输入我们刚刚启动的 codis-server 地址（127.0.0.1:6380），添加到我们刚新建的 Group，然后再点击 Add Server 按钮即可，如上图所示。</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727232156783.png" alt="image-20200727232156783"></p>
-<h2 id="通过fe初始化slot"><a href="#通过fe初始化slot" class="headerlink" title="通过fe初始化slot"></a>通过fe初始化slot</h2><p>新增的集群 slot 状态是 offline，因此我们需要对它进行初始化（将 1024 个 slot 分配到各个 group），而初始化最快的方法可通过 fe 提供的 <code>Rebalance All Slots</code>按钮来做，如下图所示，点击此按钮，我们即快速完成了一个集群的搭建。</p>
-<h2 id="连接到codis-proxy"><a href="#连接到codis-proxy" class="headerlink" title="连接到codis-proxy"></a>连接到codis-proxy</h2><h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h2 id="Codis异常关闭后启动出错"><a href="#Codis异常关闭后启动出错" class="headerlink" title="Codis异常关闭后启动出错"></a>Codis异常关闭后启动出错</h2><h3 id="Situation"><a href="#Situation" class="headerlink" title="Situation"></a>Situation</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2020/07/27 21:25:06 main.go:171: [WARN] [0xc4202d1680] dashboard online failed [15]</span><br><span class="line">2020/07/27 21:25:08 topom.go:189: [ERROR] store: acquire lock of codis-demo failed</span><br><span class="line">[error]: zk: node already exists</span><br><span class="line">    6   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:247</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).create</span><br><span class="line">    5   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:196</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create.func1</span><br><span class="line">    4   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:129</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).shell</span><br><span class="line">    3   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:198</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create</span><br><span class="line">    2   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/store.go:119</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models.(*Store).Acquire</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:188</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">[stack]:</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:189</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">2020/07/27 21:25:08 main.go:173: [PANIC] dashboard online failed, give up &amp; abort :<span class="string">'(</span></span><br><span class="line"><span class="string">[stack]:</span></span><br><span class="line"><span class="string">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:173</span></span><br><span class="line"><span class="string">            main.main</span></span><br><span class="line"><span class="string">        ... ...</span></span><br></pre></td></tr></table></figure>
+<h2 id="通过codis-fe初始化slot"><a href="#通过codis-fe初始化slot" class="headerlink" title="通过codis-fe初始化slot"></a>通过codis-fe初始化slot</h2><p>新增的集群 slot 状态是 offline，因此我们需要对它进行初始化（将 1024 个 slot 分配到各个 group），而初始化最快的方法可通过 fe 提供的 <code>Rebalance All Slots</code>按钮来做，如下图所示，点击此按钮，我们即快速完成了一个集群的搭建。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727232802590.png" alt="image-20200727232802590"></p>
+<h2 id="连接到codis-proxy"><a href="#连接到codis-proxy" class="headerlink" title="连接到codis-proxy"></a>连接到codis-proxy</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -h 192.168.2.204 -p 19000</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> 1 a</span><br><span class="line">OK</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> 2 b</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>当我们进行set 时，就能看到keys的变化：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727233000059.png" alt="image-20200727233000059"></p>
+<h1 id="Observation"><a href="#Observation" class="headerlink" title="Observation"></a>Observation</h1><p>## </p>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h2 id="Codis异常关闭后启动出错"><a href="#Codis异常关闭后启动出错" class="headerlink" title="Codis异常关闭后启动出错"></a>Codis异常关闭后启动出错</h2><h3 id="Situation"><a href="#Situation" class="headerlink" title="Situation"></a>Situation</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2020/07/27 21:25:06 main.go:171: [WARN] [0xc4202d1680] dashboard online failed [15]</span><br><span class="line">2020/07/27 21:25:08 topom.go:189: [ERROR] store: acquire lock of codis-demo failed</span><br><span class="line">[error]: zk: node already exists</span><br><span class="line">    6   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:247</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).create</span><br><span class="line">    5   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:196</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create.func1</span><br><span class="line">    4   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:129</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).shell</span><br><span class="line">    3   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:198</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create</span><br><span class="line">    2   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/store.go:119</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models.(*Store).Acquire</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:188</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">[stack]:</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:189</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">2020/07/27 21:25:08 main.go:173: [PANIC] dashboard online failed, give up &amp; abort :<span class="string">'(</span></span><br><span class="line"><span class="string">[stack]:</span></span><br><span class="line"><span class="string">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:173</span></span><br><span class="line"><span class="string">            main.main</span></span><br><span class="line"><span class="string">        ... ...</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="codis-dashboard-异常退出的修复"><a href="#codis-dashboard-异常退出的修复" class="headerlink" title="codis-dashboard 异常退出的修复"></a>codis-dashboard 异常退出的修复</h3><p>当 codis-dashboard 启动时，会在外部存储上存放一条数据，用于存储 dashboard 信息，同时作为 LOCK 存在。当 codis-dashboard 安全退出时，会主动删除该数据。当 codis-dashboard 异常退出时，由于之前 LOCK 未安全删除，重启往往会失败。因此 codis-admin 提供了强制删除工具：</p>
 <ol>
@@ -1139,11 +1145,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1167,18 +1173,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
@@ -1191,11 +1185,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1204,6 +1206,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1271,15 +1277,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1287,11 +1285,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1319,15 +1325,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1347,11 +1353,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1391,11 +1397,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1423,15 +1429,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1440,6 +1442,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
