@@ -767,10 +767,203 @@ var _hmt = _hmt || [];
 
 <h1 id="Binary"><a href="#Binary" class="headerlink" title="Binary"></a>Binary</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -OL https://github.com/CodisLabs/codis/releases/download/3.2.2/codis3.2.2-go1.8.5-linux.zip</span><br><span class="line">$ unzip codis3.2.2-go1.8.5-linux.zip</span><br><span class="line">$ <span class="built_in">cd</span> codis3.2.2-go1.8.5-linux</span><br></pre></td></tr></table></figure>
 
-<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-dashboard</span><br></pre></td></tr></table></figure>
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h2 id="启动-codis-dashboard"><a href="#启动-codis-dashboard" class="headerlink" title="启动 codis-dashboard"></a>启动 codis-dashboard</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># vim config/dashboard.toml</span></span><br><span class="line">coordinator_name = <span class="string">"zookeeper"</span></span><br><span class="line"><span class="comment"># 这里填你的ZooKeeper的地址</span></span><br><span class="line">coordinator_addr = <span class="string">"127.0.0.1:2181"</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">product_auth = <span class="string">"123456"</span></span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ nohup ./codis-dashboard --ncpu=4 --config=config/dashboard.toml --<span class="built_in">log</span>=logs/dashboard.log --<span class="built_in">log</span>-level=WARN &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果开启多个shell tab，则直接以实时查看Log</span></span><br><span class="line">$ ./codis-dashboard --ncpu=4 --config=config/dashboard.toml</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727222746412.png" alt="image-20200727222746412"></p>
+<p>默认工作在18080端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$  ./codis-dashboard -h</span><br><span class="line">Usage:</span><br><span class="line">	codis-dashboard [--ncpu=N] [--config=CONF] [--<span class="built_in">log</span>=FILE] [--<span class="built_in">log</span>-level=LEVEL] [--host-admin=ADDR] [--pidfile=FILE] [--zookeeper=ADDR|--etcd=ADDR|--filesystem=ROOT] [--product_name=NAME] [--product_auth=AUTH] [--remove-lock]</span><br><span class="line">	codis-dashboard  --default-config</span><br><span class="line">	codis-dashboard  --version</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">	--ncpu=N                    <span class="built_in">set</span> runtime.GOMAXPROCS to N, default is runtime.NumCPU().</span><br><span class="line">	-c CONF, --config=CONF      run with the specific configuration.</span><br><span class="line">	-l FILE, --<span class="built_in">log</span>=FILE         <span class="built_in">set</span> path/name of daliy rotated <span class="built_in">log</span> file.</span><br><span class="line">	--<span class="built_in">log</span>-level=LEVEL           <span class="built_in">set</span> the <span class="built_in">log</span>-level, should be INFO,WARN,DEBUG or ERROR, default is INFO.</span><br></pre></td></tr></table></figure>
+
+<h3 id="默认配置文件"><a href="#默认配置文件" class="headerlink" title="默认配置文件"></a>默认配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-dashboard --default-config | tee dashboard.toml</span><br><span class="line"></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">#                  Codis-Dashboard               #</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set Coordinator, only accept "zookeeper" &amp; "etcd" &amp; "filesystem".</span></span><br><span class="line"><span class="comment"># for zookeeper/etcd, coorinator_auth accept "user:password"</span></span><br><span class="line"><span class="comment"># Quick Start</span></span><br><span class="line">coordinator_name = <span class="string">"filesystem"</span></span><br><span class="line">coordinator_addr = <span class="string">"/tmp/codis"</span></span><br><span class="line"><span class="comment">#coordinator_name = "zookeeper"</span></span><br><span class="line"><span class="comment">#coordinator_addr = "127.0.0.1:2181"</span></span><br><span class="line"><span class="comment">#coordinator_auth = ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set Codis Product Name/Auth.</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">product_auth = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set bind address for admin(rpc), tcp only.</span></span><br><span class="line">admin_addr = <span class="string">"0.0.0.0:18080"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set arguments for data migration (only accept 'sync' &amp; 'semi-async').</span></span><br><span class="line">migration_method = <span class="string">"semi-async"</span></span><br><span class="line">migration_parallel_slots = 100</span><br><span class="line">migration_async_maxbulks = 200</span><br><span class="line">migration_async_maxbytes = <span class="string">"32mb"</span></span><br><span class="line">migration_async_numkeys = 500</span><br><span class="line">migration_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set configs for redis sentinel.</span></span><br><span class="line">sentinel_client_timeout = <span class="string">"10s"</span></span><br><span class="line">sentinel_quorum = 2</span><br><span class="line">sentinel_parallel_syncs = 1</span><br><span class="line">sentinel_down_after = <span class="string">"30s"</span></span><br><span class="line">sentinel_failover_timeout = <span class="string">"5m"</span></span><br><span class="line">sentinel_notification_script = <span class="string">""</span></span><br><span class="line">sentinel_client_reconfig_script = <span class="string">""</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>coordinator_name</td>
+<td>外部存储类型，接受 zookeeper/etcd</td>
+</tr>
+<tr>
+<td>coordinator_addr</td>
+<td>外部存储地址</td>
+</tr>
+<tr>
+<td>product_name</td>
+<td>集群名称，满足正则 <code>\w[\w\.\-]*</code></td>
+</tr>
+<tr>
+<td>product_auth</td>
+<td>集群密码，默认为空</td>
+</tr>
+<tr>
+<td>admin_addr</td>
+<td>RESTful API 端口</td>
+</tr>
+</tbody></table>
+<h2 id="启动-codis-proxy"><a href="#启动-codis-proxy" class="headerlink" title="启动 codis-proxy"></a>启动 codis-proxy</h2><p>codis-proxy 配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim config/proxy.toml</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">product_auth = <span class="string">"123456"</span></span><br><span class="line">jodis_name = <span class="string">"zookeeper"</span></span><br><span class="line">jodis_addr = <span class="string">"127.0.0.1:2181"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ nohup ./codis-proxy --ncpu=4 --config=config/proxy.toml --<span class="built_in">log</span>=logs/proxy.log --<span class="built_in">log</span>-level=WARN &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果开启多个shell tab，则直接以实时查看Log</span></span><br><span class="line">$ ./codis-proxy --ncpu=4 --config=config/proxy.toml</span><br><span class="line">2020/07/27 22:36:28 main.go:104: [WARN] <span class="built_in">set</span> ncpu = 4, max-ncpu = 8</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - zkclient setup new connection to 127.0.0.1:2181</span><br><span class="line">2020/07/27 22:36:28 proxy.go:91: [WARN] [0xc4200a6e70] create new proxy:</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"token"</span>: <span class="string">"620204800e7d3a781457f23ca974dfcb"</span>,</span><br><span class="line">    <span class="string">"start_time"</span>: <span class="string">"2020-07-27 22:36:28.056420238 +0800 +08"</span>,</span><br><span class="line">    <span class="string">"admin_addr"</span>: <span class="string">"192.168.2.204:11080"</span>,</span><br><span class="line">    <span class="string">"proto_type"</span>: <span class="string">"tcp4"</span>,</span><br><span class="line">    <span class="string">"proxy_addr"</span>: <span class="string">"192.168.2.204:19000"</span>,</span><br><span class="line">    <span class="string">"jodis_path"</span>: <span class="string">"/jodis/codis-demo/proxy-620204800e7d3a781457f23ca974dfcb"</span>,</span><br><span class="line">    <span class="string">"product_name"</span>: <span class="string">"codis-demo"</span>,</span><br><span class="line">    <span class="string">"pid"</span>: 21563,</span><br><span class="line">    <span class="string">"pwd"</span>: <span class="string">"/home/parallels/codis3.2.2-go1.8.5-linux"</span>,</span><br><span class="line">    <span class="string">"sys"</span>: <span class="string">"Linux parallels-Parallels-Virtual-Platform 4.15.0-112-generic #113-Ubuntu SMP Thu Jul 9 23:41:39 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux"</span>,</span><br><span class="line">    <span class="string">"hostname"</span>: <span class="string">"parallels-Parallels-Virtual-Platform"</span>,</span><br><span class="line">    <span class="string">"datacenter"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - Connected to 127.0.0.1:2181</span><br><span class="line">2020/07/27 22:36:28 proxy.go:378: [WARN] [0xc4200a6e70] admin start service on [::]:11080</span><br><span class="line">2020/07/27 22:36:28 proxy.go:402: [WARN] [0xc4200a6e70] proxy start service on 0.0.0.0:19000</span><br><span class="line">2020/07/27 22:36:28 main.go:193: [WARN] create proxy with config</span><br><span class="line">...</span><br><span class="line">2020/07/27 22:36:28 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - Authenticated: id=72070581688008724, timeout=20000</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - Re-submitting `0` credentials after reconnect</span><br><span class="line">2020/07/27 22:36:29 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:30 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:31 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:32 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br></pre></td></tr></table></figure>
+
+<p>我们会发现proxy一直处于waiting online状态，这是因为没有将proxy 与 dashboard关联起来（而将proxy 与 dashboard关联需要我们显式地去操作）。</p>
+<h3 id="端口使用"><a href="#端口使用" class="headerlink" title="端口使用"></a>端口使用</h3><p>一个codis-proxy 会使用两个端口，一个用于被 redis-cli直接连接（proxy_addr，默认为19000），一个用于管理这个proxy（admin_addr，默认为11080）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -h 192.168.2.204 -p 19000</span><br><span class="line">192.168.2.204:19000&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lsof -i -P | grep -i <span class="string">"listen"</span> | grep <span class="string">"codis-proxy"</span></span><br><span class="line">codis-pro 20014 parallels    3u  IPv4 2246306      0t0  TCP *:19000 (LISTEN)</span><br><span class="line">codis-pro 20014 parallels    5u  IPv6 2246307      0t0  TCP *:11080 (LISTEN)</span><br></pre></td></tr></table></figure>
+
+<h3 id="默认配置文件-proxy-toml"><a href="#默认配置文件-proxy-toml" class="headerlink" title="默认配置文件 proxy.toml"></a>默认配置文件 <code>proxy.toml</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-proxy --default-config | tee proxy.toml</span><br><span class="line"></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">#                  Codis-Proxy                   #</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set Codis Product Name/Auth.</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">product_auth = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set auth for client session</span></span><br><span class="line"><span class="comment">#   1. product_auth is used for auth validation among codis-dashboard,</span></span><br><span class="line"><span class="comment">#      codis-proxy and codis-server.</span></span><br><span class="line"><span class="comment">#   2. session_auth is different from product_auth, it requires clients</span></span><br><span class="line"><span class="comment">#      to issue AUTH &lt;PASSWORD&gt; before processing any other commands.</span></span><br><span class="line">session_auth = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set bind address for admin(rpc), tcp only.</span></span><br><span class="line">admin_addr = <span class="string">"0.0.0.0:11080"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set bind address for proxy, proto_type can be "tcp", "tcp4", "tcp6", "unix" or "unixpacket".</span></span><br><span class="line">proto_type = <span class="string">"tcp4"</span></span><br><span class="line">proxy_addr = <span class="string">"0.0.0.0:19000"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set jodis address &amp; session timeout</span></span><br><span class="line"><span class="comment">#   1. jodis_name is short for jodis_coordinator_name, only accept "zookeeper" &amp; "etcd".</span></span><br><span class="line"><span class="comment">#   2. jodis_addr is short for jodis_coordinator_addr</span></span><br><span class="line"><span class="comment">#   3. jodis_auth is short for jodis_coordinator_auth, for zookeeper/etcd, "user:password" is accepted.</span></span><br><span class="line"><span class="comment">#   4. proxy will be registered as node:</span></span><br><span class="line"><span class="comment">#        if jodis_compatible = true (not suggested):</span></span><br><span class="line"><span class="comment">#          /zk/codis/db_&#123;PRODUCT_NAME&#125;/proxy-&#123;HASHID&#125; (compatible with Codis2.0)</span></span><br><span class="line"><span class="comment">#        or else</span></span><br><span class="line"><span class="comment">#          /jodis/&#123;PRODUCT_NAME&#125;/proxy-&#123;HASHID&#125;</span></span><br><span class="line">jodis_name = <span class="string">""</span></span><br><span class="line">jodis_addr = <span class="string">""</span></span><br><span class="line">jodis_auth = <span class="string">""</span></span><br><span class="line">jodis_timeout = <span class="string">"20s"</span></span><br><span class="line">jodis_compatible = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set datacenter of proxy.</span></span><br><span class="line">proxy_datacenter = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set max number of alive sessions.</span></span><br><span class="line">proxy_max_clients = 1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set max offheap memory size. (0 to disable)</span></span><br><span class="line">proxy_max_offheap_size = <span class="string">"1024mb"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set heap placeholder to reduce GC frequency.</span></span><br><span class="line">proxy_heap_placeholder = <span class="string">"256mb"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Proxy will ping backend redis (and clear 'MASTERDOWN' state) in a predefined interval. (0 to disable)</span></span><br><span class="line">backend_ping_period = <span class="string">"5s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend recv buffer size &amp; timeout.</span></span><br><span class="line">backend_recv_bufsize = <span class="string">"128kb"</span></span><br><span class="line">backend_recv_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend send buffer &amp; timeout.</span></span><br><span class="line">backend_send_bufsize = <span class="string">"128kb"</span></span><br><span class="line">backend_send_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend pipeline buffer size.</span></span><br><span class="line">backend_max_pipeline = 20480</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend never read replica groups, default is false</span></span><br><span class="line">backend_primary_only = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend parallel connections per server</span></span><br><span class="line">backend_primary_parallel = 1</span><br><span class="line">backend_replica_parallel = 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend tcp keepalive period. (0 to disable)</span></span><br><span class="line">backend_keepalive_period = <span class="string">"75s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set number of databases of backend.</span></span><br><span class="line">backend_number_databases = 16</span><br><span class="line"></span><br><span class="line"><span class="comment"># If there is no request from client for a long time, the connection will be closed. (0 to disable)</span></span><br><span class="line"><span class="comment"># Set session recv buffer size &amp; timeout.</span></span><br><span class="line">session_recv_bufsize = <span class="string">"128kb"</span></span><br><span class="line">session_recv_timeout = <span class="string">"30m"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set session send buffer size &amp; timeout.</span></span><br><span class="line">session_send_bufsize = <span class="string">"64kb"</span></span><br><span class="line">session_send_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Make sure this is higher than the max number of requests for each pipeline request, or your client may be blocked.</span></span><br><span class="line"><span class="comment"># Set session pipeline buffer size.</span></span><br><span class="line">session_max_pipeline = 10000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set session tcp keepalive period. (0 to disable)</span></span><br><span class="line">session_keepalive_period = <span class="string">"75s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set session to be sensitive to failures. Default is false, instead of closing socket, proxy will send an error response to client.</span></span><br><span class="line">session_break_on_failure = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set metrics server (such as http://localhost:28000), proxy will report json formatted metrics to specified server in a predefined period.</span></span><br><span class="line">metrics_report_server = <span class="string">""</span></span><br><span class="line">metrics_report_period = <span class="string">"1s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set influxdb server (such as http://localhost:8086), proxy will report metrics to influxdb.</span></span><br><span class="line">metrics_report_influxdb_server = <span class="string">""</span></span><br><span class="line">metrics_report_influxdb_period = <span class="string">"1s"</span></span><br><span class="line">metrics_report_influxdb_username = <span class="string">""</span></span><br><span class="line">metrics_report_influxdb_password = <span class="string">""</span></span><br><span class="line">metrics_report_influxdb_database = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set statsd server (such as localhost:8125), proxy will report metrics to statsd.</span></span><br><span class="line">metrics_report_statsd_server = <span class="string">""</span></span><br><span class="line">metrics_report_statsd_period = <span class="string">"1s"</span></span><br><span class="line">metrics_report_statsd_prefix = <span class="string">""</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>product_name</td>
+<td>集群名称，参考 dashboard 参数说明</td>
+</tr>
+<tr>
+<td>product_auth</td>
+<td>集群密码，默认为空</td>
+</tr>
+<tr>
+<td>admin_addr</td>
+<td>RESTful API 端口</td>
+</tr>
+<tr>
+<td>proto_type</td>
+<td>Redis 端口类型，接受 tcp/tcp4/tcp6/unix/unixpacket</td>
+</tr>
+<tr>
+<td>proxy_addr</td>
+<td>Redis 端口地址或者路径</td>
+</tr>
+<tr>
+<td>jodis_addr</td>
+<td>Jodis 注册 zookeeper 地址</td>
+</tr>
+<tr>
+<td>jodis_timeout</td>
+<td>Jodis 注册 session timeout 时间，单位 second</td>
+</tr>
+<tr>
+<td>jodis_compatible</td>
+<td><strong>Jodis 注册 zookeeper 的路径</strong></td>
+</tr>
+<tr>
+<td>backend_ping_period</td>
+<td>与 codis-server 探活周期，单位 second，0 表示禁止</td>
+</tr>
+<tr>
+<td>session_max_timeout</td>
+<td>与 client 连接最大读超时，单位 second，0 表示禁止</td>
+</tr>
+<tr>
+<td>session_max_bufsize</td>
+<td>与 client 连接读写缓冲区大小，单位 byte</td>
+</tr>
+<tr>
+<td>session_max_pipeline</td>
+<td>与 client 连接最大的 pipeline 大小</td>
+</tr>
+<tr>
+<td>session_keepalive_period</td>
+<td>与 client 的 tcp keepalive 周期，仅 tcp 有效，0 表示禁止</td>
+</tr>
+</tbody></table>
+<h3 id="添加-Proxy方法"><a href="#添加-Proxy方法" class="headerlink" title="添加 Proxy方法"></a>添加 Proxy方法</h3><p>codis-proxy 启动后，处于 <code>waiting</code> 状态，监听 <code>proxy_addr</code> 地址，但是不会 <code>accept</code> 连接，添加到集群并完成集群状态的同步，才能改变状态为 <code>online</code>。添加的方法有以下两种：</p>
+<ul>
+<li>通过 codis-fe 添加：通过 <code>Add Proxy</code> 按钮，将 <code>admin_addr</code> 加入到集群中；</li>
+<li>通过 codis-admin 命令行工具添加，方法如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-admin --dashboard=127.0.0.1:18080 --create-proxy -x 127.0.0.1:11080</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>127.0.0.1:18080</code> 以及 <code>127.0.0.1:11080</code> 分别为 dashboard 和 proxy 的 <code>admin_addr</code> 地址；</p>
+<p>在本Demo中，我们在Codis FE启动后，再对proxy进行处理。</p>
+<h2 id="启动-codis-server"><a href="#启动-codis-server" class="headerlink" title="启动 codis-server"></a>启动 codis-server</h2><p>codis-server 配置</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># vim config/redis.conf</span><br><span class="line">bind <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">port <span class="number">6379</span></span><br><span class="line">daemonize yes</span><br><span class="line">pidfile /<span class="keyword">var</span>/run/redis-<span class="number">6379</span>.pid</span><br><span class="line">dir /<span class="keyword">data</span>/redis-<span class="keyword">data</span>/redis-<span class="number">6379</span>/</span><br><span class="line">requirepass <span class="number">123456</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /data</span><br><span class="line">$ sudo mkdir redis-data</span><br><span class="line">$ ./codis-server ./config/redis.conf --<span class="built_in">log</span>=logs/server.log --<span class="built_in">log</span>-level=WARN</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只指定端口</span></span><br><span class="line">$ ./codis-server --port 6380</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动 ./bin/codis-server，与启动普通 redis 的方法一致（这意味着）。</li>
+<li>启动完成后，可以通过 codis-fe 提供的界面或者 codis-admin 命令行工具添加到集群中。</li>
+</ul>
+<h3 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-server -h</span><br><span class="line">Usage: ./redis-server [/path/to/redis.conf] [options]</span><br><span class="line">       ./redis-server - (<span class="built_in">read</span> config from stdin)</span><br><span class="line">       ./redis-server -v or --version</span><br><span class="line">       ./redis-server -h or --<span class="built_in">help</span></span><br><span class="line">       ./redis-server --<span class="built_in">test</span>-memory &lt;megabytes&gt;</span><br><span class="line"></span><br><span class="line">Examples:</span><br><span class="line">       ./redis-server (run the server with default conf)</span><br><span class="line">       ./redis-server /etc/redis/6379.conf</span><br><span class="line">       ./redis-server --port 7777</span><br><span class="line">       ./redis-server --port 7777 --slaveof 127.0.0.1 8888</span><br><span class="line">       ./redis-server /etc/myredis.conf --loglevel verbose</span><br><span class="line"></span><br><span class="line">Sentinel mode:</span><br><span class="line">       ./redis-server /etc/sentinel.conf --sentinel</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动-codis-fe"><a href="#启动-codis-fe" class="headerlink" title="启动 codis-fe"></a>启动 codis-fe</h2><p>codis-fe 启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup ./codis-fe --ncpu=4 --<span class="built_in">log</span>=logs/fe.log --<span class="built_in">log</span>-level=WARN --zookeeper=127.0.0.1:2181 --listen=0.0.0.0:8081 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动参数说明"><a href="#启动参数说明" class="headerlink" title="启动参数说明"></a>启动参数说明</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-fe -h</span><br><span class="line">Usage:</span><br><span class="line">	codis-fe [--ncpu=N] [--<span class="built_in">log</span>=FILE] [--<span class="built_in">log</span>-level=LEVEL] [--assets-dir=PATH] (--dashboard-list=FILE|--zookeeper=ADDR|--etcd=ADDR|--filesystem=ROOT) --listen=ADDR</span><br><span class="line">	codis-fe  --version</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">	--ncpu=N                        最大使用 CPU 个数</span><br><span class="line">	-d LIST, --dashboard-list=LIST  配置文件，能够自动刷新</span><br><span class="line">	-l FILE, --<span class="built_in">log</span>=FILE             设置 <span class="built_in">log</span> 输出文件</span><br><span class="line">	--<span class="built_in">log</span>-level=LEVEL               设置 <span class="built_in">log</span> 输出等级：INFO,WARN,DEBUG,ERROR；默认INFO，推荐WARN</span><br><span class="line">	--listen=ADDR                   HTTP 服务端口</span><br></pre></td></tr></table></figure>
+
+<p>配置文件 codis.json 可以手动编辑，也可以通过 codis-admin 从外部存储中拉取，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-admin --dashboard-list --zookeeper=127.0.0.1:2181 | tee codis.json</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;name&quot;: &quot;codis-demo&quot;,</span><br><span class="line">        &quot;dashboard&quot;: &quot;127.0.0.1:18080&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;name&quot;: &quot;codis-demo2&quot;,</span><br><span class="line">        &quot;dashboard&quot;: &quot;127.0.0.1:28080&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>访问 <a href="http://192.168.2.204:8081/" target="_blank" rel="noopener">http://192.168.2.204:8081/</a> ，选择 codis-demo，即我们的 product name（这其实是因为一个 Codis FE 可以管理多个 Codis Dashboard ）</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727221144837.png" alt="image-20200727221144837"></p>
+<h2 id="添加-proxy"><a href="#添加-proxy" class="headerlink" title="添加 proxy"></a>添加 proxy</h2><p>通过web浏览器访问集群管理页面（即 codis-fe，<a href="http://192.168.2.204:8081/" target="_blank" rel="noopener">http://192.168.2.204:8081/</a> ），在 Proxy 栏我们并不能看到任何codis-proxy。</p>
+<p>这其实是由于前面说的，即：</p>
+<blockquote>
+<p>codis-proxy 启动后，处于 <code>waiting</code> 状态，监听 <code>proxy_addr</code> 地址，但是不会 <code>accept</code> 连接。</p>
+<p>只要添加到集群并完成集群状态的同步，才能改变状态为 <code>online</code>。添加的方法有以下两种：</p>
+<ul>
+<li>通过 codis-fe 添加：通过 <code>Add Proxy</code> 按钮，将 <code>admin_addr</code> 加入到集群中；</li>
+<li>通过 codis-admin 命令行工具添加，方法如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ ./bin/codis-admin --dashboard=127.0.0.1:18080 --create-proxy -x 127.0.0.1:11080</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>其中 <code>127.0.0.1:18080</code> 以及 <code>127.0.0.1:11080</code> 分别为 dashboard 和 proxy 的 <code>admin_addr</code> 地址；</p>
+</blockquote>
+<p>在添加完成后，就可以看到这个proxy的状态了：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727225339947.png" alt="image-20200727225339947"></p>
+<p>同时，在codis-proxy的log中，也能看到对应的变化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2020/07/27 22:53:17 main.go:233: [WARN] [0xc4200a9340] proxy is working ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加-codis-group-（即codis-server）"><a href="#添加-codis-group-（即codis-server）" class="headerlink" title="添加 codis-group （即codis-server）"></a>添加 codis-group （即codis-server）</h2><p>Proxy已经设置成功了，但是 Group 栏为空，因为我们启动的 codis-server 并未加入到集群。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727231701198.png" alt="image-20200727231701198"></p>
+<p>GROUP 输入 1，Add Server 输入我们刚刚启动的 codis-server 地址（127.0.0.1:6380），添加到我们刚新建的 Group，然后再点击 Add Server 按钮即可，如上图所示。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727232156783.png" alt="image-20200727232156783"></p>
+<h2 id="通过fe初始化slot"><a href="#通过fe初始化slot" class="headerlink" title="通过fe初始化slot"></a>通过fe初始化slot</h2><p>新增的集群 slot 状态是 offline，因此我们需要对它进行初始化（将 1024 个 slot 分配到各个 group），而初始化最快的方法可通过 fe 提供的 <code>Rebalance All Slots</code>按钮来做，如下图所示，点击此按钮，我们即快速完成了一个集群的搭建。</p>
+<h2 id="连接到codis-proxy"><a href="#连接到codis-proxy" class="headerlink" title="连接到codis-proxy"></a>连接到codis-proxy</h2><h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h2 id="Codis异常关闭后启动出错"><a href="#Codis异常关闭后启动出错" class="headerlink" title="Codis异常关闭后启动出错"></a>Codis异常关闭后启动出错</h2><h3 id="Situation"><a href="#Situation" class="headerlink" title="Situation"></a>Situation</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2020/07/27 21:25:06 main.go:171: [WARN] [0xc4202d1680] dashboard online failed [15]</span><br><span class="line">2020/07/27 21:25:08 topom.go:189: [ERROR] store: acquire lock of codis-demo failed</span><br><span class="line">[error]: zk: node already exists</span><br><span class="line">    6   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:247</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).create</span><br><span class="line">    5   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:196</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create.func1</span><br><span class="line">    4   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:129</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).shell</span><br><span class="line">    3   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:198</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create</span><br><span class="line">    2   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/store.go:119</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models.(*Store).Acquire</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:188</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">[stack]:</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:189</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">2020/07/27 21:25:08 main.go:173: [PANIC] dashboard online failed, give up &amp; abort :<span class="string">'(</span></span><br><span class="line"><span class="string">[stack]:</span></span><br><span class="line"><span class="string">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:173</span></span><br><span class="line"><span class="string">            main.main</span></span><br><span class="line"><span class="string">        ... ...</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="codis-dashboard-异常退出的修复"><a href="#codis-dashboard-异常退出的修复" class="headerlink" title="codis-dashboard 异常退出的修复"></a>codis-dashboard 异常退出的修复</h3><p>当 codis-dashboard 启动时，会在外部存储上存放一条数据，用于存储 dashboard 信息，同时作为 LOCK 存在。当 codis-dashboard 安全退出时，会主动删除该数据。当 codis-dashboard 异常退出时，由于之前 LOCK 未安全删除，重启往往会失败。因此 codis-admin 提供了强制删除工具：</p>
+<ol>
+<li>确认 codis-dashboard 进程已经退出（<strong>很重要</strong>）；</li>
+<li>运行 codis-admin 删除 LOCK：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-admin --remove-lock --product=&lt;product name&gt; --zookeeper=&lt;zk address&gt;</span><br><span class="line"># e.g., ./codis-admin --remove-lock --product=codis-demo --zookeeper=127.0.0.1:2181</span><br></pre></td></tr></table></figure>
+
+<h3 id="codis-proxy-异常退出的修复"><a href="#codis-proxy-异常退出的修复" class="headerlink" title="codis-proxy 异常退出的修复"></a>codis-proxy 异常退出的修复</h3><p>通常 codis-proxy 都是通过 codis-dashboard 进行移除，移除过程中 codis-dashboard 为了安全会向 codis-proxy 发送 <code>offline</code> 指令，成功后才会将 proxy 信息从外部存储中移除。如果 codis-proxy 异常退出，该操作会失败。此时可以使用 codis-admin 工具进行移除：</p>
+<ol>
+<li>确认 codis-proxy 进程已经退出（<strong>很重要</strong>）；</li>
+<li>运行 codis-admin 删除 proxy：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-admin --dashboard=127.0.0.1:18080 --remove-proxy --addr=127.0.0.1:11080 --force</span><br></pre></td></tr></table></figure>
+
+<p>选项 <code>--force</code> 表示，无论 <code>offline</code> 操作是否成功，都从外部存储中将该节点删除。所以操作前，一定要确认该 codis-proxy 进程已经退出。</p>
+<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><h2 id="移除一个-group"><a href="#移除一个-group" class="headerlink" title="移除一个 group"></a>移除一个 group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ codis-admin --dashboard=codis-dashboard:18080 --group-del --gid=1 --addr=172.17.0.14:6379</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以通过codis-fe来操作：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200727231047140.png" alt="image-20200727231047140"></p>
+<h2 id="使所有slot是offline状态"><a href="#使所有slot是offline状态" class="headerlink" title="使所有slot是offline状态"></a>使所有slot是offline状态</h2><p>当移除一个redis-server时，可能有出现以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>要保证所有slot是offline状态，让所有slot offline命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-admin --dashboard=0.0.0.0:18080 --slots-assign --beg=0 --end=1023 --offline --confirm</span><br><span class="line"></span><br><span class="line"># 然后再移除这个 group</span><br><span class="line">$ codis-admin --dashboard=codis-dashboard:18080 --group-del --gid=1 --addr=172.17.0.14:6379</span><br></pre></td></tr></table></figure>
 
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://github.com/CodisLabs/codis/blob/release3.2/doc/tutorial_zh.md" target="_blank" rel="noopener">https://github.com/CodisLabs/codis/blob/release3.2/doc/tutorial_zh.md</a></li>
+<li><a href="https://blog.csdn.net/u010383937/article/details/83987875" target="_blank" rel="noopener">https://blog.csdn.net/u010383937/article/details/83987875</a></li>
+<li><a href="https://github.com/CodisLabs/codis/issues/1631" target="_blank" rel="noopener">https://github.com/CodisLabs/codis/issues/1631</a></li>
 </ul>
 
       
@@ -946,7 +1139,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -954,7 +1147,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -974,10 +1167,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -987,6 +1176,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1006,15 +1199,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1046,6 +1239,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1054,15 +1251,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1078,10 +1271,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
@@ -1091,6 +1280,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1130,11 +1323,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1154,15 +1347,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1178,11 +1371,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1198,19 +1391,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1234,10 +1427,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
@@ -1246,15 +1435,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>
