@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123456671.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118123728988.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190101200434738-6344274.png">
-<meta property="og:updated_time" content="2020-07-12T06:30:14.628Z">
+<meta property="og:updated_time" content="2020-07-28T13:41:17.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Redis】Redis High-availability">
 <meta name="twitter:description" content="Redis集群当面对一个小型的Demo项目时，使用一台Redis服务器己经非常足够了，然而现实中的项目通常需要若干台Redis服务器的支持：  从结构上，单个Redis服务器会发生单点故障，同时一台服务器需要承受所有的请求负载。这就需要为数据生成多个副本并分配在不同的服务器上： 从容量上，单个Redis服务器的内存非常容易成为存储瓶颈，所以需要进行数据分片。  同时拥有多个Redis服务器后就会面">
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
 <p>为此，下文将依次详细介绍Redis中的数据分片（data sharding）、复制（replication）、哨兵（sentinel）和集群（cluster）的使用和原理。</p>
 <a id="more"></a> 
 
-<h1 id="数据分片（Data-sharding）"><a href="#数据分片（Data-sharding）" class="headerlink" title="数据分片（Data sharding）"></a>数据分片（Data sharding）</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>长期以来，Redis 本身仅支持单实例，内存一般最多 10<del>20GB。这无法支撑大型线上业务系统的需求（比如当双11的时候，对于缓存容量的要求，往往会远高于平日）。而且也造成资源的利用率过低——毕竟现在服务器内存动辄 100</del>200GB。</p>
+<h1 id="数据分片（Data-sharding）"><a href="#数据分片（Data-sharding）" class="headerlink" title="数据分片（Data sharding）"></a>数据分片（Data sharding）</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>长期以来，Redis 本身仅支持单实例，内存一般最多 10 ~ 20GB。这无法支撑大型线上业务系统的需求（比如当双11的时候，对于缓存容量的要求，往往会远高于平日）。而且也造成资源的利用率过低——毕竟现在服务器内存动辄 100 ~ 200GB。</p>
 <p>为解决单机承载能力不足和弹性设置容量的问题，我们就有了各种数据分片（data sharding）技术。</p>
 <p>下面一一做介绍。</p>
 <h2 id="客户端分片（Client-Sharding）"><a href="#客户端分片（Client-Sharding）" class="headerlink" title="客户端分片（Client Sharding）"></a>客户端分片（Client Sharding）</h2><h3 id="传统的客户端分片"><a href="#传统的客户端分片" class="headerlink" title="传统的客户端分片"></a>传统的客户端分片</h3><p>这种方案将分片工作放在业务程序端，程序代码根据预先设置的路由规则（比如，对key hash然后按 10 取模，结果为1则存到 Redis node1，结果为2则存到Redis node2，以此类推），直接对多个 Redis 实例进行分布式访问。</p>
@@ -557,11 +557,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,14 +589,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -609,7 +601,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,10 +622,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,15 +677,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,15 +705,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,11 +737,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -769,11 +769,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -833,15 +833,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -853,15 +853,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

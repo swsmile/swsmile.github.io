@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/640-20200710173038453.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710173352086.png">
 <meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710173443736.png">
-<meta property="og:updated_time" content="2020-07-25T08:34:02.504Z">
+<meta property="og:updated_time" content="2020-07-28T12:31:25.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Redis】Codis">
 <meta name="twitter:description" content="CodisCodis 是一个分布式 Redis 解决方案， 对于上层的应用来说， 连接到 Codis Proxy 和连接原生的 Redis Server 没有显著区别 (不支持的命令列表)， 上层应用可以像使用单机的 Redis 一样使用， Codis 内部（其实是Codis Proxy）会处理请求的转发（转发到Codis Server）， 不停机的数据迁移等工作， 所有后边的一切事情， 对于前面">
@@ -264,7 +264,11 @@ var _hmt = _hmt || [];
 <li>轻松地实现高可用性和横向扩展</li>
 <li>不停机的数据迁移（当增加 Redis server的数量时）</li>
 </ul>
-<h2 id="相对于twemproxy的优劣？"><a href="#相对于twemproxy的优劣？" class="headerlink" title="相对于twemproxy的优劣？"></a>相对于twemproxy的优劣？</h2><p>codis和twemproxy最大的区别有两个：一个是codis支持动态水平扩展，对client完全透明不影响服务的情况下可以完成增减redis实例的操作；一个是codis是用go语言写的并支持多线程而twemproxy用C并只用单线程。 后者又意味着：codis在多核机器上的性能会好于twemproxy；codis的最坏响应时间可能会因为GC的STW而变大，不过go1.5发布后会显著降低STW的时间；如果只用一个CPU的话go语言的性能不如C，因此在一些短连接而非长连接的场景中，整个系统的瓶颈可能变成accept新tcp连接的速度，这时codis的性能可能会差于twemproxy。</p>
+<h2 id="相对于twemproxy的优劣？"><a href="#相对于twemproxy的优劣？" class="headerlink" title="相对于twemproxy的优劣？"></a>相对于twemproxy的优劣？</h2><p>codis和twemproxy最大的区别有两个：</p>
+<ul>
+<li>一个是codis支持动态水平扩展，对client完全透明不影响服务的情况下可以完成增减redis实例的操作；</li>
+<li>一个是codis是用go语言写的并支持多线程而twemproxy用C并只用单线程。 后者又意味着：codis在多核机器上的性能会好于twemproxy；codis的最坏响应时间可能会因为GC的STW而变大，不过go1.5发布后会显著降低STW的时间；如果只用一个CPU的话go语言的性能不如C，因此在一些短连接而非长连接的场景中，整个系统的瓶颈可能变成accept新tcp连接的速度，这时codis的性能可能会差于twemproxy。</li>
+</ul>
 <h2 id="相对于redis-cluster的优劣？"><a href="#相对于redis-cluster的优劣？" class="headerlink" title="相对于redis cluster的优劣？"></a>相对于redis cluster的优劣？</h2><p>redis cluster基于smart client和无中心的设计，client必须按key的哈希将请求直接发送到对应的节点。这意味着：使用官方cluster必须要等对应语言的redis driver对cluster支持的开发和不断成熟；client不能直接像单机一样使用pipeline来提高效率，想同时执行多个请求来提速必须在client端自行实现异步逻辑。 而codis因其有中心节点、基于proxy的设计，对client来说可以像对单机redis一样去操作proxy（除了一些命令不支持），还可以继续使用pipeline并且如果后台redis有多个的话速度会显著快于单redis的pipeline。同时codis使用zookeeper来作为辅助，这意味着单纯对于redis集群来说需要额外的机器搭zk，不过对于很多已经在其他服务上用了zk的公司来说这不是问题：）</p>
 <h1 id="Pre-sharding"><a href="#Pre-sharding" class="headerlink" title="Pre-sharding"></a>Pre-sharding</h1><p>Codis 采用 Pre-sharding 的技术来实现数据的分片（sharding），默认分成 1024 个槽（slots） (0-1023)，对于每个key来说，通过以下公式确定所属的 Slot Id：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SlotId = crc32(key) % 1024</span><br></pre></td></tr></table></figure>
@@ -277,7 +281,7 @@ var _hmt = _hmt || [];
 </ul>
 <h1 id="Proxy-请求处理细节"><a href="#Proxy-请求处理细节" class="headerlink" title="Proxy 请求处理细节"></a>Proxy 请求处理细节</h1><p>如下图所示：该部分主要涉及到proxy的处理细节，涉及到如何接受一个请求到响应回包的过程：</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710172931082.png" alt="image-20200710172931082"></p>
-<p>1）proxy接收客户端的连接之后，新建一个session,同时启动session中reader与writer两个协程，reader主要用于接收客户端请求数据并解析，对多key的场景下进行命令的拆分，然后将请求通过router进行分发到具体的redis实例，并将redis处理的数据结果写到通道到中，writer从通道中接收对应的结果，将写回给客户端。</p>
+<p>proxy接收客户端的连接之后，新建一个session,同时启动session中reader与writer两个协程，reader主要用于接收客户端请求数据并解析，对多key的场景下进行命令的拆分，然后将请求通过router进行分发到具体的redis实例，并将redis处理的数据结果写到通道到中，writer从通道中接收对应的结果，将写回给客户端。</p>
 <p>Router层主要是通过crc命令得到key对应的路由信息，从源码可以看到hashtag的特性，codis其实也是支持的。</p>
 <p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/640-20200710173038453.png" alt="img"></p>
 <h1 id="高可用-amp-容灾-amp-故障转移"><a href="#高可用-amp-容灾-amp-故障转移" class="headerlink" title="高可用&amp;容灾&amp;故障转移"></a>高可用&amp;容灾&amp;故障转移</h1><p>哨兵集群如何保证redis高可用</p>
@@ -535,11 +539,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,14 +571,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -587,7 +583,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -596,10 +604,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,15 +659,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,15 +687,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,11 +719,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,11 +751,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -811,15 +815,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -831,15 +835,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">
