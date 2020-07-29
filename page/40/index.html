@@ -191,6 +191,173 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Network】Shadowsocks -Shadowsocks总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/19/【Network】Shadowsocks -Shadowsocks总结/">【Network】Shadowsocks总结</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/19/【Network】Shadowsocks -Shadowsocks总结/" class="archive-article-date">
+  	<time datetime="2019-06-19T01:25:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Shadowsocks-Server"><a href="#Shadowsocks-Server" class="headerlink" title="Shadowsocks Server"></a>Shadowsocks Server</h1><h2 id="Shadowsocks-Server的实现"><a href="#Shadowsocks-Server的实现" class="headerlink" title="Shadowsocks Server的实现"></a>Shadowsocks Server的实现</h2><p>Shadowsocks Server分为Python、Go、C++ with Qt、C with libevb和Perl版本。</p>
+        
+          <a class="article-more-a" href="/2019/06/19/【Network】Shadowsocks -Shadowsocks总结/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Network/" class="article-tag-list-link color3">Network</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/19/【Network】Shadowsocks -Shadowsocks总结/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Data-Structure】图-图的物理存储" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/14/【Data-Structure】图-图的物理存储/">【Data Structure】图（Graph） - 图的物理存储</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/14/【Data-Structure】图-图的物理存储/" class="archive-article-date">
+  	<time datetime="2019-06-14T07:35:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="图的顺序存储方法-邻接矩阵（Adjacency-Matrix）"><a href="#图的顺序存储方法-邻接矩阵（Adjacency-Matrix）" class="headerlink" title="图的顺序存储方法 - 邻接矩阵（Adjacency Matrix）"></a>图的顺序存储方法 - 邻接矩阵（Adjacency Matrix）</h1><p>使用数组存储图时，需要使用两个数组，一个数组存放图中顶点本身的数据（一维数组），另外一个数组用于存储<strong>各顶点之间的关系</strong>（二维数组）。</p>
+<ul>
+<li>如果只是存储图中包含的顶点，使用一维数组就足够了；</li>
+<li>然而，我们还需要存储顶点之间的关系，因此要记录<strong>每个顶点和其它所有顶点之间的关系</strong>，所以需要使用二维数组。</li>
+</ul>
+<p>这个二维数组称为<strong>邻接矩阵（Adjacency Matrix）</strong>。</p>
+<hr>
+<p>不同类型的图，存储的方式略有不同，根据图有无权，可以将图划分为两大类：<strong>图</strong>和<strong>网</strong> 。</p>
+<p>图，包括<strong>无向图</strong>和<strong>有向图</strong>；<strong>网</strong>，是指带权的图，包括<strong>无向网</strong>和<strong>有向网</strong>。</p>
+<hr>
+<p>存储方式的不同，指的是：在使用二维数组存储图中顶点之间的关系时，如果顶点之间存在边或弧，在相应位置用 1 表示，反之用 0 表示；如果使用二维数组存储网中顶点之间的关系，顶点之间如果有边或者弧的存在，在数组的相应位置存储其权值；反之用 0 表示。</p>
+<h2 id="无向图"><a href="#无向图" class="headerlink" title="无向图"></a>无向图</h2><p>我们来看一个无向图的实例，下图的左图就是一个无向图：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190827155615406.png" alt="image-20190827155615406"></p>
+<p>对于<strong>无向图</strong>来说，二维数组构成的邻接矩阵，实际上是<strong>对称矩阵</strong>。因此，在存储时就可以采用压缩存储的方式存储下三角或者上三角。</p>
+<p>通过二阶矩阵，可以直观地计算出各个顶点的度，为该行（或该列）非 0 值的和。例如，第一行有两个 1，说明 V1 有两个边，所以度为 2。</p>
+<h2 id="有向图"><a href="#有向图" class="headerlink" title="有向图"></a>有向图</h2><p>我们再来看一个有向图的样例，如下图所示的左图：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190827155644555.png" alt="image-20190827155644555"></p>
+<p>例如，arcs[0][1] = 1 ，证明从 V1 到 V2 有弧存在。且通过邻接矩阵，可以很轻松得知各顶点的出度和入度，出度为该行非 0 值的和，入度为该列非 0 值的和。例如，V1 的出度为 2 （因为第二行中有两个 1 ），为 2 ； V1 的入度为 1 （第二列中只有一个 1 ）。</p>
+        
+          <a class="article-more-a" href="/2019/06/14/【Data-Structure】图-图的物理存储/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DataStructure/" class="article-tag-list-link color4">DataStructure</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/14/【Data-Structure】图-图的物理存储/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Data-Structure】图-图的深度优先搜索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -657,163 +824,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Data-Structure】树-多路平衡查找树 - 2-3查找树和 2-4 查找树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/04/【Data-Structure】树-多路平衡查找树 - 2-3查找树和 2-4 查找树/">【Data Structure】多路平衡查找树 - 2-3 查找树和 2-4 查找树</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/04/【Data-Structure】树-多路平衡查找树 - 2-3查找树和 2-4 查找树/" class="archive-article-date">
-  	<time datetime="2019-06-04T01:53:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p><strong>二叉搜索树（Binary Search Tree）</strong>在很多情况下可以良好的工作，但它的限制是最坏情况下的时间复杂度为 O(n)。</p>
-<p><strong>平衡二叉搜索树（Self-balancing Binary Search Tree）</strong>的设计则是保证其高度在最坏的情况下时间复杂度为 $O(log_2n)$，其插入、删除和查找操作的时间复杂度均为 $O(log_2n)$。常见的平衡二叉搜索树包括 AVL树、红黑树。</p>
-<p><strong>多路平衡查找树（Multi-way Self-balancing Search Tree）</strong>作为一般化的平衡二叉搜索树（Self-balancing Binary Search Tree），现在其实存在很多种类的平衡搜索树，常见的有2-3查找树、2-4查找树、B 树、B+树等。</p>
-        
-          <a class="article-more-a" href="/2019/06/04/【Data-Structure】树-多路平衡查找树 - 2-3查找树和 2-4 查找树/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DataStructure/" class="article-tag-list-link color4">DataStructure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/04/【Data-Structure】树-多路平衡查找树 - 2-3查找树和 2-4 查找树/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Algorithm】查找算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/03/【Algorithm】查找算法/">【Algorithm】查找算法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/03/【Algorithm】查找算法/" class="archive-article-date">
-  	<time datetime="2019-06-03T14:05:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>查找是在大量的信息中寻找一个特定的信息元素，在计算机应用中，查找是常用的基本运算，例如编译程序中符号表的查找。</p>
-<h1 id="顺序查找"><a href="#顺序查找" class="headerlink" title="顺序查找"></a>顺序查找</h1><p>顺序查找适合于存储结构为顺序存储或链接存储的线性表。</p>
-<h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>顺序查找也称为线形查找，属于无序查找算法。从数据结构线形表的一端开始，顺序扫描，依次将扫描到的结点关键字与给定值k相比较，若相等则表示查找成功；若扫描结束仍没有找到关键字等于k的结点，表示查找失败。</p>
-<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><p>查找成功时的平均查找长度为：（假设每个数据元素的概率相等） ASL = 1/n(1+2+3+…+n) = (n+1)/2 ;</p>
-<p>当查找不成功时，需要n+1次比较，时间复杂度为O(n);</p>
-<p>所以，<strong>顺序查找的时间复杂度为O(n</strong>)。</p>
-        
-          <a class="article-more-a" href="/2019/06/03/【Algorithm】查找算法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/03/【Algorithm】查找算法/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/39/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><a class="page-number" href="/page/42/">42</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/41/">Next &raquo;</a>
@@ -920,7 +930,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -928,7 +938,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -948,6 +958,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -957,10 +971,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1024,6 +1034,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1036,15 +1050,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Network</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1096,11 +1106,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1128,15 +1138,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1160,11 +1170,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1196,15 +1206,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1212,11 +1218,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

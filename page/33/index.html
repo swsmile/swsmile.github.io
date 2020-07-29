@@ -191,6 +191,177 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Algorithm】排序算法-桶排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/30/【Algorithm】排序算法-桶排序/">【Algorithm】排序算法 - 桶排序（Bucket Sort）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/30/【Algorithm】排序算法-桶排序/" class="archive-article-date">
+  	<time datetime="2019-07-30T14:17:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ol>
+<li>设置固定空桶数</li>
+<li>将数据放到对应的空桶中</li>
+<li>将每个不为空的桶进行排序</li>
+<li>拼接不为空的桶中的数据，得到结果</li>
+</ol>
+<h1 id="步骤演示"><a href="#步骤演示" class="headerlink" title="步骤演示"></a>步骤演示</h1><p>假设一组数据（长度为20）为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[63,157,189,51,101,47,141,121,157,156,194,117,98,139,67,133,181,13,28,109]</span><br></pre></td></tr></table></figure>
+
+<p>现在需要按5个分桶，进行桶排序，实现步骤如下:</p>
+<ol>
+<li>找到数组中的最大值194和最小值13，然后根据桶数为5，计算出每个桶中的数据范围为<code>(194-13+1)/5=36.4</code>；</li>
+<li>遍历原始数据，以第一个数据63为例，先找到该数据对应的桶序列（<code>Math.floor(63 - 13) / 36.4) =1</code>），然后将该数据放入序列为1的桶中（从0开始算）；</li>
+<li>当向同一个桶中第二次插入数据时，判断桶中已存在的数字与新插入的数字的大小，按从左到右，从小打大的顺序插入。如第一个桶已经有了63，再插入51，67后，桶中的排序为(51,63,67) ，<strong>一般通过链表来存放桶中数据。</strong></li>
+<li>全部数据装桶完毕后，按序列，从小到大合并所有非空的桶（0，1，2，3，4桶）</li>
+<li>合并完之后就是排序好的数据了</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/07/30/【Algorithm】排序算法-桶排序/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/30/【Algorithm】排序算法-桶排序/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Algorithm】TopK-问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/30/【Algorithm】TopK-问题/">【Algorithm】TopK 问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/30/【Algorithm】TopK-问题/" class="archive-article-date">
+  	<time datetime="2019-07-30T13:36:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="有1亿个浮点数，如果找出期中最大的10000个？"><a href="#有1亿个浮点数，如果找出期中最大的10000个？" class="headerlink" title="有1亿个浮点数，如果找出期中最大的10000个？"></a>有1亿个浮点数，如果找出期中最大的10000个？</h1><h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>最容易想到的方法是将数据全部排序，然后在排序后的集合中进行查找，最快的排序算法的时间复杂度一般为O（nlogn），如快速排序。</p>
+<p>但是在32位的机器上，每个float类型占4个字节，1亿个浮点数就要占用400MB的存储空间，对于一些可用内存小于400M的计算机而言，很显然是不能一次将全部数据读入内存进行排序的。其实即使内存能够满足要求（我机器内存都是8GB），该方法也并不高效，因为题目的目的是寻找出最大的10000个数即可，而排序却是将所有的元素都排序了，做了很多的无用功。</p>
+<h2 id="局部淘汰法"><a href="#局部淘汰法" class="headerlink" title="局部淘汰法"></a>局部淘汰法</h2><p>第二种方法为局部淘汰法，该方法与排序方法类似，用一个容器保存前10000个数，然后将剩余的所有数字——与容器内的最小数字相比，如果所有后续的元素都比容器内的10000个数还小，那么容器内这个10000个数就是最大10000个数。</p>
+<p>如果某一后续元素比容器内最小数字大，则删掉容器内最小元素，并将该元素插入容器，最后遍历完这1亿个数，得到的结果容器中保存的数即为最终结果了。此时的时间复杂度为$O（n+m^2）$，其中m为容器的大小，即10000。</p>
+<h2 id="分治法"><a href="#分治法" class="headerlink" title="分治法"></a>分治法</h2><p>第三种方法是分治法，将1亿个数据分成100份，每份100万个数据，找到每份数据中最大的10000个，最后在剩下的100*10000个数据里面找出最大的10000个。</p>
+<p>如果100万数据选择足够理想，那么可以过滤掉1亿数据里面99%的数据。100万个数据里面查找最大的10000个数据的方法如下：用快速排序的方法，将数据分为2堆，如果大的那堆个数N大于10000个，继续对大堆快速排序一次分成2堆，如果大的那堆个数N大于10000个，继续对大堆快速排序一次分成2堆，如果大堆个数N小于10000个，就在小的那堆里面快速排序一次，找第10000-n大的数字；递归以上过程，就可以找到第1w大的数。参考上面的找出第1w大数字，就可以类似的方法找到前10000大数字了。此种方法需要每次的内存空间为10^6*4=4MB，一共需要101次这样的比较。</p>
+        
+          <a class="article-more-a" href="/2019/07/30/【Algorithm】TopK-问题/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/30/【Algorithm】TopK-问题/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Java】IO-读取数据" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -696,321 +867,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Algorithm】算法的时间复杂度" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/27/【Algorithm】算法的时间复杂度/">【Algorithm】算法的时间复杂度（Time complexity）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/27/【Algorithm】算法的时间复杂度/" class="archive-article-date">
-  	<time datetime="2019-07-27T09:42:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="常见的时间复杂度量级"><a href="#常见的时间复杂度量级" class="headerlink" title="常见的时间复杂度量级"></a>常见的时间复杂度量级</h1><p>我们先从常见的时间复杂度量级进行大O的理解：</p>
-<ul>
-<li><p>常数阶O(1)</p>
-</li>
-<li><p>对数阶$O(log_2n)$</p>
-</li>
-<li><p>线性阶O(n)</p>
-</li>
-<li><p>线性对数阶$On(log_2n)$</p>
-</li>
-<li><p>平方阶$O(n^2)$</p>
-</li>
-<li><p>指数阶$O(2^n)$</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th><strong>复杂度</strong></th>
-<th><strong>标记符号</strong></th>
-<th><strong>描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>常量（Constant）</td>
-<td>$O(1) $</td>
-<td>操作的数量为常数，与输入的数据的规模无关。n = 1,000,000 -&gt; 1-2 operations</td>
-</tr>
-<tr>
-<td>对数（Logarithmic）</td>
-<td>$O(log_2n)$</td>
-<td>操作的数量与输入数据的规模 n 的比例是 log2 (n)。n = 1,000,000 -&gt; 30 operations</td>
-</tr>
-<tr>
-<td>线性（Linear）</td>
-<td>$O(n)$</td>
-<td>操作的数量与输入数据的规模 n 成正比。n = 10,000 -&gt; 5000 operations</td>
-</tr>
-<tr>
-<td>平方（Quadratic）</td>
-<td>$O(n^2)$</td>
-<td>操作的数量与输入数据的规模 n 的比例为二次平方。n = 500 -&gt; 250,000 operations</td>
-</tr>
-<tr>
-<td>立方（Cubic）</td>
-<td>$O(n^3)$</td>
-<td>操作的数量与输入数据的规模 n 的比例为三次方。n = 200 -&gt; 8,000,000 operations</td>
-</tr>
-<tr>
-<td>指数（Exponential）</td>
-<td>$O(2^n)$、$O(k^n)$、$O(n!)$</td>
-<td>指数级的操作，快速的增长。n = 20 -&gt; 1048576 operations</td>
-</tr>
-</tbody></table>
-<p>列举了几种常见的算法时间复杂度的比较（又小到大）：$O(1)$（常数阶） &lt; $O(log_2n)$（对数阶） &lt; $O(n)$（线性阶） &lt; $O(n2)$（平方阶） &lt; $O(n3)$（立方阶） &lt; $O(2^n)$ (指数阶)。</p>
-<blockquote>
-<p>通常将以 10 为底的对数叫做常用对数。为了简便，N 的常用对数 log10 N 简写做 lg N，例如 log10 5 记做 lg 5。</p>
-<p>通常将以无理数 e 为底的对数叫做自然对数。为了方便，N 的自然对数 loge N 简写做 ln N，例如 loge 3 记做 ln 3。</p>
-<p>在算法导论中，采用记号 $lg n = log_2n$ ，也就是以 2 为底的对数。改变一个对数的底只是把对数的值改变了一个常数倍，所以当不在意这些常数因子时，我们将经常采用 “lg n”记号，就像使用 O 记号一样。计算机工作者常常认为对数的底取 2 最自然，因为很多算法和数据结构都涉及到对问题进行二分。</p>
-</blockquote>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/151255023901167.png" alt="img"></p>
-<p>而通常时间复杂度与运行时间有一些常见的比例关系：</p>
-<table>
-<thead>
-<tr>
-<th><strong>复杂度</strong></th>
-<th><strong>10</strong></th>
-<th><strong>20</strong></th>
-<th><strong>50</strong></th>
-<th><strong>100</strong></th>
-<th><strong>1000</strong></th>
-<th><strong>10000</strong></th>
-<th><strong>100000</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>$O(1)$</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-</tr>
-<tr>
-<td>$O(log_2(n))$</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-</tr>
-<tr>
-<td>$O(n)$</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-</tr>
-<tr>
-<td>$O(n*log_2(n))$</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-</tr>
-<tr>
-<td>$O(n^2)$</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>2s</td>
-<td>3-4 min</td>
-</tr>
-<tr>
-<td>$O(n^3)$</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>20s</td>
-<td>5 hours</td>
-<td>231 days</td>
-</tr>
-<tr>
-<td>$O(2^n)$</td>
-<td>&lt;1s</td>
-<td>&lt;1s</td>
-<td>260 days</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-</tr>
-<tr>
-<td>$O(n!)$</td>
-<td>&lt;1s</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-</tr>
-<tr>
-<td>$O(n^n)$</td>
-<td>3-4 min</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-<td>hangs</td>
-</tr>
-</tbody></table>
-        
-          <a class="article-more-a" href="/2019/07/27/【Algorithm】算法的时间复杂度/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/27/【Algorithm】算法的时间复杂度/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Distributed-System】负载均衡" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/26/【Distributed-System】负载均衡/">【Distributed System】负载均衡（Load balancing）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/07/26/【Distributed-System】负载均衡/" class="archive-article-date">
-  	<time datetime="2019-07-26T05:28:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="负载均衡（Load-balancing）"><a href="#负载均衡（Load-balancing）" class="headerlink" title="负载均衡（Load balancing）"></a>负载均衡（Load balancing）</h1><p><strong>负载平衡（Load balancing）</strong>是一种计算机技术，用来在多个计算机（计算机集群）、网络连接、CPU、磁盘驱动器或其他资源中分配负载，以达到最优化资源使用、最大化吞吐率、最小化响应时间、同时避免过载的目的。 使用带有负载平衡的多个服务器组件，取代单一的组件，可以通过冗余提高可靠性。负载平衡服务通常是由专用软件和硬件来完成。 主要作用是将大量作业合理地分摊到多个操作单元上进行执行，用于解决互联网架构中的高并发和高可用的问题。</p>
-        
-          <a class="article-more-a" href="/2019/07/26/【Distributed-System】负载均衡/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/07/26/【Distributed-System】负载均衡/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/32/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/31/">31</a><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/34/">Next &raquo;</a>
@@ -1117,7 +973,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1125,7 +981,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1145,6 +1001,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1154,10 +1014,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1221,6 +1077,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1233,15 +1093,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Network</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1293,11 +1149,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1325,15 +1181,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1357,11 +1213,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1393,15 +1249,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1409,11 +1261,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

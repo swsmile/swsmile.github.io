@@ -8,15 +8,18 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【Protobuf】Protocol Buffers 2中使用map | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
+  <meta name="description" content="MapsIf you want to create an associative map as part of your data definition, protocol buffers provides a handy shortcut syntax: 1map&amp;lt;key_type, value_type&amp;gt; map_field = N;  …where the key_type ca">
+<meta name="keywords" content="Protobuf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Protobuf】Protocol Buffers 2中使用map">
 <meta property="og:url" content="http://swsmile.info/2020/07/12/【Protobuf】Protocol-Buffers-2中使用map/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
+<meta property="og:description" content="MapsIf you want to create an associative map as part of your data definition, protocol buffers provides a handy shortcut syntax: 1map&amp;lt;key_type, value_type&amp;gt; map_field = N;  …where the key_type ca">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-12T06:57:13.797Z">
+<meta property="og:updated_time" content="2020-07-28T14:56:15.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Protobuf】Protocol Buffers 2中使用map">
+<meta name="twitter:description" content="MapsIf you want to create an associative map as part of your data definition, protocol buffers provides a handy shortcut syntax: 1map&amp;lt;key_type, value_type&amp;gt; map_field = N;  …where the key_type ca">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -207,15 +210,30 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
+        <h1 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h1><p>If you want to create an associative map as part of your data definition, protocol buffers provides a handy shortcut syntax:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map&lt;key_type, value_type&gt; map_field = N;</span><br></pre></td></tr></table></figure>
 
+<p>…where the <code>key_type</code> can be any integral or string type (so, any <a href="https://developers.google.com/protocol-buffers/docs/proto#scalar" target="_blank" rel="noopener">scalar</a> type except for floating point types and <code>bytes</code>). Note that enum is not a valid <code>key_type</code>. The <code>value_type</code> can be any type except another map.</p>
+<p>So, for example, if you wanted to create a map of projects where each <code>Project</code> message is associated with a string key, you could define it like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string, Project&gt; projects = 3;</span><br></pre></td></tr></table></figure>
 
+<p>The generated map API is currently available for all proto2 supported languages. You can find out more about the map API for your chosen language in the relevant <a href="https://developers.google.com/protocol-buffers/docs/reference/overview" target="_blank" rel="noopener">API reference</a>.</p>
+<a id="more"></a> 
 
+<h2 id="Maps-Features"><a href="#Maps-Features" class="headerlink" title="Maps Features"></a>Maps Features</h2><ul>
+<li>Extensions are not supported for maps.</li>
+<li>Maps cannot be <code>repeated</code>, <code>optional</code>, or <code>required</code>.</li>
+<li>Wire format ordering and map iteration ordering of map values is undefined, so you cannot rely on your map items being in a particular order.</li>
+<li>When generating text format for a <code>.proto</code>, maps are sorted by key. Numeric keys are sorted numerically.</li>
+<li>When parsing from the wire or when merging, if there are duplicate map keys the last key seen is used. When parsing a map from text format, parsing may fail if there are duplicate keys.</li>
+</ul>
+<h1 id="Backwards-compatibility"><a href="#Backwards-compatibility" class="headerlink" title="Backwards compatibility"></a>Backwards compatibility</h1><p>The map syntax is equivalent to the following on the wire, so protocol buffers implementations that do not support maps can still handle your data:</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">MapFieldEntry</span> </span>&#123;</span><br><span class="line">  <span class="keyword">optional</span> key_type key = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">optional</span> value_type value = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">repeated</span> MapFieldEntry map_field = N;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
+<p>Any protocol buffers implementation that supports maps must both produce and accept data that can be accepted by the above definition.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://developers.google.com/protocol-buffers/docs/proto#maps" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/proto#maps</a></li>
+</ul>
 
       
 
@@ -224,13 +242,24 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Protobuf</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Diary/" class="article-tag-list-link color1">Diary</a>
+        			<a href="/categories/Protobuf/" class="article-tag-list-link color4">Protobuf</a>
         		</li>
       		
 		</ul>
@@ -427,7 +456,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -435,7 +464,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -455,6 +484,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -464,10 +497,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,6 +560,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -543,15 +576,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Network</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -603,11 +632,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,15 +664,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,11 +696,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,15 +732,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,11 +744,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">

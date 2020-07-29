@@ -191,6 +191,186 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Golang】类型-函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/【Golang】类型-函数/">【Golang】函数</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/15/【Golang】类型-函数/" class="archive-article-date">
+  	<time datetime="2020-03-15T09:12:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h1><p>A function type denotes the set of all functions with the same parameter and result types. The value of an uninitialized variable of function type is <code>nil</code>.</p>
+<p>Go 语言函数定义格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">function_name</span><span class="params">( [parameter list] )</span> [<span class="title">return_types</span>]</span> &#123;</span><br><span class="line">   函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>函数定义解析：</p>
+<ul>
+<li>func：函数由 func 开始声明</li>
+<li>function_name：函数名称，函数名和参数列表一起构成了函数签名。</li>
+<li>parameter list：参数列表，参数就像一个占位符，当函数被调用时，你可以将值传递给参数，这个值被称为实际参数。参数列表指定的是参数类型、顺序、及参数个数。参数是可选的，也就是说函数也可以不包含参数。</li>
+<li>return_types：返回类型，函数返回一列值。return_types 是该列值的数据类型。有些功能不需要返回值，这种情况下 return_types 不是必须的。</li>
+<li>函数体：函数定义的代码集合。</li>
+</ul>
+<p>比如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(x <span class="keyword">int</span>, y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(add(<span class="number">42</span>, <span class="number">13</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Example:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(x <span class="keyword">int</span>)</span> <span class="title">int</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(a, _ <span class="keyword">int</span>, z <span class="keyword">float32</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(a, b <span class="keyword">int</span>, z <span class="keyword">float32</span>)</span> <span class="params">(<span class="keyword">bool</span>)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(prefix <span class="keyword">string</span>, values ...<span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(a, b <span class="keyword">int</span>, z <span class="keyword">float64</span>, opt ...<span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(success <span class="keyword">bool</span>)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">float64</span>)</span> <span class="params">(<span class="keyword">float64</span>, *[]<span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">func</span><span class="params">(p *T)</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数命名规范"><a href="#函数命名规范" class="headerlink" title="函数命名规范"></a>函数命名规范</h2><p>由于Golang的特殊性（用大小写来控制函数的可见性），除特殊的性能测试与单元测试函数之外，都应该遵循如下原则：</p>
+<ol>
+<li>使用驼峰命名</li>
+<li>如果包外不需要访问请用小写开头的函数</li>
+<li>如果需要暴露出去给包外访问需要使用大写开头的函数名称</li>
+</ol>
+<p>一个典型的函数命名方法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注释一律使用双斜线， 对象暴露的方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*fileDao)</span> <span class="title">AddFile</span><span class="params">(file *model.File)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">   result := db.NewRecord(*file)</span><br><span class="line">   <span class="keyword">if</span> result &#123;</span><br><span class="line">      db.Create(file)</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 不需要给包外访问的函数如下</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">removeCommaAndQuote</span><span class="params">(content <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">   re, _ := regexp.Compile(<span class="string">"[\\`\\,]+"</span>)</span><br><span class="line">   <span class="keyword">return</span> strings.TrimSpace(re.ReplaceAllString(content, <span class="string">""</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/03/15/【Golang】类型-函数/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/15/【Golang】类型-函数/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Golang】依赖-模块管理与引用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/【Golang】依赖-模块管理与引用/">【Golang】模块管理与引用</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/15/【Golang】依赖-模块管理与引用/" class="archive-article-date">
+  	<time datetime="2020-03-15T09:06:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="包声明-package"><a href="#包声明-package" class="headerlink" title="包声明 - package"></a>包声明 - package</h1><p>在go源文件的开头必须申明文件所属的package，如下所示：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> name</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+
+<h2 id="一些实验发现"><a href="#一些实验发现" class="headerlink" title="一些实验发现"></a>一些实验发现</h2><h3 id="实验-1"><a href="#实验-1" class="headerlink" title="实验 1"></a>实验 1</h3><p>注意，<strong>位于同一个文件夹下的所有 .go 文件，它们的 package name 一定要完全一致</strong>。比如，由于 ccc.go 和 ddd.go 两个文件都位于 bbb 文件夹下，因此这两个文件的 package name 必需要完全一致（但这个 package name 不要求一定为 bbb，即不一定要和所在文件夹的文件夹名称相同）。</p>
+<p>如果不一致，则会提示以下错误：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200315170921063.png" alt="image-20200315170921063"></p>
+        
+          <a class="article-more-a" href="/2020/03/15/【Golang】依赖-模块管理与引用/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/15/【Golang】依赖-模块管理与引用/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Golang】变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -810,182 +990,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】类型转换 - 类型转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/15/【Golang】类型转换 - 类型转换/">【Golang】类型转换 - 类型断言（Type Assertion）和强制类型转换</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/15/【Golang】类型转换 - 类型转换/" class="archive-article-date">
-  	<time datetime="2020-03-15T07:43:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="类型断言（Type-Assertion）"><a href="#类型断言（Type-Assertion）" class="headerlink" title="类型断言（Type Assertion）"></a>类型断言（Type Assertion）</h1><h2 id="非安全的类型断言"><a href="#非安全的类型断言" class="headerlink" title="非安全的类型断言"></a>非安全的类型断言</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">interface</span>&#123;&#125; = <span class="string">"ss"</span></span><br><span class="line">	t := a.(<span class="keyword">string</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"%v"</span>, t)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在上面，我们将一个类型为 <code>interface{}</code> 的变量转换成了 string 类型。</p>
-<p>我们可以使用类型断言（type assertion），以将一个类型为 <code>interface{}</code> 的变量，转换为基本数据类型或者复杂数据类型。</p>
-<p>所谓”非安全“的类型断言，是指如果这个转换失败，则会直接在运行时报错：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">interface</span>&#123;&#125; =<span class="string">"ss"</span></span><br><span class="line">	t:= a.(<span class="keyword">int</span>)</span><br><span class="line">	fmt.Printf(<span class="string">"%d"</span>,t)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Error：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">panic</span>: <span class="keyword">interface</span> conversion: <span class="keyword">interface</span> &#123;&#125; is <span class="keyword">string</span>, not <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">goroutine <span class="number">1</span> [running]:</span><br><span class="line">main.main()</span><br><span class="line">        /Working/GoPlayGround/main.<span class="keyword">go</span>:<span class="number">7</span> +<span class="number">0x45</span></span><br></pre></td></tr></table></figure>
-
-<p>因此，就有了安全的类型断言。</p>
-<h2 id="安全的类型断言"><a href="#安全的类型断言" class="headerlink" title="安全的类型断言"></a>安全的类型断言</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s <span class="keyword">interface</span>&#123;&#125; = <span class="string">"BrainWu"</span></span><br><span class="line">	<span class="keyword">if</span> v, ok := s.(<span class="keyword">string</span>); ok &#123; <span class="comment">// invalid type assertion: s.(string) (non-interface type string on left)</span></span><br><span class="line">		fmt.Println(v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们可以使用类型断言，将一个类型为 <code>interface{}</code> 的变量，<strong>转换为基本数据类型或者复杂数据类型</strong>：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">interface</span>&#123;&#125; = <span class="number">10</span></span><br><span class="line">	t, ok := a.(<span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		fmt.Println(<span class="string">"int"</span>, t)</span><br><span class="line">	&#125;</span><br><span class="line">	t2, ok := a.(<span class="keyword">float32</span>)</span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		fmt.Println(<span class="string">"float32"</span>, t2)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在进行安全的类型断言时，可以使用两个参数来接收返回值，其中第一个参数是转换成功后的值，一个是 bool，用于指示这次类型转换是否成功（如果转换失败，则 <code>v</code> 为期待转换类型的默认值），比如：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s <span class="keyword">interface</span>&#123;&#125; = <span class="string">"test"</span></span><br><span class="line">	v1, ok := s.(<span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">if</span> ok &#123; <span class="comment">// invalid type assertion: s.(string) (non-interface type string on left)</span></span><br><span class="line">		fmt.Println(v1)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(v1)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> s2 <span class="keyword">interface</span>&#123;&#125; = <span class="number">11</span></span><br><span class="line">	v2, ok := s2.(AAA)</span><br><span class="line">	<span class="keyword">if</span> ok &#123;</span><br><span class="line">		fmt.Println(v2)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(v2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> AAA <span class="keyword">struct</span> &#123;</span><br><span class="line">	bb <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line">&#123;<span class="number">0</span>&#125;</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/03/15/【Golang】类型转换 - 类型转换/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/15/【Golang】类型转换 - 类型转换/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Hardware】ID-卡和-IC-卡" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/09/【Hardware】ID-卡和-IC-卡/">【Hardware】ID 卡和 IC 卡</a>
-    </h1>
-  
-
-        
-        <a href="/2020/02/09/【Hardware】ID-卡和-IC-卡/" class="archive-article-date">
-  	<time datetime="2020-02-09T05:12:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="IC-卡"><a href="#IC-卡" class="headerlink" title="IC 卡"></a>IC 卡</h1><p>高频（High frequency）是指频带由3MHz到30MHz的无线电波，然而常用的RFID使用的高频频段为13.56MHz。</p>
-<p> IC卡全称集成电路卡（Integrated Circuit Card），又称智能卡（Smart Card）。可读写，容量大，有加密功能，数据记录可靠，使用更方便，如一卡通系统，消费系统等，目前主要有PHILIPS的Mifare系列卡（也称为 M1 Card）。</p>
-<h1 id="ID卡"><a href="#ID卡" class="headerlink" title="ID卡"></a>ID卡</h1><p>ID卡全称身份识别卡（Identification Card），是一种不可写入的感应卡，含固定的编号，主要有台湾SYRIS的EM格式，美国的HID、TI 和 MOTOROLA等各类ID卡。</p>
-<p>ID卡属于大家常说的低频卡，一般大部分情况下作为门禁卡或者大部分大学里使用的饭卡，一般为厚一些的卡，是只读的，卡里面只保存有一串唯一的数字序号ID，可以把这串数字理解为你的身份证号，刷卡的时候，读卡器只能读到ID号，然后通过跟后台数据库进行匹配，如果是门禁卡，那么数据库里面就是存在这样的ID号，如果匹配上门就开了，匹配不上门就开不了。</p>
-<p>如果是学校的饭卡，刷卡的时候，实际上操作的是你对应ID号相关的数据库中的数据。ID卡本身不存在任何其他数据，所以，学校使用的ID卡饭卡，只能复制卡，刷别人的钱（数据库中的钱），再没有其他办法。</p>
-<p>如果卡上写着 HID，这张卡也可能是 IC 卡（see <a href="https://www.hidglobal.com/product-display/cards-and-credentials/iclass）。" target="_blank" rel="noopener">https://www.hidglobal.com/product-display/cards-and-credentials/iclass）。</a></p>
-<hr>
-<p><strong>由此可以看出，ID卡是可加密的存储卡、ID卡是只读的低频卡。</strong></p>
-<h1 id="CPU卡"><a href="#CPU卡" class="headerlink" title="CPU卡"></a>CPU卡</h1><p>CPU card chip is a microprocessor, If you want to achieve more advanced features and the security level is particularly high, its function is equivalent to a microcomputer. CPU cards can be applied to many fields such as finance, insurance, traffic police, and government industries etc.</p>
-<p>有操作系统，可存储数据，也有自己的ID号，CPU卡发一串数据给设备，设备与SAM卡进行运算，设备再发一串数据回CPU卡确认，然后进行交易或身份认证；跟M1卡的区别在于一个算法在空中，一个算法在设备里面；无论是卡商，设备商，运营商，都不知道其中的算法，所以这个系统的安全性会高很多。</p>
-        
-          <a class="article-more-a" href="/2020/02/09/【Hardware】ID-卡和-IC-卡/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Hardware</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hardware/" class="article-tag-list-link color4">Hardware</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/02/09/【Hardware】ID-卡和-IC-卡/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
@@ -1092,7 +1096,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1100,7 +1104,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1120,6 +1124,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1129,10 +1137,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Browser</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1196,6 +1200,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
@@ -1208,15 +1216,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Network</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1268,11 +1272,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1300,15 +1304,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1332,11 +1336,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1368,15 +1372,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1384,11 +1384,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
