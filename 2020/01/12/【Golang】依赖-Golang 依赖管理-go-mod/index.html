@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【Golang】Golang 依赖管理 - go module | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="go mod 命令如何使用 go mod在默认情况下，$GOPATH 默认情况下是不支持 go mudules 的。 在.zshrc 或者.bashrc中声明环境变量： 12# go moduleexport GO111MODULE=on  使声明立刻生效（以.zshrc 为例）： 1$ source ~/.zshrc  我们 $GOPATH 以外的目录创建一个 testmod 的包： 12345">
+  <meta name="description" content="BackgroundGOPATH的痛当有多个项目时，不同项目对于依赖库的版本需求不一致时，无法在一个GOPATH下面放置不同版本的依赖项。典型的例子：当有多项目时候，A项目依赖C 1.0.0，B项目依赖C 2.0.0，由于没有依赖项版本的概念，C 1.0.0和C 2.0.0无法同时在GOPATH下共存，解决办法是分别为A项目和B项目设置GOPATH，将不同版本的C源代码放在两个GOPATH中，彼此">
 <meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Golang】Golang 依赖管理 - go module">
 <meta property="og:url" content="http://swsmile.info/2020/01/12/【Golang】依赖-Golang 依赖管理-go-mod/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="go mod 命令如何使用 go mod在默认情况下，$GOPATH 默认情况下是不支持 go mudules 的。 在.zshrc 或者.bashrc中声明环境变量： 12# go moduleexport GO111MODULE=on  使声明立刻生效（以.zshrc 为例）： 1$ source ~/.zshrc  我们 $GOPATH 以外的目录创建一个 testmod 的包： 12345">
+<meta property="og:description" content="BackgroundGOPATH的痛当有多个项目时，不同项目对于依赖库的版本需求不一致时，无法在一个GOPATH下面放置不同版本的依赖项。典型的例子：当有多项目时候，A项目依赖C 1.0.0，B项目依赖C 2.0.0，由于没有依赖项版本的概念，C 1.0.0和C 2.0.0无法同时在GOPATH下共存，解决办法是分别为A项目和B项目设置GOPATH，将不同版本的C源代码放在两个GOPATH中，彼此">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.317Z">
+<meta property="og:updated_time" content="2020-07-31T14:05:02.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Golang】Golang 依赖管理 - go module">
-<meta name="twitter:description" content="go mod 命令如何使用 go mod在默认情况下，$GOPATH 默认情况下是不支持 go mudules 的。 在.zshrc 或者.bashrc中声明环境变量： 12# go moduleexport GO111MODULE=on  使声明立刻生效（以.zshrc 为例）： 1$ source ~/.zshrc  我们 $GOPATH 以外的目录创建一个 testmod 的包： 12345">
+<meta name="twitter:description" content="BackgroundGOPATH的痛当有多个项目时，不同项目对于依赖库的版本需求不一致时，无法在一个GOPATH下面放置不同版本的依赖项。典型的例子：当有多项目时候，A项目依赖C 1.0.0，B项目依赖C 2.0.0，由于没有依赖项版本的概念，C 1.0.0和C 2.0.0无法同时在GOPATH下共存，解决办法是分别为A项目和B项目设置GOPATH，将不同版本的C源代码放在两个GOPATH中，彼此">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -210,7 +210,16 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="go-mod-命令"><a href="#go-mod-命令" class="headerlink" title="go mod 命令"></a>go mod 命令</h1><h2 id="如何使用-go-mod"><a href="#如何使用-go-mod" class="headerlink" title="如何使用 go mod"></a>如何使用 go mod</h2><p>在默认情况下，$GOPATH 默认情况下是不支持 go mudules 的。</p>
+        <h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><h2 id="GOPATH的痛"><a href="#GOPATH的痛" class="headerlink" title="GOPATH的痛"></a>GOPATH的痛</h2><p>当有多个项目时，不同项目对于依赖库的版本需求不一致时，无法在一个GOPATH下面放置不同版本的依赖项。典型的例子：当有多项目时候，A项目依赖C 1.0.0，B项目依赖C 2.0.0，由于没有依赖项版本的概念，C 1.0.0和C 2.0.0无法同时在GOPATH下共存，解决办法是分别为A项目和B项目设置GOPATH，将不同版本的C源代码放在两个GOPATH中，彼此独立（编译时切换），或者C 1.0.0和C 2.0.0两个版本更改包名。无论哪种解决方法，都需要人工判断更正，不具备便利性。</p>
+<a id="more"></a> 
+
+
+
+<h1 id="go-mod-命令"><a href="#go-mod-命令" class="headerlink" title="go mod 命令"></a>go mod 命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ go mod</span><br><span class="line">Go mod provides access to operations on modules.</span><br><span class="line"></span><br><span class="line">Note that support <span class="keyword">for</span> modules is built into all the go commands,</span><br><span class="line">not just <span class="string">'go mod'</span>. For example, day-to-day adding, removing, upgrading,</span><br><span class="line">and downgrading of dependencies should be <span class="keyword">done</span> using <span class="string">'go get'</span>.</span><br><span class="line">See <span class="string">'go help modules'</span> <span class="keyword">for</span> an overview of module functionality.</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line"></span><br><span class="line">	go mod &lt;<span class="built_in">command</span>&gt; [arguments]</span><br><span class="line"></span><br><span class="line">The commands are:</span><br><span class="line"></span><br><span class="line">	download    download modules to <span class="built_in">local</span> cache</span><br><span class="line">	edit        edit go.mod from tools or scripts</span><br><span class="line">	graph       <span class="built_in">print</span> module requirement graph</span><br><span class="line">	init        initialize new module <span class="keyword">in</span> current directory</span><br><span class="line">	tidy        add missing and remove unused modules</span><br><span class="line">	vendor      make vendored copy of dependencies</span><br><span class="line">	verify      verify dependencies have expected content</span><br><span class="line">	why         explain why packages or modules are needed</span><br><span class="line"></span><br><span class="line">Use <span class="string">"go help mod &lt;command&gt;"</span> <span class="keyword">for</span> more information about a <span class="built_in">command</span>.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># add missing and remove unused modules</span></span><br><span class="line">$ go mod tidy</span><br><span class="line"></span><br><span class="line"><span class="comment"># Prune any no-longer-needed dependencies from go.mod and add any dependencies needed for other combinations of OS, architecture, and build tags</span></span><br><span class="line">$ go mod init</span><br><span class="line"></span><br><span class="line"><span class="comment"># download modules to local cache</span></span><br><span class="line">$ go mod download</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何使用-go-mod"><a href="#如何使用-go-mod" class="headerlink" title="如何使用 go mod"></a>如何使用 go mod</h2><p>在默认情况下，$GOPATH 默认情况下是不支持 go mudules 的。</p>
 <p>在.zshrc 或者.bashrc中声明环境变量：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># go module</span></span><br><span class="line"><span class="built_in">export</span> GO111MODULE=on</span><br></pre></td></tr></table></figure>
 
@@ -220,7 +229,7 @@ var _hmt = _hmt || [];
 <p>我们 $GOPATH 以外的目录创建一个 testmod 的包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir testmod</span><br><span class="line">$ <span class="built_in">cd</span> testmod</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">'package testmod</span></span><br><span class="line"><span class="string">		import "fmt"</span></span><br><span class="line"><span class="string">	func SayHello(name string) string &#123;</span></span><br><span class="line"><span class="string">   return fmt.Sprintf("Hello, %s", name)</span></span><br><span class="line"><span class="string">&#125;'</span> &gt;&gt; testmod.go初始化 module：</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go mod init github.com/sw/testmod</span><br><span class="line">go: creating new go.mod: module github.com/sw/testmod</span><br></pre></td></tr></table></figure>
+<h2 id="初始化一个go-module-项目"><a href="#初始化一个go-module-项目" class="headerlink" title="初始化一个go module 项目"></a>初始化一个go module 项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go mod init github.com/sw/testmod</span><br><span class="line">go: creating new go.mod: module github.com/sw/testmod</span><br></pre></td></tr></table></figure>
 
 <p>以上命令会在项目中创建一个 go.mod 文件，初始化内容如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module github.com/sw/testmod</span><br></pre></td></tr></table></figure>
@@ -233,8 +242,23 @@ var _hmt = _hmt || [];
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module github.com/silenceshell/netproc</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    github.com/gizak/termui v2<span class="number">.2</span><span class="number">.0</span>+incompatible</span><br><span class="line">    github.com/maruel/panicparse v1<span class="number">.1</span><span class="number">.1</span> <span class="comment">// indirect</span></span><br><span class="line">    github.com/mattn/<span class="keyword">go</span>-runewidth v0<span class="number">.0</span><span class="number">.3</span> <span class="comment">// indirect</span></span><br><span class="line">    github.com/mitchellh/<span class="keyword">go</span>-wordwrap v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20180828145344</span><span class="number">-9e67</span>c67572bc <span class="comment">// indirect</span></span><br><span class="line">    github.com/nsf/termbox-<span class="keyword">go</span> v0<span class="number">.0</span><span class="number">.0</span><span class="number">-20180819125858</span>-b66b20ab708e <span class="comment">// indirect</span></span><br><span class="line">    github.com/spf13/pflag v1<span class="number">.0</span><span class="number">.2</span> <span class="comment">// indirect</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <p>可见，go.mod中记录了依赖包及其版本号。</p>
-<a id="more"></a> 
+<h2 id="go-mod-语法"><a href="#go-mod-语法" class="headerlink" title="go.mod 语法"></a><code>go.mod</code> 语法</h2><p>A module is defined by a tree of Go source files with a <code>go.mod</code> file in the tree’s root directory. Module source code may be located outside of GOPATH. There are four directives: <code>module</code>, <code>require</code>, <code>replace</code>, <code>exclude</code>.</p>
+<p>Here is an example <code>go.mod</code> file defining the module <code>github.com/my/thing</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module github.com/my/thing</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">    github.com/some/dependency v1.2.3</span><br><span class="line">    github.com/another/dependency/v4 v4.0.0</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
+<p>A module declares its identity in its <code>go.mod</code> via the <code>module</code> directive, which provides the <em>module path</em>. The import paths for all packages in a module share the module path as a common prefix. The module path and the relative path from the <code>go.mod</code> to a package’s directory together determine a package’s import path.</p>
+<p>For example, if you are creating a module for a repository <code>github.com/user/mymod</code> that will contain two packages with import paths <code>github.com/user/mymod/foo</code> and <code>github.com/user/mymod/bar</code>, then the first line in your <code>go.mod</code> file typically would declare your module path as <code>module github.com/user/mymod</code>, and the corresponding on-disk structure could be:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mymod</span><br><span class="line">|-- bar</span><br><span class="line">|   `-- bar.go</span><br><span class="line">|-- foo</span><br><span class="line">|   `-- foo.go</span><br><span class="line">`-- go.mod</span><br></pre></td></tr></table></figure>
+
+<p>In Go source code, packages are imported using the full path including the module path. For example, if in our example above, we declared the module identity in <code>go.mod</code> as <code>module github.com/user/mymod</code>, a consumer could do:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &quot;github.com/user/mymod/bar&quot;</span><br></pre></td></tr></table></figure>
+
+<p>This imports package <code>bar</code> from the module <code>github.com/user/mymod</code>.</p>
+<p><code>exclude</code> and <code>replace</code> directives only operate on the current (“main”) module. <code>exclude</code> and <code>replace</code> directives in modules other than the main module are ignored when building the main module. The <code>replace</code> and <code>exclude</code> statements, therefore, allow the main module complete control over its own build, without also being subject to complete control by dependencies. (See FAQ <a href="https://github.com/golang/go/wiki/Modules#when-should-i-use-the-replace-directive" target="_blank" rel="noopener">below</a> for a discussion of when to use a <code>replace</code> directive).</p>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><h2 id="Version-Selection"><a href="#Version-Selection" class="headerlink" title="Version Selection"></a>Version Selection</h2><p>If you add a new import to your source code that is not yet covered by a <code>require</code> in <code>go.mod</code>, most go commands like ‘go build’ and ‘go test’ will automatically look up the proper module and add the <em>highest</em> version of that new direct dependency to your module’s <code>go.mod</code> as a <code>require</code> directive. </p>
+<p>For example, if your new import corresponds to dependency M whose latest tagged release version is <code>v1.2.3</code>, your module’s <code>go.mod</code> will end up with <code>require M v1.2.3</code>, which indicates module M is a dependency with allowed version &gt;= v1.2.3 (and &lt; v2, given v2 is considered incompatible with v1).</p>
+<p>The <em>minimal version selection</em> algorithm is used to select the versions of all modules used in a build. For each module in a build, the version selected by minimal version selection is always the semantically <em>highest</em> of the versions explicitly listed by a <code>require</code> directive in the main module or one of its dependencies.</p>
+<p>As an example, if your module depends on module A which has a <code>require D v1.0.0</code>, and your module also depends on module B which has a <code>require D v1.1.1</code>, then minimal version selection would choose <code>v1.1.1</code> of D to include in the build (given it is the highest listed <code>require</code> version). This selection of <code>v1.1.1</code> remains consistent even if sometime later a <code>v1.2.0</code> of D becomes available. This is an example of how the modules system provides 100% reproducible builds. When ready, the module author or user might choose to upgrade to the latest available version of D or choose an explicit version for D.</p>
 <h2 id="Go-Module-的科学性"><a href="#Go-Module-的科学性" class="headerlink" title="Go Module 的科学性"></a>Go Module 的科学性</h2><h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析 1"></a>分析 1</h2><p>在go mudules 出现之前，通常，一个项目中会有很多个包，而项目内有些包需要依赖项目内其它包。</p>
 <p>假设项目有个包，它的包名为 sw/mypackage。当项目内的其它包需要引用这个包时，就可以通过以下引用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import myproject/mypackage</span><br></pre></td></tr></table></figure>
@@ -303,13 +327,6 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir hello</span><br><span class="line">$ <span class="built_in">cd</span> hello</span><br><span class="line">$ go mod init hello</span><br><span class="line">go: creating new go.mod: module hello</span><br><span class="line">$ ls</span><br><span class="line">go.mod</span><br><span class="line">$ cat go.mod</span><br><span class="line">module hello</span><br><span class="line"></span><br><span class="line">go 1.12</span><br></pre></td></tr></table></figure>
 
 <p>go.mod文件一旦创建后，它的内容将会被go toolchain全面掌控。go toolchain会在各类命令执行时，比如go get、go build、go mod等修改和维护go.mod文件。</p>
-<p>go.mod 提供了<code>module</code>, <code>require</code>、<code>replace</code>和<code>exclude</code> 四个命令：</p>
-<ul>
-<li><code>module</code>  语句指定包的名字（路径）</li>
-<li><code>require</code> 语句指定的依赖项模块</li>
-<li><code>replace</code> 语句可以替换依赖项模块</li>
-<li><code>exclude</code> 语句可以忽略依赖项模块</li>
-</ul>
 <h2 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h2><p>新建一个 server.go 文件，写入以下代码：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">	</span><br><span class="line">	<span class="string">"github.com/labstack/echo"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	e := echo.New()</span><br><span class="line">	e.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c echo.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">		<span class="keyword">return</span> c.String(http.StatusOK, <span class="string">"Hello, World!"</span>)</span><br><span class="line">	&#125;)</span><br><span class="line">	e.Logger.Fatal(e.Start(<span class="string">":1323"</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -320,25 +337,16 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ cat go.mod</span><br><span class="line"></span><br><span class="line">module hello</span><br><span class="line"></span><br><span class="line">go 1.12</span><br><span class="line"></span><br><span class="line">require (</span><br><span class="line">	github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible // indirect</span><br><span class="line">	github.com/labstack/gommon v0.2.8 // indirect</span><br><span class="line">	github.com/mattn/go-colorable v0.1.1 // indirect</span><br><span class="line">	github.com/mattn/go-isatty v0.0.7 // indirect</span><br><span class="line">	github.com/valyala/fasttemplate v1.0.0 // indirect</span><br><span class="line">	golang.org/x/crypto v0.0.0-20190313024323-a1f597ede03a // indirect</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
 <p>go module 安装 package 的原則是先拉最新的 release tag，若无tag则拉最新的commit，详见 <a href="https://github.com/golang/go/wiki/Modules" target="_blank" rel="noopener">Modules官方介绍</a>。 go 会自动生成一个 go.sum 文件来记录 dependency tree：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ cat go.sum</span><br><span class="line">github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible h1:pGRcYk231ExFAyoAjAfD85kQzRJCRI8bbnE7CX5OEgg=</span><br><span class="line">github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible/go.mod h1:0INS7j/VjnFxD4E2wkz67b8cVwCLbBmJyDaka6Cmk1s=</span><br><span class="line">github.com/labstack/gommon v0.2.8 h1:JvRqmeZcfrHC5u6uVleB4NxxNbzx6gpbJiQknDbKQu0=</span><br><span class="line">github.com/labstack/gommon v0.2.8/go.mod h1:/tj9csK2iPSBvn+3NLM9e52usepMtrd5ilFYA+wQNJ4=</span><br><span class="line">github.com/mattn/go-colorable v0.1.1 h1:G1f5SKeVxmagw/IyvzvtZE4Gybcc4Tr1tf7I8z0XgOg=</span><br><span class="line">github.com/mattn/go-colorable v0.1.1/go.mod h1:FuOcm+DKB9mbwrcAfNl7/TZVBZ6rcnceauSikq3lYCQ=</span><br><span class="line">... 省略很多行</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ cat go.sum</span><br><span class="line">github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible h1:pGRcYk231ExFAyoAjAfD85kQzRJCRI8bbnE7CX5OEgg=</span><br><span class="line">github.com/labstack/<span class="built_in">echo</span> v3.3.10+incompatible/go.mod h1:0INS7j/VjnFxD4E2wkz67b8cVwCLbBmJyDaka6Cmk1s=</span><br><span class="line">github.com/labstack/gommon v0.2.8 h1:JvRqmeZcfrHC5u6uVleB4NxxNbzx6gpbJiQknDbKQu0=</span><br><span class="line">github.com/labstack/gommon v0.2.8/go.mod h1:/tj9csK2iPSBvn+3NLM9e52usepMtrd5ilFYA+wQNJ4=</span><br><span class="line">github.com/mattn/go-colorable v0.1.1 h1:G1f5SKeVxmagw/IyvzvtZE4Gybcc4Tr1tf7I8z0XgOg=</span><br><span class="line">github.com/mattn/go-colorable v0.1.1/go.mod h1:FuOcm+DKB9mbwrcAfNl7/TZVBZ6rcnceauSikq3lYCQ=</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<ol>
-<li>再次执行脚本 <code>go run server.go</code> 发现跳过了检查并安装依赖的步骤。</li>
-<li>可以使用命令 <code>go list -m -u all</code> 来检查可以升级的package，使用<code>go get -u need-upgrade-package</code> 升级后会将新的依赖版本更新到go.mod * 也可以使用 <code>go get -u</code> 升级所有依赖</li>
-</ol>
-<h2 id="go-get"><a href="#go-get" class="headerlink" title="go get"></a><code>go get</code></h2><ul>
-<li>运行 go get -u 将会升级这个依赖库到最新的次要版本或者修订版本(x.y.z, z是修订版本号， y是次要版本号)</li>
-<li>运行 go get -u=patch 将会升级到最新的修订版本</li>
-<li>运行 go get package@&lt;version&gt; 将会升级到指定的版本号version</li>
-<li>运行go get如果有版本的更改，那么go.mod文件也会更改</li>
-</ul>
 <h1 id="下载非官方依赖"><a href="#下载非官方依赖" class="headerlink" title="下载非官方依赖"></a>下载非官方依赖</h1><h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ go get git.xxx.com/yyy/core-logic</span><br><span class="line">go: downloading git.xxx.com/yyy/core-logic v0.0.41</span><br><span class="line">verifying git.xxx.com/yyy/core-logic@v0.0.41: git.xxx.com/yyy/core-logic@v0.0.41: reading https://sum.golang.org/lookup/git.xxx.com/yyy/core-logic@v0.0.41: 410 Gone</span><br><span class="line"></span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">$ go get git.xxx.com/core-logic</span><br><span class="line">go: git.xxx.com/core-logic@v0.0.41: reading git.xxx.com/core-logic/go.mod at revision v0.0.41: unknown revision v0.0.41</span><br></pre></td></tr></table></figure>
 
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go env -w GOPRIVATE=git.xxx.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># Try again, it would be working</span></span><br><span class="line">$ go get git.xxx.com/yyy/core-logic</span><br></pre></td></tr></table></figure>
 
-<h1 id="下载依赖时的debug"><a href="#下载依赖时的debug" class="headerlink" title="下载依赖时的debug"></a>下载依赖时的debug</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// see details</span><br><span class="line">$ go get git.garena.com/shopee/core-server/core-logic -v</span><br></pre></td></tr></table></figure>
-
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://golang.org/doc/go1.13#modules" target="_blank" rel="noopener">https://golang.org/doc/go1.13#modules</a></li>
+<li><a href="https://github.com/golang/go/wiki/Modules" target="_blank" rel="noopener">https://github.com/golang/go/wiki/Modules</a></li>
+<li><a href="https://blog.golang.org/using-go-modules" target="_blank" rel="noopener">https://blog.golang.org/using-go-modules</a></li>
 <li><a href="https://juejin.im/post/5c8e503a6fb9a070d878184a" target="_blank" rel="noopener">https://juejin.im/post/5c8e503a6fb9a070d878184a</a></li>
 <li><a href="https://ieevee.com/tech/2018/08/28/go-modules.html" target="_blank" rel="noopener">https://ieevee.com/tech/2018/08/28/go-modules.html</a></li>
 <li><a href="https://objcoding.com/2018/09/13/go-modules/" target="_blank" rel="noopener">https://objcoding.com/2018/09/13/go-modules/</a></li>
@@ -595,10 +603,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -611,6 +615,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -619,11 +627,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -671,7 +679,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,11 +691,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,11 +731,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,19 +751,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,10 +783,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
@@ -788,6 +792,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -827,11 +835,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -843,19 +851,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -864,6 +868,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">

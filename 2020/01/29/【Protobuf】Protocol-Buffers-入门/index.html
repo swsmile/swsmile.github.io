@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Install1 安装 protoc去 https://github.com/protocolbuffers/protobuf/releases 下载。 将bin目录下的protoc.exe拷贝到GOPATH/bin目录下，将include/目录下的google文件夹拷贝GOPATH/src目录下（只有使用protobuf的一些内置结构才需要用到该文件夹内的文件，这次并不会用到这个文件夹）。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-29T15:18:45.999Z">
+<meta property="og:updated_time" content="2020-07-31T09:13:46.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Protobuf】Protocol Buffers 入门">
 <meta name="twitter:description" content="Install1 安装 protoc去 https://github.com/protocolbuffers/protobuf/releases 下载。 将bin目录下的protoc.exe拷贝到GOPATH/bin目录下，将include/目录下的google文件夹拷贝GOPATH/src目录下（只有使用protobuf的一些内置结构才需要用到该文件夹内的文件，这次并不会用到这个文件夹）。">
@@ -218,10 +218,13 @@ var _hmt = _hmt || [];
 
 <h2 id="2-安装proto-gen-go"><a href="#2-安装proto-gen-go" class="headerlink" title="2 安装proto-gen-go"></a>2 安装proto-gen-go</h2><p>安装<code>protobuf</code>的编译器插件<code>protoc-gen-go</code>。</p>
 <p><code>protoc</code>程序会调用<code>protoc-gen-go</code>，将<code>.proto</code>文件生成<code>golang</code>代码。可以使用<code>go get</code>命令安装：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/golang/protobuf/proto</span><br><span class="line">$ go get -u github.com/golang/protobuf/protoc-gen-go</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 然后将环境变量GOPATH定义的目录下的bin目录加入到环境变量PATH中。</span></span><br><span class="line">$ vi  ~/.bashrc</span><br><span class="line"><span class="comment"># 然后在该文件最后加上：export PATH="$PATH:$GOPATH/bin"即可。</span></span><br><span class="line">$ <span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/golang/protobuf/proto</span><br><span class="line">$ go install google.golang.org/protobuf/cmd/protoc-gen-go</span><br></pre></td></tr></table></figure>
 
 <p>安装成功后，会在<code>GOPATH/bin</code>下生成<code>protoc-gen-go</code>程序。</p>
-<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><h2 id="1-定义一个proto文件test-proto"><a href="#1-定义一个proto文件test-proto" class="headerlink" title="1 定义一个proto文件test.proto"></a>1 定义一个proto文件test.proto</h2><h3 id="Proto2"><a href="#Proto2" class="headerlink" title="Proto2"></a>Proto2</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> example;</span><br><span class="line"></span><br><span class="line">enum FOO &#123;</span><br><span class="line">    X = <span class="number">17</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">message Test &#123;</span><br><span class="line">    required <span class="keyword">string</span> label = <span class="number">1</span>;</span><br><span class="line">    optional <span class="keyword">int32</span> <span class="keyword">type</span> = <span class="number">2</span> [<span class="keyword">default</span> = <span class="number">77</span>];</span><br><span class="line">    repeated <span class="keyword">int64</span> reps = <span class="number">3</span>;</span><br><span class="line">    optional group OptionalGroup = <span class="number">4</span> &#123;</span><br><span class="line">        required <span class="keyword">string</span> RequiredField = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>The compiler plugin <code>protoc-gen-go</code> will be installed in <code>$GOBIN</code>, defaulting to <code>$GOPATH/bin</code>. It must be in your <code>$PATH</code> for the protocol compiler <code>protoc</code> to find it.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 然后将环境变量GOPATH定义的目录下的bin目录加入到环境变量PATH中。</span></span><br><span class="line">$ vi  ~/.bashrc</span><br><span class="line"><span class="comment"># 然后在该文件最后加上：export PATH="$PATH:$GOPATH/bin"即可。</span></span><br><span class="line">$ <span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><h2 id="1-定义一个proto文件test-proto"><a href="#1-定义一个proto文件test-proto" class="headerlink" title="1 定义一个proto文件test.proto"></a>1 定义一个proto文件test.proto</h2><h3 id="proto2"><a href="#proto2" class="headerlink" title="proto2"></a>proto2</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> example;</span><br><span class="line"></span><br><span class="line">enum FOO &#123;</span><br><span class="line">    X = <span class="number">17</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">message Test &#123;</span><br><span class="line">    required <span class="keyword">string</span> label = <span class="number">1</span>;</span><br><span class="line">    optional <span class="keyword">int32</span> <span class="keyword">type</span> = <span class="number">2</span> [<span class="keyword">default</span> = <span class="number">77</span>];</span><br><span class="line">    repeated <span class="keyword">int64</span> reps = <span class="number">3</span>;</span><br><span class="line">    optional group OptionalGroup = <span class="number">4</span> &#123;</span><br><span class="line">        required <span class="keyword">string</span> RequiredField = <span class="number">5</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="proto3"><a href="#proto3" class="headerlink" title="proto3"></a>proto3</h3><h2 id="2-编译-proto-文件（生成go文件）"><a href="#2-编译-proto-文件（生成go文件）" class="headerlink" title="2 编译 .proto 文件（生成go文件）"></a>2 编译 .proto 文件（生成go文件）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ protoc --go_out=. *.proto</span><br></pre></td></tr></table></figure>
 
@@ -253,7 +256,7 @@ var _hmt = _hmt || [];
 <h3 id="Repeated"><a href="#Repeated" class="headerlink" title="Repeated"></a>Repeated</h3><p>Repeated 表示该字段可以包含0~N个元素。其特性和optional一样，但是每一次可以包含多个值。可以看作是在传递一个数组的值。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">message Result &#123;</span><br><span class="line">  repeated string snippets = 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Data-Types"><a href="#Data-Types" class="headerlink" title="Data Types"></a>Data Types</h2><table>
+<h2 id="Data-Types-标量（scular）"><a href="#Data-Types-标量（scular）" class="headerlink" title="Data Types - 标量（scular）"></a>Data Types - 标量（scular）</h2><table>
 <thead>
 <tr>
 <th align="left">.proto Type</th>
@@ -717,10 +720,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -733,6 +732,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -741,11 +744,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,7 +796,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -801,11 +808,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -845,11 +848,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -865,19 +868,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -897,10 +900,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
@@ -910,6 +909,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -949,11 +952,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -965,19 +968,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -986,6 +985,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">

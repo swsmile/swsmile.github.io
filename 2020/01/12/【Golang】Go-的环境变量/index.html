@@ -8,18 +8,20 @@
   <link rel="dns-prefetch" href="http://swsmile.info">
   <title>【Golang】Golang 的环境变量 | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。 GOPATH go get和其他 go 工具等会用到GOPATH环境变量。  GOPATH是作为编译后二进制的存放目的地和import包时的搜索路径（其实也是你的工作目录, 你可以在src下创建你自己的go源文件, 然后开始工作）。 GOPATH之下主要包含三个目录: bin、pkg、src：">
+  <meta name="description" content="一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。 GOPATH该环境变量的值为 Go 语言的工作区的集合（意味着可以有很多个）。工作区类似于工作目录。每个不同的目录之间用：分隔。 工作区是放置 Go 源码文件的目录。一般情况下，Go 源码文件都需要存放到工作区中。 工作区一般会包含3个子文件夹，自己手动新建以下三个目录：src 目录，pkg 目">
 <meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Golang】Golang 的环境变量">
 <meta property="og:url" content="http://swsmile.info/2020/01/12/【Golang】Go-的环境变量/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。 GOPATH go get和其他 go 工具等会用到GOPATH环境变量。  GOPATH是作为编译后二进制的存放目的地和import包时的搜索路径（其实也是你的工作目录, 你可以在src下创建你自己的go源文件, 然后开始工作）。 GOPATH之下主要包含三个目录: bin、pkg、src：">
+<meta property="og:description" content="一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。 GOPATH该环境变量的值为 Go 语言的工作区的集合（意味着可以有很多个）。工作区类似于工作目录。每个不同的目录之间用：分隔。 工作区是放置 Go 源码文件的目录。一般情况下，Go 源码文件都需要存放到工作区中。 工作区一般会包含3个子文件夹，自己手动新建以下三个目录：src 目录，pkg 目">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.317Z">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200731174507990.png">
+<meta property="og:updated_time" content="2020-07-31T09:46:20.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Golang】Golang 的环境变量">
-<meta name="twitter:description" content="一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。 GOPATH go get和其他 go 工具等会用到GOPATH环境变量。  GOPATH是作为编译后二进制的存放目的地和import包时的搜索路径（其实也是你的工作目录, 你可以在src下创建你自己的go源文件, 然后开始工作）。 GOPATH之下主要包含三个目录: bin、pkg、src：">
+<meta name="twitter:description" content="一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。 GOPATH该环境变量的值为 Go 语言的工作区的集合（意味着可以有很多个）。工作区类似于工作目录。每个不同的目录之间用：分隔。 工作区是放置 Go 源码文件的目录。一般情况下，Go 源码文件都需要存放到工作区中。 工作区一般会包含3个子文件夹，自己手动新建以下三个目录：src 目录，pkg 目">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200731174507990.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -211,28 +213,65 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <p>一句话概括，GOPATH中保存的是第三方依赖库的内容，GOROOT中保存的是原生的 go 工具的内容。</p>
-<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h1><p> go get和其他 go 工具等会用到GOPATH环境变量。</p>
-<p> GOPATH是作为编译后二进制的存放目的地和import包时的搜索路径（其实也是你的工作目录, 你可以在src下创建你自己的go源文件, 然后开始工作）。</p>
-<p>GOPATH之下主要包含三个目录: bin、pkg、src：</p>
-<ul>
-<li><p>bin目录主要存放可执行文件（第三方包中包含的可执行文件）；</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$GOPATH</span></span><br><span class="line">/Users/wei.shi/go</span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/bin</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/Users/wei.shi/go/bin</span><br><span class="line">$ ls</span><br><span class="line">air                gin                httptest           mockgen            richgo             test_kafka_client</span><br><span class="line">data_pipeline      goimports          ips_event_consumer protoc-gen-go      spkit</span><br><span class="line">easytags           golangci-lint      item_discount      realize            test_client</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>pkg目录存放编译好的库文件, 主要是*.a文件；</p>
-</li>
-<li><p>src目录下主要存放go的源文件。</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir gopath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在~/.bash_profile中添加如下语句:</span></span><br><span class="line">GOPATH=/Users/username/gopath</span><br><span class="line"><span class="comment"># GOPATH可以是一个目录列表, 通过 go get下载的第三方库, 都会被下载到 src 文件夹中</span></span><br><span class="line"><span class="comment"># 而且，还需要把GOPATH中的可执行目录也配置到环境变量中, 否则你自行下载的第三方go工具就无法使用了, 操作如下:</span></span><br><span class="line"><span class="comment"># 在~/bash_profile（或者~/.zshrc，根据你使用什么 bash 决定）中增加下面这行</span></span><br><span class="line"><span class="built_in">export</span> <span class="variable">$PATH</span>:<span class="variable">$GOPATH</span>/bin</span><br></pre></td></tr></table></figure>
-
+<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h1><p>该环境变量的值为 Go 语言的工作区的<strong>集合（意味着可以有很多个）</strong>。工作区类似于工作目录。每个不同的目录之间用<code>：</code>分隔。</p>
+<p>工作区是放置 Go 源码文件的目录。一般情况下，Go 源码文件都需要存放到工作区中。</p>
+<p>工作区一般会包含3个子文件夹，自己手动新建以下三个目录：src 目录，pkg 目录，bin 目录。</p>
+<p>bin 目录里面存放的都是通过 go install 命令安装后，由 Go 命令源码文件生成的可执行文件（ 在 Mac 平台下是 Unix executable 文件，在 Windows 平台下是 exe 文件）。</p>
 <a id="more"></a> 
 
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> <span class="variable">$GOPATH</span></span><br><span class="line">/Users/wei.shi/go</span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$GOPATH</span>/bin</span><br><span class="line">$ <span class="built_in">pwd</span></span><br><span class="line">/Users/wei.shi/go/bin</span><br><span class="line">$ ls</span><br><span class="line">air                gin                httptest           mockgen            richgo             test_kafka_client</span><br><span class="line">data_pipeline      goimports          ips_event_consumer protoc-gen-go      spkit</span><br><span class="line">easytags           golangci-lint      item_discount      realize            test_client</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：有两种情况下，bin 目录会变得没有意义。</p>
+<ol>
+<li>当设置了有效的 GOBIN 环境变量以后，bin 目录就变得没有意义。</li>
+<li>如果 GOPATH 里面包含多个工作区路径的时候，必须设置 GOBIN 环境变量，否则就无法安装 Go 程序的可执行文件。</li>
+</ol>
+</blockquote>
+<p>pkg 目录是用来存放通过 go install 命令安装后的代码包的归档文件(.a 文件)。归档文件的名字就是代码包的名字。所有归档文件都会被存放到该目录下的平台相关目录中，即在 $GOPATH/pkg/​$GOOS_$GOARCH 中，同样以代码包为组织形式。</p>
+<p>这里有两个隐藏的环境变量，GOOS 和 GOARCH。这两个环境变量是不用我们设置的，系统就默认的。GOOS 是 Go 所在的操作系统类型，GOARCH 是 Go 所在的计算架构。平台相关目录是以 $GOOS_$GOARCH 命名的，Mac 平台上这个目录名就是 darwin_amd64。</p>
+<p>src目录下主要存放go的源文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~</span><br><span class="line">$ mkdir gopath</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在~/.bash_profile中添加如下语句:</span></span><br><span class="line">GOPATH=/Users/username/gopath</span><br><span class="line"><span class="comment"># GOPATH可以是一个目录列表, 通过 go get下载的第三方库, 都会被下载到 src 文件夹中</span></span><br><span class="line"><span class="comment"># 而且，还需要把GOPATH中的可执行目录也配置到环境变量中, 否则你自行下载的第三方go工具就无法使用了, 操作如下:</span></span><br><span class="line"><span class="comment"># 在~/bash_profile（或者~/.zshrc，根据你使用什么 bash 决定）中增加下面这行</span></span><br><span class="line"><span class="built_in">export</span> <span class="variable">$PATH</span>:<span class="variable">$GOPATH</span>/bin</span><br></pre></td></tr></table></figure>
+
+<h1 id="Go-源码文件"><a href="#Go-源码文件" class="headerlink" title="Go 源码文件"></a>Go 源码文件</h1><h2 id="命令源码文件"><a href="#命令源码文件" class="headerlink" title="命令源码文件"></a>命令源码文件</h2><p>声明自己属于 main 代码包、包含无参数声明和结果声明的 main 函数。</p>
+<p>命令源码文件被安装以后，GOPATH 如果只有一个工作区，那么相应的可执行文件会被存放当前工作区的 bin 文件夹下；如果有多个工作区，就会安装到 GOBIN 指向的目录下。</p>
+<p>命令源码文件是 Go 程序的入口。</p>
+<p>同一个代码包中最好也不要放多个命令源码文件。多个命令源码文件虽然可以分开单独 go run 运行起来，但是无法通过 go build 和 go install。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ~/LeetCode_Go/helloworld/src/<span class="keyword">me</span> $  <span class="keyword">ls</span></span><br><span class="line">helloworld.<span class="keyword">go</span>  helloworldd.<span class="keyword">go</span></span><br></pre></td></tr></table></figure>
+
+<p>先说明一下，在上述文件夹中放了两个命令源码文件，同时都声明自己属于 main 代码包。helloworld.go 文件输出 hello world，helloworldd.go 文件输出 worldd hello。接下来执行 go build 和 go install ，看看会发生什么。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ ~/LeetCode_Go/helloworld/src/<span class="keyword">me</span> $  <span class="keyword">go</span> build</span><br><span class="line"># _/Users/YDZ/LeetCode_Go/helloworld/src/<span class="keyword">me</span></span><br><span class="line">./helloworldd.<span class="keyword">go</span>:<span class="number">7</span>: main redeclared in this block</span><br><span class="line">	<span class="keyword">previous</span> declaration at ./helloworld.<span class="keyword">go</span>:<span class="number">50</span></span><br><span class="line"></span><br><span class="line">$ ~/LeetCode_Go/helloworld/src/<span class="keyword">me</span> $  <span class="keyword">go</span> install</span><br><span class="line"># _/Users/YDZ/LeetCode_Go/helloworld/src/<span class="keyword">me</span></span><br><span class="line">./helloworldd.<span class="keyword">go</span>:<span class="number">7</span>: main redeclared in this block</span><br><span class="line">	<span class="keyword">previous</span> declaration at ./helloworld.<span class="keyword">go</span>:<span class="number">50</span></span><br></pre></td></tr></table></figure>
+
+<p>这也就证明了多个命令源码文件虽然可以分开单独 go run 运行起来，但是无法通过 go build 和 go install。</p>
+<p>同理，如果命令源码文件和库源码文件也会出现这样的问题，库源码文件不能通过 go build 和 go install 这种常规的方法编译和安装。</p>
+<p>所以命令源码文件应该是被单独放在一个代码包中。</p>
+<h2 id="库源码文件"><a href="#库源码文件" class="headerlink" title="库源码文件"></a>库源码文件</h2><p>库源码文件就是不具备命令源码文件上述两个特征的源码文件。存在于某个代码包中的普通的源码文件。</p>
+<p>库源码文件被安装后，相应的归档文件（.a 文件）会被存放到当前工作区的 pkg 的平台相关目录下。</p>
+<h2 id="测试源码文件"><a href="#测试源码文件" class="headerlink" title="测试源码文件"></a>测试源码文件</h2><p>名称以 _test.go 为后缀的代码文件，并且必须包含 Test 或者 Benchmark 名称前缀的函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TestXXX</span><span class="params">( t *testing.T)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>名称以 Test 为名称前缀的函数，只能接受 *testing.T 的参数，这种测试函数是功能测试函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BenchmarkXXX</span><span class="params">( b *testing.B)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>名称以 Benchmark 为名称前缀的函数，只能接受 *testing.B 的参数，这种测试函数是性能测试函数。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>命令源码文件是可以单独运行的。可以使用 go run 命令直接运行，也可以通过 go build 或 go install 命令得到相应的可执行文件。所以命令源码文件是可以在机器的任何目录下运行的。</p>
 <h1 id="GOROOT"><a href="#GOROOT" class="headerlink" title="GOROOT"></a>GOROOT</h1><p>GOROOT就是go的安装路径。</p>
 <p>在~/.bash_profile中添加下面语句:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GOROOT=<span class="string">"/usr/local/go"</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$PATH</span>:<span class="variable">$GOPATH</span>/bin"</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="GOBIN"><a href="#GOBIN" class="headerlink" title="GOBIN"></a>GOBIN</h1><p>该环境变量的值为 Go 程序的可执行文件的目录。</p>
+<h1 id="Go-环境变量"><a href="#Go-环境变量" class="headerlink" title="Go 环境变量"></a>Go 环境变量</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">$ go env</span><br><span class="line">GO111MODULE=&quot;on&quot;</span><br><span class="line">GOARCH=&quot;amd64&quot;</span><br><span class="line">GOBIN=&quot;&quot;</span><br><span class="line">GOCACHE=&quot;/Users/weishi/Library/Caches/go-build&quot;</span><br><span class="line">GOENV=&quot;/Users/weishi/Library/Application Support/go/env&quot;</span><br><span class="line">GOEXE=&quot;&quot;</span><br><span class="line">GOFLAGS=&quot;&quot;</span><br><span class="line">GOHOSTARCH=&quot;amd64&quot;</span><br><span class="line">GOHOSTOS=&quot;darwin&quot;</span><br><span class="line">GONOPROXY=&quot;git.garena.com&quot;</span><br><span class="line">GONOSUMDB=&quot;git.garena.com&quot;</span><br><span class="line">GOOS=&quot;darwin&quot;</span><br><span class="line">GOPATH=&quot;/Users/weishi/go&quot;</span><br><span class="line">GOPROXY=&quot;https://proxy.golang.org,direct&quot;</span><br><span class="line">GOROOT=&quot;/usr/local/go&quot;</span><br><span class="line">GOSUMDB=&quot;sum.golang.org&quot;</span><br><span class="line">GOTMPDIR=&quot;&quot;</span><br><span class="line">GOTOOLDIR=&quot;/usr/local/go/pkg/tool/darwin_amd64&quot;</span><br><span class="line">GCCGO=&quot;gccgo&quot;</span><br><span class="line">AR=&quot;ar&quot;</span><br><span class="line">CC=&quot;clang&quot;</span><br><span class="line">CXX=&quot;clang++&quot;</span><br><span class="line">CGO_ENABLED=&quot;1&quot;</span><br><span class="line">GOMOD=&quot;/dev/null&quot;</span><br><span class="line">CGO_CFLAGS=&quot;-g -O2&quot;</span><br><span class="line">CGO_CPPFLAGS=&quot;&quot;</span><br><span class="line">CGO_CXXFLAGS=&quot;-g -O2&quot;</span><br><span class="line">CGO_FFLAGS=&quot;-g -O2&quot;</span><br><span class="line">CGO_LDFLAGS=&quot;-g -O2&quot;</span><br><span class="line">PKG_CONFIG=&quot;pkg-config&quot;</span><br><span class="line">GOGCCFLAGS=&quot;-fPIC -m64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/42/27cgq8k50hsc48kdnpwpt4080000gn/T/go-build165822851=/tmp/go-build -gno-record-gcc-switches -fno-common&quot;</span><br></pre></td></tr></table></figure>
 
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200731174507990.png" alt="image-20200731174507990"></p>
+<h1 id="Go-程序的入口函数"><a href="#Go-程序的入口函数" class="headerlink" title="Go 程序的入口函数"></a>Go 程序的入口函数</h1><p>Go 程序是通过 package 来组织的。</p>
+<p>package （假设我们的例子中是 package main）这一行告诉我们当前文件属于哪个包，而包名 main 则告诉我们它是一个可独立运行的包，它在编译后会产生可执行文件。除了 main 包之外，其它的包最后都会生成 *.a 文件（也就是包文件）并放置在 $GOPATH/pkg/​$GOOS_​$GOARCH中（以 Mac 为例就是 $GOPATH/pkg/darwin_amd64 ）。</p>
+<p>Go 使用 package（和 Python 的模块类似）来组织代码。main.main() 函数(这个函数位于主包）是每一个独立的可运行程序的入口点。</p>
+<blockquote>
+<p>每一个可独立运行的 Go 程序，必定包含一个 package main，在这个 main 包中必定包含一个入口函数 main，而这个函数既没有参数，也没有返回值。</p>
+</blockquote>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://halfrost.com/go_command/" target="_blank" rel="noopener">https://halfrost.com/go_command/</a></li>
+</ul>
 
       
 
@@ -483,10 +522,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -499,6 +534,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -507,11 +546,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -559,7 +598,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,11 +610,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,11 +650,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -631,19 +670,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,10 +702,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
@@ -676,6 +711,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,11 +754,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,19 +770,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -752,6 +787,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">

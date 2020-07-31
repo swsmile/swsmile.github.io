@@ -191,6 +191,262 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Protobuf】Protocol-Buffers-2中使用map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/12/【Protobuf】Protocol-Buffers-2中使用map/">【Protobuf】Protocol Buffers 2中使用map</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/12/【Protobuf】Protocol-Buffers-2中使用map/" class="archive-article-date">
+  	<time datetime="2020-07-12T06:57:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Maps"><a href="#Maps" class="headerlink" title="Maps"></a>Maps</h1><p>If you want to create an associative map as part of your data definition, protocol buffers provides a handy shortcut syntax:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map&lt;key_type, value_type&gt; map_field = N;</span><br></pre></td></tr></table></figure>
+
+<p>…where the <code>key_type</code> can be any integral or string type (so, any <a href="https://developers.google.com/protocol-buffers/docs/proto#scalar" target="_blank" rel="noopener">scalar</a> type except for floating point types and <code>bytes</code>). Note that enum is not a valid <code>key_type</code>. The <code>value_type</code> can be any type except another map.</p>
+<p>So, for example, if you wanted to create a map of projects where each <code>Project</code> message is associated with a string key, you could define it like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map&lt;string, Project&gt; projects = 3;</span><br></pre></td></tr></table></figure>
+
+<p>The generated map API is currently available for all proto2 supported languages. You can find out more about the map API for your chosen language in the relevant <a href="https://developers.google.com/protocol-buffers/docs/reference/overview" target="_blank" rel="noopener">API reference</a>.</p>
+        
+          <a class="article-more-a" href="/2020/07/12/【Protobuf】Protocol-Buffers-2中使用map/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Protobuf</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Protobuf/" class="article-tag-list-link color4">Protobuf</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/12/【Protobuf】Protocol-Buffers-2中使用map/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Redis】Redis-Cluster" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/10/【Redis】Redis-Cluster/">【Cache System】Redis Cluster</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/10/【Redis】Redis-Cluster/" class="archive-article-date">
+  	<time datetime="2020-07-10T07:47:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis-Cluster"><a href="#Redis-Cluster" class="headerlink" title="Redis Cluster"></a>Redis Cluster</h1><p>Redis Cluster 是Redis3.0之后，官方提供的Redis集群解决方案，由 <code>Redis</code> 官方团队来实现。</p>
+<p>在3.0之前为了解决容量高可用用方面的需求基本上只能通过客户端分片 + Redis sentinel或者代理（twemproxy、codis）方案解决。</p>
+<p>Redis Cluster最大的特性，就是对Redis集群提供了水平扩展的能力（horizential scalibility），即当整个 Redis 集群出现存储容量或者性能 bottleneck 时，使用 Redis Cluster 可以通过增加新的 master Redis node从而快速解决bottleneck。</p>
+<p>除此之外，Redis Cluster提供了强大的高可用机制（即 failure failover）。即当集群中任何一个master Redis node无法正常工作时（比如因为底层依赖的硬件故障、网络问题），它对应的 slave Redis node就会自动代替它（当然，这里有一个前提，是我们设置了slave Redis node）。</p>
+<p>与Codis 和 Twemproxy 不同的是：Redis Cluster并非使用Porxy模式来连接集群节点，而是使用无中心节点的模式来组建集群（即没有coordinator）。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/0*fONf9qdXjpC-b444.png" alt="Image for post"></p>
+<p>Redis Cluster实现在多个节点之间进行数据共享，即使部分节点失效或者无法进行通讯时，Cluster仍然可以继续处理请求。若每个主节点都有一个从节点支持，在主节点下线或者无法与集群的大多数节点进行通讯的情况下， 从节点提升为主节点，并提供服务，保证Cluster正常运行。</p>
+        
+          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-Cluster/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Cache System</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/CacheSystem/" class="article-tag-list-link color2">CacheSystem</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-Cluster/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Redis】Redis-集群方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/10/【Redis】Redis-集群方案/">【Cache System】Redis 集群方案</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/10/【Redis】Redis-集群方案/" class="archive-article-date">
+  	<time datetime="2020-07-10T04:41:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis-集群方案"><a href="#Redis-集群方案" class="headerlink" title="Redis 集群方案"></a><code>Redis</code> 集群方案</h1><p><code>Redis</code> 的集群解决方案有社区的，也有官方的，社区的解决方案有 <code>Codis</code> 和<code>Twemproxy</code>。</p>
+<h1 id="Codis"><a href="#Codis" class="headerlink" title="Codis"></a>Codis</h1><p>Codis 由我国的豌豆荚团队开源</p>
+<h1 id="Twemproxy"><a href="#Twemproxy" class="headerlink" title="Twemproxy"></a>Twemproxy</h1><p>Twemproxy 由<code>Twitter</code>团队开源。</p>
+        
+          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-集群方案/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Cache System</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/CacheSystem/" class="article-tag-list-link color2">CacheSystem</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-集群方案/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Redis】Codis-Pipeline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -591,244 +847,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Golang】依赖-通过私有库安装依赖" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/06/【Golang】依赖-通过私有库安装依赖/">【Golang】通过私有库安装依赖</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/06/【Golang】依赖-通过私有库安装依赖/" class="archive-article-date">
-  	<time datetime="2020-07-06T14:32:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Situation"><a href="#Situation" class="headerlink" title="Situation"></a>Situation</h1><p>公司一个golang的项目，使用到了公司的私有仓库，去执行go mod tidy（下载依赖）的时候，到download公司私有库的时候就报错，报错信息也不明显，只是提示找不到影响版本unkown revision。</p>
-        
-          <a class="article-more-a" href="/2020/07/06/【Golang】依赖-通过私有库安装依赖/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/06/【Golang】依赖-通过私有库安装依赖/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Golang】使用-生成随机数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/06/【Golang】使用-生成随机数/">【Golang】生成随机数</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/06/【Golang】使用-生成随机数/" class="archive-article-date">
-  	<time datetime="2020-07-06T14:19:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="GoLang-中的伪随机数"><a href="#GoLang-中的伪随机数" class="headerlink" title="GoLang 中的伪随机数"></a>GoLang 中的伪随机数</h1><p>在<code>GoLang</code> 中，我们可以通过 <code>math/rand</code> 包里的方法来生成一个伪随机数：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">  <span class="string">"fmt"</span></span><br><span class="line">  <span class="string">"math/rand"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  fmt.Println(rand.Int())   <span class="comment">// =&gt; 5577006791947779410</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面的代码中，我们通过 <code>rand.Int()</code> 方法来生成一个伪随机数。看起来好像没什么问题嘛，人家也很 OK 啦。</p>
-<p>但是细心的你会发现。无论你运行多少次，它都会生成一样的结果。</p>
-<p>我们知道 <code>JavaScript</code> 中的 <code>Math.random()</code> 每次都会返回一个不一样的数字，但是 <code>GoLang</code> 中的伪随机数生成器默认情况下竟然会返回相同的数值，这还不反了天了？</p>
-<p>都是伪随机数生成器，为什么差别就这么大呢？这里我们就要了解一下“随机种子”的概念啦。</p>
-        
-          <a class="article-more-a" href="/2020/07/06/【Golang】使用-生成随机数/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/06/【Golang】使用-生成随机数/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Git】忽略已经提交的文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/06/【Git】忽略已经提交的文件/">【Git】忽略已经提交的文件</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/06/【Git】忽略已经提交的文件/" class="archive-article-date">
-  	<time datetime="2020-07-06T14:13:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    </p>
-<h1 id="Situaion"><a href="#Situaion" class="headerlink" title="Situaion"></a>Situaion</h1><p>在初始化git仓库的时候，没有创建<code>.gitignore</code>文件来过滤不必要提交的文件，后来却发现某些文件不需要提交，但是这些文件已经被提交了。</p>
-<p> 这时候创建<code>.gitignore</code>文件并添加对应规则以忽略这些文件，就会发现，对这些文件的修改仍然会被 track到，即忽略ignore的规则对那些已经被track的文件无效。</p>
-<p>其实<code>.gitignore</code>文件只会忽略那些没有被跟踪的文件，也就是说ignore规则只对那些在规则建立之后被新创建的新文件生效。</p>
-<p>因此推荐: <strong>初始化git项目时就创建<code>.gitignore</code>文件</strong>。</p>
-        
-          <a class="article-more-a" href="/2020/07/06/【Git】忽略已经提交的文件/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Git/" class="article-tag-list-link color4">Git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/06/【Git】忽略已经提交的文件/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
@@ -960,10 +981,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -976,6 +993,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -984,11 +1005,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1036,7 +1057,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1044,11 +1069,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1088,11 +1109,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1108,19 +1129,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1140,10 +1161,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
@@ -1153,6 +1170,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1192,11 +1213,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1208,19 +1229,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1229,6 +1246,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">

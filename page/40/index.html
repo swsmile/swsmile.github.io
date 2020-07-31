@@ -191,6 +191,267 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Algorithm】排序算法-冒泡排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/25/【Algorithm】排序算法-冒泡排序/">【Algorithm】排序算法 - 冒泡排序（Bubble Sort）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/25/【Algorithm】排序算法-冒泡排序/" class="archive-article-date">
+  	<time datetime="2019-06-25T11:35:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="冒泡排序（Bubble-Sort）"><a href="#冒泡排序（Bubble-Sort）" class="headerlink" title="冒泡排序（Bubble Sort）"></a>冒泡排序（Bubble Sort）</h1><p><strong>冒泡排序（Bubble Sort）</strong>是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行，直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。 </p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bubble_sort.png" alt="img"></p>
+<h1 id="图解冒泡"><a href="#图解冒泡" class="headerlink" title="图解冒泡"></a>图解冒泡</h1><h2 id="第一轮冒泡"><a href="#第一轮冒泡" class="headerlink" title="第一轮冒泡"></a>第一轮冒泡</h2><p>以 [ 8，2，5，9，7 ] 这组数字来做示例。</p>
+<p>从左往右依次冒泡，将小的元素往右冒泡（移动）：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190805170007219.png" alt="image-20190805170007219"></p>
+<p>首先比较第一个数和第二个数的大小，我们发现 2 比 8 要小，那么保持原位，不做改动。位置还是 8，2，5，9，7 。</p>
+<p>指针往右移动一格，接着比较：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190805170130993.png" alt="image-20190805170130993"></p>
+<p>比较第二个数和第三个数的大小，发现 2 比 5 要小，所以位置交换，交换后数组更新为：[ 8，5，2，9，7 ]。</p>
+<p>指针再往右移动一格，继续比较：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190805170215497.png" alt="image-20190805170215497"></p>
+<p>比较第三个数和第四个数的大小，发现 2 比 9 要小，所以位置交换，交换后数组更新为：[ 8，5，9，2，7 ]</p>
+<p>同样，指针再往右移动，继续比较：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190805170231246.png" alt="image-20190805170231246"></p>
+<p>比较第 4 个数和第 5 个数的大小，发现 2 比 7 要小，所以位置交换，交换后数组更新为：[ 8，5，9，7，2 ]</p>
+<p>下一步，指针再往右移动，发现已经到底了，则本轮冒泡结束，处于最右边的 2 就是已经排好序的数字。</p>
+<p>通过这一轮不断的对比交换，数组中最小的数字移动到了最右边。</p>
+<h2 id="第二轮冒泡"><a href="#第二轮冒泡" class="headerlink" title="第二轮冒泡"></a>第二轮冒泡</h2><p>接下来继续第二轮冒泡：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/811u9.png" alt="冒泡排序5"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/b280x.png" alt="冒泡排序6"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ppqac.png" alt="冒泡排序7"></p>
+<p>由于右边的 2 已经是排好序的数字，就不再参与比较，所以本轮冒泡结束，本轮冒泡最终冒到顶部的数字 5 也归于有序序列中，现在数组已经变化成了[ 8，9，7，5，2 ]。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/e0vls.png" alt="冒泡排序8"></p>
+<h2 id="第三轮冒泡"><a href="#第三轮冒泡" class="headerlink" title="第三轮冒泡"></a>第三轮冒泡</h2><p>让我们开始第三轮冒泡吧！</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/snuo9.png" alt="冒泡排序9"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/q7h8o.png" alt="冒泡排序10"></p>
+<p>由于 8 比 7 大，所以位置不变，此时第三轮冒泡也已经结束，第三轮冒泡的最后结果是[ 9，8，7，5，2 ]</p>
+<h2 id="第四轮冒泡"><a href="#第四轮冒泡" class="headerlink" title="第四轮冒泡"></a>第四轮冒泡</h2><p>紧接着第四轮冒泡：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/trx9d.png" alt="冒泡排序11"></p>
+<p>9 和 8 比，位置不变，即确定了 8 进入有序序列，那么最后只剩下一个数字 9 ，放在末尾，自此排序结束。</p>
+<h1 id="动图演示"><a href="#动图演示" class="headerlink" title="动图演示"></a>动图演示</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/849589-20171015223238449-2146169197.gif" alt="img"></p>
+        
+          <a class="article-more-a" href="/2019/06/25/【Algorithm】排序算法-冒泡排序/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/25/【Algorithm】排序算法-冒泡排序/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Algorithm】排序算法-快速排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/25/【Algorithm】排序算法-快速排序/">【Algorithm】排序算法 - 快速排序（Quick Sort）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/25/【Algorithm】排序算法-快速排序/" class="archive-article-date">
+  	<time datetime="2019-06-25T09:31:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="快速排序（Quick-Sort）"><a href="#快速排序（Quick-Sort）" class="headerlink" title="快速排序（Quick Sort）"></a>快速排序（Quick Sort）</h1><p>快速排序的核心思想也是分治法（Divide and Conquer Method），分而治之。</p>
+<p>它的实现方式是每次从序列中选出一个基准值（pivot），其他数依次和基准值做比较，比基准值大的放右边，比基准值小的放左边，然后再对左边和右边的两组数分别选出一个基准值，进行同样的比较移动，重复步骤，直到最后都变成单个元素，整个数组就成了有序的序列。</p>
+        
+          <a class="article-more-a" href="/2019/06/25/【Algorithm】排序算法-快速排序/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Algorithm/" class="article-tag-list-link color5">Algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/25/【Algorithm】排序算法-快速排序/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Interview】应聘者提问" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/19/【Interview】应聘者提问/">【Interview】应聘者提问</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/19/【Interview】应聘者提问/" class="archive-article-date">
+  	<time datetime="2019-06-19T12:51:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="SOA"><a href="#SOA" class="headerlink" title="SOA"></a>SOA</h3><ul>
+<li>如何看待SOA</li>
+<li>如何看待Component-based software development</li>
+<li>下一个SOA</li>
+<li>orchestration 和chereography</li>
+</ul>
+        
+          <a class="article-more-a" href="/2019/06/19/【Interview】应聘者提问/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Interview</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Interview/" class="article-tag-list-link color5">Interview</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/19/【Interview】应聘者提问/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Network】Shadowsocks -Shadowsocks总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -590,243 +851,9 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Database】数据库索引为什么使用B-树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/10/【Database】数据库索引为什么使用B-树/">【Database】数据库索引为什么使用 B+ 树</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/10/【Database】数据库索引为什么使用B-树/" class="archive-article-date">
-  	<time datetime="2019-06-10T07:50:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><ul>
-<li><strong>B tree：</strong>  二叉树（Binary tree），每个节点只能存储一个key。</li>
-<li><strong>B-tree：</strong>B树（B-Tree，并不是B“减”树，横杠为连接符，容易被误导）<ul>
-<li>B树属于多叉树，同时也属于平衡多路查找树。每个节点可以包含多个key（由磁盘大小决定）。</li>
-<li><strong>B+tree（B+树）</strong> 和 <strong>B*tree（B*树）</strong> 都是 B-tree 的变种</li>
-</ul>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/06/10/【Database】数据库索引为什么使用B-树/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Database/" class="article-tag-list-link color4">Database</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/10/【Database】数据库索引为什么使用B-树/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Data-Structure】树-多路平衡查找树-B-树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/05/【Data-Structure】树-多路平衡查找树-B-树/">【Data Structure】多路平衡查找树 - B+ 树（B+ Tree）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/05/【Data-Structure】树-多路平衡查找树-B-树/" class="archive-article-date">
-  	<time datetime="2019-06-05T08:17:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="B-树（B-Tree）"><a href="#B-树（B-Tree）" class="headerlink" title="B+ 树（B+ Tree）"></a>B+ 树（B+ Tree）</h1><p>B+树（B+ Tree）是B树的一种变体，B+树也属于<strong>平衡多路查找树（Multi-way Search Tree）</strong>。</p>
-<p>大体结构与B树相同，包含根节点、内部节点和叶子节点。与B树唯一的区别在于，<strong>B+树的内部节点不保存数据元素的value（只保存key，而B树的内部节点既保存数据元素的key，也保存数据元素的value）</strong>，因此B+树能在内存中存放更多索引，增加缓存命中率。另外因为叶子节点相连遍历操作很方便，而且数据也具有顺序性，便于区间查找。</p>
-        
-          <a class="article-more-a" href="/2019/06/05/【Data-Structure】树-多路平衡查找树-B-树/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DataStructure/" class="article-tag-list-link color4">DataStructure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/05/【Data-Structure】树-多路平衡查找树-B-树/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Data-Structure】树-多路平衡查找树-B树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/04/【Data-Structure】树-多路平衡查找树-B树/">【Data Structure】多路平衡查找树 - B树（B-Tree）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/04/【Data-Structure】树-多路平衡查找树-B树/" class="archive-article-date">
-  	<time datetime="2019-06-04T07:36:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="B树（B-tree）"><a href="#B树（B-tree）" class="headerlink" title="B树（B-tree）"></a>B树（B-tree）</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/834468-20180406232634472-395289491-20190611155858275.png" alt="clip_image002"></p>
-<p>在计算机科学中，B树（B-tree）是一种树状数据结构，它能够存储数据、对其进行排序并允许以$O(log_2n)$的时间复杂度运行进行查找、顺序读取、插入和删除的数据结构。B树，概括来说是一个节点可以拥有多于2个子节点的平衡查找树，因为其一个节点可以拥有多于2个子节点，因而也可以称为<strong>多路平衡查找树（Multi-way Self-balancing Search Tree）</strong>，简称为<strong>多路查找树</strong>。</p>
-        
-          <a class="article-more-a" href="/2019/06/04/【Data-Structure】树-多路平衡查找树-B树/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Data Structure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DataStructure/" class="article-tag-list-link color4">DataStructure</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/04/【Data-Structure】树-多路平衡查找树-B树/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/39/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><a class="page-number" href="/page/42/">42</a><span class="space">&hellip;</span><a class="page-number" href="/page/72/">72</a><a class="extend next" rel="next" href="/page/41/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/39/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><a class="page-number" href="/page/39/">39</a><span class="page-number current">40</span><a class="page-number" href="/page/41/">41</a><a class="page-number" href="/page/42/">42</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/41/">Next &raquo;</a>
     </nav>
   
 
@@ -958,10 +985,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -974,6 +997,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
@@ -982,11 +1009,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1034,7 +1061,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1042,11 +1073,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1086,11 +1113,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1106,19 +1133,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1138,10 +1165,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
@@ -1151,6 +1174,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1190,11 +1217,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1206,19 +1233,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1227,6 +1250,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
