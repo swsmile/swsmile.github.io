@@ -191,6 +191,176 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Python】WSGI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/28/【Python】WSGI/">【Python】WSGI（Web Server Gateway Interface）、uWSGI Server、uwsgi、WSGI Application 的故事</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/28/【Python】WSGI/" class="archive-article-date">
+  	<time datetime="2019-10-28T08:33:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>关于Web Server（Web 服务器）、Web Application Server（Web 应用服务器）和 CGI（Common Gateway Interface）的区别，可以访问<a href="https://swsmile.info/2019/10/28/%E3%80%90HTTP%E3%80%91Web-Server-%E5%92%8C-CGI/">【HTTP】Web Server（Web 服务器）、Web Application Server（Web 应用服务器）和 CGI（Common Gateway Interface）的故事</a> 。</p>
+<h1 id="WSGI（Web-Server-Gateway-Interface）"><a href="#WSGI（Web-Server-Gateway-Interface）" class="headerlink" title="WSGI（Web Server Gateway Interface）"></a>WSGI（Web Server Gateway Interface）</h1><p>WSGI是 Web Server Gateway Interface 的缩写。</p>
+<p><strong>它不是服务器、Python模块、框架、API或者任何软件，而是一种描述 Web服务器（如nginx，uWSGI等服务器）如何与Web application（Web应用程序，如用Django、Flask框架编写的程序）通信的规范。</strong></p>
+<p>因此，<strong>WSGI 是一种规范，或者说一种接口，或者说一种协议</strong>。</p>
+<p>WSGI是在 PEP 333提出的，并在 <a href="https://zhuanlan.zhihu.com/p/27600327" target="_blank" rel="noopener">PEP 3333</a> 进行补充（主要是为了支持 Python3.x）。</p>
+<p>这个协议旨在解决众多 Python Web 框架和Web server软件的兼容问题。有了WSGI，你不用再因为你使用特定的Web 应用框架而不得不选择特定的 Web server软件。</p>
+<p>只要遵照了 WSGI 协议的的 Web 应用（Web application，我们称之为WSGI应用），都可以在任何遵照了WSGI协议的 Web server 软件（我们称之为 WSGI server，比如 uWSGI）上运行。</p>
+<p>常用的 WSGI server（WSGI 服务器）软件：wsgiref，uWSGI，Gunicorn等</p>
+<p>而对于WSGI 应用（WSGI Application），我们理论上可以完全自己从头编写一个 WSGI 应用，但是，我们通常会使用WSGI 应用框架（WSGI Application Framework），或者称为WSGI MiddleWare，比如Django，Flask等，因为框架已经帮我们封装了大量的底层逻辑，而让我们可以更好的专注于业务逻辑上。</p>
+<p>为了更好的理解 WSGI 应用（WSGI Application），我们接下来会写一个非常原始的 WSGI 应用。</p>
+        
+          <a class="article-more-a" href="/2019/10/28/【Python】WSGI/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/28/【Python】WSGI/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Python】Error-Handling" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/28/【Python】Error-Handling/">【Python】Error Handling</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/28/【Python】Error-Handling/" class="archive-article-date">
+  	<time datetime="2019-10-28T08:12:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Error-Return"><a href="#Error-Return" class="headerlink" title="Error Return"></a>Error Return</h1><p>If service can not handle request for internal error or upstream error, it should response proper error information to client.</p>
+<p>Service should write log for every error return.</p>
+<p>The error response structure should be consistent for all APIs in one service.</p>
+<ul>
+<li>The error code should be either a short string code or an integer, defined by service. This is to help client understand the situation and choose different ways to handle the error.</li>
+<li>The detailed error message is optional. This is to help client debug the issue.</li>
+<li>The error code need to be categorized to 2 types, and allow client side easily identify the type of error.<ul>
+<li>Occasional error, such as upstream down, internal error, etc. This kind of errors means client can safely retry the request.</li>
+<li>Logic error, such as invalid argument. Client can cached the result and should not directly retry the request.</li>
+</ul>
+</li>
+</ul>
+        
+          <a class="article-more-a" href="/2019/10/28/【Python】Error-Handling/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/28/【Python】Error-Handling/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Architecture】Design-Error-Handling" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -757,214 +927,6 @@ e.g. <code>func_get_uid</code></li>
 
 
   
-    <article id="post-【Redis】Redis-操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/27/【Redis】Redis-操作/">【Redis】Redis 操作</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/27/【Redis】Redis-操作/" class="archive-article-date">
-  	<time datetime="2019-10-27T12:45:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>Redis中的所有数据结构均不支持数据类型的嵌套</strong>。比如，集合类型的每个元素都只能是字符串，而不能是另一个集合或散列表（Hash）。</p>
-<h1 id="字符串（String）"><a href="#字符串（String）" class="headerlink" title="字符串（String）"></a>字符串（String）</h1><h2 id="SET-插入数据"><a href="#SET-插入数据" class="headerlink" title="SET - 插入数据"></a>SET - 插入数据</h2><ul>
-<li><strong>Time complexity:</strong> O(1)</li>
-</ul>
-<p>Set <code>key</code> to hold the string <code>value</code>. If <code>key</code> already holds a value, it is overwritten, regardless of its type.</p>
-<p>如果当前 key 已经存在 value，则用新 value 覆盖原有的value值。</p>
-<p>一旦设置成功（无论当前有没有发生覆盖），则返回OK；如果没设置成功，返回 nil （比如 options中包含了 <code>nx</code>，这时，只有当当前 key 不存在 value时，才会真正去设置value，即无覆盖发生。否则，就会返回 nil）。</p>
-<h3 id="Return-Value"><a href="#Return-Value" class="headerlink" title="Return Value"></a>Return Value</h3><ul>
-<li><strong>Simple string reply</strong>: OK if SET was executed correctly. </li>
-<li><strong>Null reply</strong>: a Null Bulk Reply is returned if the SET operation was not performed because the user specified the NX or XX option but the condition was not met.</li>
-</ul>
-<h3 id="Options"><a href="#Options" class="headerlink" title="Options"></a>Options</h3><p>The <a href="https://redis.io/commands/set" target="_blank" rel="noopener">SET</a> command supports a set of options that modify its behavior:</p>
-<ul>
-<li><p><code>EX</code> <em>seconds</em> – Set the specified expire time, in seconds.</p>
-</li>
-<li><p><code>PX</code> <em>milliseconds</em> – Set the specified expire time, in milliseconds.</p>
-</li>
-<li><p><code>NX</code> – Only set the key if it does not already exist.</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> a cc</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> a cccc</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> a ddd NX</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ul>
-<ul>
-<li><p><code>XX</code> – Only set the key if it already exist.</p>
-</li>
-<li><p><code>KEEPTTL</code> – Retain the time to live associated with the key.</p>
-</li>
-</ul>
-<h2 id="GET-读数据"><a href="#GET-读数据" class="headerlink" title="GET - 读数据"></a>GET - 读数据</h2><ul>
-<li><strong>Time complexity:</strong> O(1)</li>
-</ul>
-<p>Get the value of <code>key</code>. If the key does not exist the special value <code>nil</code> is returned. An error is returned if the value stored at <code>key</code> is not a string, because <a href="https://redis.io/commands/get" target="_blank" rel="noopener">GET</a> only handles string values.</p>
-<p>即，如果当前key没有value值，则返回null</p>
-<h2 id="APPEND-数据追加"><a href="#APPEND-数据追加" class="headerlink" title="APPEND - 数据追加"></a>APPEND - 数据追加</h2><ul>
-<li>如果当前key的value有值则附加到原有string后面，如果没有则写入。返回值为追加后的数据长度</li>
-</ul>
-<h2 id="DEL-数据删除"><a href="#DEL-数据删除" class="headerlink" title="DEL - 数据删除"></a>DEL - 数据删除</h2><ul>
-<li><strong>Time complexity:</strong> O(N) where N is the number of keys that will be removed. When a key to remove holds a value other than a string, the individual complexity for this key is O(M) where M is the number of elements in the list, set, sorted set or hash. Removing a single key that holds a string value is O(1).</li>
-</ul>
-<p>Removes the specified keys. A key is ignored if it does not exist.</p>
-<h3 id="Return-value"><a href="#Return-value" class="headerlink" title="Return value"></a>Return value</h3><p>Integer reply: The number of keys that were removed.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> name wei</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get name</span><br><span class="line"><span class="string">"wei"</span></span><br><span class="line">127.0.0.1:6379&gt; append name isgreat</span><br><span class="line">(<span class="built_in">integer</span>) 10</span><br><span class="line">127.0.0.1:6379&gt; get name</span><br><span class="line"><span class="string">"weiisgreat"</span></span><br><span class="line">127.0.0.1:6379&gt; del wei</span><br><span class="line">(<span class="built_in">integer</span>) 0</span><br><span class="line">127.0.0.1:6379&gt; get wei</span><br><span class="line">(nil)</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/10/27/【Redis】Redis-操作/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/27/【Redis】Redis-操作/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Redis】安装-Redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/27/【Redis】安装-Redis/">【Redis】安装 Redis</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/27/【Redis】安装-Redis/" class="archive-article-date">
-  	<time datetime="2019-10-27T12:38:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="macOS-安装"><a href="#macOS-安装" class="headerlink" title="macOS 安装"></a>macOS 安装</h1><h2 id="Installation-方法-1（手工编译）"><a href="#Installation-方法-1（手工编译）" class="headerlink" title="Installation - 方法 1（手工编译）"></a>Installation - 方法 1（手工编译）</h2><p>Download, extract and compile Redis with:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://download.redis.io/releases/redis-5.0.5.tar.gz</span><br><span class="line">$ tar xzf redis-5.0.5.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> redis-5.0.5</span><br><span class="line">$ make</span><br></pre></td></tr></table></figure>
-
-<p>The binaries that are now compiled are available in the <code>src</code> directory. Run Redis with:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ src/redis-server</span><br></pre></td></tr></table></figure>
-
-<p>You can interact with Redis using the built-in client:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ src/redis-cli</span><br><span class="line">redis&gt; <span class="built_in">set</span> foo bar</span><br><span class="line">OK</span><br><span class="line">redis&gt; get foo</span><br><span class="line"><span class="string">"bar"</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Installation-方法-2（使用-brew）"><a href="#Installation-方法-2（使用-brew）" class="headerlink" title="Installation - 方法 2（使用 brew）"></a>Installation - 方法 2（使用 brew）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install redis</span><br></pre></td></tr></table></figure>
-
-<h3 id="后台运行-redis-服务"><a href="#后台运行-redis-服务" class="headerlink" title="后台运行 redis 服务"></a>后台运行 redis 服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew services start redis</span><br></pre></td></tr></table></figure>
-
-<h3 id="前台运行-Redis-服务"><a href="#前台运行-Redis-服务" class="headerlink" title="前台运行 Redis 服务"></a>前台运行 Redis 服务</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-server</span><br></pre></td></tr></table></figure>
-
-<p>可以直接运行 <code>redis-server</code> 以启动 Redis 服务（在服务端中输入 <code>quit</code> 可以退出）。然后另外开一个终端，运行 <code>redis-cli</code> 以启动一个客户端。</p>
-        
-          <a class="article-more-a" href="/2019/10/27/【Redis】安装-Redis/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/27/【Redis】安装-Redis/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/23/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span><a class="page-number" href="/page/25/">25</a><a class="page-number" href="/page/26/">26</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/25/">Next &raquo;</a>
@@ -1127,19 +1089,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1171,10 +1133,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
@@ -1184,6 +1142,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1247,15 +1209,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1303,11 +1265,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1355,19 +1317,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">

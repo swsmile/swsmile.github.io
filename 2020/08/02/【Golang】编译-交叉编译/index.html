@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Golang】gvm - Golang 版本管理 | 西维蜀黍 的博客</title>
+  <title>【Golang】编译 - 交叉编译（Cross Compilation） | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Installing1$ zsh &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)  Or if you are using bash just change zsh with bash.">
+  <meta name="description" content="GOOS and GOARCH123456789101112131415161718192021222324252627282930313233343536373839404142434445$ go tool dist listaix/ppc64android/386android/amd64android/armandroid/arm64darwin/386darwin/amd64darwin">
 <meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Golang】gvm - Golang 版本管理">
-<meta property="og:url" content="http://swsmile.info/2020/07/06/【Golang】依赖-Golang-版本管理/index.html">
+<meta property="og:title" content="【Golang】编译 - 交叉编译（Cross Compilation）">
+<meta property="og:url" content="http://swsmile.info/2020/08/02/【Golang】编译-交叉编译/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="Installing1$ zsh &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)  Or if you are using bash just change zsh with bash.">
+<meta property="og:description" content="GOOS and GOARCH123456789101112131415161718192021222324252627282930313233343536373839404142434445$ go tool dist listaix/ppc64android/386android/amd64android/armandroid/arm64darwin/386darwin/amd64darwin">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-31T12:43:02.120Z">
+<meta property="og:updated_time" content="2020-08-02T05:05:19.509Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Golang】gvm - Golang 版本管理">
-<meta name="twitter:description" content="Installing1$ zsh &amp;lt; &amp;lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)  Or if you are using bash just change zsh with bash.">
+<meta name="twitter:title" content="【Golang】编译 - 交叉编译（Cross Compilation）">
+<meta name="twitter:description" content="GOOS and GOARCH123456789101112131415161718192021222324252627282930313233343536373839404142434445$ go tool dist listaix/ppc64android/386android/amd64android/armandroid/arm64darwin/386darwin/amd64darwin">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -190,38 +190,170 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-【Golang】依赖-Golang-版本管理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【Golang】编译-交叉编译" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      【Golang】gvm - Golang 版本管理
+      【Golang】编译 - 交叉编译（Cross Compilation）
     </h1>
   
 
         
-        <a href="/2020/07/06/【Golang】依赖-Golang-版本管理/" class="archive-article-date">
-  	<time datetime="2020-07-06T14:08:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
+        <a href="/2020/08/02/【Golang】编译-交叉编译/" class="archive-article-date">
+  	<time datetime="2020-08-02T04:56:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Installing"><a href="#Installing" class="headerlink" title="Installing"></a>Installing</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ zsh &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)</span><br></pre></td></tr></table></figure>
+        <h1 id="GOOS-and-GOARCH"><a href="#GOOS-and-GOARCH" class="headerlink" title="GOOS and GOARCH"></a><code>GOOS</code> and <code>GOARCH</code></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">$ go tool dist list</span><br><span class="line">aix/ppc64</span><br><span class="line">android/386</span><br><span class="line">android/amd64</span><br><span class="line">android/arm</span><br><span class="line">android/arm64</span><br><span class="line">darwin/386</span><br><span class="line">darwin/amd64</span><br><span class="line">darwin/arm</span><br><span class="line">darwin/arm64</span><br><span class="line">dragonfly/amd64</span><br><span class="line">freebsd/386</span><br><span class="line">freebsd/amd64</span><br><span class="line">freebsd/arm</span><br><span class="line">illumos/amd64</span><br><span class="line">js/wasm</span><br><span class="line">linux/386</span><br><span class="line">linux/amd64</span><br><span class="line">linux/arm</span><br><span class="line">linux/arm64</span><br><span class="line">linux/mips</span><br><span class="line">linux/mips64</span><br><span class="line">linux/mips64le</span><br><span class="line">linux/mipsle</span><br><span class="line">linux/ppc64</span><br><span class="line">linux/ppc64le</span><br><span class="line">linux/s390x</span><br><span class="line">nacl/386</span><br><span class="line">nacl/amd64p32</span><br><span class="line">nacl/arm</span><br><span class="line">netbsd/386</span><br><span class="line">netbsd/amd64</span><br><span class="line">netbsd/arm</span><br><span class="line">netbsd/arm64</span><br><span class="line">openbsd/386</span><br><span class="line">openbsd/amd64</span><br><span class="line">openbsd/arm</span><br><span class="line">openbsd/arm64</span><br><span class="line">plan9/386</span><br><span class="line">plan9/amd64</span><br><span class="line">plan9/arm</span><br><span class="line">solaris/amd64</span><br><span class="line">windows/386</span><br><span class="line">windows/amd64</span><br><span class="line">windows/arm</span><br></pre></td></tr></table></figure>
 
-<p>Or if you are using bash just change <code>zsh</code> with <code>bash</code>.</p>
 <a id="more"></a> 
 
-<h1 id="Installing-Go"><a href="#Installing-Go" class="headerlink" title="Installing Go"></a>Installing Go</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ gvm install go1.4</span><br><span class="line">$ gvm use go1.4 [--default]</span><br></pre></td></tr></table></figure>
+<p>The following table shows the possible combinations of <code>GOOS</code> and <code>GOARCH</code> you can use:</p>
+<table>
+<thead>
+<tr>
+<th align="center"><code>GOOS</code> - Target Operating System</th>
+<th align="center"><code>GOARCH</code> - Target Platform</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>android</code></td>
+<td align="center"><code>arm</code></td>
+</tr>
+<tr>
+<td align="center"><code>darwin</code></td>
+<td align="center"><code>386</code></td>
+</tr>
+<tr>
+<td align="center"><code>darwin</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>darwin</code></td>
+<td align="center"><code>arm</code></td>
+</tr>
+<tr>
+<td align="center"><code>darwin</code></td>
+<td align="center"><code>arm64</code></td>
+</tr>
+<tr>
+<td align="center"><code>dragonfly</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>freebsd</code></td>
+<td align="center"><code>386</code></td>
+</tr>
+<tr>
+<td align="center"><code>freebsd</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>freebsd</code></td>
+<td align="center"><code>arm</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>386</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>arm</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>arm64</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>ppc64</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>ppc64le</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>mips</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>mipsle</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>mips64</code></td>
+</tr>
+<tr>
+<td align="center"><code>linux</code></td>
+<td align="center"><code>mips64le</code></td>
+</tr>
+<tr>
+<td align="center"><code>netbsd</code></td>
+<td align="center"><code>386</code></td>
+</tr>
+<tr>
+<td align="center"><code>netbsd</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>netbsd</code></td>
+<td align="center"><code>arm</code></td>
+</tr>
+<tr>
+<td align="center"><code>openbsd</code></td>
+<td align="center"><code>386</code></td>
+</tr>
+<tr>
+<td align="center"><code>openbsd</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>openbsd</code></td>
+<td align="center"><code>arm</code></td>
+</tr>
+<tr>
+<td align="center"><code>plan9</code></td>
+<td align="center"><code>386</code></td>
+</tr>
+<tr>
+<td align="center"><code>plan9</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>solaris</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+<tr>
+<td align="center"><code>windows</code></td>
+<td align="center"><code>386</code></td>
+</tr>
+<tr>
+<td align="center"><code>windows</code></td>
+<td align="center"><code>amd64</code></td>
+</tr>
+</tbody></table>
+<h1 id="Cross-Compilation"><a href="#Cross-Compilation" class="headerlink" title="Cross Compilation"></a>Cross Compilation</h1><p>Mac 下编译 Linux 和 Windows 64位可执行程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ GOOS=linux GOARCH=amd64 go build main.go</span><br><span class="line">$ GOOS=windows GOARCH=amd64 go build main.go12</span><br></pre></td></tr></table></figure>
 
-<h1 id="List-Go-Versions"><a href="#List-Go-Versions" class="headerlink" title="List Go Versions"></a>List Go Versions</h1><p>To list all installed Go versions (The current version is prefixed with “=&gt;”):</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ gvm list</span><br></pre></td></tr></table></figure>
+<p>Linux 下编译 Mac 和 Windows 64位可执行程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ GOOS=darwin GOARCH=amd64 go build main.go</span><br><span class="line">$ GOOS=windows GOARCH=amd64 go build main.go12</span><br></pre></td></tr></table></figure>
 
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://github.com/moovweb/gvm" target="_blank" rel="noopener">https://github.com/moovweb/gvm</a></li>
+<p>Windows 下编译 Mac 和 Linux 64位可执行程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ GOOS=darwin GOARCH=amd64 go build main.go</span><br><span class="line"></span><br><span class="line">$ GOOS=linux GOARCH=amd64 go build main.go</span><br></pre></td></tr></table></figure>
+
+<h1 id="Referecnce"><a href="#Referecnce" class="headerlink" title="Referecnce"></a>Referecnce</h1><ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-build-go-executables-for-multiple-platforms-on-ubuntu-16-04</a></li>
 </ul>
 
       
@@ -317,18 +449,9 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2020/07/06/【Git】忽略已经提交的文件/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          【Git】忽略已经提交的文件
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/07/06/【Golang】代码检查/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【Golang】代码检查</div>
+    <a href="/2020/08/02/【Golang】关键字-const/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Golang】关键字-const</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -501,19 +624,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -545,10 +668,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
@@ -558,6 +677,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,15 +744,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,11 +800,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,19 +852,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
