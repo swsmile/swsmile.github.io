@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="BackgroundGOPATH的痛当有多个项目时，不同项目对于依赖库的版本需求不一致时，无法在一个GOPATH下面放置不同版本的依赖项。典型的例子：当有多项目时候，A项目依赖C 1.0.0，B项目依赖C 2.0.0，由于没有依赖项版本的概念，C 1.0.0和C 2.0.0无法同时在GOPATH下共存，解决办法是分别为A项目和B项目设置GOPATH，将不同版本的C源代码放在两个GOPATH中，彼此">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-31T14:05:02.940Z">
+<meta property="og:updated_time" content="2020-08-02T04:41:42.812Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Golang】Golang 依赖管理 - go module">
 <meta name="twitter:description" content="BackgroundGOPATH的痛当有多个项目时，不同项目对于依赖库的版本需求不一致时，无法在一个GOPATH下面放置不同版本的依赖项。典型的例子：当有多项目时候，A项目依赖C 1.0.0，B项目依赖C 2.0.0，由于没有依赖项版本的概念，C 1.0.0和C 2.0.0无法同时在GOPATH下共存，解决办法是分别为A项目和B项目设置GOPATH，将不同版本的C源代码放在两个GOPATH中，彼此">
@@ -256,7 +256,7 @@ var _hmt = _hmt || [];
 <p>This imports package <code>bar</code> from the module <code>github.com/user/mymod</code>.</p>
 <p><code>exclude</code> and <code>replace</code> directives only operate on the current (“main”) module. <code>exclude</code> and <code>replace</code> directives in modules other than the main module are ignored when building the main module. The <code>replace</code> and <code>exclude</code> statements, therefore, allow the main module complete control over its own build, without also being subject to complete control by dependencies. (See FAQ <a href="https://github.com/golang/go/wiki/Modules#when-should-i-use-the-replace-directive" target="_blank" rel="noopener">below</a> for a discussion of when to use a <code>replace</code> directive).</p>
 <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><h2 id="Version-Selection"><a href="#Version-Selection" class="headerlink" title="Version Selection"></a>Version Selection</h2><p>If you add a new import to your source code that is not yet covered by a <code>require</code> in <code>go.mod</code>, most go commands like ‘go build’ and ‘go test’ will automatically look up the proper module and add the <em>highest</em> version of that new direct dependency to your module’s <code>go.mod</code> as a <code>require</code> directive. </p>
-<p>For example, if your new import corresponds to dependency M whose latest tagged release version is <code>v1.2.3</code>, your module’s <code>go.mod</code> will end up with <code>require M v1.2.3</code>, which indicates module M is a dependency with allowed version &gt;= v1.2.3 (and &lt; v2, given v2 is considered incompatible with v1).</p>
+<p>For example, if your new import corresponds to dependency M whose latest tagged release version is <code>v1.2.3</code>, your module’s <code>go.mod</code> will end up with <code>require M v1.2.3</code>, <strong>which indicates module M is a dependency with allowed version &gt;= v1.2.3</strong> (and &lt; v2, given v2 is considered incompatible with v1).</p>
 <p>The <em>minimal version selection</em> algorithm is used to select the versions of all modules used in a build. For each module in a build, the version selected by minimal version selection is always the semantically <em>highest</em> of the versions explicitly listed by a <code>require</code> directive in the main module or one of its dependencies.</p>
 <p>As an example, if your module depends on module A which has a <code>require D v1.0.0</code>, and your module also depends on module B which has a <code>require D v1.1.1</code>, then minimal version selection would choose <code>v1.1.1</code> of D to include in the build (given it is the highest listed <code>require</code> version). This selection of <code>v1.1.1</code> remains consistent even if sometime later a <code>v1.2.0</code> of D becomes available. This is an example of how the modules system provides 100% reproducible builds. When ready, the module author or user might choose to upgrade to the latest available version of D or choose an explicit version for D.</p>
 <h2 id="Go-Module-的科学性"><a href="#Go-Module-的科学性" class="headerlink" title="Go Module 的科学性"></a>Go Module 的科学性</h2><h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析 1"></a>分析 1</h2><p>在go mudules 出现之前，通常，一个项目中会有很多个包，而项目内有些包需要依赖项目内其它包。</p>
@@ -635,15 +635,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,19 +679,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,10 +707,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -723,6 +719,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
@@ -731,11 +731,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,11 +743,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,10 +764,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,11 +791,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,11 +815,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -835,11 +835,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -863,11 +863,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -879,11 +879,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>
