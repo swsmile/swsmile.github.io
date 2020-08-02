@@ -230,13 +230,24 @@ var _hmt = _hmt || [];
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Protobuf</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Diary/" class="article-tag-list-link color1">Diary</a>
+        			<a href="/categories/Protobuf/" class="article-tag-list-link color4">Protobuf</a>
         		</li>
       		
 		</ul>
@@ -283,65 +294,11 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
-
-
-
-<h1 id="Where-to-find-the-example-code"><a href="#Where-to-find-the-example-code" class="headerlink" title="Where to find the example code"></a>Where to find the example code</h1><p>Our example is a set of command-line applications for managing an address book data file, encoded using protocol buffers. The command <code>add_person_go</code> adds a new entry to the data file. The command <code>list_people_go</code> parses the data file and prints the data to the console.</p>
+        <h1 id="Where-to-find-the-example-code"><a href="#Where-to-find-the-example-code" class="headerlink" title="Where to find the example code"></a>Where to find the example code</h1><p>Our example is a set of command-line applications for managing an address book data file, encoded using protocol buffers. The command <code>add_person_go</code> adds a new entry to the data file. The command <code>list_people_go</code> parses the data file and prints the data to the console.</p>
 <p>You can find the complete example in the <a href="https://github.com/protocolbuffers/protobuf/tree/master/examples" target="_blank" rel="noopener">examples directory</a> of the GitHub repository.</p>
-<h1 id="Defining-your-protocol-format"><a href="#Defining-your-protocol-format" class="headerlink" title="Defining your protocol format"></a>Defining your protocol format</h1><p>To create your address book application, you’ll need to start with a <code>.proto</code> file. The definitions in a <code>.proto</code> file are simple: you add a <em>message</em> for each data structure you want to serialize, then specify a name and a type for each field in the message. In our example, the <code>.proto</code> file that defines the messages is <a href="https://github.com/protocolbuffers/protobuf/blob/master/examples/addressbook.proto" target="_blank" rel="noopener"><code>addressbook.proto</code></a>.</p>
-<p>The <code>.proto</code> file starts with a package declaration, which helps to prevent naming conflicts between different projects.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">syntax = &quot;proto3&quot;;</span><br><span class="line">package tutorial;</span><br><span class="line"></span><br><span class="line">import &quot;google/protobuf/timestamp.proto&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>The <code>go_package</code> option defines the import path of the package which will contain all the generated code for this file. The Go package name will be the last path component of the import path. For example, our example will use a package name of “tutorialpb”.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">option go_package = &quot;github.com/protocolbuffers/protobuf/examples/go/tutorialpb&quot;;</span><br></pre></td></tr></table></figure>
-
-<p>Next, you have your message definitions. A message is just an aggregate containing a set of typed fields. Many standard simple data types are available as field types, including <code>bool</code>, <code>int32</code>, <code>float</code>, <code>double</code>, and <code>string</code>. You can also add further structure to your messages by using other message types as field types.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">message Person &#123;</span><br><span class="line">  string name = 1;</span><br><span class="line">  int32 id = 2;  // Unique ID number for this person.</span><br><span class="line">  string email = 3;</span><br><span class="line"></span><br><span class="line">  enum PhoneType &#123;</span><br><span class="line">    MOBILE = 0;</span><br><span class="line">    HOME = 1;</span><br><span class="line">    WORK = 2;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  message PhoneNumber &#123;</span><br><span class="line">    string number = 1;</span><br><span class="line">    PhoneType type = 2;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  repeated PhoneNumber phones = 4;</span><br><span class="line"></span><br><span class="line">  google.protobuf.Timestamp last_updated = 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Our address book file is just one of these.</span><br><span class="line">message AddressBook &#123;</span><br><span class="line">  repeated Person people = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>In the above example, the <code>Person</code> message contains <code>PhoneNumber</code> messages, while the <code>AddressBook</code> message contains <code>Person</code> messages. You can even define message types nested inside other messages – as you can see, the <code>PhoneNumber</code> type is defined inside <code>Person</code>. You can also define <code>enum</code> types if you want one of your fields to have one of a predefined list of values – here you want to specify that a phone number can be one of <code>MOBILE</code>, <code>HOME</code>, or <code>WORK</code>.</p>
-<p>The “ = 1”, “ = 2” markers on each element identify the unique “tag” that field uses in the binary encoding. Tag numbers 1-15 require one less byte to encode than higher numbers, so as an optimization you can decide to use those tags for the commonly used or repeated elements, leaving tags 16 and higher for less-commonly used optional elements. Each element in a repeated field requires re-encoding the tag number, so repeated fields are particularly good candidates for this optimization.</p>
-<p>If a field value isn’t set, a <a href="https://developers.google.com/protocol-buffers/docs/proto3#default" target="_blank" rel="noopener">default value</a> is used: zero for numeric types, the empty string for strings, false for bools. For embedded messages, the default value is always the “default instance” or “prototype” of the message, which has none of its fields set. Calling the accessor to get the value of a field which has not been explicitly set always returns that field’s default value.</p>
-<p>If a field is <code>repeated</code>, the field may be repeated any number of times (including zero). The order of the repeated values will be preserved in the protocol buffer. Think of repeated fields as dynamically sized arrays.</p>
-<p>You’ll find a complete guide to writing <code>.proto</code> files – including all the possible field types – in the <a href="https://developers.google.com/protocol-buffers/docs/proto3" target="_blank" rel="noopener">Protocol Buffer Language Guide</a>. Don’t go looking for facilities similar to class inheritance, though – protocol buffers don’t do that.</p>
-<h1 id="Compiling-your-protocol-buffers"><a href="#Compiling-your-protocol-buffers" class="headerlink" title="Compiling your protocol buffers"></a>Compiling your protocol buffers</h1><p>Now that you have a <code>.proto</code>, the next thing you need to do is generate the classes you’ll need to read and write <code>AddressBook</code> (and hence <code>Person</code> and <code>PhoneNumber</code>) messages. To do this, you need to run the protocol buffer compiler <code>protoc</code> on your <code>.proto</code>:</p>
-<ol>
-<li><p>If you haven’t installed the compiler, <a href="https://developers.google.com/protocol-buffers/docs/downloads" target="_blank" rel="noopener">download the package</a> and follow the instructions in the README.</p>
-</li>
-<li><p>Run the following command to install the Go protocol buffers plugin:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go install google.golang.org/protobuf/cmd/protoc-gen-go</span><br></pre></td></tr></table></figure>
-
-<p>The compiler plugin <code>protoc-gen-go</code> will be installed in <code>$GOBIN</code>, defaulting to <code>$GOPATH/bin</code>.</p>
-<p>It must be in your <code>$PATH</code> for the protocol compiler <code>protoc</code> to find it.</p>
-</li>
-<li><p>Now run the compiler, specifying the source directory (where your application’s source code lives – the current directory is used if you don’t provide a value), the destination directory (where you want the generated code to go; often the same as <code>$SRC_DIR</code>), and the path to your <code>.proto</code>. In this case, you would invoke:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc -I=$SRC_DIR --go_out=$DST_DIR $SRC_DIR/addressbook.proto</span><br></pre></td></tr></table></figure>
-
-<p>Because you want Go code, you use the <code>--go_out</code> option – similar options are provided for other supported languages.</p>
-</li>
-</ol>
-<p>This generates <code>github.com/protocolbuffers/protobuf/examples/go/tutorialpb/addressbook.pb.go</code> in your specified destination directory.</p>
-<h1 id="The-Protocol-Buffer-API"><a href="#The-Protocol-Buffer-API" class="headerlink" title="The Protocol Buffer API"></a>The Protocol Buffer API</h1><p>Generating <code>addressbook.pb.go</code> gives you the following useful types:</p>
-<ul>
-<li>An <code>AddressBook</code> structure with a <code>People</code> field.</li>
-<li>A <code>Person</code> structure with fields for <code>Name</code>, <code>Id</code>, <code>Email</code> and <code>Phones</code>.</li>
-<li>A <code>Person_PhoneNumber</code> structure, with fields for <code>Number</code> and <code>Type</code>.</li>
-<li>The type <code>Person_PhoneType</code> and a value defined for each value in the <code>Person.PhoneType</code> enum.</li>
-</ul>
-<p>You can read more about the details of exactly what’s generated in the <a href="https://developers.google.com/protocol-buffers/docs/reference/go-generated" target="_blank" rel="noopener">Go Generated Code guide</a>, but for the most part you can treat these as perfectly ordinary Go types.</p>
-<p>Here’s an example from the <a href="https://github.com/protocolbuffers/protobuf/blob/master/examples/list_people_test.go" target="_blank" rel="noopener"><code>list_people</code> command’s unit tests</a> of how you might create an instance of Person:</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">p := pb.Person&#123;</span><br><span class="line">        Id:    <span class="number">1234</span>,</span><br><span class="line">        Name:  <span class="string">"John Doe"</span>,</span><br><span class="line">        Email: <span class="string">"jdoe@example.com"</span>,</span><br><span class="line">        Phones: []*pb.Person_PhoneNumber&#123;</span><br><span class="line">                &#123;Number: <span class="string">"555-4321"</span>, Type: pb.Person_HOME&#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Writing-a-Message"><a href="#Writing-a-Message" class="headerlink" title="Writing a Message"></a>Writing a Message</h1><p>The whole purpose of using protocol buffers is to serialize your data so that it can be parsed elsewhere. In Go, you use the <code>proto</code> library’s <a href="https://pkg.go.dev/google.golang.org/protobuf/proto?tab=doc#Marshal" target="_blank" rel="noopener">Marshal</a> function to serialize your protocol buffer data. A pointer to a protocol buffer message’s <code>struct</code> implements the <code>proto.Message</code> interface. Calling <code>proto.Marshal</code> returns the protocol buffer, encoded in its wire format. For example, we use this function in the <a href="https://github.com/protocolbuffers/protobuf/blob/master/examples/add_person.go" target="_blank" rel="noopener"><code>add_person</code> command</a>:</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">book := &amp;pb.AddressBook&#123;&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Write the new address book back to disk.</span></span><br><span class="line">out, err := proto.Marshal(book)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalln(<span class="string">"Failed to encode address book:"</span>, err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> err := ioutil.WriteFile(fname, out, <span class="number">0644</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalln(<span class="string">"Failed to write address book:"</span>, err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Reading-a-Message"><a href="#Reading-a-Message" class="headerlink" title="Reading a Message"></a>Reading a Message</h1><p>To parse an encoded message, you use the <code>proto</code> library’s <a href="https://pkg.go.dev/google.golang.org/protobuf/proto?tab=doc#Unmarshal" target="_blank" rel="noopener">Unmarshal</a> function. Calling this parses the data in <code>buf</code> as a protocol buffer and places the result in <code>pb</code>. So to parse the file in the <a href="https://github.com/protocolbuffers/protobuf/blob/master/examples/list_people.go" target="_blank" rel="noopener"><code>list_people</code> command</a>, we use:</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Read the existing address book.</span></span><br><span class="line">in, err := ioutil.ReadFile(fname)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalln(<span class="string">"Error reading file:"</span>, err)</span><br><span class="line">&#125;</span><br><span class="line">book := &amp;pb.AddressBook&#123;&#125;</span><br><span class="line"><span class="keyword">if</span> err := proto.Unmarshal(in, book); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalln(<span class="string">"Failed to parse address book:"</span>, err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://developers.google.com/protocol-buffers/docs/gotutorial" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/gotutorial</a></li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2020/07/31/【Protobuf】Protocol-Buffers-Demo/#more">more >></a>
+        
       
 
       
@@ -565,9 +522,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
-
-<h1 id="更新-message"><a href="#更新-message" class="headerlink" title="更新 message"></a>更新 message</h1><p>如果后面发现之前定义 message 需要增加字段了，这个时候就体现出 Protocol Buffer 的优势了，不需要改动之前的代码。不过需要满足以下 10 条规则：</p>
+        <h1 id="更新-message"><a href="#更新-message" class="headerlink" title="更新 message"></a>更新 message</h1><p>如果后面发现之前定义 message 需要增加字段了，这个时候就体现出 Protocol Buffer 的优势了，不需要改动之前的代码。不过需要满足以下 10 条规则：</p>
 <ol>
 <li>不要改动原有字段的数据结构。</li>
 <li>如果您添加新字段，则任何由代码使用“旧”消息格式序列化的消息仍然可以通过新生成的代码进行分析。您应该记住这些元素的默认值，以便新代码可以正确地与旧代码生成的消息进行交互。同样，由新代码创建的消息可以由旧代码解析：旧的二进制文件在解析时会简单地忽略新字段。（具体原因见 <a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/Protocol/Protocol-buffers-encode.md#9-未知字段" target="_blank" rel="noopener">未知字段</a> 这一章节）</li>
@@ -580,117 +535,9 @@ var _hmt = _hmt || [];
 <li>enum 就数组而言，是可以与 int32，uint32，int64 和 uint64 兼容（请注意，如果它们不适合，值将被截断）。但是请注意，当消息反序列化时，客户端代码可能会以不同的方式对待它们：例如，未识别的 proto3 枚举类型将保留在消息中，但消息反序列化时如何表示是与语言相关的。（这点和语言相关，上面提到过了）Int 域始终只保留它们的值。</li>
 <li>将单个<strong>值</strong>更改为新的成员是安全和二进制兼容的。如果您确定一次没有代码设置多个<strong>字段</strong>，则将多个字段移至新的字段可能是安全的。将任何<strong>字段</strong>移到现有字段中都是不安全的。（注意字段和值的区别，字段是 field，值是 value）</li>
 </ol>
-<h1 id="A-Simple-Message"><a href="#A-Simple-Message" class="headerlink" title="A Simple Message"></a>A Simple Message</h1><p>Let’s say you have the following very simple message definition:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">message Test1 &#123;</span><br><span class="line">  optional int32 a = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>In an application, you create a <code>Test1</code> message and set <code>a</code> to 150. You then serialize the message to an output stream. If you were able to examine the encoded message, you’d see three bytes:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">08 96 01 （十进制）</span><br></pre></td></tr></table></figure>
-
-<p>So far, so small and numeric – but what does it mean? Read on…</p>
-<h1 id="Base-128-Varints-编码"><a href="#Base-128-Varints-编码" class="headerlink" title="Base 128 Varints 编码"></a>Base 128 Varints 编码</h1><p>To understand your simple protocol buffer encoding, you first need to understand <em>varints</em>. Varints are a method of serializing integers using one or more bytes. Smaller numbers take a smaller number of bytes （值越小的数字使用越少的字节数）.</p>
-<p>Each byte in a varint, except the last byte, has the <em>most significant bit</em> (msb) set（设置了最高有效位） – this indicates that there are further bytes to come. The lower 7 bits of each byte are used to store the two’s complement representation of the number in groups of 7 bits, <strong>least significant group first</strong>（每个字节的低 7 位用于以 7 位组的形式存储数字的二进制补码表示，最低有效组首位）.</p>
-<p>So, for example, here is the number 1 – it’s a single byte, so the msb is not set（如果用不到 1 个字节，那么最高有效位设为 0 ，如下面这个例子，1 用一个字节就可以表示，所以 msb 为 0）:</p>
-<blockquote>
-<p>一个字节（byte）有8位（bit）</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0000 0001</span><br></pre></td></tr></table></figure>
-
-<p>And here is 300 – this is a bit more complicated:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1010 1100 0000 0010</span><br></pre></td></tr></table></figure>
-
-<p>How do you figure out that this is 300? </p>
-<p>在不使用编码的情况下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">300 = 100101100</span><br></pre></td></tr></table></figure>
-
-<p>由于 300 超过了 7 位（Varint 一个字节只有 7 位能用来表示数字，最高位 msb 用来表示后面是否有更多字节），所以 300 需要用 2 个字节来表示。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./go/src/cmd/vendor/github.com/google/pprof/profile/proto.go</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encodeVarint</span><span class="params">(b *buffer, x <span class="keyword">uint64</span>)</span></span> &#123;</span><br><span class="line">  <span class="comment">// </span></span><br><span class="line">	<span class="keyword">for</span> x &gt;= <span class="number">128</span> &#123;</span><br><span class="line">    <span class="comment">// 0x80 的十进制（decimal）是 128，二进制（binary）是 10000000</span></span><br><span class="line">    <span class="comment">// byte(x)|0x80 表示从右往左取7个bit</span></span><br><span class="line">		b.data = <span class="built_in">append</span>(b.data, <span class="keyword">byte</span>(x)|<span class="number">0x80</span>)</span><br><span class="line">		x &gt;&gt;= <span class="number">7</span></span><br><span class="line">	&#125;</span><br><span class="line">	b.data = <span class="built_in">append</span>(b.data, <span class="keyword">byte</span>(x))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行过程</span></span><br><span class="line"><span class="comment">// input 100101100</span></span><br><span class="line"><span class="comment">//   1 0010 1100 | 1000 0000 = 1010 1100</span></span><br><span class="line"><span class="comment">// 将 1 1010 1100 追加到 b.data 中，b.data 是 1010 1100 </span></span><br><span class="line"><span class="comment">// 将 1010 1100 右移 7位，得到 0000 0010 </span></span><br><span class="line"><span class="comment">// input 0000 0010</span></span><br><span class="line"><span class="comment">// 将 input 0000 0010 追加到 b.data 中，b.data 是 1010 1100 0000 0010</span></span><br></pre></td></tr></table></figure>
-
-<p>First you drop the msb from each byte, as this is just there to tell us whether we’ve reached the end of the number (as you can see, it’s set in the first byte （从左往右数的一个字节）as there is more than one byte in the varint):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">300 = 100101100</span><br><span class="line"></span><br><span class="line"> 1010 1100 0000 0010</span><br><span class="line">→ 010 1100  000 0010</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>我们再来看看protobuf是怎么decode的：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 300 在被 encode后被存储为 1010 1100 0000 0010</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># You reverse the two groups of 7 bits because, as you remember, varints store numbers with the least significant group first. </span></span><br><span class="line"> 1010 1100 0000 0010</span><br><span class="line">→ 010 1100  000 0010</span><br><span class="line"></span><br><span class="line"><span class="comment"># Then you concatenate them to get your final value:</span></span><br><span class="line">000 0010  010 1100</span><br><span class="line">→  000 0010 ++ 010 1100</span><br><span class="line">→  100101100</span><br><span class="line">→  256 + 32 + 8 + 4 = 300</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./go/src/cmd/vendor/github.com/google/pprof/profile/proto.go</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">decodeVarint</span><span class="params">(data []<span class="keyword">byte</span>)</span> <span class="params">(<span class="keyword">uint64</span>, []<span class="keyword">byte</span>, error)</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> u <span class="keyword">uint64</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; ; i++ &#123;</span><br><span class="line">		<span class="keyword">if</span> i &gt;= <span class="number">10</span> || i &gt;= <span class="built_in">len</span>(data) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>, <span class="literal">nil</span>, errors.New(<span class="string">"bad varint"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">    <span class="comment">// 0X7F -&gt; 127 (decimal)</span></span><br><span class="line">		u |= <span class="keyword">uint64</span>(data[i]&amp;<span class="number">0x7F</span>) &lt;&lt; <span class="keyword">uint</span>(<span class="number">7</span>*i)</span><br><span class="line">    <span class="comment">// 当读到 mbs（most significant bit）时，结束</span></span><br><span class="line">		<span class="keyword">if</span> data[i]&amp;<span class="number">0x80</span> == <span class="number">0</span> &#123;</span><br><span class="line">			<span class="keyword">return</span> u, data[i+<span class="number">1</span>:], <span class="literal">nil</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 300 在被 encode后被存储为 1010 1100 0000 0010</span></span><br><span class="line"><span class="comment">// i = 0，即取出第一个byte：1010 1100</span></span><br><span class="line"><span class="comment">// 1010 1100 &amp; 111 1111 -&gt; 1010 1100</span></span><br><span class="line"><span class="comment">// u 设为 1010 1100</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// i =1，即取出第二个byte：0000 0010</span></span><br><span class="line"><span class="comment">// 0000 0010 &amp; 111 1111 -&gt; 0000 0010</span></span><br><span class="line"><span class="comment">// 将 0000 0010 右移 7 位，变成 1 0000 0000</span></span><br><span class="line"><span class="comment">// 将 1 0000 0000 和 u 做或运算，即 1 0000 0000 | 1010 1100 -&gt; 1 1010 1100</span></span><br><span class="line"><span class="comment">// 1 0010 1100</span></span><br><span class="line"><span class="comment">// 256 + 32 + 8 + 4 = 300</span></span><br></pre></td></tr></table></figure>
-
-<p>读到这里可能有读者会问了，Varint 不是为了紧凑 int 的么？那 300 本来可以用 2 个字节表示，现在还是 2 个字节了，哪里紧凑了，花费的空间没有变啊？！</p>
-<p>Varint 确实是一种紧凑的表示数字的方法。它用一个或多个字节来表示一个数字，值越小的数字使用越少的字节数。这能减少用来表示数字的字节数。比如对于 int32 类型的数字，一般需要 4 个 byte 来表示。但是采用 Varint，对于很小的 int32 类型的数字，则可以用 1 个 byte 来表示。当然凡事都有好的也有不好的一面，采用 Varint 表示法，大的数字则需要 5 个 byte 来表示。从统计的角度来说，一般不会所有的消息中的数字都是大数，因此大多数情况下，采用 Varint 后，可以用更少的字节数来表示数字信息。</p>
-<p>300 如果用 int32 表示，需要 4 个字节，现在用 Varint 表示，只需要 2 个字节了。缩小了一半！</p>
-<h1 id="Message-Structure"><a href="#Message-Structure" class="headerlink" title="Message Structure"></a>Message Structure</h1><p>As you know, a protocol buffer message is a series of key-value pairs. <strong>The binary version of a message just uses the field’s number（字段号） as the key – the name and declared type for each field can only be determined on the decoding end by referencing the message type’s definition (i.e. the <code>.proto</code> file).</strong></p>
-<p>When a message is encoded, the keys and values are concatenated into a byte stream. When the message is being decoded, the parser needs to be able to skip fields that it doesn’t recognize. This way, new fields can be added to a message without breaking old programs that do not know about them. </p>
-<p>这就是所谓的 “向后”兼容性（backwards compatibility）</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200731161815509.png" alt="image-20200731161815509"></p>
-<p>To this end, the “key” for each pair in a wire-format message is actually two values</p>
-<ul>
-<li>the field number from your <code>.proto</code> file, </li>
-<li>a <code>wire type</code> that provides just enough information to find the length of the following value. In most language implementations this key is referred to as a tag.</li>
-</ul>
-<p>The available <strong>wire types</strong> are as follows:</p>
-<table>
-<thead>
-<tr>
-<th align="left">Type</th>
-<th align="left">Meaning</th>
-<th align="left">Used For</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">0</td>
-<td align="left">Varint</td>
-<td align="left">int32, int64, uint32, uint64, sint32, sint64, bool, enum</td>
-</tr>
-<tr>
-<td align="left">1</td>
-<td align="left">64-bit</td>
-<td align="left">fixed64, sfixed64, double</td>
-</tr>
-<tr>
-<td align="left">2</td>
-<td align="left">Length-delimited</td>
-<td align="left">string, bytes, embedded messages, packed repeated fields</td>
-</tr>
-<tr>
-<td align="left">3</td>
-<td align="left">Start group</td>
-<td align="left">groups (deprecated)</td>
-</tr>
-<tr>
-<td align="left">4</td>
-<td align="left">End group</td>
-<td align="left">groups (deprecated)</td>
-</tr>
-<tr>
-<td align="left">5</td>
-<td align="left">32-bit</td>
-<td align="left">fixed32, sfixed32, float</td>
-</tr>
-</tbody></table>
-<p><strong>注意上图中，3 和 4 已经被废弃了，所以 wire_type 取值目前只有 0、1、2、5</strong>。</p>
-<p>Each key in the streamed message is a varint with the value <code>(field_number &lt;&lt; 3) | wire_type</code> – in other words, the last three bits of the number store the <code>wire type</code>.</p>
-<p>Now let’s look at our simple example again. You now know that the first number in the stream is always a varint key, and here it’s 08, or (dropping the msb):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">08 = 000 1000</span><br></pre></td></tr></table></figure>
-
-<p>You take the last three bits（最右边的三位） to get the wire type (0) and then right-shift by three to get the field number (1). So you now know that the field number is 1 and the following value is a varint. Using your varint-decoding knowledge from the previous section, you can see that the next two bytes store the value 150（即 96 01 就是150经过 Proto Buffer encode后存储的结果）.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">96 01 = 1001 0110  0000 0001</span><br><span class="line">       → 000 0001  ++  001 0110 (drop the msb and reverse the groups of 7 bits)</span><br><span class="line">       → 10010110</span><br><span class="line">       → 128 + 16 + 4 + 2 = 150</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">message Test1 &#123;</span><br><span class="line">  required int32 a = 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果存在上面这样的一个 message 的结构，如果存入 150，在 Protocol Buffer 中显示的二进制应该为 08 96 01 。</p>
-<p>我们可以试验一下：</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// .proto</span></span><br><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"><span class="keyword">package</span> proto;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">Test1</span> </span>&#123;</span><br><span class="line">  <span class="built_in">int32</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s := &amp;myProto.Test1&#123;</span><br><span class="line">	A: <span class="number">150</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Write the new address book back to disk.</span></span><br><span class="line">out, err := proto.Marshal(s)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">	log.Fatalln(<span class="string">"Failed to encode address book:"</span>, err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> err := ioutil.WriteFile(<span class="string">"test"</span>, out, <span class="number">0644</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">	log.Fatalln(<span class="string">"Failed to write address book:"</span>, err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行后，用Hex Fiend打开这个 <code>test</code> 文件：</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200731170931509.png" alt="image-20200731170931509"></p>
-<p>额外说一句，type 需要注意的是 type = 2 的情况，tag 里面除了包含 field number 和 wire_type ，还需要再包含一个 length，决定 value 从那一段取出来。</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://developers.google.com/protocol-buffers/docs/encoding" target="_blank" rel="noopener">https://developers.google.com/protocol-buffers/docs/encoding</a></li>
-<li><a href="https://halfrost.com/protobuf_encode/" target="_blank" rel="noopener">https://halfrost.com/protobuf_encode/</a></li>
-<li><a href="https://www.cnblogs.com/shine-lee/p/10717521.html" target="_blank" rel="noopener">https://www.cnblogs.com/shine-lee/p/10717521.html</a></li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2020/07/28/【Protobuf】Protocol-Buffers-深入/#more">more >></a>
+        
       
 
       
@@ -1081,11 +928,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1109,6 +956,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1121,7 +972,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1133,19 +984,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1181,6 +1028,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Format</a>
               </li>
              
@@ -1190,10 +1041,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1213,6 +1060,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
@@ -1222,10 +1073,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1249,11 +1096,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1313,11 +1160,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1357,11 +1204,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1369,15 +1220,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1386,10 +1237,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
             
             <div class="clearfix"></div>
