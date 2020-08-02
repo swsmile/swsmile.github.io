@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Golang】Golang 遍历 map 时 key 随机化问题 | 西维蜀黍 的博客</title>
+  <title>【Golang】类型-string | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Context12345678910111213141516171819202122232425262728293031package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	x := make(map[int]int)	for i := 0; i &amp;lt; 30; i++ &amp;#123;		x[i] = i	&amp;#125;	for i := 0; i &amp;lt; 1">
+  <meta name="description" content="type stringstring is the set of all strings of 8-bit bytes, conventionally but not necessarily representing UTF-8-encoded text. A string may be empty, but not nil. Values of string type are immutable.">
 <meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Golang】Golang 遍历 map 时 key 随机化问题">
-<meta property="og:url" content="http://swsmile.info/2020/06/14/【Golang】Golang-遍历-map-时-key-随机化问题/index.html">
+<meta property="og:title" content="【Golang】类型-string">
+<meta property="og:url" content="http://swsmile.info/2020/08/02/【Golang】类型-string/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="Context12345678910111213141516171819202122232425262728293031package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	x := make(map[int]int)	for i := 0; i &amp;lt; 30; i++ &amp;#123;		x[i] = i	&amp;#125;	for i := 0; i &amp;lt; 1">
+<meta property="og:description" content="type stringstring is the set of all strings of 8-bit bytes, conventionally but not necessarily representing UTF-8-encoded text. A string may be empty, but not nil. Values of string type are immutable.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200614122335282.png">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.318Z">
+<meta property="og:updated_time" content="2020-08-02T06:14:49.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Golang】Golang 遍历 map 时 key 随机化问题">
-<meta name="twitter:description" content="Context12345678910111213141516171819202122232425262728293031package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	x := make(map[int]int)	for i := 0; i &amp;lt; 30; i++ &amp;#123;		x[i] = i	&amp;#125;	for i := 0; i &amp;lt; 1">
-<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200614122335282.png">
+<meta name="twitter:title" content="【Golang】类型-string">
+<meta name="twitter:description" content="type stringstring is the set of all strings of 8-bit bytes, conventionally but not necessarily representing UTF-8-encoded text. A string may be empty, but not nil. Values of string type are immutable.">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -192,48 +190,34 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-【Golang】Golang-遍历-map-时-key-随机化问题" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【Golang】类型-string" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      【Golang】Golang 遍历 map 时 key 随机化问题
+      【Golang】类型-string
     </h1>
   
 
         
-        <a href="/2020/06/14/【Golang】Golang-遍历-map-时-key-随机化问题/" class="archive-article-date">
-  	<time datetime="2020-06-14T03:11:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-14</time>
+        <a href="/2020/08/02/【Golang】类型-string/" class="archive-article-date">
+  	<time datetime="2020-08-02T05:26:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">30</span>; i++ &#123;</span><br><span class="line">		x[i] = i</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">		<span class="keyword">for</span> k, v := <span class="keyword">range</span> x &#123;</span><br><span class="line">			fmt.Println(k, v)</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// output </span></span><br><span class="line"><span class="number">18</span> <span class="number">18</span></span><br><span class="line"><span class="number">29</span> <span class="number">29</span></span><br><span class="line"><span class="number">2</span> <span class="number">2</span></span><br><span class="line"><span class="number">2</span> <span class="number">2</span></span><br><span class="line"><span class="number">2</span> <span class="number">2</span></span><br><span class="line"><span class="number">16</span> <span class="number">16</span></span><br><span class="line"><span class="number">28</span> <span class="number">28</span></span><br><span class="line"><span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="number">0</span> <span class="number">0</span></span><br><span class="line"><span class="number">4</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+        <h2 id="type-string"><a href="#type-string" class="headerlink" title="type string"></a>type <a href="https://golang.org/src/builtin/builtin.go?s=2094:2112#L61" target="_blank" rel="noopener">string</a></h2><p>string is the set of all strings of 8-bit bytes, conventionally but not necessarily representing UTF-8-encoded text. A string may be empty, but not nil. Values of string type are immutable.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type string string</span><br></pre></td></tr></table></figure>
 
-<p>可以看到，我们进行10次遍历 map，每次遍历都只print 出第一对key-value pair，而每次遍历 print 的结果都不同。</p>
 <a id="more"></a> 
 
-<h2 id="Java-中的Hashmap"><a href="#Java-中的Hashmap" class="headerlink" title="Java 中的Hashmap"></a>Java 中的Hashmap</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">            map.put(i, i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(Map.Entry&lt;Integer, Integer&gt; entry : map.entrySet()) &#123;</span><br><span class="line">                System.out.println(entry.getKey() + <span class="string">": "</span> + entry.getValue());</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在Java中，并没有这个问题。</p>
-<p>因为在 Java 中的 Hashmap 会把每个 pair object 在 heap 中的指针存在一个 array 中（根据hash 函数算出一个特定的 pair object 存储在这个 array 中的 哪个 index 位置上）。而每次遍历 map 时，都会从这个 array 的头部开始一个一个元素的扫描（如果不为 nill ，说明当前位置存储了 pair 元素），</p>
-<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200614122335282.png" alt="image-20200614122335282" style="zoom:67%;">
-
-<h1 id="Staightforward-Idea"><a href="#Staightforward-Idea" class="headerlink" title="Staightforward Idea"></a>Staightforward Idea</h1><p>如果希望每次遍历 map 时，访问元素的顺序均相同，可以把 key 先提前取出来，存在 slice 里，然后对 key 排序。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"sort"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span></span><br><span class="line"><span class="keyword">var</span> keys []<span class="keyword">int</span></span><br><span class="line"><span class="keyword">for</span> k := <span class="keyword">range</span> m &#123;</span><br><span class="line">    keys = <span class="built_in">append</span>(keys, k)</span><br><span class="line">&#125;</span><br><span class="line">sort.Ints(keys)</span><br><span class="line"><span class="keyword">for</span> _, k := <span class="keyword">range</span> keys &#123;</span><br><span class="line">    fmt.Println(<span class="string">"Key:"</span>, k, <span class="string">"Value:"</span>, m[k])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="如何实现随机-pick-map-key"><a href="#如何实现随机-pick-map-key" class="headerlink" title="如何实现随机 pick map key"></a>如何实现随机 pick map key</h1><h2 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h2><p>一种方式可以循环map； 把key放到slice中：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">func randMapKey(m map[string]int) string &#123;</span><br><span class="line">        mapKeys = make([]string, 0, len(m)) // pre-allocate exact size</span><br><span class="line">        for key := range m &#123;</span><br><span class="line">                mapKeys = append(mapKeys, key)</span><br><span class="line">        &#125;</span><br><span class="line">        return mapKeys[rand.Intn(len(mapKeys))]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>很容易验证这段代码确实会产生随机key。 虽然简单但是有代价：O(n) 的时间复杂度 和 O(n) 空间复杂度。</p>
-<h2 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution 2"></a>Solution 2</h2><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://blog.csdn.net/hificamera/article/details/51655463" target="_blank" rel="noopener">https://blog.csdn.net/hificamera/article/details/51655463</a></li>
-<li><a href="https://stackoverflow.com/questions/23482786/get-an-arbitrary-key-item-from-a-map" target="_blank" rel="noopener">https://stackoverflow.com/questions/23482786/get-an-arbitrary-key-item-from-a-map</a></li>
-<li><a href="https://lukechampine.com/hackmap.html" target="_blank" rel="noopener">https://lukechampine.com/hackmap.html</a></li>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://blog.golang.org/strings" target="_blank" rel="noopener">https://blog.golang.org/strings</a></li>
+<li><a href="https://golang.org/pkg/builtin/" target="_blank" rel="noopener">https://golang.org/pkg/builtin/</a></li>
 </ul>
 
       
@@ -329,18 +313,18 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2020/06/20/【OpenWrt】红米路由器-AC2100-刷-OpenWrt/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/08/02/【Golang】初始化/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【OpenWrt】MacOS 下红米路由器 AC2100 刷 OpenWrt
+          【Golang】初始化（Intialization）
         
       </div>
     </a>
   
   
-    <a href="/2020/06/13/【hexo】使用-node-14-运行-hexo-报错/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【hexo】使用 node 14 运行 hexo 报错</div>
+    <a href="/2020/08/02/【Golang】文档/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Golang】文档</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -489,6 +473,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -501,7 +489,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,19 +501,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -597,11 +581,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,15 +617,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,11 +701,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -757,11 +741,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

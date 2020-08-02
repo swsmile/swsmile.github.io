@@ -191,6 +191,338 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Node-js】Node-js中的单线程模型与多线程-进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/">【Node.js】Node.js中的单线程模型与多线程/进程</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/" class="archive-article-date">
+  	<time datetime="2018-11-12T01:49:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。</p>
+<p>那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。</p>
+        
+          <a class="article-more-a" href="/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Node.js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Nodejs/" class="article-tag-list-link color2">Nodejs</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Linux】Shell 脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/12/【Linux】Shell 脚本/">【Linux】Shell 脚本</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/12/【Linux】Shell 脚本/" class="archive-article-date">
+  	<time datetime="2018-11-12T01:41:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0-基本"><a href="#0-基本" class="headerlink" title="0 基本"></a>0 基本</h1><h2 id="分号"><a href="#分号" class="headerlink" title="分号"></a>分号</h2><p>分号（<code>;</code>）是命令的结束符，使得一行可以放置多个命令，上一个命令执行结束后，再执行第二个命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ clear; ls</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，Bash 先执行<code>clear</code>命令，执行完成后，再执行<code>ls</code>命令。</p>
+<p>注意，使用分号时，第二个命令总是接着第一个命令执行，不管第一个命令执行成功或失败。</p>
+<h2 id="命令的组合符-amp-amp-和"><a href="#命令的组合符-amp-amp-和" class="headerlink" title="命令的组合符&amp;&amp;和||"></a>命令的组合符<code>&amp;&amp;</code>和<code>||</code></h2><p>除了分号，Bash 还提供两个命令组合符<code>&amp;&amp;</code>和<code>||</code>，允许更好地控制多个命令之间的继发关系。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Command1 &amp;&amp; Command2</span><br></pre></td></tr></table></figure>
+
+<p>上面命令的意思是，如果<code>Command1</code>命令运行成功，则继续运行<code>Command2</code>命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Command1 || Command2</span><br></pre></td></tr></table></figure>
+
+<p>上面命令的意思是，如果<code>Command1</code>命令运行失败，则继续运行<code>Command2</code>命令。</p>
+<p>下面是一些例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat filelist.txt ; ls -l filelist.txt</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，只要<code>cat</code>命令执行结束，不管成功或失败，都会继续执行<code>ls</code>命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat filelist.txt &amp;&amp; ls -l filelist.txt</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，只有<code>cat</code>命令执行成功，才会继续执行<code>ls</code>命令。如果<code>cat</code>执行失败（比如不存在文件<code>flielist.txt</code>），那么<code>ls</code>命令就不会执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir foo || mkdir bar</span><br></pre></td></tr></table></figure>
+
+<p>上面例子中，只有<code>mkdir foo</code>命令执行失败（比如<code>foo</code>目录已经存在），才会继续执行<code>mkdir bar</code>命令。如果<code>mkdir foo</code>命令执行成功，就不会创建<code>bar</code>目录了。</p>
+<h1 id="1-变量"><a href="#1-变量" class="headerlink" title="1 变量"></a>1 变量</h1><h2 id="1-1-变量类型"><a href="#1-1-变量类型" class="headerlink" title="1.1 变量类型"></a>1.1 变量类型</h2><p>几乎所有的编程语言都有变量的概念，Bash当然也不例外。说道变量就少不了说一说类型。但与其他语言不同的是<strong>Bash属于无类型语言，如果强要说一种类型，可以认为都是字符串</strong>。说到这里，你可能会说，Bash里面也有整数类型吧，好像有整数的运算。但其是通过一些运算符，表达式或者命令将字符串视作整数处理的，其本质还是字符串。</p>
+<h2 id="1-2-声明变量"><a href="#1-2-声明变量" class="headerlink" title="1.2 声明变量"></a>1.2 声明变量</h2><p>Bash中的变量和其他脚本语言一样，都是无需声明，<strong>直接拿来用</strong>的。所以变量的第一次出现都是伴随着初始化的。</p>
+<h2 id="1-3-取用变量"><a href="#1-3-取用变量" class="headerlink" title="1.3 取用变量"></a>1.3 取用变量</h2><p>变量前加一个 <strong>$</strong> 符号。称作dollar符，就是美元符号。这是最基本的一种取用方式，其他的方式以后再表。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="string">"hello world"</span>  </span><br><span class="line"><span class="keyword">echo</span> $a</span><br></pre></td></tr></table></figure>
+
+<p>终端会打印出 hello world。当然你可以把变量和常量字符串放到一起来打印，比如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">boy=Jelly</span><br><span class="line">echo &quot;$boy:hello world!&quot;</span><br></pre></td></tr></table></figure>
+
+<p>结果为 Jelly:hello world!</p>
+        
+          <a class="article-more-a" href="/2018/11/12/【Linux】Shell 脚本/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/12/【Linux】Shell 脚本/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Architectural-Pattern】MVVM与数据绑定" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/12/【Architectural-Pattern】MVVM与数据绑定/">【Architectural Pattern】MVVM与数据绑定</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/12/【Architectural-Pattern】MVVM与数据绑定/" class="archive-article-date">
+  	<time datetime="2018-11-12T01:31:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="0-概念"><a href="#0-概念" class="headerlink" title="0 概念"></a>0 概念</h1><p><strong>MVVM （Model - View - ViewModel）</strong>最早由微软提出，它在MVC的基础之上，增加了数据绑定机制。</p>
+        
+          <a class="article-more-a" href="/2018/11/12/【Architectural-Pattern】MVVM与数据绑定/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Architectural Pattern</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ArchitecturalPattern/" class="article-tag-list-link color1">ArchitecturalPattern</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/12/【Architectural-Pattern】MVVM与数据绑定/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Design-Pattern】结构类模式-模板方法模式-Template-Method-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/12/【Design-Pattern】结构类模式-模板方法模式-Template-Method-Pattern/">【Design Pattern】结构类模式 -- 模板方法模式 (Template Method Pattern)</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/12/【Design-Pattern】结构类模式-模板方法模式-Template-Method-Pattern/" class="archive-article-date">
+  	<time datetime="2018-11-12T01:27:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-动机"><a href="#1-动机" class="headerlink" title="1 动机"></a>1 动机</h1><h1 id="2-定义"><a href="#2-定义" class="headerlink" title="2 定义"></a>2 定义</h1><p>在阎宏博士的《Java与模式》一书中开头是这样描述模板方法（Template Method）模式的：</p>
+<p><strong>模板方法模式是类的行为模式。准备一个抽象类，将部分逻辑以具体方法以及具体构造函数的形式实现，然后声明一些抽象方法来迫使子类实现剩余的逻辑。不同的子类可以以不同的方式实现这些抽象方法，从而对剩余的逻辑有不同的实现。这就是模板方法模式的用意。</strong></p>
+        
+          <a class="article-more-a" href="/2018/11/12/【Design-Pattern】结构类模式-模板方法模式-Template-Method-Pattern/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Design Pattern</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/DesignPattern/" class="article-tag-list-link color4">DesignPattern</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/12/【Design-Pattern】结构类模式-模板方法模式-Template-Method-Pattern/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Design-Pattern】结构类模式-组合模式-Composite-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -499,313 +831,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Design-Pattern】行为类模式-策略模式-Strategy-Pattern" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/">【Design Pattern】行为类模式 -- 策略模式 (Strategy Pattern)</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/" class="archive-article-date">
-  	<time datetime="2018-11-11T14:34:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><ul>
-<li>完成一项任务可以有多种不同的方法，每一种方法都可称为一个策略。在特定环境下，我们可以根据不同的需求和具体的环境来决定采用哪一个策略来完成特定的任务；</li>
-<li>在软件开发中也是类似的，我们可以使用不同的策略来实现一项功能。比如<strong>排序</strong>，可以<strong>采用快排（Quick Sort），插入排序（Insert Sort）或选择排序（Selection Sort）</strong>等等。这些不同的排序算法都能实现排序功能，只是他们进行排序时的效率不同。因此，我们要根据具体的情况，来具体选择一个排序算法，以使得在当前情况中排序效率最高；</li>
-<li>为了使系统具有较强的扩展性（可能在未来，我们还需要增加新的排序算法），我们的代码需要遵循<strong>开闭原则（The Open Closed Principle）</strong>；</li>
-<li>同时，我们编写的这个类对应的调用者（Client），不应该依赖于这个类具体的实现（Implementation），而仅仅依赖于对应的抽象（Abstraction）。或者说，面向接口编程（Program to an interface, not an implementation）；</li>
-<li>可能有人会提出，我们可以编写一个<code>SortingHelper</code>类（这个类实现了<code>ISortingHelper</code>接口），这个类中包含不同的方法，每个方法都是一种具体排序算法的实现（比如快排、插入排序等等）。很棒！这是一种很好的实现（具有扩展性，同时面向接口编程）。这种实现事实上对应了另一个设计模式，称为<strong>模板方法模式（Template Method Pattern）</strong>。但这样的实现无法做到在运行时可以任意地切换不同的排序算法；</li>
-<li>我们也可以设计一个策略接口（对应于上面例子，则为排序帮助接口），同时包含多个实现了该接口的策略实现类（对应于上面例子，则为XX排序帮助类，如插入排序帮助类）。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Design Pattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DesignPattern/" class="article-tag-list-link color4">DesignPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/11/【Design-Pattern】行为类模式-策略模式-Strategy-Pattern/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Architectural-Pattern】Model–view–controller-MVC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/【Architectural-Pattern】Model–view–controller-MVC/">【Architectural Pattern】Model – View – Controller (MVC)</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/11/【Architectural-Pattern】Model–view–controller-MVC/" class="archive-article-date">
-  	<time datetime="2018-11-11T14:31:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-背景"><a href="#1-背景" class="headerlink" title="1 背景"></a>1 背景</h1><p><strong>MVC （Model - View - Controller）架构</strong>是一种当前非常流行的<strong>架构模式（Architectural Pattern）</strong>，被广泛使用于传统的桌面GUI（Graphical user interface）、Web应用和手机移动应用中。</p>
-        
-          <a class="article-more-a" href="/2018/11/11/【Architectural-Pattern】Model–view–controller-MVC/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Architectural Pattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ArchitecturalPattern/" class="article-tag-list-link color1">ArchitecturalPattern</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/11/【Architectural-Pattern】Model–view–controller-MVC/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Java】编译与反编译-Intellij调试程序断点进入JDK源码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/【Java】编译与反编译-Intellij调试程序断点进入JDK源码/">【Java】 Intellij调试程序断点进入JDK源码</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/11/【Java】编译与反编译-Intellij调试程序断点进入JDK源码/" class="archive-article-date">
-  	<time datetime="2018-11-11T14:30:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>在<code>IntelliJ</code>中，希望调试自己的程序时，断点能够进入JDK的源代码。</p>
-        
-          <a class="article-more-a" href="/2018/11/11/【Java】编译与反编译-Intellij调试程序断点进入JDK源码/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/11/【Java】编译与反编译-Intellij调试程序断点进入JDK源码/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Java】编译与反编译-Java程序的编译与运行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/">【Java】Java程序的编译与运行</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/" class="archive-article-date">
-  	<time datetime="2018-11-11T14:23:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>本文将按照Java源代码从编译到执行的过程，进行一步一步的分析。</p>
-        
-          <a class="article-more-a" href="/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/63/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/62/">62</a><a class="page-number" href="/page/63/">63</a><span class="page-number current">64</span><a class="page-number" href="/page/65/">65</a><a class="page-number" href="/page/66/">66</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/65/">Next &raquo;</a>
@@ -944,6 +969,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -956,7 +985,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -968,19 +997,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1052,11 +1077,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1088,15 +1113,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1172,11 +1197,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1200,11 +1225,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1212,11 +1237,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

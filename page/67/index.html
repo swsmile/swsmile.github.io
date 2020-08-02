@@ -191,6 +191,332 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Node-js】Node-js的Event-Loop与异步IO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/">【Node.js】Node.js 的 Event Loop 与异步 I/O</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/" class="archive-article-date">
+  	<time datetime="2018-11-06T07:42:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="事件循环（Event-Loop）"><a href="#事件循环（Event-Loop）" class="headerlink" title="事件循环（Event Loop）"></a>事件循环（Event Loop）</h1><p>Node的执行模型称为<strong>事件循环（Event Loop）</strong>。在Node进程启动后，Node会用主线程来执行所有用户代码。当主线程对应的栈为空时（所有用户代码执行完毕了）Node会开始执行一个类似while(true)的<strong>事件循环（Event Loop）</strong>（从Node代码实现的角度来说，并不存在这样的while(true)）。</p>
+        
+          <a class="article-more-a" href="/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Node.js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Nodejs/" class="article-tag-list-link color2">Nodejs</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Linux】Linux-文件-文件夹-权限" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/05/【Linux】Linux-文件-文件夹-权限/">【Linux】chmod/chown - Linux 文件/文件夹 权限</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/05/【Linux】Linux-文件-文件夹-权限/" class="archive-article-date">
+  	<time datetime="2018-11-05T14:24:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="文件权限修改常用命令-chmod"><a href="#文件权限修改常用命令-chmod" class="headerlink" title="文件权限修改常用命令 - chmod"></a>文件权限修改常用命令 - chmod</h1><p>先上常用命令。</p>
+<p><strong>修改文件权限为可读可写可执行（777）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 [文件或文件夹路径]</span><br></pre></td></tr></table></figure>
+
+<p>  如<code>chmod 777 /var/home/userid/cc</code>，此文件cc的权限就变为可读可写可执行（777）了。</p>
+<p><strong>修改文件夹及该文件夹内所有文件和子文件夹（包括子文件夹中的文件和文件夹）权限为可读可写可执行（777）：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 [文件或文件夹路径]</span><br></pre></td></tr></table></figure>
+
+<p> 如可以看到<code>test</code>文件夹中包含2个文件和一个子文件夹（其中<code>file2</code>文件位于该子文件夹中）：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105100638797.png" alt="image-20181105100638797"></p>
+<p>使用 <code>chmod -R 777 ./test</code>后，这2个文件和这个子文件夹的权限都会变成可读可写可执行（777）。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105100807394.png" alt="image-20181105100807394"></p>
+<p><code>chmod</code>命令可用于改变文件或目录的访问权限。</p>
+<p>该命令有两种用法。一种是包含字母和操作符表达式的文字设定法；另一种是包含数字的数字设定法。</p>
+        
+          <a class="article-more-a" href="/2018/11/05/【Linux】Linux-文件-文件夹-权限/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/05/【Linux】Linux-文件-文件夹-权限/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【SQL】SQLite-命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/24/【SQL】SQLite-命令/">【SQL】SQLite 命令</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/24/【SQL】SQLite-命令/" class="archive-article-date">
+  	<time datetime="2018-02-24T01:26:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-打开或创建一个SQLite3数据库"><a href="#1-打开或创建一个SQLite3数据库" class="headerlink" title="1.打开或创建一个SQLite3数据库"></a>1.打开或创建一个<code>SQLite3</code>数据库</h3><p>打开或创建一个<code>SQLite3</code>数据库，它叫做<code>testDB.db</code>。</p>
+        
+          <a class="article-more-a" href="/2018/02/24/【SQL】SQLite-命令/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/SQL/" class="article-tag-list-link color4">SQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/24/【SQL】SQLite-命令/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【SQL】SQL中几个关键字" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/24/【SQL】SQL中几个关键字/">【SQL】SQL中几个关键字</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/24/【SQL】SQL中几个关键字/" class="archive-article-date">
+  	<time datetime="2018-02-24T01:19:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Note: 以下均以<code>SQLite</code>为例。</p>
+<h1 id="1-SQL-Join-操作"><a href="#1-SQL-Join-操作" class="headerlink" title="1 SQL Join 操作"></a>1 SQL Join 操作</h1><p>Join 操作包括以下四种：</p>
+<ul>
+<li><strong>Inner Join（内连接）</strong>：在表中存在至少一个匹配时，INNER JOIN 关键字返回行。</li>
+<li><strong>Outer Join （外连接）</strong>：<ul>
+<li><strong>Left Join/Left Outer Join （左连接，左外连接）</strong>：Left join（左连接）会从左表中返回所有的记录，即使某条记录在右表中没有与之匹配的行。</li>
+<li><strong>Right Join/Right Outer Join （右连接，右外连接）</strong>：Right outer join（右连接）会返回右表中的所有记录，即使某条记录在左表中没有与之匹配的行。</li>
+<li><strong>FULL Join/FULL Outer Join （全连接，全外连接）</strong>：只要其中某个表存在匹配，FULL JOIN 关键字就会返回行。</li>
+</ul>
+</li>
+<li><strong>CROSS JOIN/ Cross Product/ Cartesian（笛卡尔积、交叉连接）</strong>：CROSS JOIN 返回的结果为被连接的两个表的乘积。</li>
+<li><strong>Natural join（自然连接，R⋈S）</strong>：自然连接（Natural join）是一种特殊的等值连接，要求两个关系表中进行比较的属性组必须是名称相同的属性组，并且在结果中把重复的属性列去掉（即：对名称相同的属性组只显示一列）。</li>
+</ul>
+<h2 id="1-1-Inner-Join（内连接）"><a href="#1-1-Inner-Join（内连接）" class="headerlink" title="1.1 Inner Join（内连接）"></a>1.1 Inner Join（内连接）</h2><p>在表中存在至少一个匹配时，INNER JOIN 关键字返回行。</p>
+        
+          <a class="article-more-a" href="/2018/02/24/【SQL】SQL中几个关键字/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/SQL/" class="article-tag-list-link color4">SQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/24/【SQL】SQL中几个关键字/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【WordPress】WordPress安装插件时提示输入FTP账号信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -500,312 +826,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【MySQL】Mac下安装MySQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/23/【MySQL】Mac下安装MySQL/">【MySQL】Mac 下安装 MySQL</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/23/【MySQL】Mac下安装MySQL/" class="archive-article-date">
-  	<time datetime="2018-02-23T15:26:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MySQL-安装"><a href="#MySQL-安装" class="headerlink" title="MySQL 安装"></a>MySQL 安装</h1><h2 id="【方法-1】-通过brew安装MySQL"><a href="#【方法-1】-通过brew安装MySQL" class="headerlink" title="【方法 1】 通过brew安装MySQL"></a>【方法 1】 通过brew安装MySQL</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ brew install mysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定安装版本</span></span><br><span class="line">$ brew install mysql56</span><br><span class="line"></span><br><span class="line"><span class="comment"># 后台运行</span></span><br><span class="line">$ brew services start mysql@5.6</span><br><span class="line"><span class="comment"># 前台运行</span></span><br><span class="line">$ /usr/<span class="built_in">local</span>/opt/mysql@5.5/bin/mysql.server start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止</span></span><br><span class="line">$ brew services stop mysql@5.6     </span><br><span class="line"></span><br><span class="line">$ mysql -u root -p</span><br></pre></td></tr></table></figure>
-
-<p>注意，使用 brew 安装，可能在启动 mysql 时，会出现各种错误。MySQL log 默认位于 <code>/usr/local/var/mysql/{your machine name}.err</code>，查看详细的 log 以排查问题。</p>
-        
-          <a class="article-more-a" href="/2018/02/23/【MySQL】Mac下安装MySQL/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/23/【MySQL】Mac下安装MySQL/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【JAVA】JavaBean、POJO、EJB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/23/【JAVA】JavaBean、POJO、EJB/">【Java】JavaBean、POJO和EJB</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/23/【JAVA】JavaBean、POJO、EJB/" class="archive-article-date">
-  	<time datetime="2018-02-23T15:22:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-JavaBeans"><a href="#1-JavaBeans" class="headerlink" title="1 JavaBeans"></a>1 JavaBeans</h1><p><code>JavaBeans</code>在1996年被Sun公司提出，并定义为 <strong>A JavaBean is reusable, platform independent component that can be manipulated visually in a builder tool.</strong></p>
-        
-          <a class="article-more-a" href="/2018/02/23/【JAVA】JavaBean、POJO、EJB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/23/【JAVA】JavaBean、POJO、EJB/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【MacOS】macOS下查看端口被哪个程序占用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/23/【MacOS】macOS下查看端口被哪个程序占用/">【macOS】 macOS下查看端口被哪个程序占用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/23/【MacOS】macOS下查看端口被哪个程序占用/" class="archive-article-date">
-  	<time datetime="2018-02-23T15:17:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="查看某端口是否被占用"><a href="#查看某端口是否被占用" class="headerlink" title="查看某端口是否被占用"></a>查看某端口是否被占用</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -an | grep &lt;端口号&gt;</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/02/23/【MacOS】macOS下查看端口被哪个程序占用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">macOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/macOS/" class="article-tag-list-link color1">macOS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/23/【MacOS】macOS下查看端口被哪个程序占用/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Java】集合类-Java中List的基本使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/23/【Java】集合类-Java中List的基本使用/">【Java】 集合类-Java中List的基本使用</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/23/【Java】集合类-Java中List的基本使用/" class="archive-article-date">
-  	<time datetime="2018-02-23T15:05:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="List与ArrayList"><a href="#List与ArrayList" class="headerlink" title="List与ArrayList"></a>List与ArrayList</h1><ul>
-<li>List是一个接口，而ArrayList是一个类。</li>
-<li>List继承了Collection接口</li>
-<li>ArrayList实现了List接口</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/02/23/【Java】集合类-Java中List的基本使用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java/" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/23/【Java】集合类-Java中List的基本使用/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/66/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/65/">65</a><a class="page-number" href="/page/66/">66</a><span class="page-number current">67</span><a class="page-number" href="/page/68/">68</a><a class="page-number" href="/page/69/">69</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/68/">Next &raquo;</a>
@@ -944,6 +964,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -956,7 +980,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -968,19 +992,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1052,11 +1072,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1088,15 +1108,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1172,11 +1192,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1200,11 +1220,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1212,11 +1232,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

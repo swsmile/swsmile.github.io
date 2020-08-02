@@ -191,6 +191,348 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Redis】Redis-持久化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/07/【Redis】Redis-持久化/">【Redis】Redis 持久化（Persistence）</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/07/【Redis】Redis-持久化/" class="archive-article-date">
+  	<time datetime="2020-05-07T09:15:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis的持久化机制（Persistence）"><a href="#Redis的持久化机制（Persistence）" class="headerlink" title="Redis的持久化机制（Persistence）"></a>Redis的持久化机制（Persistence）</h1><p>Redis支持两种方式的持久化，一种是RDB方式，另一种是AOF（Append Only File）方式：</p>
+<ul>
+<li>前者（RDB方式）会根据指定的规则“定时”将内存中的数据存储在硬盘上，</li>
+<li>而后者（AOF（Append Only File）方式）在<strong>每次执行命令后</strong>将命令本身记录下来。</li>
+</ul>
+<p>两种持久化方式可以单独使用其中一种，但更多情况下是将二者结合使用。</p>
+<h2 id="RDB方式"><a href="#RDB方式" class="headerlink" title="RDB方式"></a>RDB方式</h2><p>RDB方式的持久化是通过<strong>快照（snapshotting）</strong>完成的，当符合一定条件时Redis会自动将内存中的所有数据生成一份副本并存储在硬盘上，这个过程即为“快照”。Redis会在以下几种情况下对数据进行快照：</p>
+<ul>
+<li>根据配置规则进行自动快照；</li>
+<li>用户执行SAVE或BGSAVE命令；</li>
+<li>执行FLUSHALL命令；</li>
+<li>执行复制（replication）时。</li>
+</ul>
+<h2 id="AOF（Append-Only-File）方式"><a href="#AOF（Append-Only-File）方式" class="headerlink" title="AOF（Append Only File）方式"></a>AOF（Append Only File）方式</h2><p>当使用Redis存储非临时数据时，一般需要打开AOF持久化来降低进程中止导致的数据丢失。AOF可以将Redis执行的每一条写命令追加到硬盘文件中，这一过程显然会降低 Redis的性能，但是大部分情况下这个影响是可以接受的，另外使用较快的硬盘可以提高 AOF 的性能。</p>
+        
+          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-持久化/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-持久化/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Redis】Redis-事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/07/【Redis】Redis-事务/">【Redis】Redis 事务（Transaction）</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/07/【Redis】Redis-事务/" class="archive-article-date">
+  	<time datetime="2020-05-07T09:13:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis-事务（Transaction）"><a href="#Redis-事务（Transaction）" class="headerlink" title="Redis 事务（Transaction）"></a>Redis 事务（Transaction）</h1><p>Redis通过 <code>MULTI</code>、<code>EXEC</code>、<code>DISCARD</code>、<code>WATCH</code> 等命令来实现事务（transaction）功能。</p>
+<blockquote>
+<p>All the commands in a transaction are serialized and executed sequentially. It can never happen that a request issued by another client is served <strong>in the middle</strong> of the execution of a Redis transaction. This guarantees that the commands are executed as a single isolated operation.</p>
+</blockquote>
+<p>事务提供了一种将多个命令请求打包，然后一次性、按顺序串行地（executed sequentially）执行多个命令的机制，并且在事务执行期间，服务器不会中断事务而改去执行其他客户端的命令请求，它会将事务中的所有命令都执行完毕，然后才去处理其他客户端的命令请求。</p>
+<blockquote>
+<p>Either all of the commands or none are processed, so a Redis transaction is also atomic. The <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> command triggers the execution of all the commands in the transaction, so if a client loses the connection to the server in the context of a transaction before calling the <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> command none of the operations are performed, instead if the <a href="https://redis.io/commands/exec" target="_blank" rel="noopener">EXEC</a> command is called, all the operations are performed. </p>
+</blockquote>
+<p>以下是一个事务执行的过程，该事务首先以一个MULTI命令为开始，接着将多个命令放入事务当中，最后由 <code>EXEC</code>命令触发这个事务的执行，通过将这个事务提交（commit）给服务器。</p>
+        
+          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-事务/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-事务/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Redis】Redis-Key长度与性能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/07/【Redis】Redis-Key长度与性能/">【Redis】Redis Key长度与性能</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/07/【Redis】Redis-Key长度与性能/" class="archive-article-date">
+  	<time datetime="2020-05-07T08:35:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h1><p>我们知道，在Redis中，get和set操作的time complexity均为O(1)。然而，当我们提供一个超长的key给Redis时，理论上，Redis需要花费更多内存来存储这个key。</p>
+<p>因此，key的长度有没有可能影响Redis的性能呢？</p>
+<h1 id="Benchmark-Script"><a href="#Benchmark-Script" class="headerlink" title="Benchmark Script"></a>Benchmark Script</h1><p>在key为不同长度（包含的字符长度）时，Redis 的get和set操作的Performance（QPS）测试脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Test the length of key in Redis will influence performance..."</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (( c=1; c&lt;=100000000000000; c=c*10 ))</span><br><span class="line"><span class="keyword">do</span>  </span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"Current length: <span class="variable">$&#123;c&#125;</span>"</span></span><br><span class="line">   redis-cli flushall</span><br><span class="line">   redis-benchmark -n 1000000 -t <span class="built_in">set</span>,get -r <span class="variable">$&#123;c&#125;</span> -q</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-Key长度与性能/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/07/【Redis】Redis-Key长度与性能/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Linux】Crontab" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/05/【Linux】Crontab/">【Linux】Crontab</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/05/【Linux】Crontab/" class="archive-article-date">
+  	<time datetime="2020-05-05T13:43:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h1><p><strong>Cron:</strong> Cron comes from chron, the Greek prefix for ‘time’. Cron is a daemon which runs at the times of system boot.</p>
+<p><strong>Crontab:</strong> Crontab (CRON TABle) is a file which contains the schedule of cron entries to be run and at specified times. File location varies by operating systems.</p>
+<p>crontab是一个文件（列举了要执行的cron服务的具体内容），也可以指Linux中的crontab 命令。</p>
+<p><strong>Cron job or cron schedule:</strong> Cron job or cron schedule is a specific set of execution instructions specifying day, time and command to execute. crontab can have multiple execution statements.</p>
+<h1 id="crond-系统服务"><a href="#crond-系统服务" class="headerlink" title="crond 系统服务"></a>crond 系统服务</h1><p>crond系统服务提供crontab命令来设定cron服务的。</p>
+<p>在linux 系统中，由 crond这个系统服务来控制。Linux 系统上面原本就有非常多的计划性工作，因此这个系统服务是默认启动的。</p>
+<p>我们可以看下crond这个系统服务的状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl status crond.service</span><br><span class="line">● crond.service - Command Scheduler</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/crond.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Thu 2019-10-24 17:25:53 UTC; 6 months 8 days ago</span><br><span class="line"> Main PID: 1669 (crond)</span><br><span class="line">    Tasks: 1</span><br><span class="line">   Memory: 1.8M</span><br><span class="line">   CGroup: /system.slice/crond.service</span><br><span class="line">           └─1669 /usr/sbin/crond -n</span><br><span class="line"></span><br><span class="line">Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.</span><br></pre></td></tr></table></figure>
+
+<p>启动crontab服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl start crond.service</span><br></pre></td></tr></table></figure>
+
+<p>查看服务是否已经运行用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ax | grep crond</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置cron服务的两种方法"><a href="#设置cron服务的两种方法" class="headerlink" title="设置cron服务的两种方法"></a>设置cron服务的两种方法</h1><ul>
+<li>在命令行中使用 <code>crontab</code> 来管理服务（添加/删除相应的任务），该命令其实会将设置的cron服务存储到 <code>/var/spool/cron/</code> 目录下（以用户名作为子文件夹名称）</li>
+<li>直接编辑<code>/etc/crontab</code>文件，以添加相应的任务</li>
+</ul>
+        
+          <a class="article-more-a" href="/2020/05/05/【Linux】Crontab/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/05/【Linux】Crontab/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【WordPress】使用Docker创建WordPress-实例" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -516,350 +858,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Linux】shell变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/26/【Linux】shell变量/">【Linux】shell变量</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/26/【Linux】shell变量/" class="archive-article-date">
-  	<time datetime="2020-04-26T04:40:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Shell 支持自定义变量。</p>
-<h1 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h1><p>定义变量时，变量名不加美元符号（$），如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variableName=&quot;value&quot;</span><br></pre></td></tr></table></figure>
-
-<p>注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则：</p>
-<ul>
-<li>首个字符必须为字母（a-z，A-Z）。</li>
-<li>中间不能有空格，可以使用下划线（_）。</li>
-<li>不能使用标点符号。</li>
-<li>不能使用 bash 里的关键字（可用 help 命令查看保留关键字）。</li>
-</ul>
-<p>Bash 没有数据类型的概念，所有的变量值都是字符串。</p>
-<p>下面是一些自定义变量的例子。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用任何引号</span></span><br><span class="line">$ myGender=man</span><br><span class="line"><span class="comment"># 使用单引号</span></span><br><span class="line">$ myName=<span class="string">'Wei Shi'</span></span><br><span class="line"><span class="comment"># 使用双引号</span></span><br><span class="line">$ myUrl=<span class="string">"http://test.com"</span></span><br><span class="line"><span class="comment"># 可以将一个数字赋值给变量</span></span><br><span class="line">$ myNum=100</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2020/04/26/【Linux】shell变量/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/26/【Linux】shell变量/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Linux】makefile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/25/【Linux】makefile/">【Linux】makefile</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/25/【Linux】makefile/" class="archive-article-date">
-  	<time datetime="2020-04-25T14:47:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Make的概念"><a href="#Make的概念" class="headerlink" title="Make的概念"></a>Make的概念</h1><p>Make这个词，英语的意思是”制作”。Make命令直接用了这个意思，就是要做出某个文件。比如，要做出文件a.txt，就可以执行下面的命令。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make a.txt</span><br></pre></td></tr></table></figure>
-
-<p>但是，如果你真的输入这条命令，它并不会起作用。因为Make命令本身并不知道，如何做出a.txt，需要有人告诉它，如何调用其他命令完成这个目标（这个人就是我们）。</p>
-<p>比如，假设文件 a.txt 依赖于 b.txt 和 c.txt ，是后面两个文件连接（cat命令）的产物。那么，make 需要知道下面的规则。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># makefile 文件内容</span></span><br><span class="line">a.txt: b.txt c.txt</span><br><span class="line">    cat b.txt c.txt &gt; a.txt</span><br></pre></td></tr></table></figure>
-
-<p>也就是说，make a.txt 这条命令的背后，实际上分成两步：第一步，确认 b.txt 和 c.txt 必须已经存在，第二步使用 cat 命令 将这个两个文件合并，输出为新文件。</p>
-<p>像这样的规则，都写在一个叫做Makefile的文件中，Make命令依赖这个文件进行构建。Makefile文件也可以写为makefile， 或者用命令行参数指定为其他文件名：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ make -f rules.txt</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">$ make --file=rules.txt</span><br></pre></td></tr></table></figure>
-
-<p>上面代码指定make命令依据rules.txt文件中的规则，进行构建。</p>
-<p>总之，make只是一个根据指定的Shell命令进行构建的工具。它的规则很简单，你规定要构建哪个文件、它依赖哪些源文件，当那些文件有变动时，如何重新构建它。</p>
-        
-          <a class="article-more-a" href="/2020/04/25/【Linux】makefile/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/25/【Linux】makefile/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【MySQL】Out-of-range-value-for-column" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/">【MySQL】Out of range value for column</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/25/【MySQL】Out-of-range-value-for-column/" class="archive-article-date">
-  	<time datetime="2020-04-25T07:34:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> test_tinyint;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_tinyint (</span><br><span class="line">    <span class="keyword">num</span> <span class="built_in">tinyint</span></span><br><span class="line">) <span class="keyword">engine</span>=<span class="keyword">innodb</span> <span class="keyword">charset</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_tinyint <span class="keyword">values</span>(<span class="number">-100</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_tinyint <span class="keyword">values</span>(<span class="number">255</span>);</span><br></pre></td></tr></table></figure>
-
-<p>执行第7行的代码时候报错”Out of range value for column ‘num’ at row 7”，这其实是因为（Signed 的） <code>TINYINT</code> 的范围是 -128 到 127，而 255 超过了这个范围。</p>
-<p>如果把第3行的num字段定义改为”num tinyint unsigned”，第7行的插入就不会报错了。但是第6行的插入-100又报错了，因为无符号整型是无法表示负数的。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200425154320835.png" alt="image-20200425154320835"></p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://dev.mysql.com/doc/refman/5.6/en/out-of-range-and-overflow.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.6/en/out-of-range-and-overflow.html</a></li>
-</ul>
-        
-          <a class="article-more-a" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Architecture】连接池" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/21/【Architecture】连接池/">【Architecture】连接池（Connection Pool）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/21/【Architecture】连接池/" class="archive-article-date">
-  	<time datetime="2020-04-21T14:45:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a> 
-
-
-
-
-
-
-
-<h1 id="连接池超时"><a href="#连接池超时" class="headerlink" title="连接池超时"></a>连接池超时</h1><p>Redis 连接池超时</p>
-<p><a href="https://help.aliyun.com/document_detail/143105.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/143105.html</a></p>
-<p>This value indicates the number of seconds that a connection request waits when there are no connections available in the free pool and no new connections can be created. This usually occurs because the maximum value of connections in the particular connection pool has been reached.</p>
-<p><a href="https://github.com/go-redis/redis/issues/195" target="_blank" rel="noopener">https://github.com/go-redis/redis/issues/195</a></p>
-<p><a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_8.5.5/com.ibm.websphere.base.doc/ae/udat_conpoolset.html" target="_blank" rel="noopener">https://www.ibm.com/support/knowledgecenter/SSEQTP_8.5.5/com.ibm.websphere.base.doc/ae/udat_conpoolset.html</a></p>
-<p><a href="https://redis.io/topics/clients" target="_blank" rel="noopener">https://redis.io/topics/clients</a></p>
-<p><a href="http://gqlxj1987.github.io/2017/05/07/redis-pool-timeout/" target="_blank" rel="noopener">http://gqlxj1987.github.io/2017/05/07/redis-pool-timeout/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/21/【Architecture】连接池/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
@@ -998,6 +996,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1010,7 +1012,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1022,19 +1024,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1106,11 +1104,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1142,15 +1140,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1226,11 +1224,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1254,11 +1252,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1266,11 +1264,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

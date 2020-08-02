@@ -191,6 +191,335 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Redis】Redis-集群方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/10/【Redis】Redis-集群方案/">【Cache System】Redis 集群方案</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/10/【Redis】Redis-集群方案/" class="archive-article-date">
+  	<time datetime="2020-07-10T04:41:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Redis-集群方案"><a href="#Redis-集群方案" class="headerlink" title="Redis 集群方案"></a><code>Redis</code> 集群方案</h1><p><code>Redis</code> 的集群解决方案有社区的，也有官方的，社区的解决方案有 <code>Codis</code> 和<code>Twemproxy</code>。</p>
+<h1 id="Codis"><a href="#Codis" class="headerlink" title="Codis"></a>Codis</h1><p>Codis 由我国的豌豆荚团队开源</p>
+<h1 id="Twemproxy"><a href="#Twemproxy" class="headerlink" title="Twemproxy"></a>Twemproxy</h1><p>Twemproxy 由<code>Twitter</code>团队开源。</p>
+        
+          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-集群方案/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Cache System</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/CacheSystem/" class="article-tag-list-link color2">CacheSystem</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/10/【Redis】Redis-集群方案/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Redis】Codis-Pipeline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/10/【Redis】Codis-Pipeline/">【Redis】Codis Pipeline</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/10/【Redis】Codis-Pipeline/" class="archive-article-date">
+  	<time datetime="2020-07-10T03:43:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>codis proxy 处理 “pipeline” 的逻辑：只是在从client 到proxy 有效率的提升（因为使用一次 pipeline意味着只有一次RTT）。而从 proxy 到 redis node的这个过程，依然是对 pipeline 中的每个命令串行地分别进行处理，即使这些命令对应的key位于不同的slot。</p>
+<p>By right，可以实现成当这些命令对应的key位于不同的slot，以slot为单位异步地去执行，以如果有两个命令，他们对应的key位于不同的slot，则这两条命令会被并行的去执行，而当他们对应的key位于同一个slot，则自然而然地串行的去执行（因为Redis是单线程的）。</p>
+        
+          <a class="article-more-a" href="/2020/07/10/【Redis】Codis-Pipeline/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Cache System</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Codis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/CacheSystem/" class="article-tag-list-link color2">CacheSystem</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Codis/" class="article-tag-list-link color1">Codis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/10/【Redis】Codis-Pipeline/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Mattermost】webhook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/09/【Mattermost】webhook/">【Mattermost】webhook</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/09/【Mattermost】webhook/" class="archive-article-date">
+  	<time datetime="2020-07-09T10:45:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Incoming-Webhooks"><a href="#Incoming-Webhooks" class="headerlink" title="Incoming Webhooks"></a>Incoming Webhooks</h1><p>Mattermost supports webhooks to easily integrate external applications into the server.</p>
+<p>Use incoming webhooks to post messages to Mattermost public channels, private channels and direct messages. Messages are sent via an HTTP POST request to a Mattermost URL generated for each application and contain a specifically formatted JSON payload in the request body.</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/incoming_webhooks_sample.png" alt="../_images/incoming_webhooks_sample.png"></p>
+        
+          <a class="article-more-a" href="/2020/07/09/【Mattermost】webhook/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Mattermost</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Mattermost/" class="article-tag-list-link color1">Mattermost</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/09/【Mattermost】webhook/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【ELK】ELK学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/07/【ELK】ELK学习/">【ELK】ELK（Elasticsearch+Logstash+Kibana）学习</a>
+    </h1>
+  
+
+        
+        <a href="/2020/07/07/【ELK】ELK学习/" class="archive-article-date">
+  	<time datetime="2020-07-07T12:59:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="日志服务"><a href="#日志服务" class="headerlink" title="日志服务"></a>日志服务</h1><p>日志服务是我们应用程序后端不可或缺的一个组件，通常我们会组合使用 ELK（Elasticsearch+Logstash+Kibana）技术栈来自行搭建一个日志存储和分析系统。</p>
+        
+          <a class="article-more-a" href="/2020/07/07/【ELK】ELK学习/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ELK</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ELK/" class="article-tag-list-link color4">ELK</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/07/07/【ELK】ELK学习/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Lucene】Lucene-语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -503,318 +832,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Git】忽略已经提交的文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/06/【Git】忽略已经提交的文件/">【Git】忽略已经提交的文件</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/06/【Git】忽略已经提交的文件/" class="archive-article-date">
-  	<time datetime="2020-07-06T14:13:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>​    </p>
-<h1 id="Situaion"><a href="#Situaion" class="headerlink" title="Situaion"></a>Situaion</h1><p>在初始化git仓库的时候，没有创建<code>.gitignore</code>文件来过滤不必要提交的文件，后来却发现某些文件不需要提交，但是这些文件已经被提交了。</p>
-<p> 这时候创建<code>.gitignore</code>文件并添加对应规则以忽略这些文件，就会发现，对这些文件的修改仍然会被 track到，即忽略ignore的规则对那些已经被track的文件无效。</p>
-<p>其实<code>.gitignore</code>文件只会忽略那些没有被跟踪的文件，也就是说ignore规则只对那些在规则建立之后被新创建的新文件生效。</p>
-<p>因此推荐: <strong>初始化git项目时就创建<code>.gitignore</code>文件</strong>。</p>
-        
-          <a class="article-more-a" href="/2020/07/06/【Git】忽略已经提交的文件/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Git/" class="article-tag-list-link color4">Git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/06/【Git】忽略已经提交的文件/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Golang】依赖-gvm-Golang-版本管理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/06/【Golang】依赖-gvm-Golang-版本管理/">【Golang】gvm - Golang 版本管理</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/06/【Golang】依赖-gvm-Golang-版本管理/" class="archive-article-date">
-  	<time datetime="2020-07-06T14:08:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Installing"><a href="#Installing" class="headerlink" title="Installing"></a>Installing</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ zsh &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)</span><br></pre></td></tr></table></figure>
-
-<p>Or if you are using bash just change <code>zsh</code> with <code>bash</code>.</p>
-        
-          <a class="article-more-a" href="/2020/07/06/【Golang】依赖-gvm-Golang-版本管理/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/06/【Golang】依赖-gvm-Golang-版本管理/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Golang】代码检查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/06/【Golang】代码检查/">【Golang】代码检查</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/06/【Golang】代码检查/" class="archive-article-date">
-  	<time datetime="2020-07-06T12:55:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="易犯错误"><a href="#易犯错误" class="headerlink" title="易犯错误"></a>易犯错误</h1><h2 id="幽灵变量（shadowed-variables）"><a href="#幽灵变量（shadowed-variables）" class="headerlink" title="幽灵变量（shadowed variables）"></a>幽灵变量（shadowed variables）</h2><p>如果你在新的代码块中像下边这样误用了 :=，编译不会报错，但是变量不会按你的预期工作：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="number">1</span></span><br><span class="line">	<span class="built_in">println</span>(x)		<span class="comment">// 1</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">println</span>(x)	<span class="comment">// 1</span></span><br><span class="line">		x := <span class="number">2</span></span><br><span class="line">		<span class="built_in">println</span>(x)	<span class="comment">// 2	// 新的 x 变量的作用域只在代码块内部</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">println</span>(x)		<span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>Solution: go-nyet</p>
-        
-          <a class="article-more-a" href="/2020/07/06/【Golang】代码检查/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/06/【Golang】代码检查/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Golang】幽灵变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/06/【Golang】幽灵变量/">【Golang】幽灵变量（Shadowed Variables）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/06/【Golang】幽灵变量/" class="archive-article-date">
-  	<time datetime="2020-07-06T12:45:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="幽灵变量（Shadowed-Variables）"><a href="#幽灵变量（Shadowed-Variables）" class="headerlink" title="幽灵变量（Shadowed Variables）"></a>幽灵变量（Shadowed Variables）</h1><h2 id="Example-1"><a href="#Example-1" class="headerlink" title="Example 1"></a>Example 1</h2><p>如果你在新的代码块中像下边这样误用了 :=，编译不会报错，但是变量不会按你的预期工作：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="number">1</span></span><br><span class="line">	<span class="built_in">println</span>(x)		<span class="comment">// 1</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">println</span>(x)	<span class="comment">// 1</span></span><br><span class="line">		x := <span class="number">2</span></span><br><span class="line">		<span class="built_in">println</span>(x)	<span class="comment">// 2	// 新的 x 变量的作用域只在代码块内部</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">println</span>(x)		<span class="comment">// 1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这是 Go 开发者常犯的错，而且不易被发现。</p>
-        
-          <a class="article-more-a" href="/2020/07/06/【Golang】幽灵变量/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Golang/" class="article-tag-list-link color2">Golang</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/07/06/【Golang】幽灵变量/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -953,6 +970,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -965,7 +986,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -977,19 +998,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1061,11 +1078,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1097,15 +1114,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1181,11 +1198,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1209,11 +1226,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1221,11 +1238,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

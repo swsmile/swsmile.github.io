@@ -6,17 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Golang】关键字-const | 西维蜀黍 的博客</title>
+  <title>【Golang】关键字 - const | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="Golang">
+  <meta name="description" content="ConstantsConstants are declared like variables, but with the const keyword. Constants can be character, string, boolean, or numeric values. Constants cannot be declared using the := syntax. 1234567891">
+<meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Golang】关键字-const">
+<meta property="og:title" content="【Golang】关键字 - const">
 <meta property="og:url" content="http://swsmile.info/2020/08/02/【Golang】关键字-const/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
+<meta property="og:description" content="ConstantsConstants are declared like variables, but with the const keyword. Constants can be character, string, boolean, or numeric values. Constants cannot be declared using the := syntax. 1234567891">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-08-02T05:04:17.528Z">
+<meta property="og:updated_time" content="2020-08-02T10:24:16.242Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Golang】关键字-const">
+<meta name="twitter:title" content="【Golang】关键字 - const">
+<meta name="twitter:description" content="ConstantsConstants are declared like variables, but with the const keyword. Constants can be character, string, boolean, or numeric values. Constants cannot be declared using the := syntax. 1234567891">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -194,7 +197,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      【Golang】关键字-const
+      【Golang】关键字 - const
     </h1>
   
 
@@ -207,15 +210,27 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a> 
+        <h1 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h1><p>Constants are declared like variables, but with the <code>const</code> keyword.</p>
+<p>Constants can be character, string, boolean, or numeric values.</p>
+<p>Constants cannot be declared using the <code>:=</code> syntax.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Pi = <span class="number">3.14</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> World = <span class="string">"世界"</span></span><br><span class="line">	fmt.Println(<span class="string">"Hello"</span>, World)</span><br><span class="line">	fmt.Println(<span class="string">"Happy"</span>, Pi, <span class="string">"Day"</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> Truth = <span class="literal">true</span></span><br><span class="line">	fmt.Println(<span class="string">"Go rules?"</span>, Truth)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<a id="more"></a> 
 
+<p>Constants in Go are just that—constant. They are created at compile time, even when defined as locals in functions, and can only be numbers, characters (runes), strings or booleans. Because of the compile-time restriction, the expressions that define them must be constant expressions, evaluatable by the compiler. For instance, <code>1&lt;&lt;3</code> is a constant expression, while <code>math.Sin(math.Pi/4)</code> is not because the function call to <code>math.Sin</code> needs to happen at run time.</p>
+<p>In Go, enumerated constants are created using the <code>iota</code> enumerator. Since <code>iota</code> can be part of an expression and expressions can be implicitly repeated, it is easy to build intricate sets of values.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ByteSize <span class="keyword">float64</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    _           = <span class="literal">iota</span> <span class="comment">// ignore first value by assigning to blank identifier</span></span><br><span class="line">    KB ByteSize = <span class="number">1</span> &lt;&lt; (<span class="number">10</span> * <span class="literal">iota</span>)</span><br><span class="line">    MB</span><br><span class="line">    GB</span><br><span class="line">    TB</span><br><span class="line">    PB</span><br><span class="line">    EB</span><br><span class="line">    ZB</span><br><span class="line">    YB</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
+<p>The ability to attach a method such as <code>String</code> to any user-defined type makes it possible for arbitrary values to format themselves automatically for printing. Although you’ll see it most often applied to structs, this technique is also useful for scalar types such as floating-point types like <code>ByteSize</code>.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b ByteSize)</span> <span class="title">String</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> b &gt;= YB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fYB"</span>, b/YB)</span><br><span class="line">    <span class="keyword">case</span> b &gt;= ZB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fZB"</span>, b/ZB)</span><br><span class="line">    <span class="keyword">case</span> b &gt;= EB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fEB"</span>, b/EB)</span><br><span class="line">    <span class="keyword">case</span> b &gt;= PB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fPB"</span>, b/PB)</span><br><span class="line">    <span class="keyword">case</span> b &gt;= TB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fTB"</span>, b/TB)</span><br><span class="line">    <span class="keyword">case</span> b &gt;= GB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fGB"</span>, b/GB)</span><br><span class="line">    <span class="keyword">case</span> b &gt;= MB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fMB"</span>, b/MB)</span><br><span class="line">    <span class="keyword">case</span> b &gt;= KB:</span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fKB"</span>, b/KB)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"%.2fB"</span>, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-
+<p>The expression <code>YB</code> prints as <code>1.00YB</code>, while <code>ByteSize(1e13)</code> prints as <code>9.09TB</code>.</p>
+<p>The use here of <code>Sprintf</code> to implement <code>ByteSize</code>‘s <code>String</code> method is safe (avoids recurring indefinitely) not because of a conversion but because it calls <code>Sprintf</code> with <code>%f</code>, which is not a string format: <code>Sprintf</code> will only call the <code>String</code> method when it wants a string, and <code>%f</code> wants a floating-point value.</p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://tour.golang.org/basics/15" target="_blank" rel="noopener">https://tour.golang.org/basics/15</a></li>
+<li><a href="https://blog.golang.org/constants" target="_blank" rel="noopener">https://blog.golang.org/constants</a></li>
+<li><a href="https://golang.org/doc/effective_go.html#constants" target="_blank" rel="noopener">https://golang.org/doc/effective_go.html#constants</a></li>
+</ul>
 
       
 
@@ -470,6 +485,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -482,7 +501,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -494,19 +513,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -578,11 +593,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,15 +629,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -698,11 +713,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,11 +741,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,11 +753,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

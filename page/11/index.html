@@ -191,6 +191,350 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Linux】shell变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/26/【Linux】shell变量/">【Linux】shell变量</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/26/【Linux】shell变量/" class="archive-article-date">
+  	<time datetime="2020-04-26T04:40:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Shell 支持自定义变量。</p>
+<h1 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h1><p>定义变量时，变量名不加美元符号（$），如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variableName=&quot;value&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。同时，变量名的命名须遵循如下规则：</p>
+<ul>
+<li>首个字符必须为字母（a-z，A-Z）。</li>
+<li>中间不能有空格，可以使用下划线（_）。</li>
+<li>不能使用标点符号。</li>
+<li>不能使用 bash 里的关键字（可用 help 命令查看保留关键字）。</li>
+</ul>
+<p>Bash 没有数据类型的概念，所有的变量值都是字符串。</p>
+<p>下面是一些自定义变量的例子。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不使用任何引号</span></span><br><span class="line">$ myGender=man</span><br><span class="line"><span class="comment"># 使用单引号</span></span><br><span class="line">$ myName=<span class="string">'Wei Shi'</span></span><br><span class="line"><span class="comment"># 使用双引号</span></span><br><span class="line">$ myUrl=<span class="string">"http://test.com"</span></span><br><span class="line"><span class="comment"># 可以将一个数字赋值给变量</span></span><br><span class="line">$ myNum=100</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2020/04/26/【Linux】shell变量/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/26/【Linux】shell变量/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Linux】makefile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/25/【Linux】makefile/">【Linux】makefile</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/25/【Linux】makefile/" class="archive-article-date">
+  	<time datetime="2020-04-25T14:47:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Make的概念"><a href="#Make的概念" class="headerlink" title="Make的概念"></a>Make的概念</h1><p>Make这个词，英语的意思是”制作”。Make命令直接用了这个意思，就是要做出某个文件。比如，要做出文件a.txt，就可以执行下面的命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make a.txt</span><br></pre></td></tr></table></figure>
+
+<p>但是，如果你真的输入这条命令，它并不会起作用。因为Make命令本身并不知道，如何做出a.txt，需要有人告诉它，如何调用其他命令完成这个目标（这个人就是我们）。</p>
+<p>比如，假设文件 a.txt 依赖于 b.txt 和 c.txt ，是后面两个文件连接（cat命令）的产物。那么，make 需要知道下面的规则。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># makefile 文件内容</span></span><br><span class="line">a.txt: b.txt c.txt</span><br><span class="line">    cat b.txt c.txt &gt; a.txt</span><br></pre></td></tr></table></figure>
+
+<p>也就是说，make a.txt 这条命令的背后，实际上分成两步：第一步，确认 b.txt 和 c.txt 必须已经存在，第二步使用 cat 命令 将这个两个文件合并，输出为新文件。</p>
+<p>像这样的规则，都写在一个叫做Makefile的文件中，Make命令依赖这个文件进行构建。Makefile文件也可以写为makefile， 或者用命令行参数指定为其他文件名：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ make -f rules.txt</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">$ make --file=rules.txt</span><br></pre></td></tr></table></figure>
+
+<p>上面代码指定make命令依据rules.txt文件中的规则，进行构建。</p>
+<p>总之，make只是一个根据指定的Shell命令进行构建的工具。它的规则很简单，你规定要构建哪个文件、它依赖哪些源文件，当那些文件有变动时，如何重新构建它。</p>
+        
+          <a class="article-more-a" href="/2020/04/25/【Linux】makefile/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Linux/" class="article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/25/【Linux】makefile/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【MySQL】Out-of-range-value-for-column" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/">【MySQL】Out of range value for column</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/25/【MySQL】Out-of-range-value-for-column/" class="archive-article-date">
+  	<time datetime="2020-04-25T07:34:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> test_tinyint;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> test_tinyint (</span><br><span class="line">    <span class="keyword">num</span> <span class="built_in">tinyint</span></span><br><span class="line">) <span class="keyword">engine</span>=<span class="keyword">innodb</span> <span class="keyword">charset</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_tinyint <span class="keyword">values</span>(<span class="number">-100</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> test_tinyint <span class="keyword">values</span>(<span class="number">255</span>);</span><br></pre></td></tr></table></figure>
+
+<p>执行第7行的代码时候报错”Out of range value for column ‘num’ at row 7”，这其实是因为（Signed 的） <code>TINYINT</code> 的范围是 -128 到 127，而 255 超过了这个范围。</p>
+<p>如果把第3行的num字段定义改为”num tinyint unsigned”，第7行的插入就不会报错了。但是第6行的插入-100又报错了，因为无符号整型是无法表示负数的。</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200425154320835.png" alt="image-20200425154320835"></p>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://dev.mysql.com/doc/refman/5.6/en/out-of-range-and-overflow.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.6/en/out-of-range-and-overflow.html</a></li>
+</ul>
+        
+          <a class="article-more-a" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/25/【MySQL】Out-of-range-value-for-column/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-【Architecture】连接池" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/21/【Architecture】连接池/">【Architecture】连接池（Connection Pool）</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/21/【Architecture】连接池/" class="archive-article-date">
+  	<time datetime="2020-04-21T14:45:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a> 
+
+
+
+
+
+
+
+<h1 id="连接池超时"><a href="#连接池超时" class="headerlink" title="连接池超时"></a>连接池超时</h1><p>Redis 连接池超时</p>
+<p><a href="https://help.aliyun.com/document_detail/143105.html" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/143105.html</a></p>
+<p>This value indicates the number of seconds that a connection request waits when there are no connections available in the free pool and no new connections can be created. This usually occurs because the maximum value of connections in the particular connection pool has been reached.</p>
+<p><a href="https://github.com/go-redis/redis/issues/195" target="_blank" rel="noopener">https://github.com/go-redis/redis/issues/195</a></p>
+<p><a href="https://www.ibm.com/support/knowledgecenter/SSEQTP_8.5.5/com.ibm.websphere.base.doc/ae/udat_conpoolset.html" target="_blank" rel="noopener">https://www.ibm.com/support/knowledgecenter/SSEQTP_8.5.5/com.ibm.websphere.base.doc/ae/udat_conpoolset.html</a></p>
+<p><a href="https://redis.io/topics/clients" target="_blank" rel="noopener">https://redis.io/topics/clients</a></p>
+<p><a href="http://gqlxj1987.github.io/2017/05/07/redis-pool-timeout/" target="_blank" rel="noopener">http://gqlxj1987.github.io/2017/05/07/redis-pool-timeout/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/21/【Architecture】连接池/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【MySQL】连接诊断 - Too-many-connections" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -532,328 +876,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【MySQL】学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/12/【MySQL】学习/">【MySQL】学习</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/12/【MySQL】学习/" class="archive-article-date">
-  	<time datetime="2020-04-12T03:53:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MySQL-的功能模块"><a href="#MySQL-的功能模块" class="headerlink" title="MySQL 的功能模块"></a>MySQL 的功能模块</h1><p>下面我给出的是 MySQL 的基本架构示意图，从中你可以清楚地看到 SQL 语句在 MySQL 的各个功能模块中的执行过程。</p>
-<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/0d2070e8f84c4801adbfa03bda1f98d9.png" alt="img"></p>
-<p>大体来说，MySQL 可以分为 Server 层和存储引擎层两部分。</p>
-        
-          <a class="article-more-a" href="/2020/04/12/【MySQL】学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/MySQL/" class="article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/12/【MySQL】学习/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Architecture】架构学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/11/【Architecture】架构学习/">【Architecture】架构学习</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/11/【Architecture】架构学习/" class="archive-article-date">
-  	<time datetime="2020-04-11T10:02:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><p>包括：系统与子系统、模块与组件、框架与架构。</p>
-<h2 id="系统与子系统"><a href="#系统与子系统" class="headerlink" title="系统与子系统"></a>系统与子系统</h2><p>我们先来看维基百科定义的“系统”。系统泛指由一群有关联的个体组成，根据某种规则运作，能完成个别元件不能单独完成的工作的群体。它的意思是“总体”“整体”或“联盟”。</p>
-<p>我来提炼一下里面的关键内容：</p>
-<ul>
-<li>关联：系统是由一群有关联的个体组成的，没有关联的个体堆在一起不能成为一个系统。例如，把一个发动机和一台 PC 放在一起不能称之为一个系统，把发动机、底盘、轮胎、车架组合起来才能成为一台汽车。</li>
-<li>规则：系统内的个体需要按照指定的规则运作，而不是单个个体各自为政。规则规定了系统内个体分工和协作的方式。例如，汽车发动机负责产生动力，然后通过变速器和传动轴，将动力输出到车轮上，从而驱动汽车前进。</li>
-<li>能力：系统能力与个体能力有本质的差别，系统能力不是个体能力之和，而是产生了新的能力。例如，汽车能够载重前进，而发动机、变速器、传动轴、车轮本身都不具备这样的能力。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2020/04/11/【Architecture】架构学习/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/11/【Architecture】架构学习/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【DistributedSystem】无服务器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/11/【DistributedSystem】无服务器/">【Distributed System】无服务器（Serverless）</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/11/【DistributedSystem】无服务器/" class="archive-article-date">
-  	<time datetime="2020-04-11T09:53:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="什么是无服务器计算？"><a href="#什么是无服务器计算？" class="headerlink" title="什么是无服务器计算？"></a>什么是无服务器计算？</h1><p>“无服务器”是云计算中资源抽象的极致体现。从它的命名上你就可以看出，所谓“无服务器”就是想让用户感觉不到服务器的存在，这是因为有一朵巨大的云在底层进行着支撑。这样你可以完全专注于业务逻辑的编写，而不再关心任何基础设施。</p>
-<p>我们在前面课程的讨论中，其实已经接触到了一些广义上的无服务器 PaaS 服务，比如第 13 讲中的无服务器查询服务和第 14 讲中的无服务器容器服务。甚至第 9 讲中的对象存储服务，它理论上来说也是符合无服务器特征的，<strong>因为你不用关心究竟是什么样的机器和多少机器在背后支撑它。</strong></p>
-<p>今天我们要来专门讨论的，是经典的无服务器计算服务（Serverless Computing）。“无服务器”这个名称，就是从这种灵活的计算服务起源的。</p>
-<p>如果把无服务器计算和容器类服务一起比较的话，这两种云上计算类服务有着共同的优势和特点，比如说，它们都支持细粒度封装和易于大规模扩展。但这两者也有很不一样的地方。</p>
-<p>如果说容器是给予了我们很大的定制空间，让你更加容易地按照自己的需要，来进行应用程序的拆分和封装；那么无服务器则是完全屏蔽了计算资源，它是在真正地引导你不再去关心底层环境，你只要遵循标准方式来直接编写业务代码就可以了。</p>
-<p>而且在粒度上，无服务器会允许你拆分得更细致、更轻量。你甚至可以把每一个具有独立功能的函数，来作为一个单独的服务进行部署和运行。这也是为什么，在有些云计算的分类方法下，无服务器计算能够单独“开宗立派”，被称为<strong>函数即服务（Function-as-a-Service，FaaS）</strong>的原因。</p>
-        
-          <a class="article-more-a" href="/2020/04/11/【DistributedSystem】无服务器/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/DistributedSystem/" class="article-tag-list-link color3">DistributedSystem</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/11/【DistributedSystem】无服务器/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
-    <article id="post-【Network】网络测速工具-iperf3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/11/【Network】网络测速工具-iperf3/">【Network】网络测速工具 - iperf3</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/11/【Network】网络测速工具-iperf3/" class="archive-article-date">
-  	<time datetime="2020-04-11T09:33:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="iperf3"><a href="#iperf3" class="headerlink" title="iperf3"></a>iperf3</h1><p>iperf is a tool for active measurements of the maximum achievable bandwidth on IP networks. It supports tuning of various parameters related to timing, protocols, and buffers. For each test it reports the measured throughput / bitrate, loss, and other parameters.</p>
-<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># server</span></span><br><span class="line">$ iperf3 -s -p 1020</span><br><span class="line"></span><br><span class="line"><span class="comment"># client</span></span><br><span class="line">iperf3 -c 127.0.0.1 -p 1020</span><br><span class="line">Connecting to host 127.0.0.1, port 1020</span><br><span class="line">[  5] <span class="built_in">local</span> 127.0.0.1 port 51841 connected to 127.0.0.1 port 1020</span><br><span class="line">[ ID] Interval           Transfer     Bitrate</span><br><span class="line">[  5]   0.00-1.00   sec  5.51 GBytes  47.3 Gbits/sec</span><br><span class="line">[  5]   1.00-2.00   sec  5.57 GBytes  47.8 Gbits/sec</span><br><span class="line">[  5]   2.00-3.00   sec  5.44 GBytes  46.7 Gbits/sec</span><br><span class="line">[  5]   3.00-4.00   sec  6.23 GBytes  53.5 Gbits/sec</span><br><span class="line">[  5]   4.00-5.00   sec  6.17 GBytes  53.0 Gbits/sec</span><br><span class="line">[  5]   5.00-6.00   sec  6.11 GBytes  52.5 Gbits/sec</span><br><span class="line">[  5]   6.00-7.00   sec  6.23 GBytes  53.5 Gbits/sec</span><br><span class="line">[  5]   7.00-8.00   sec  6.14 GBytes  52.7 Gbits/sec</span><br><span class="line">[  5]   8.00-9.00   sec  6.17 GBytes  53.0 Gbits/sec</span><br><span class="line">[  5]   9.00-10.00  sec  6.13 GBytes  52.6 Gbits/sec</span><br><span class="line">- - - - - - - - - - - - - - - - - - - - - - - - -</span><br><span class="line">[ ID] Interval           Transfer     Bitrate</span><br><span class="line">[  5]   0.00-10.00  sec  59.7 GBytes  51.3 Gbits/sec                  sender</span><br><span class="line">[  5]   0.00-10.00  sec  59.7 GBytes  51.3 Gbits/sec                  receiver</span><br><span class="line"></span><br><span class="line">iperf Done.</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-p [port]</code>：指定端口</li>
-<li><code>-u</code>：使用UDP</li>
-<li><code>-b [target bitrate]</code> ：target bitrate in bits/sec (0 for unlimited) (default 1 Mbit/sec for UDP, unlimited for TCP)</li>
-<li><code>-t [duration]</code>：time in seconds to transmit for (default 10 secs)</li>
-</ul>
-        
-          <a class="article-more-a" href="/2020/04/11/【Network】网络测速工具-iperf3/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Network/" class="article-tag-list-link color3">Network</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/11/【Network】网络测速工具-iperf3/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/73/">73</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
@@ -992,6 +1014,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1004,7 +1030,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1016,19 +1042,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1100,11 +1122,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1136,15 +1158,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1220,11 +1242,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1248,11 +1270,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1260,11 +1282,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">

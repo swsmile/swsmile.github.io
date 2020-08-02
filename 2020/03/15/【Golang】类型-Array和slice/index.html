@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="数组（Array）Go 语言数组声明需要指定元素类型及元素个数，语法格式如下： 1var variable_name [SIZE]variable_type  The type [n]T is an array of n values of type T. The expression 1var a [10]int  declares a variable a as an array of ten">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.321Z">
+<meta property="og:updated_time" content="2020-08-02T10:19:25.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Golang】静态数组（Array）和切片（slices）">
 <meta name="twitter:description" content="数组（Array）Go 语言数组声明需要指定元素类型及元素个数，语法格式如下： 1var variable_name [SIZE]variable_type  The type [n]T is an array of n values of type T. The expression 1var a [10]int  declares a variable a as an array of ten">
@@ -240,6 +240,15 @@ var _hmt = _hmt || [];
 
 <h1 id="Array-Copy"><a href="#Array-Copy" class="headerlink" title="Array Copy"></a>Array Copy</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a []<span class="keyword">int</span> = []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>&#125;</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;a)</span><br><span class="line"></span><br><span class="line">	b := a</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;b)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//0xc00000c060</span></span><br><span class="line"><span class="comment">//0xc00000c080</span></span><br></pre></td></tr></table></figure>
 
+<p>There are major differences between the ways arrays work in Go and C. In Go,</p>
+<ul>
+<li>Arrays are values. Assigning one array to another copies all the elements.</li>
+<li>In particular, if you pass an array to a function, it will receive a <em>copy</em> of the array, not a pointer to it.</li>
+<li>The size of an array is part of its type. The types <code>[10]int</code> and <code>[20]int</code> are distinct.</li>
+</ul>
+<p>The value property can be useful but also expensive; if you want C-like behavior and efficiency, you can pass a pointer to the array.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">func Sum(a *[3]float64) (sum float64) &#123;</span><br><span class="line">    for _, v := range *a &#123;</span><br><span class="line">        sum += v</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">array := [...]float64&#123;7.0, 8.5, 9.1&#125;</span><br><span class="line">x := Sum(&amp;array)  // Note the explicit address-of operator</span><br></pre></td></tr></table></figure>
+
 <h1 id="切片（Slices）"><a href="#切片（Slices）" class="headerlink" title="切片（Slices）"></a>切片（Slices）</h1><blockquote>
 <p>An array has a fixed size. A slice, on the other hand, is a dynamically-sized, flexible view into the elements of an array. In practice, slices are much more common than arrays.</p>
 </blockquote>
@@ -256,7 +265,7 @@ var _hmt = _hmt || [];
 
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	primes := [<span class="number">6</span>]<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> s []<span class="keyword">int</span> = primes[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">	fmt.Println(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="定义切片"><a href="#定义切片" class="headerlink" title="定义切片"></a>定义切片</h2><p>你可以使用一个未指定大小的数组来声明一个切片：</p>
+<h2 id="定义Slices"><a href="#定义Slices" class="headerlink" title="定义Slices"></a>定义Slices</h2><p>你可以使用一个未指定大小的数组来声明一个切片：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> identifier []<span class="keyword">type</span></span><br></pre></td></tr></table></figure>
 
 <p>切片不需要说明长度。</p>
@@ -315,6 +324,10 @@ var _hmt = _hmt || [];
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a []<span class="keyword">int</span> = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line">	b := a[<span class="number">0</span>:<span class="number">3</span>]</span><br><span class="line">	c := a[<span class="number">0</span>:<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">	b[<span class="number">2</span>] = <span class="number">200</span></span><br><span class="line">	</span><br><span class="line">	fmt.Printf(<span class="string">"%v\n"</span>, b)</span><br><span class="line">	fmt.Printf(<span class="string">"%v\n"</span>, c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h2 id="slices-通过函数传递"><a href="#slices-通过函数传递" class="headerlink" title="slices 通过函数传递"></a>slices 通过函数传递</h2><p>Slices wrap arrays to give a more general, powerful, and convenient interface to sequences of data. Except for items with explicit dimension such as transformation matrices, most array programming in Go is done with slices rather than simple arrays.</p>
+<p>Slices hold references to an underlying array, and if you assign one slice to another, both refer to the same array. If a function takes a slice argument, changes it makes to the elements of the slice will be visible to the caller, analogous to passing a pointer to the underlying array. A <code>Read</code> function can therefore accept a slice argument rather than a pointer and a count; the length within the slice sets an upper limit of how much data to read. Here is the signature of the <code>Read</code> method of the <code>File</code> type in package <code>os</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func (f *File) Read(buf []byte) (n int, err error)</span><br></pre></td></tr></table></figure>
+
 <h2 id="len-和-cap-函数"><a href="#len-和-cap-函数" class="headerlink" title="len() 和 cap() 函数"></a><code>len()</code> 和 <code>cap()</code> 函数</h2><p>A slice has both a <em>length</em> and a <em>capacity</em>.</p>
 <ul>
 <li>The length of a slice is the number of elements it contains.</li>
@@ -332,18 +345,24 @@ var _hmt = _hmt || [];
 </ul>
 <h3 id="对为-nil-的-array-取-len"><a href="#对为-nil-的-array-取-len" class="headerlink" title="对为 nil 的 array 取 len"></a>对为 nil 的 array 取 len</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a []<span class="keyword">int32</span> = <span class="built_in">make</span>([]<span class="keyword">int32</span>, <span class="number">5</span>)</span><br><span class="line"><span class="built_in">println</span>(a == <span class="literal">nil</span>) <span class="comment">//false</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b []<span class="keyword">int32</span></span><br><span class="line"><span class="built_in">println</span>(b == <span class="literal">nil</span>) <span class="comment">//true</span></span><br><span class="line"><span class="keyword">var</span> c []<span class="keyword">int32</span></span><br><span class="line"><span class="built_in">println</span>(<span class="built_in">len</span>(c)) <span class="comment">//0，这里很奇怪</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// compiling error</span></span><br><span class="line"><span class="comment">//var d *[]int32</span></span><br><span class="line"><span class="comment">//println(len(d))</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="切片元素追加"><a href="#切片元素追加" class="headerlink" title="切片元素追加"></a>切片元素追加</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">   statisArr := [8]int&#123;0, 1, 2, 3, 4, 5, 6, 7&#125;</span><br><span class="line"></span><br><span class="line">   arr := make([]int, 0)</span><br><span class="line">   for _, ele := range statisArr &#123;</span><br><span class="line">      arr = append(arr, ele)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Slices元素追加"><a href="#Slices元素追加" class="headerlink" title="Slices元素追加"></a>Slices元素追加</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   statisArr := [<span class="number">8</span>]<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;</span><br><span class="line"></span><br><span class="line">   arr := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>)</span><br><span class="line">   <span class="keyword">for</span> _, ele := <span class="keyword">range</span> statisArr &#123;</span><br><span class="line">      arr = <span class="built_in">append</span>(arr, ele)</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="切片的扩容"><a href="#切片的扩容" class="headerlink" title="切片的扩容"></a>切片的扩容</h2><p>//TODO</p>
-<h2 id="空切片（nil）"><a href="#空切片（nil）" class="headerlink" title="空切片（nil）"></a>空切片（nil）</h2><p>一个切片在未初始化之前默认为 nil，长度为 0，实例如下：</p>
+<p>The length of a slice may be changed as long as it still fits within the limits of the underlying array; just assign it to a slice of itself. The <em>capacity</em> of a slice, accessible by the built-in function <code>cap</code>, reports the maximum length the slice may assume. Here is a function to append data to a slice. If the data exceeds the capacity, the slice is reallocated. The resulting slice is returned. The function uses the fact that <code>len</code> and <code>cap</code> are legal when applied to the <code>nil</code> slice, and return 0.</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Append</span><span class="params">(slice, data []<span class="keyword">byte</span>)</span> []<span class="title">byte</span></span> &#123;</span><br><span class="line">    l := <span class="built_in">len</span>(slice)</span><br><span class="line">    <span class="keyword">if</span> l + <span class="built_in">len</span>(data) &gt; <span class="built_in">cap</span>(slice) &#123;  <span class="comment">// reallocate</span></span><br><span class="line">        <span class="comment">// Allocate double what's needed, for future growth.</span></span><br><span class="line">        newSlice := <span class="built_in">make</span>([]<span class="keyword">byte</span>, (l+<span class="built_in">len</span>(data))*<span class="number">2</span>)</span><br><span class="line">        <span class="comment">// The copy function is predeclared and works for any slice type.</span></span><br><span class="line">        <span class="built_in">copy</span>(newSlice, slice)</span><br><span class="line">        slice = newSlice</span><br><span class="line">    &#125;</span><br><span class="line">    slice = slice[<span class="number">0</span>:l+<span class="built_in">len</span>(data)]</span><br><span class="line">    <span class="built_in">copy</span>(slice[l:], data)</span><br><span class="line">    <span class="keyword">return</span> slice</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>We must return the slice afterwards because, although <code>Append</code> can modify the elements of <code>slice</code>, the slice itself (the run-time data structure holding the pointer, length, and capacity) is passed by value.</p>
+<p>The idea of appending to a slice is so useful it’s captured by the <code>append</code> built-in function. To understand that function’s design, though, we need a little more information, so we’ll return to it later.</p>
+<h2 id="Slices的扩容"><a href="#Slices的扩容" class="headerlink" title="Slices的扩容"></a>Slices的扩容</h2><p>//TODO</p>
+<h2 id="空-Slices（nil）"><a href="#空-Slices（nil）" class="headerlink" title="空 Slices（nil）"></a>空 Slices（nil）</h2><p>一个切片在未初始化之前默认为 nil，长度为 0，实例如下：</p>
 <p>实例</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">var</span> numbers []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">  printSlice(numbers)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(numbers == <span class="literal">nil</span>)&#123;</span><br><span class="line">   fmt.Printf(<span class="string">"切片是空的"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSlice</span><span class="params">(x []<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">  fmt.Printf(<span class="string">"len=%d cap=%d slice=%v\n"</span>,<span class="built_in">len</span>(x),<span class="built_in">cap</span>(x),x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">0</span> <span class="built_in">cap</span>=<span class="number">0</span> slice=[]</span><br><span class="line">切片是空的</span><br></pre></td></tr></table></figure>
 
-<h2 id="多维切片（Multi-dimensional-Slices）"><a href="#多维切片（Multi-dimensional-Slices）" class="headerlink" title="多维切片（Multi-dimensional Slices）"></a>多维切片（Multi-dimensional Slices）</h2><p>Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects. With arrays of arrays, the inner arrays are, by construction, always the same length; however with slices of slices (or arrays of slices), the inner lengths may vary dynamically. Moreover, the inner slices must be initialized individually.</p>
+<h2 id="多维-Slices（Multi-dimensional-Slices）"><a href="#多维-Slices（Multi-dimensional-Slices）" class="headerlink" title="多维 Slices（Multi-dimensional Slices）"></a>多维 Slices（Multi-dimensional Slices）</h2><p>Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects. With arrays of arrays, the inner arrays are, by construction, always the same length; however with slices of slices (or arrays of slices), the inner lengths may vary dynamically. Moreover, the inner slices must be initialized individually.</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="built_in">make</span>([][]<span class="keyword">int</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">	a1 := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line">	a = <span class="built_in">append</span>(a, a1)</span><br><span class="line"></span><br><span class="line">	a2 := []<span class="keyword">int</span>&#123;<span class="number">100</span>&#125;</span><br><span class="line">	a = <span class="built_in">append</span>(a, a2)</span><br><span class="line"></span><br><span class="line">	fmt.Printf(<span class="string">"%v\n"</span>, a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://golang.org/ref/spec" target="_blank" rel="noopener">https://golang.org/ref/spec</a></li>
+<li><a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">https://golang.org/doc/effective_go.html</a></li>
 </ul>
 
       
@@ -599,6 +618,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -611,7 +634,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,19 +646,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,11 +726,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -743,15 +762,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -827,11 +846,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -855,11 +874,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -867,11 +886,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">
