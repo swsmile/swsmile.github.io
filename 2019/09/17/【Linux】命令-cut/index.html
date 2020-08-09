@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Linux】命令-nohup命令 | 西维蜀黍 的博客</title>
+  <title>【Linux】命令 - cut命令 | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="nohupnohup就是不挂起的意思（no hangup）。 Linux下一般比如想让某个程序在后台运行，很多都是使用&amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台： 1$ /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp;  但是我们很多程序并不像mysqld一样做成守护进程，可能我们的程序只是普通程序而已，一般这种程序使">
+  <meta name="description" content="cut命令cut 命令对指定文件的内容的每一行进行截断，并将截断后的所有内容（或部分内容）输出到标准输出。 123usage: cut -b list [-n] [file ...]       cut -c list [file ...]       cut -f list [-s] [-d delim] [file ...]  如果不指定 File，cut 命令将读取标准输入。必须指定 -b、">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Linux】命令-nohup命令">
-<meta property="og:url" content="http://swsmile.info/2020/07/28/【Linux】命令-nohup命令/index.html">
+<meta property="og:title" content="【Linux】命令 - cut命令">
+<meta property="og:url" content="http://swsmile.info/2019/09/17/【Linux】命令-cut/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="nohupnohup就是不挂起的意思（no hangup）。 Linux下一般比如想让某个程序在后台运行，很多都是使用&amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台： 1$ /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp;  但是我们很多程序并不像mysqld一样做成守护进程，可能我们的程序只是普通程序而已，一般这种程序使">
+<meta property="og:description" content="cut命令cut 命令对指定文件的内容的每一行进行截断，并将截断后的所有内容（或部分内容）输出到标准输出。 123usage: cut -b list [-n] [file ...]       cut -c list [file ...]       cut -f list [-s] [-d delim] [file ...]  如果不指定 File，cut 命令将读取标准输入。必须指定 -b、">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-28T14:50:20.718Z">
+<meta property="og:updated_time" content="2020-07-04T04:32:24.364Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Linux】命令-nohup命令">
-<meta name="twitter:description" content="nohupnohup就是不挂起的意思（no hangup）。 Linux下一般比如想让某个程序在后台运行，很多都是使用&amp;amp;在程序结尾来让程序自动运行。比如我们要运行mysql在后台： 1$ /usr/local/mysql/bin/mysqld_safe --user=mysql &amp;amp;  但是我们很多程序并不像mysqld一样做成守护进程，可能我们的程序只是普通程序而已，一般这种程序使">
+<meta name="twitter:title" content="【Linux】命令 - cut命令">
+<meta name="twitter:description" content="cut命令cut 命令对指定文件的内容的每一行进行截断，并将截断后的所有内容（或部分内容）输出到标准输出。 123usage: cut -b list [-n] [file ...]       cut -c list [file ...]       cut -f list [-s] [-d delim] [file ...]  如果不指定 File，cut 命令将读取标准输入。必须指定 -b、">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -190,55 +190,52 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-【Linux】命令-nohup命令" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【Linux】命令-cut" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      【Linux】命令-nohup命令
+      【Linux】命令 - cut命令
     </h1>
   
 
         
-        <a href="/2020/07/28/【Linux】命令-nohup命令/" class="archive-article-date">
-  	<time datetime="2020-07-28T14:29:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-28</time>
+        <a href="/2019/09/17/【Linux】命令-cut/" class="archive-article-date">
+  	<time datetime="2019-09-17T04:20:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a>nohup</h1><p><strong>nohup</strong>就是不挂起的意思（<strong>no hangup</strong>）。</p>
-<p>Linux下一般比如想让某个程序在后台运行，很多都是使用<strong>&amp;</strong>在程序结尾来让程序自动运行。比如我们要运行mysql在后台：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/<span class="built_in">local</span>/mysql/bin/mysqld_safe --user=mysql &amp;</span><br></pre></td></tr></table></figure>
+        <h1 id="cut命令"><a href="#cut命令" class="headerlink" title="cut命令"></a>cut命令</h1><p>cut 命令对指定文件的内容的每一行进行截断，并将截断后的所有内容（或部分内容）输出到标准输出。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">usage: cut -b list [-n] [file ...]</span><br><span class="line">       cut -c list [file ...]</span><br><span class="line">       cut -f list [-s] [-d delim] [file ...]</span><br></pre></td></tr></table></figure>
 
-<p>但是我们很多程序并不像mysqld一样做成守护进程，可能我们的程序只是普通程序而已，一般这种程序使用<strong>&amp;</strong>结尾，但是如果终端关闭，那么程序也会被关闭。但是为了能够后台运行，那么我们就可以使用<strong>nohup</strong>这个命令，比如我们有个test.sh需要在后台运行，并且希望在后台能够定期运行，那么就使用nohup：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ cat test.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"test"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"start sleeping..."</span></span><br><span class="line">sleep 100</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"exit"</span></span><br><span class="line">$ nohup /root/test.sh &amp;</span><br><span class="line">[2] 98791</span><br><span class="line">appending output to nohup.out</span><br><span class="line">$ cat nohup.out</span><br><span class="line"><span class="built_in">test</span></span><br><span class="line">start sleeping...</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">[1]  - 98791 <span class="keyword">done</span>       nohup test.sh</span><br></pre></td></tr></table></figure>
-
-<p>提示：<strong>appending output to nohup.out</strong>，证明运行成功，同时把程序运行的输出信息放到当前目录的<strong>nohup.out</strong>文件中去。</p>
+<p>如果不指定 File，cut 命令将读取标准输入。必须指定 -b、-c 或 -f 标志之一。</p>
 <a id="more"></a> 
 
-<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p><strong>nohup</strong>命令运行由<strong>Command参数</strong>和任何相关的<strong>Arg参数</strong>指定的命令，忽略所有挂断（<strong>SIGHUP</strong>）信号。在注销后使用<strong>nohup</strong>命令运行后台中的程序。要运行后台中的<strong>nohup</strong>命令，添加<strong>&amp;</strong>（表示“and”的符号）到命令的尾部。</p>
-<p>无论是否将<strong>nohup</strong>命令的输出重定向到终端，输出都将附加到当前目录的n<strong>ohup.out</strong>文件中。如果当前目录的<strong>nohup.out</strong>文件不可写，输出重定向到<strong>$HOME/nohup.out</strong>文件中。如果没有文件能创建或打开以用于追加，那么<strong>Command参数</strong>指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。</p>
-<h1 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h1><h2 id="后台执行一个命令"><a href="#后台执行一个命令" class="headerlink" title="后台执行一个命令"></a>后台执行一个命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup test.sh &amp;</span><br></pre></td></tr></table></figure>
 
-<p>如果使用nohup命令执行命令，那么在缺省情况下该命令的所有输出都会被重定向到当前目录下一个名为nohup.out的文件中。</p>
-<h2 id="指定输出文件"><a href="#指定输出文件" class="headerlink" title="指定输出文件"></a>指定输出文件</h2><p>除非，我们指定了输出文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup <span class="built_in">command</span> &gt; myout.file 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
 
-<p>在上面的例子中，输出被重定向到myout.file文件中。</p>
-<h2 id="忽略所有输出（stderr和stdout）"><a href="#忽略所有输出（stderr和stdout）" class="headerlink" title="忽略所有输出（stderr和stdout）"></a>忽略所有输出（stderr和stdout）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup <span class="built_in">command</span> &gt;/dev/null 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
-
-<p>上面的例子是不输出任何内容（包括stderr和stdout）到任何文件的。</p>
-<h2 id="查看当前所有正在执行的后台任务"><a href="#查看当前所有正在执行的后台任务" class="headerlink" title="查看当前所有正在执行的后台任务"></a>查看当前所有正在执行的后台任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">jobs</span> -l</span><br></pre></td></tr></table></figure>
-
-<h2 id="结束一个特定的后台任务"><a href="#结束一个特定的后台任务" class="headerlink" title="结束一个特定的后台任务"></a>结束一个特定的后台任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">jobs</span> -l</span><br><span class="line">[2]  + 98791 running    nohup test.sh</span><br><span class="line">$ <span class="built_in">kill</span> -9 98791</span><br><span class="line">[2]  + 98791 killed     nohup test.sh</span><br><span class="line">$ <span class="built_in">jobs</span> -l</span><br></pre></td></tr></table></figure>
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="https://www.williamlong.info/archives/482.html" target="_blank" rel="noopener">https://www.williamlong.info/archives/482.html</a></li>
+<p><strong>参数:</strong></p>
+<ul>
+<li>-b ：以字节为单位进行分割。这些字节位置将忽略多字节字符边界，除非也指定了 -n 标志。</li>
+<li>-c ：以字符为单位进行分割。</li>
+<li>-d ：自定义分隔符，默认为制表符。</li>
+<li>-f ：与-d一起使用，指定显示哪个区域。</li>
+<li>-n ：取消分割多字节字符。仅和 -b 标志一起使用。如果字符的最后一个字节落在由 -b 标志的 List 参数指示的<br>范围之内，该字符将被写出；否则，该字符将被排除</li>
 </ul>
+<h1 id="b-参数-按字节分割"><a href="#b-参数-按字节分割" class="headerlink" title="-b 参数 - 按字节分割"></a><code>-b</code> 参数 - 按字节分割</h1><p>注意：一个空格算一个字节，一个汉字算三个字节</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ date</span><br><span class="line">2011年08月11日 星期四20:44:52 EDT</span><br><span class="line"></span><br><span class="line"><span class="comment"># 取前四个字节</span></span><br><span class="line">$ date |cut -b 1-4                </span><br><span class="line">2011</span><br><span class="line"></span><br><span class="line">$ date |cut -b 1-6</span><br><span class="line">2011</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一个汉字算三个字节</span></span><br><span class="line">$ date |cut -b 1-7           </span><br><span class="line">2011年</span><br><span class="line"></span><br><span class="line">$ date |cut -b 1-10</span><br><span class="line">2011年08</span><br></pre></td></tr></table></figure>
+
+<h1 id="c-参数-按字符分割"><a href="#c-参数-按字符分割" class="headerlink" title="-c 参数 - 按字符分割"></a><code>-c</code> 参数 - 按字符分割</h1><p>按字符cut相对比较简单，中文字符和空格都算一个字符。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ date |cut -c 1-5</span><br><span class="line">2011年</span><br><span class="line"></span><br><span class="line">$ date |cut -c 5,9,13</span><br><span class="line">年月日</span><br></pre></td></tr></table></figure>
+
+<h1 id="d-和-f-配合使用-指定列分隔符，按列分割"><a href="#d-和-f-配合使用-指定列分隔符，按列分割" class="headerlink" title="-d 和 -f 配合使用 - 指定列分隔符，按列分割"></a><code>-d</code> 和 <code>-f</code> 配合使用 - 指定列分隔符，按列分割</h1><p>其中，-d指定列分隔符，-f 指定要剪出哪几个列（以每行作为一个单元进行切割），</p>
+<p>-d选项的默认间隔符就是<strong>制表符</strong>，所以当你就是要使用制表符的时候，就可以省略 -d 选项，而直接用 -f 来指定需要将哪一部分列输出到标准输出（通过提供域的序号，索引从1开始）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ cat 1</span><br><span class="line">data11 data12 data13</span><br><span class="line">data21 data22 data22</span><br><span class="line">data31 data32 data33</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出每行的列 1 内容（分隔符为“ ”）</span></span><br><span class="line">$ cat 1 | cut -d <span class="string">" "</span> -f 1</span><br><span class="line">data11</span><br><span class="line">data21</span><br><span class="line">data31</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出每行的列 1 和列 2 的内容（分隔符为“ ”）</span></span><br><span class="line">cat 1 | cut -d <span class="string">" "</span> -f 1,2</span><br><span class="line">data11 data12</span><br><span class="line">data21 data22</span><br><span class="line">data31 data32</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -333,18 +330,18 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2020/07/28/【Protobuf】Protocol-Buffers-深入/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/23/【Python】线程-多进程/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          【Protobuf】Protocol Buffers 深入
+          【Python】线程 - 多进程
         
       </div>
     </a>
   
   
-    <a href="/2020/07/26/【Microservices】服务调用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">【Microservices】服务调用</div>
+    <a href="/2019/09/17/【Linux】Shell-管道和重定向/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Linux】Shell/Bash - 多命令执行、管道（pipeline）和重定向（redirection）</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -461,15 +458,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -490,10 +487,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -521,15 +514,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -565,7 +562,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -573,15 +570,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Golang</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,15 +582,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,15 +670,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,11 +698,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,11 +718,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,15 +734,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -757,11 +750,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -769,11 +762,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>
