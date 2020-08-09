@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="dns-prefetch" href="http://swsmile.info">
+  <title>【Operating System】进程 - 进程/线程间通信 | 西维蜀黍 的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="需求一个进程（process）可以创建了多个子进程（child processes），而这些子进程又可以创建子子进程，最终，就形成了一个进程树，如下图所示：  这些相关联的子进程可能需要进行相互通讯以同步状态，这就涉及到进程间通信（Interprocess Communication, IPC）。">
+<meta name="keywords" content="Operating System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Operating System】进程 - 进程&#x2F;线程间通信">
+<meta property="og:url" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/index.html">
+<meta property="og:site_name" content="西维蜀黍 的博客">
+<meta property="og:description" content="需求一个进程（process）可以创建了多个子进程（child processes），而这些子进程又可以创建子子进程，最终，就形成了一个进程树，如下图所示：  这些相关联的子进程可能需要进行相互通讯以同步状态，这就涉及到进程间通信（Interprocess Communication, IPC）。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213105945644.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190211111057616.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190211122708521.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213130610657.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213111556995.png">
+<meta property="og:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213131334352.png">
+<meta property="og:updated_time" content="2020-07-04T04:32:24.391Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Operating System】进程 - 进程&#x2F;线程间通信">
+<meta name="twitter:description" content="需求一个进程（process）可以创建了多个子进程（child processes），而这些子进程又可以创建子子进程，最终，就形成了一个进程树，如下图所示：  这些相关联的子进程可能需要进行相互通讯以同步状态，这就涉及到进程间通信（Interprocess Communication, IPC）。">
+<meta name="twitter:image" content="http://swsmile.info/2019/02/13/【Operating-System】进程-线程间通信/assets/image-20190213105945644.png">
+  
+    <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.2d7529.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-78769787-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?4481376a6b117446f0ad6f2b9b796afc";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/logo.jpg" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">西维蜀黍</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">🐒 Software engineer | 📷Photographer | 👹Urban explorer</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">所有文章</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">Tag</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">Friends</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+					<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+		        
+					<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">西维蜀黍</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>🐒 Software engineer | 📷Photographer | 👹Urban explorer<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+						<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+			        
+						<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 50%">
+				
+				
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-【Operating-System】进程-线程间通信" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【Operating System】进程 - 进程/线程间通信
+    </h1>
+  
+
+        
+        <a href="/2019/02/13/【Operating-System】进程-线程间通信/" class="archive-article-date">
+  	<time datetime="2019-02-13T02:23:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>一个<strong>进程（process）</strong>可以创建了多个<strong>子进程（child processes）</strong>，而这些子进程又可以创建子子进程，最终，就形成了一个进程树，如下图所示：</p>
+<p><img src="assets/image-20190213105945644.png" alt="image-20190213105945644"></p>
+<p>这些相关联的子进程可能需要进行相互通讯以同步状态，这就涉及到<strong>进程间通信（Interprocess Communication, IPC）</strong>。</p>
+<a id="more"></a> 
+
+<p>类似地，进程有时也需要和其他独立的进程进行通信（两个通信的进程没有父子关系）。比如，在 shell 管道（pipeline），一个进程的输出作为另一个进程的输入，这也是进程间通信。</p>
+<p>对于线程而言，这也是类似的。因为同一个进程中的线程们共享同一块内存地址空间（address space）。因此，适用于进程间的通信机制当然也适用于线程之间。</p>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p>进程间通信用于实现进程的同步和进程的互斥。</p>
+<h2 id="进程的同步与互斥的区别"><a href="#进程的同步与互斥的区别" class="headerlink" title="进程的同步与互斥的区别"></a>进程的同步与互斥的区别</h2><h3 id="进程的同步（synchronization）-进程间的协作"><a href="#进程的同步（synchronization）-进程间的协作" class="headerlink" title="进程的同步（synchronization）- 进程间的协作"></a>进程的同步（synchronization）- 进程间的协作</h3><p><strong>进程的同步（synchronization）</strong>，是进程之间的具有协作关系，是指系统中多个进程中发生的事件存在某种时序关系，需要相互合作，共同完成一项任务。</p>
+<p>具体地说，一个进程运行到某一点时，要求另一个伙伴进程为它提供消息，在未获得消息之前，该进程进入阻塞态，获得消息后被唤醒进入就绪态。</p>
+<h3 id="进程的互斥（mutual-exclusion）-进程间的竞争"><a href="#进程的互斥（mutual-exclusion）-进程间的竞争" class="headerlink" title="进程的互斥（mutual exclusion）- 进程间的竞争"></a>进程的互斥（mutual exclusion）- 进程间的竞争</h3><p><strong>进程的互斥（mutual exclusion）</strong>是指进程之间具有竞争关系，即进程之间在任一时间，只能有一个进程进入<strong>临界区（critical regions）</strong>。</p>
+<p>进程的互斥（mutual exclusion）可以看做是一种特殊的<strong>进程同步（synchronization）</strong>。</p>
+<h1 id="进程间通信方式"><a href="#进程间通信方式" class="headerlink" title="进程间通信方式"></a>进程间通信方式</h1><p>进程间通信可以通过以下几种方式：</p>
+<ul>
+<li>数据传输（Data transfer）</li>
+<li>共享内存（Shared memory）</li>
+<li>消息通信（Message comunication）</li>
+</ul>
+<h2 id="数据传输（Data-transfer）"><a href="#数据传输（Data-transfer）" class="headerlink" title="数据传输（Data transfer）"></a>数据传输（Data transfer）</h2><h3 id="管道（pipe）"><a href="#管道（pipe）" class="headerlink" title="管道（pipe）"></a>管道（pipe）</h3><p><strong>管道（pipe）</strong>，是一种半双工的通信方式，数据只能单向流动，联系一个进程的输出和另一个进程的输入。写入在管道的尾部，读出在管道的头部。管道只能传送无格式的字节流。</p>
+<p>在Linux上的管道分两种类型：</p>
+<ul>
+<li>无名管道 PIPE（可用于父子间进程通信）</li>
+<li>有名管道 FIFO（可用于任意两个进程间通信）</li>
+</ul>
+<h3 id="套接字（socket）"><a href="#套接字（socket）" class="headerlink" title="套接字（socket）"></a>套接字（socket）</h3><p><strong>套接字（socket）</strong>也是进程间的通信机制，与其它通信机制不同的是，它还可以用于不同机器间的进程通信。</p>
+<h2 id="共享内存（Shared-memory）"><a href="#共享内存（Shared-memory）" class="headerlink" title="共享内存（Shared memory）"></a>共享内存（Shared memory）</h2><p><strong>共享内存（Shared memory）</strong>就是映射一段可被其它进程所访问的内存，共享内存由一个进程创建，但是多个进程都可以访问。<strong>共享内存是最快的进程间通信方式（IPC）</strong>，它是针对其它进程通信方式运行效率低的而专门设计的。它往往与其它通信机制。如信号量，配合使用，来实现进程间的同步和通信。</p>
+<ul>
+<li>在进程间共享内存</li>
+<li>在线程之间共享内存（全局内存）</li>
+</ul>
+<h2 id="消息通信（Message-comunication）"><a href="#消息通信（Message-comunication）" class="headerlink" title="消息通信（Message comunication）"></a>消息通信（Message comunication）</h2><p>消息通信（Message comunication）具体又可细分为以下方式：</p>
+<ul>
+<li>消息队列（message queue）</li>
+<li>操作系统提供的信息通信：send()/receive()</li>
+<li>信号（Signal）</li>
+<li>锁（Lock）、信号量（semaphores）和管程（monitors）</li>
+</ul>
+<h3 id="消息队列（message-queue）"><a href="#消息队列（message-queue）" class="headerlink" title="消息队列（message queue）"></a>消息队列（message queue）</h3><p>早期的 Unix 通信机制一直用的信号能够传送的信息量有限，而管道则只能传送无格式的字节流，且受缓冲区大小限制。消息队列的出现就是为了克服这些缺点。消息队列实质是一个<strong>链表（linked list）</strong>，并把消息看做链表中的每一个记录，具有特定的格式。消息消费后就会被删除。</p>
+<p>主要有两种消息队列：</p>
+<ul>
+<li>POSIX 消息队列</li>
+<li>系统 V 消息队列</li>
+</ul>
+<p>方式 2 被广泛应用。系统 V 消息队列是随内核持续的，随人工删除、重启机器则会被删除，要求每个消息队列都在系统范围内对应唯一的键值。</p>
+<h3 id="信号（signal）"><a href="#信号（signal）" class="headerlink" title="信号（signal）"></a>信号（signal）</h3><p><strong>信号（signal）</strong>可用于进程间进行异步事件通知。比如在按下某个键、硬件异常（如除数为 0，无效的存储）、进程或用户 kill 函数等从而触发一个事件并且发送一个信号给另一个进程。一个信号的产生叫生成，接收到一个信号叫捕获。Linux 下常见的信号有 SIGKILL、SIGSTOP、SIGALRM 等等。信号是进程间通信机制中唯一的异步通信机制，一个进程不必通过任何操作来等待信号的到达，事实上，进程也不知道信号到底什么时候到达。</p>
+<h3 id="信号量（semaphore）"><a href="#信号量（semaphore）" class="headerlink" title="信号量（semaphore）"></a>信号量（semaphore）</h3><p><strong>信号量（semaphore）</strong>本质是一个计数器，可以用来控制多个进程对共享资源的访问。它也可以作为一种锁的机制，防止某进程正在访问临界区（共享资源）时，其它进程也访问该资源。因此它主要作为进程/线程之间同步的手段。</p>
+<h1 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h1><h2 id="竞态条件（Race-Conditions）"><a href="#竞态条件（Race-Conditions）" class="headerlink" title="竞态条件（Race Conditions）"></a>竞态条件（Race Conditions）</h2><p>在一些操作系统中，一起协同工作的进程可能共享一块存储空间，任何一个进程可以读或者写这个存储空间。这个存储空间可以是内存中的一块区域，也可以是文件系统中的一个文件。</p>
+<p>举个例子，在多任务打印缓存处理器（print spooler）的工作场景中，当一个进程希望打印一个文件时，它会将这个文件的名称输入到一个特定的缓存处理器目录（spooler directory）中。打印机守护进程（printer daemon）会周期性地检查缓存处理器目录中是否存在任何文件名，当存在时，则打印他们，并且将这个文件名从目录中移除。</p>
+<p>假设这个缓存处理器目录可以容纳无限个文件名，文件名索引从0开始。同时，有两个共享变量，<code>out</code>表示下一个需要打印的文件的索引，而<code>in</code>表示下一个在目录中的空位索引。这两个共享变量存储在一个文件中，这个文件可以被任何的进程所访问。</p>
+<p>在某一时刻，空位0到3位空（这意味着这四个文件已经被打印了），空位4到6不为空（这意味着这三个文件等待着被打印）。此时，进程A和进程B都分别想添加一个文件到目录中。</p>
+<p><img src="assets/image-20190211111057616.png" alt="image-20190211111057616"></p>
+<p>进程 A 读取 <code>in</code> 的值（值为7），并存储到本地变量 <code>next_free_slot</code>  中。此时，正好进程 A 用完了它的CPU时间片，于是进程调度器将 CPU 让给进程 B 。进程 B 也读取 <code>in</code> 的值（值为7），并也存储到本地变量 <code>next_free_slot</code>  中。</p>
+<p>进程 B 继续运行，它将要打印文件的名称存储到目录的索引为 7 的空位中，并且更新 <code>in</code> 的值为 8 ，此后它去执行去其他任务。</p>
+<p>最终，当又轮到了进程 A 继续执行时，它要打印文件的名称存储到目录的索引为 7 的空位中，这个操作会抹去进程 B 之前存储在那里的文件名。紧接着，进程 A 更新 <code>in</code> 的值为 8 。</p>
+<p>对于缓存处理器目录而言，整个过程始终是保持一致的，因此打印机守护进程不会提示任何错误。然而，进程 B 提交的打印任务始终不会被执行。</p>
+<hr>
+<p><strong>像这种两个以上的进程同时向共享存储区读取并且写入数据，而执行结果不可预知的情况称为竞态条件（Race Conditions），而这个共享存储区就是竞态资源（Race Resources）。</strong></p>
+<p>调试包含竞态条件的代码并不能解决这个问题，因为在绝大部分情况下，包含竞态条件的代码都会正常工作（体现为按预期工作），然而在运行的次数很多时，我们会得到一些奇怪的数据。</p>
+<h2 id="临界区（Critical-Regions-Critical-Sections）"><a href="#临界区（Critical-Regions-Critical-Sections）" class="headerlink" title="临界区（Critical Regions/ Critical Sections）"></a>临界区（Critical Regions/ Critical Sections）</h2><p>为了避免<strong>竞态条件（Race Conditions）</strong>，我们必须通过一个机制来阻止多个进程同时读取和写入一个竞态资源（共享数据区）。<strong>互斥（mutual exclusion）</strong>是一种解决办法，即当一个进程读写竞态资源（共享数据区）时，互斥机制会拒绝另外的进程读写这个竞态资源。</p>
+<p>上面例子的问题就出在当进程 A 还没有完成对竞态资源（缓存处理器目录）的读写时，进程 B 也同时对这个竞态资源进行读写。</p>
+<p><strong>而访问竞态资源（共享数据区）的代码片段，就是临界区（Critical Regions/ Critical Sections）。</strong></p>
+<p>如果我们可以阻止多个进程同时进入临界区，就可以避免竞态条件（Race Conditions）。</p>
+<hr>
+<p>我们用一个例子来说明多个进程进入临界区的情况。</p>
+<p><img src="assets/image-20190211122708521.png" alt="image-20190211122708521"></p>
+<ul>
+<li>在 T1 时刻，进程 A 进入临界区；</li>
+<li>稍后，在 T2 时刻，进程 B 尝试进入临界区，但是失败了，因为在任一时刻我们只允许有最多一个进程处于临界区；</li>
+<li>因此，进程 B 只能被临时挂起；</li>
+<li>在 T3 时刻，进程 A 离开临界区，进程 B 收到通知最终进入临界区；</li>
+<li>在 T4 时刻，进程 B 离开临界区。</li>
+</ul>
+<h1 id="忙等待下的互斥（Mutual-Exclusion-with-Busy-waiting）"><a href="#忙等待下的互斥（Mutual-Exclusion-with-Busy-waiting）" class="headerlink" title="忙等待下的互斥（Mutual Exclusion with Busy-waiting）"></a>忙等待下的互斥（Mutual Exclusion with Busy-waiting）</h1><p>在下文中，我们来讨论基于忙等待（busy-waiting）实现互斥（Mutual Exclusion）的不同方案。</p>
+<h2 id="禁止中断（Disabling-Interrupts）"><a href="#禁止中断（Disabling-Interrupts）" class="headerlink" title="禁止中断（Disabling Interrupts）"></a>禁止中断（Disabling Interrupts）</h2><p>在单处理器系统（single-processor）中，最简单的方法就是当进入临界区后，禁止所有进程的中断（interrupt）；当离开临界区后，再允许中断。</p>
+<p><strong>当禁止进程中断后，调度器就不会再进行进程切换</strong>。因此，进入临界区的进程不再需要担心其他进程写入共享数据区（因为其他进程根本没有被执行的机会）。</p>
+<p><strong>通常来说，这不是一个好的解决竞态条件问题的办法</strong>，因为允许用户进程（user process）禁止中断并不是一个机智的策略。如果用户进程在禁止中断后，一直都不允许中断（这个用户进程也一直处于临界区），这个用户进程最终可以无限地占用CPU。</p>
+<p>而且，当系统是<strong>多处理器（multiprocessor）系统</strong>时，禁用正在被使用的一个处理器的中断并不能阻止其他进程在其他处理器的执行进入共享数据区。如今，越来越多的系统采用多核（multicore）CPU，因此禁止中断并不是一个有效的办法。</p>
+<h2 id="锁定变量（Lock-Variables）"><a href="#锁定变量（Lock-Variables）" class="headerlink" title="锁定变量（Lock Variables）"></a>锁定变量（Lock Variables）</h2><p>每一个可以被共享的变量都对应一个锁变量，锁变量的默认值为 0 。</p>
+<p>当一个进程进入这个被共享的变量的临界区（critical regions）时，进程需要获取这个锁变量的值，如果锁变量为 0 ，这个进程就设置这个锁变量的值为 1 ，且成功进入临界区；如果锁变量为 1 ，这个进程就等待，直到锁变量为 0 时，才能进入临界区。</p>
+<p>因此，一个被共享的变量的锁变量若为 0 ，则意味着没有进程进入这个共享变量的临界区；若为 1 ，则意味着已经有进程进入了这个共享变量的临界区。</p>
+<p>然而，这个机制是有潜在问题的。比如，在前面提到的多任务打印缓存处理器（print spooler）的工作场景中。假设进程 A 读取锁变量，并且得到其值为 0 ，在进程 A 设置这个锁变量为 1 之前，进程 B 恰好被调度为运行状态，进程 B 设置锁变量的值为 1。当 CPU 时间又分配给进程 A 时，进程 A 设置锁变量的值为 1 。这时，两个进程同时都进入了竞态条件。</p>
+<p>有人可能会想提出，通过让进程 A 在设置锁变量的值为 1 时，重新读取锁变量的值（如仍为 0 ，才进行后续操作）。事实上，这仍然不能解决多进程同时进入竞态条件的问题。因为，若在进程 A 在恰好完成第二次读取锁变量的值时，进程 B 被调度为运行状态，并设置锁变量的值为 1。</p>
+<p><strong>总结来说，锁定变量（Lock Variables）不是线程安全的，因为“检查-占锁”这个动作不具备“原子性”</strong>。</p>
+<h2 id="严格转换法（Strict-Alternation）"><a href="#严格转换法（Strict-Alternation）" class="headerlink" title="严格转换法（Strict Alternation）"></a>严格转换法（Strict Alternation）</h2><h2 id="Peterson-方案（Peterson’s-Solution）"><a href="#Peterson-方案（Peterson’s-Solution）" class="headerlink" title="Peterson 方案（Peterson’s Solution）"></a>Peterson 方案（Peterson’s Solution）</h2><h2 id="TSL-指令（The-TSL-Instruction）"><a href="#TSL-指令（The-TSL-Instruction）" class="headerlink" title="TSL 指令（The TSL Instruction）"></a>TSL 指令（The TSL Instruction）</h2><p>我们来看一个在硬件层面提供帮助的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TSL RX,LOCK</span><br></pre></td></tr></table></figure>
+
+<p>TSL 表示 Test and Set Lock。它会读取从内存中读取 <code>lock</code> 变量的值到 <code>RX</code> 寄存器（register）中，并设置一个非 0 值到 <code>lock</code> 变量的内存地址中。</p>
+<p>这个从读取 <code>lock</code> 变量到寄存器到（在内存中）更新 <code>lock</code>  变量的操作（operation）是保证原子性（atomicity）的，即在这个 <code>TSL</code> 操作完成之前，其他处理器（processsor）是无法访问 <code>lock</code> 变量所在的内存空间的。这样的原子性是通过锁定内存总线（memory buss）实现的，目的当然是防止其他处理器读取在内存中的 <code>lock</code> 变量，最终多个进程同时进入临界区。</p>
+<p><strong>总结来说，TSL 指令从指令集支持层面保证了“检查-占锁”动作的原子性。</strong> TSL 指令的不足在于需要让进程进入忙等待（busy waiting）。</p>
+<h1 id="避免忙等待（Busy-waiting-Sleep-和-Wakeup-原语"><a href="#避免忙等待（Busy-waiting-Sleep-和-Wakeup-原语" class="headerlink" title="避免忙等待（Busy-waiting - Sleep 和 Wakeup 原语"></a>避免忙等待（Busy-waiting - Sleep 和 Wakeup 原语</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>虽然 Peterson 方案（Peterson’s Solution）和使用 TSL 或 XCHG 指令的方案都可以避免竞态条件问题，<strong>但他们都需要让进程进行忙等待（busy waiting）</strong>。即，在这些解决方案中，当一个进程进入临界区失败时，会进入一个<strong>紧密循环（tight loop）</strong>，直到其成功进入临界区。</p>
+<p><strong>紧密循环（tight loop）不仅会浪费CPU时间，而且有时候还会衍生出新的问题。</strong></p>
+<h2 id="优先级反转问题（priority-inversion-problem）"><a href="#优先级反转问题（priority-inversion-problem）" class="headerlink" title="优先级反转问题（priority inversion problem）"></a>优先级反转问题（priority inversion problem）</h2><p>假设当前有两个进程 H 和 L ，进程 H 具有高优先级，而进程 L 具有低优先级。调度规则为：只要进程 H 处于就绪状态时，则让其运行。</p>
+<p>在某一时刻，进程 L 处于临界区，但是 CPU 时间片已经用完，因此进程 H 切换到了运行状态，且处于忙等待（busy waiting）状态。因为进程 H 一直在运行（处于忙等待（busy waiting）状态），因此进程 L 永远都没有机会运行（因而进程 L 将一直处于临界区）。最终，进程 H 会永远执行紧密循环（tight loop）。这也称为<strong>优先级反转问题（priority inversion problem）</strong>。</p>
+<p>因此，在一个进程不能进入临界区时，一个更好的策略应该是阻塞式的，而不是一直浪费 CPU 时间。</p>
+<h2 id="Sleep-和-Wakeup-原语"><a href="#Sleep-和-Wakeup-原语" class="headerlink" title="Sleep 和 Wakeup 原语"></a>Sleep 和 Wakeup 原语</h2><p>一个解决忙等待最简单的解决方案就是 <code>sleep and wakeup</code>。 </p>
+<p><code>sleep</code> 是一个可以使得调用者（caller）阻塞的系统调用，而 <code>wakeup</code> 包含一个参数，传入要唤醒的那个进程。</p>
+<h2 id="生产者-消费者问题（The-Producer-Consumer-Problem）-有界缓冲区问题（Bounded-buffer-Problem）"><a href="#生产者-消费者问题（The-Producer-Consumer-Problem）-有界缓冲区问题（Bounded-buffer-Problem）" class="headerlink" title="生产者-消费者问题（The Producer-Consumer Problem）/有界缓冲区问题（Bounded-buffer Problem）"></a>生产者-消费者问题（The Producer-Consumer Problem）/有界缓冲区问题（Bounded-buffer Problem）</h2><p>生产者-消费者问题是利用 <code>Sleep and Wakeup</code> 方案提供进程间互斥（Mutual Exclusion）的一个具体实例。</p>
+<p>两个进程共享一个大小固定的缓冲区，其中的一个进程（称为生产者），将信息放入缓冲区中；而另一个进程（称为消费者），将信息从缓冲区中取出。</p>
+<blockquote>
+<p>事实上，包含 m 个生产者和 n 个消费者是完全有可能的，只是我们通过最小化数量突出解决方案模型本身。</p>
+</blockquote>
+<p>当缓冲区满时，生产者进行休眠，直到有任何消费者从缓冲区中移除内容时而被唤醒；当缓冲区为空时，消费者进行休眠，直到有生产者将内容放入缓冲区时而被唤醒。</p>
+<h1 id="信号量机制（Semaphores）"><a href="#信号量机制（Semaphores）" class="headerlink" title="信号量机制（Semaphores）"></a>信号量机制（Semaphores）</h1><p>信号量（Semaphores）机制被用作进程/线程间同步，且包括两个原语（primitive）， <code>down</code> 和 <code>up</code> 。</p>
+<blockquote>
+<p>信号量机制最初由 Dijkstra 在 1965 年提出，在他原始的论文中，他使用 P 和 V ，分别表示荷兰语中的 Proberen （try）和 Verhogen （raise, make higher）对应 <code>down</code> 和 <code>up</code> 。为了简化，我们统一采用  <code>down</code> 和 <code>up</code> 进行描述。</p>
+</blockquote>
+<p>信号量相当于一个计数器，使用一个非负的整型变量来表示当前可用资源的数量。</p>
+<p>假设一个进程每次只请求一个资源，当一个进程请求获取某个资源时，先要读取资源对应的信号量的值。</p>
+<ul>
+<li>当信号量为 0 时， 表示当前没有资源可再被分配（因为其他进程已经占有完了所有可用资源了，因此当前进程会进入阻塞状态（blocked）。直到信号量大于 1 时，会被唤醒，且再次请求获取资源）；</li>
+<li>当信号量大于 0 时，表示当前有资源可再被分配。因此当前进程可以成功获取到资源。这个进程通过调用 <code>down</code> 操作，以实现获取资源，并将信号量减一（以标识当前可用资源少了一个）。<ul>
+<li>当该进程不再使用这个资源时，这个进程需要调用 <code>up</code> 操作，以实现释放该资源，并将信号量加一（以标识当前可用资源多了一个）。</li>
+<li>此后，若仍有一个或多个进程仍因等待可用资源的分配，而处于休眠状态时，内核会选择其中的一个进程以使其调用 <code>up</code> 操作。</li>
+</ul>
+</li>
+</ul>
+<p>从获取信号量的值、判断信号量的值（是否大于 0 ）到改变信号量的值（或者因为没有可分配的资源因而不改变信号量的值，最终进程休眠）的整个过程是一个<strong>原子操作（atomic action）</strong>。换句话说，当一个信号量操作（semaphore operation）开始后，其他进程都不能获取信号量直到这个信号量操作完成。</p>
+<p>原子性是解决同步问题（synchronization problems）和避免竞态条件的基础。</p>
+<h2 id="信号量机制的实现"><a href="#信号量机制的实现" class="headerlink" title="信号量机制的实现"></a>信号量机制的实现</h2><p>信号量中的两个原语（primitive）， <code>down</code> 和 <code>up</code> ，可以被实现为 <code>down</code> 和 <code>up</code> 两个系统调用（system call）。</p>
+<p>对于<strong>单处理器系统</strong>，而操作系统可以通过在获取信号量或更新信号量（或将进程调度为休眠状态）的整个过程中<strong>禁用中断（disable interrupt）</strong>。</p>
+<p>对于<strong>多处理器系统</strong>，信号量机制需要通过<strong>锁定变量（Lock Variables） + TSL 或 XCHG 指令</strong>实现。</p>
+<h2 id="使用信号量解决生产者-消费者问题（The-Producer-Consumer-Problem）"><a href="#使用信号量解决生产者-消费者问题（The-Producer-Consumer-Problem）" class="headerlink" title="使用信号量解决生产者-消费者问题（The Producer-Consumer Problem）"></a>使用信号量解决生产者-消费者问题（The Producer-Consumer Problem）</h2><h2 id="信号量的分类"><a href="#信号量的分类" class="headerlink" title="信号量的分类"></a>信号量的分类</h2><ul>
+<li>Full semaphore：初始值为 0，记录当前已经被使用的资源的数量。</li>
+<li>Empty semaphore：初始值为系统可用资源的总数，记录当前可被使用的资源的数量。</li>
+<li>Binary semaphores （Mutex semaphores）：初始值为 1 ，且取值只能为 0 或 1 ，</li>
+</ul>
+<h2 id="二元信号量-互斥锁（Binary-semaphores-Mutexes）"><a href="#二元信号量-互斥锁（Binary-semaphores-Mutexes）" class="headerlink" title="二元信号量/互斥锁（Binary semaphores/ Mutexes）"></a>二元信号量/互斥锁（Binary semaphores/ Mutexes）</h2><p>取值只能为 0 或 1 ，初始值为 1 ，且可以被多个进程使用，以保证在同一时间只有一个进程进入临界区的信号量机制称为<strong>二元信号量（Binary semaphores），也称为互斥锁（Mutexes）</strong>。</p>
+<p>二元信号量/互斥锁用来实现进程间的互斥。具体来说，当一个进程要即将进入临界区时，需要调用 <code>down</code> ，当它刚刚离开临界区时，需要调用 <code>up</code> ，最终互斥（Mutual Exclusion）得到了保证。</p>
+<h2 id="信号量的作用"><a href="#信号量的作用" class="headerlink" title="信号量的作用"></a>信号量的作用</h2><p>信号量可以用于支持同步机制（synchronization）。而二元信号量/互斥锁（Binary semaphores/ Mutexes）是信号量的一个特例，二元信号量/互斥锁经常被用于实现多线程间的互斥（mutual exclusion）。</p>
+<p>信号量（semaphore）是一种更高级的同步机制，mutex可以说是semaphore在仅取值0/1时的特例。Semaphore可以有更多的取值空间，用来实现更加复杂的同步，而不单单是线程间互斥。</p>
+<h1 id="互斥对象-互斥锁（Mutexes）"><a href="#互斥对象-互斥锁（Mutexes）" class="headerlink" title="互斥对象/互斥锁（Mutexes）"></a>互斥对象/互斥锁（Mutexes）</h1><p>互斥对象（Mutexes）可以说是信号量（semaphore）在仅取值0/1时的特例，被用于实现共享资源的互斥访问，因此也被称为互斥锁。</p>
+<p>一个互斥对象（mutex）是一个共享变量，包含未锁定（unlocked）的和已锁定的（locked）两个枚举状态。</p>
+<p>由于互斥对象很简单，因此可以在基于 TSL 或 XCHG 指令下的用户态（user space）实现。</p>
+<p>互斥锁和信号量的实现都依赖 TSL 指令保证“检查-占锁”动作的原子性。</p>
+<p>把互斥量交给程序员使用太危险，有些编程语言实现了<strong>“管程”</strong>的特性，从编译器的层面保证了访问临界区的互斥，比如 Java 的 synchronized 关键字。</p>
+<h2 id="Futex"><a href="#Futex" class="headerlink" title="Futex"></a>Futex</h2><p>Futex 即 fast user space mutex，是 Linux 中实现基本锁的一个功能（feature），Futex 尽可能地避免切换到内核态，因为，一次从用户态到内核态的切换，最终再切换回用户态是非常消耗资源的。</p>
+<h2 id="信号量机制与互斥锁机制的区别"><a href="#信号量机制与互斥锁机制的区别" class="headerlink" title="信号量机制与互斥锁机制的区别"></a>信号量机制与互斥锁机制的区别</h2><ul>
+<li>互斥锁机制用于进程/线程的互斥（mutual exclusion），信号量机制用于进程/线程的同步（synchronization）。<ul>
+<li>这是互斥量机制和信号量机制的根本区别，也就是互斥和同步之间的区别。</li>
+<li><strong>互斥</strong>：是指某一资源同时只允许一个访问者对其进行访问，具有<strong>唯一性和排它性</strong>。但互斥无法限制访问者对资源的访问顺序，即<strong>访问是无序的</strong>。</li>
+<li><strong>同步</strong>：是指在互斥的基础上（大多数情况），通过其它机制实现访问者对资源的<strong>有序访问</strong>。在大多数情况下，同步已经实现了互斥，特别是所有写入资源的情况必定是互斥的。少数情况是指可以允许多个访问者同时访问资源</li>
+</ul>
+</li>
+<li>互斥锁机制中的互斥对象取值只能为0或1，而信号量机制中的信号量值为非负整数。</li>
+<li>互斥锁机制中的加锁和解锁必须由同一进程/线程进行操作，而信号量机制中的信号量可以由一个进程/线程释放，另一个进程/线程得到。</li>
+</ul>
+<p>总结来说，互斥锁机制是信号量机制的特例。互斥锁机制只能用于对一个资源的互斥访问控制，它不能实现多个资源的多进程互斥问题。信号量机制可以实现多个同类资源的多进程互斥和同步。当信号量为二元信号量（Binary semaphores）时，则等同于互斥锁，可以完成一个资源的互斥访问。</p>
+<h1 id="自旋锁（Spinlock）"><a href="#自旋锁（Spinlock）" class="headerlink" title="自旋锁（Spinlock）"></a>自旋锁（Spinlock）</h1><p>自旋锁也是一种实现互斥（mutual exclusion）的方式，相比最经典的互斥锁（Mutex）会在因无法进入临界区而进入阻塞状态（因此互斥锁是一个阻塞锁），因而放弃CPU；而自旋锁（Spinlock）则是不断循环并测试锁的状态（紧密循环（tight loop）），这样就一直占着CPU（这个过程也称为忙等待（busy waiting））。</p>
+<p>自旋锁是一种非阻塞式的锁，其设计的初衷是尽量减少进程的上下文切换。</p>
+<p>当锁持有的时间短（临界区代码的执行非常快），而且不希望频繁地对进程/线程进行上下文切换时，适合使用自旋锁（而不是互斥锁）。</p>
+<h2 id="自旋锁与互斥锁对比"><a href="#自旋锁与互斥锁对比" class="headerlink" title="自旋锁与互斥锁对比"></a>自旋锁与互斥锁对比</h2><p>如果是<strong>多核处理器</strong>，如果预计进程需要等待锁的时间很短，短到比进程进行两次上下文切换的时间还要少时，使用<strong>自旋锁相对更优</strong>。</p>
+<p>如果是<strong>多核处理器</strong>，如果预计进程需要等待锁的时间较长，至少比进程进行两次上下文切换的时间还长，使用<strong>互斥锁则更优</strong>。</p>
+<p>如果是<strong>单核处理器</strong>，使用自旋锁会造成额外的无用 CPU 消耗。因为，如果运行的进程发现无法获取锁，则只能不断”自旋“以获取锁的状态，直到分配给它的 CPU 时间片被用完。 而事实上，由于在同一时间只有一个进程处于运行状态，因此已经持有锁的进程，在自旋进程处于自旋的过程中，根本没有机会运行，因而锁的状态并不会发生改变。这意味着自旋进程的自旋过程只是在做无用功。而事实上，操作系统会判断当前环境是否为单核处理器，若是，则禁止进程的自旋。</p>
+<h1 id="管程（Monitor）"><a href="#管程（Monitor）" class="headerlink" title="管程（Monitor）"></a>管程（Monitor）</h1><blockquote>
+<p> 由于信号量和互斥锁可能会导致<strong>死锁（deadlock）</strong>问题，因此，在实际生产中使用信号量和互斥锁必须非常小心。</p>
+</blockquote>
+<p>为此，Brinch Hansen 和 Hoare 提出了一个更高层（higher-level）的同步原语（primitive），以实现互斥（mutual exclusion），称为<strong>管程（Monitor）</strong>。管程（Monitor） 从本质来说是一个程序集、变量和数据结构集合。</p>
+<p>管程要求：在任一时刻只有一个进程能在管程中处于活跃状态（active）。</p>
+<p>具体来说，当一个进程调用管程程序时， 管程程序会首先检查当前是否有其他进程在监视器中处于活跃状态。如果有，这个进程会进入阻塞状态直到其他进程离开了监视器；如果没有其他进程正在使用监视器，这个进程就可以使用监视器。</p>
+<p>编译器会具体负责管程机制如何具体实现（虽然通常的方法是通过互斥锁）。因此，对程序员而言，我们只需要知道管程机制能够保证互斥访问（mutual exclusion），即任一时刻只会有一个进程进入临界区。</p>
+<h2 id="条件变量（condition-variables）"><a href="#条件变量（condition-variables）" class="headerlink" title="条件变量（condition variables）"></a>条件变量（condition variables）</h2><h2 id="Java-对管程的支持"><a href="#Java-对管程的支持" class="headerlink" title="Java 对管程的支持"></a>Java 对管程的支持</h2><p>通过在方法声明（method declaration）中添加 <code>synchronized</code>关键字，JVM 会保证当任何一个线程执行这个方法时，其他线程不能同时执行这个 synchronized 方法。</p>
+<p>与经典的管程有所区别的是，Java 的 synchronized 方法不存在条件变量（condition variables）。作为代替，Java 提供了 <code>wait</code> 和 <code>notify</code> 方法，以在 synchronized 方法中使用，这分别对应 <code>sleep</code> 和 <code>wakeup</code> 方法。</p>
+<h1 id="消息传递（Message-Passing）"><a href="#消息传递（Message-Passing）" class="headerlink" title="消息传递（Message Passing）"></a>消息传递（Message Passing）</h1><p>消息传递（Message Passing）使用两个原语（primitive）<code>send</code> 和 <code>receive</code>，他们分别对应两个系统调用（system call）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">send(destination, &amp;message);</span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">receive(source, &amp;message);</span><br></pre></td></tr></table></figure>
+
+<p>前者会发送一条消息到指定的目的地，而后者会从指定某接收一条消息（也可以指定为 <code>ANY</code>，则不限消息源）。当没有可达消息时，接收者会阻塞直到有消息到来。</p>
+<h1 id="同步屏障（Barriers）"><a href="#同步屏障（Barriers）" class="headerlink" title="同步屏障（Barriers）"></a>同步屏障（Barriers）</h1><p><strong>同步屏障（Barriers）</strong>也是一个同步机制（synchronization mechanism），通常服务于一组进程（而不是一对生产者-消费者类型的进程组）。</p>
+<p>在有的应用中，我们会将程序划分为多个阶段（phase），只有当是所有进程就准备完毕可以进入下一个阶段时，所有进程才一起进入下一个阶段。</p>
+<p>为此，我们在每个阶段的末尾引入屏障（Barrier）。当一个进程达到屏障时，则会被阻塞，直到其他进程也都全部达到屏障时才恢复就绪态，如下图所示：</p>
+<p><img src="assets/image-20190213130610657.png" alt="image-20190213130610657"></p>
+<h1 id="潜在的进程间通信问题"><a href="#潜在的进程间通信问题" class="headerlink" title="潜在的进程间通信问题"></a>潜在的进程间通信问题</h1><h2 id="死锁（Deadlock）"><a href="#死锁（Deadlock）" class="headerlink" title="死锁（Deadlock）"></a>死锁（Deadlock）</h2><p>当两个进程同时占用多个被共享的资源时，就可能出现死锁。比如，A线程等待着B线程向其发送数据，而同时B线程也等待着A线程向其发送数据，此时就产生了死锁（Deadlock）。</p>
+<h2 id="数据不一致性（Data-Inconsistency）"><a href="#数据不一致性（Data-Inconsistency）" class="headerlink" title="数据不一致性（Data Inconsistency）"></a>数据不一致性（Data Inconsistency）</h2><p>当共享数据区同时被不同的进程修改时，数据不一致性就会发生，这也可以称为<strong>竞态条件/竞争条件（race condition）</strong>。竞<strong>斥</strong>条件是需要被避免的，否则程序会出现不按预期执行的情况。对应地，这个共享存储区被称为<strong>竞态资源（Race Resources）</strong>。</p>
+<p>而修改竞态资源（共享数据区）的代码块，就称为临界区（critical section）。</p>
+<p>比如，一天爸爸发现儿子的账号里只有100美元，于是决定存入50美元给儿子。而正在此时，儿子正在取钱，他打算取20美元（取钱后账号应该剩80美元）。</p>
+<p>由于爸爸和儿子的操作同时进行，而且进行操作账号时没锁（Lock），最终可能出现他们操作之后，账号的余额为150美元。</p>
+<p><strong>使用汇编语言来描述这个过程：</strong></p>
+<p><img src="assets/image-20190213111556995.png" alt="image-20190213111556995"></p>
+<p>因此，我们需要引入互斥（mutual exclusion）机制，以避免多个进程同时进入临界区，最终避免数据不一致性（Data Inconsistency）的发生。</p>
+<p>互斥机制从本质来说，是一种同步（synchronization）机制。</p>
+<h1 id="经典的-IPC-问题"><a href="#经典的-IPC-问题" class="headerlink" title="经典的 IPC 问题"></a>经典的 IPC 问题</h1><h2 id="哲学家就餐问题（The-Dining-Philosophers-Problem）"><a href="#哲学家就餐问题（The-Dining-Philosophers-Problem）" class="headerlink" title="哲学家就餐问题（The Dining Philosophers Problem）"></a>哲学家就餐问题（The Dining Philosophers Problem）</h2><p>问题：5个哲学家坐在一个圆桌，每个哲学家都有一份意大利面，而意大利面非常滑，因此每个哲学家需要两个叉子来吃它。在每两份意大利面之间都有一个叉子，如下所示：</p>
+<p><img src="assets/image-20190213131334352.png" alt="image-20190213131334352"></p>
+<p>每位哲学家的生活只包括两个状态，吃或者思考。当一个哲学家足够饿时，他会尝试获得他左边和右边的叉子，一次拿一个（以任何的顺序）。如果他成功获得了两个叉子，他就会吃一会儿，然后放下叉子，继续思考。</p>
+<p>问题在于，如何设计一个程序使得每个哲学家在任何时间都可以做他想做的，而不会被相互阻塞。</p>
+<h2 id="读者-写者问题（The-Readers-and-Writers-Problem）"><a href="#读者-写者问题（The-Readers-and-Writers-Problem）" class="headerlink" title="读者-写者问题（The Readers and Writers Problem）"></a>读者-写者问题（The Readers and Writers Problem）</h2><p>在一个航班预定系统中，多个进程可以同时从数据库中获取信息，但是当一个进程正在写入数据库时，所有的进程都不能进行信息读取。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="进程互斥机制（Mutual-Exclusion-Facilities）"><a href="#进程互斥机制（Mutual-Exclusion-Facilities）" class="headerlink" title="进程互斥机制（Mutual Exclusion Facilities）"></a>进程互斥机制（Mutual Exclusion Facilities）</h2><p>为了解决上面的死锁或数据不一致问题，我们需要引入同步机制，</p>
+<h3 id="基于硬件的解决方案"><a href="#基于硬件的解决方案" class="headerlink" title="基于硬件的解决方案"></a>基于硬件的解决方案</h3><ul>
+<li>禁止中断（Disabling Interrupts）：仅仅适用于单 CPU 系统，不适用于多 CPU 或多核系统；</li>
+<li>TSL 指令（The TSL Instruction）：TSL 表示 Test and Set Lock，TSL 指令从指令集支持层面保证了“检查-占锁”动作的原子性。TSL 指令的不足在于需要让进程进入忙等待（busy waiting）。</li>
+<li>XCHG 指令</li>
+</ul>
+<h3 id="基于软件的解决方案"><a href="#基于软件的解决方案" class="headerlink" title="基于软件的解决方案"></a>基于软件的解决方案</h3><ul>
+<li>LockOne锁</li>
+<li>LockTwo算法</li>
+<li>Peterson 算法</li>
+<li>Bakery 算法</li>
+<li>Dekker 算法</li>
+</ul>
+<h2 id="各种同步机制的实现方法"><a href="#各种同步机制的实现方法" class="headerlink" title="各种同步机制的实现方法"></a>各种同步机制的实现方法</h2><ul>
+<li>信号量（Semaphores）：基于 TSL 或 XCHG 指令实现。</li>
+<li>互斥锁（mutexes）：为信号量的特例，即二元信号量（Binary semaphores）。<ul>
+<li>基于 TSL 或 XCHG 指令实现；</li>
+<li>实现了多进程/线程的互斥（mutual exclusion）访问，即在任一时刻，只能有一个进程/线程进入临界区状态（critical section）。</li>
+</ul>
+</li>
+<li>自旋锁（Spinlock）：也是一种实现互斥（mutual exclusion）的方式，相比于互斥锁（Mutex）会在因无法进入临界区而进入阻塞状态，因而放弃CPU，自旋锁则是不断循环并测试锁的状态（紧密循环（tight loop）），这样就一直占着CPU，这个过程也称为忙等待（busy waiting）。</li>
+<li>管程（Monitor）：基于 TSL 或 XCHG 指令实现。</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><p>《Modern Operating System 4th》</p>
+</li>
+<li><p>互斥锁，同步锁，临界区，互斥量，信号量，自旋锁之间联系是什么？ - <a href="https://www.zhihu.com/question/39850927" target="_blank" rel="noopener">https://www.zhihu.com/question/39850927</a></p>
+</li>
+<li><p>linux 中进程间6种通信方式 - <a href="http://www.syyong.com/linux/6-communication-modes-between-processes-in-Linux.html" target="_blank" rel="noopener">http://www.syyong.com/linux/6-communication-modes-between-processes-in-Linux.html</a></p>
+</li>
+<li><p>读写自旋锁详解 - <a href="https://www.ibm.com/developerworks/cn/linux/l-cn-rwspinlock1/index.html" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-rwspinlock1/index.html</a></p>
+</li>
+<li><p>操作系统原理（Operating Systems） - <a href="https://www.coursera.org/learn/os-pku/home/welcome" target="_blank" rel="noopener">https://www.coursera.org/learn/os-pku/home/welcome</a></p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Operating System</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/OperatingSystem/" class="article-tag-list-link color1">OperatingSystem</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+   
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/02/14/【Operating-System】系统调用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【Operating System】系统调用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/10/【Operating-System】进程-线程调度/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Operating System】进程 - 进程/线程调度</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
+  
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 西维蜀黍
+    	</div>
+      	<div class="footer-right">
+      		
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true,
+		showTags: true
+	}
+</script>
+
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),m=e(75),g=r(m),w=e(70);l(),(0,w.addLoadEvent)(function(){g.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),m=x[f],g=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&g&&void 0!==g[a],s&&a in x||(l=s?g[a]:e[a],x[a]=d&&"function"!=typeof g[a]?e[a]:h&&s?i(l,r):b&&g[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&m&&!m[a]&&u(m,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,m,g,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=m==h,M=!1,A=t.prototype,T=A[p]||A[v]||m&&A[m],L=T||j(m),N=m?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,m)if(O={values:E?L:j(h),keys:g?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),m=e(10),g=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),m(t),n=w(n,!0),m(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){m(t);for(var e,r=b(n=g(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=g(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(g(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:g(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.2d7529.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">Tag</a></li>
+      
+        
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">Friends</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Architectural Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Architecture</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ArchitectureDesign</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Design Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Distributed System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Microservices</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Django</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Operating System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Node.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Operating Systems</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/en/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My English Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/oj/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My OJ Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/gym/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>西维蜀黍的健身 Blog</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+</body>
+</html>

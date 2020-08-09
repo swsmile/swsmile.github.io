@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="dns-prefetch" href="http://swsmile.info">
+  <title>【Redis】Codis 安装 | 西维蜀黍 的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Prerequisition安装Go12$ echo &amp;quot;export GOPATH=/home/parallels/go&amp;quot; &amp;gt; .zshrc$ echo &amp;quot;export GOROOT=/usr/lib/go-1.14&amp;quot; &amp;gt; .zshrc  安装Java安装Zookeeper安装 autoconf1$ sudo apt-get install au">
+<meta name="keywords" content="Cache System,Redis,Codis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Redis】Codis 安装">
+<meta property="og:url" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/index.html">
+<meta property="og:site_name" content="西维蜀黍 的博客">
+<meta property="og:description" content="Prerequisition安装Go12$ echo &amp;quot;export GOPATH=/home/parallels/go&amp;quot; &amp;gt; .zshrc$ echo &amp;quot;export GOROOT=/usr/lib/go-1.14&amp;quot; &amp;gt; .zshrc  安装Java安装Zookeeper安装 autoconf1$ sudo apt-get install au">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727222746412.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727221144837.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727225339947.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727231701198.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727232156783.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/architecture-5941797.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727232802590.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727233000059.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728205111235.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728210208945.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728211949221.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728212317411.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728212347936.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728214530479.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728214945256.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728215035940.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728205334109.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200728214234283.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727231047140.png">
+<meta property="og:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/architecture-5941797.png">
+<meta property="og:updated_time" content="2020-07-28T14:07:24.310Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【Redis】Codis 安装">
+<meta name="twitter:description" content="Prerequisition安装Go12$ echo &amp;quot;export GOPATH=/home/parallels/go&amp;quot; &amp;gt; .zshrc$ echo &amp;quot;export GOROOT=/usr/lib/go-1.14&amp;quot; &amp;gt; .zshrc  安装Java安装Zookeeper安装 autoconf1$ sudo apt-get install au">
+<meta name="twitter:image" content="http://swsmile.info/2020/07/25/【Redis】Codis-安装/assets/image-20200727222746412.png">
+  
+    <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" type="text/css" href="/./main.2d7529.css">
+  <style type="text/css">
+  
+    #container.show {
+      background: linear-gradient(200deg,#a0cfe4,#e8c37e);
+    }
+  </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // listen to any DOM change and automatically perform spacing via MutationObserver()
+    pangu.autoSpacingPage();
+  });
+</script>
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-78769787-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+<script>
+var _hmt = _hmt || [];
+(function() {
+	var hm = document.createElement("script");
+	hm.src = "https://hm.baidu.com/hm.js?4481376a6b117446f0ad6f2b9b796afc";
+	var s = document.getElementsByTagName("script")[0]; 
+	s.parentNode.insertBefore(hm, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+</head>
+</html>
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      
+<div class="overlay" style="background: #4d4d4d"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/logo.jpg" class="js-avatar">
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">西维蜀黍</a></h1>
+		</hgroup>
+		
+		<p class="header-subtitle">🐒 Software engineer | 📷Photographer | 👹Urban explorer</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives/">所有文章</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+    		
+    			
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">Tag</a>
+    			
+            
+    			
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">Friends</a>
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+		        
+					<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+		        
+					<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      
+<nav id="mobile-nav">
+  	<div class="overlay js-overlay" style="background: #4d4d4d"></div>
+	<div class="btnctn js-mobile-btnctn">
+  		<div class="slider-trigger list" q-on="click: openSlider(e)"><i class="icon icon-sort"></i></div>
+	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/logo.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author js-header-author">西维蜀黍</h1>
+			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>🐒 Software engineer | 📷Photographer | 👹Urban explorer<i class="icon icon-quo-right"></i></p>
+			
+			
+			
+				
+			
+				
+			
+			
+			
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="mail" target="_blank" href="mailto:swsmile1028@gmail.com" title="mail"><i class="icon-mail"></i></a>
+			        
+						<a class="github" target="_blank" href="https://github.com/swsmile" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="linkedin" target="_blank" href="https://www.linkedin.com/in/weishi1028/" title="linkedin"><i class="icon-linkedin"></i></a>
+			        
+						<a class="weibo" target="_blank" href="https://weibo.com/swsmile666" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="facebook" target="_blank" href="https://www.facebook.com/swsmile666" title="facebook"><i class="icon-facebook"></i></a>
+			        
+				</div>
+			</nav>
+
+			<nav class="header-menu js-header-menu">
+				<ul style="width: 50%">
+				
+				
+					<li style="width: 50%"><a href="/">主页</a></li>
+		        
+					<li style="width: 50%"><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+		</header>				
+	</div>
+	<div class="mobile-mask" style="display:none" q-show="isShow"></div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            <article id="post-【Redis】Codis-安装" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      【Redis】Codis 安装
+    </h1>
+  
+
+        
+        <a href="/2020/07/25/【Redis】Codis-安装/" class="archive-article-date">
+  	<time datetime="2020-07-25T08:19:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Prerequisition"><a href="#Prerequisition" class="headerlink" title="Prerequisition"></a>Prerequisition</h1><h2 id="安装Go"><a href="#安装Go" class="headerlink" title="安装Go"></a>安装Go</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;export GOPATH=/home/parallels/go&quot; &gt; .zshrc</span><br><span class="line">$ echo &quot;export GOROOT=/usr/lib/go-1.14&quot; &gt; .zshrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h2><h2 id="安装Zookeeper"><a href="#安装Zookeeper" class="headerlink" title="安装Zookeeper"></a>安装Zookeeper</h2><h2 id="安装-autoconf"><a href="#安装-autoconf" class="headerlink" title="安装 autoconf"></a>安装 autoconf</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install autoconf</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a> 
+
+<h1 id="手动编译"><a href="#手动编译" class="headerlink" title="手动编译"></a>手动编译</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir -p <span class="variable">$GOPATH</span>/src/github.com/CodisLabs</span><br><span class="line">$ <span class="built_in">cd</span> <span class="variable">$_</span> &amp;&amp; git <span class="built_in">clone</span> https://github.com/CodisLabs/codis.git -b release3.2</span><br><span class="line">$ <span class="built_in">echo</span> <span class="string">"export PATH=<span class="variable">$GOPATH</span>/src/github.com/CodisLabs/codis/bin:<span class="variable">$PATH</span>"</span> &gt; ~/.zshrc</span><br><span class="line">$ sudo make</span><br></pre></td></tr></table></figure>
+
+<h1 id="Binary"><a href="#Binary" class="headerlink" title="Binary"></a>Binary</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ curl -OL https://github.com/CodisLabs/codis/releases/download/3.2.2/codis3.2.2-go1.8.5-linux.zip</span><br><span class="line">$ unzip codis3.2.2-go1.8.5-linux.zip</span><br><span class="line">$ <span class="built_in">cd</span> codis3.2.2-go1.8.5-linux</span><br></pre></td></tr></table></figure>
+
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h2 id="启动-codis-dashboard"><a href="#启动-codis-dashboard" class="headerlink" title="启动 codis-dashboard"></a>启动 codis-dashboard</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="comment"># vim config/dashboard.toml</span></span><br><span class="line">coordinator_name = <span class="string">"zookeeper"</span></span><br><span class="line"><span class="comment"># 这里填你的ZooKeeper的地址</span></span><br><span class="line">coordinator_addr = <span class="string">"127.0.0.1:2181"</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br></pre></td></tr></table></figure>
+
+<p>启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ nohup ./codis-dashboard --ncpu=4 --config=config/dashboard.toml --<span class="built_in">log</span>=logs/dashboard.log --<span class="built_in">log</span>-level=WARN &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果开启多个shell tab，则直接以实时查看Log</span></span><br><span class="line">$ ./codis-dashboard --ncpu=4 --config=config/dashboard.toml</span><br></pre></td></tr></table></figure>
+
+<p><img src="assets/image-20200727222746412.png" alt="image-20200727222746412"></p>
+<p>默认工作在18080端口。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$  ./codis-dashboard -h</span><br><span class="line">Usage:</span><br><span class="line">	codis-dashboard [--ncpu=N] [--config=CONF] [--<span class="built_in">log</span>=FILE] [--<span class="built_in">log</span>-level=LEVEL] [--host-admin=ADDR] [--pidfile=FILE] [--zookeeper=ADDR|--etcd=ADDR|--filesystem=ROOT] [--product_name=NAME] [--product_auth=AUTH] [--remove-lock]</span><br><span class="line">	codis-dashboard  --default-config</span><br><span class="line">	codis-dashboard  --version</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">	--ncpu=N                    <span class="built_in">set</span> runtime.GOMAXPROCS to N, default is runtime.NumCPU().</span><br><span class="line">	-c CONF, --config=CONF      run with the specific configuration.</span><br><span class="line">	-l FILE, --<span class="built_in">log</span>=FILE         <span class="built_in">set</span> path/name of daliy rotated <span class="built_in">log</span> file.</span><br><span class="line">	--<span class="built_in">log</span>-level=LEVEL           <span class="built_in">set</span> the <span class="built_in">log</span>-level, should be INFO,WARN,DEBUG or ERROR, default is INFO.</span><br></pre></td></tr></table></figure>
+
+<h3 id="默认配置文件"><a href="#默认配置文件" class="headerlink" title="默认配置文件"></a>默认配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-dashboard --default-config | tee dashboard.toml</span><br><span class="line"></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">#                  Codis-Dashboard               #</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set Coordinator, only accept "zookeeper" &amp; "etcd" &amp; "filesystem".</span></span><br><span class="line"><span class="comment"># for zookeeper/etcd, coorinator_auth accept "user:password"</span></span><br><span class="line"><span class="comment"># Quick Start</span></span><br><span class="line">coordinator_name = <span class="string">"filesystem"</span></span><br><span class="line">coordinator_addr = <span class="string">"/tmp/codis"</span></span><br><span class="line"><span class="comment">#coordinator_name = "zookeeper"</span></span><br><span class="line"><span class="comment">#coordinator_addr = "127.0.0.1:2181"</span></span><br><span class="line"><span class="comment">#coordinator_auth = ""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set Codis Product Name/Auth.</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">product_auth = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set bind address for admin(rpc), tcp only.</span></span><br><span class="line">admin_addr = <span class="string">"0.0.0.0:18080"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set arguments for data migration (only accept 'sync' &amp; 'semi-async').</span></span><br><span class="line">migration_method = <span class="string">"semi-async"</span></span><br><span class="line">migration_parallel_slots = 100</span><br><span class="line">migration_async_maxbulks = 200</span><br><span class="line">migration_async_maxbytes = <span class="string">"32mb"</span></span><br><span class="line">migration_async_numkeys = 500</span><br><span class="line">migration_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set configs for redis sentinel.</span></span><br><span class="line">sentinel_client_timeout = <span class="string">"10s"</span></span><br><span class="line">sentinel_quorum = 2</span><br><span class="line">sentinel_parallel_syncs = 1</span><br><span class="line">sentinel_down_after = <span class="string">"30s"</span></span><br><span class="line">sentinel_failover_timeout = <span class="string">"5m"</span></span><br><span class="line">sentinel_notification_script = <span class="string">""</span></span><br><span class="line">sentinel_client_reconfig_script = <span class="string">""</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>coordinator_name</td>
+<td>外部存储类型，接受 zookeeper/etcd</td>
+</tr>
+<tr>
+<td>coordinator_addr</td>
+<td>外部存储地址</td>
+</tr>
+<tr>
+<td>product_name</td>
+<td>集群名称，满足正则 <code>\w[\w\.\-]*</code></td>
+</tr>
+<tr>
+<td>product_auth</td>
+<td>集群密码，默认为空</td>
+</tr>
+<tr>
+<td>admin_addr</td>
+<td>RESTful API 端口</td>
+</tr>
+</tbody></table>
+<h2 id="启动-codis-proxy"><a href="#启动-codis-proxy" class="headerlink" title="启动 codis-proxy"></a>启动 codis-proxy</h2><p>codis-proxy 配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim config/proxy.toml</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">jodis_name = <span class="string">"zookeeper"</span></span><br><span class="line">jodis_addr = <span class="string">"127.0.0.1:2181"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">$ nohup ./codis-proxy --ncpu=4 --config=config/proxy.toml --<span class="built_in">log</span>=logs/proxy.log --<span class="built_in">log</span>-level=WARN &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果开启多个shell tab，则直接以实时查看Log</span></span><br><span class="line">$ ./codis-proxy --ncpu=4 --config=config/proxy.toml</span><br><span class="line">2020/07/27 22:36:28 main.go:104: [WARN] <span class="built_in">set</span> ncpu = 4, max-ncpu = 8</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - zkclient setup new connection to 127.0.0.1:2181</span><br><span class="line">2020/07/27 22:36:28 proxy.go:91: [WARN] [0xc4200a6e70] create new proxy:</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"token"</span>: <span class="string">"620204800e7d3a781457f23ca974dfcb"</span>,</span><br><span class="line">    <span class="string">"start_time"</span>: <span class="string">"2020-07-27 22:36:28.056420238 +0800 +08"</span>,</span><br><span class="line">    <span class="string">"admin_addr"</span>: <span class="string">"192.168.2.204:11080"</span>,</span><br><span class="line">    <span class="string">"proto_type"</span>: <span class="string">"tcp4"</span>,</span><br><span class="line">    <span class="string">"proxy_addr"</span>: <span class="string">"192.168.2.204:19000"</span>,</span><br><span class="line">    <span class="string">"jodis_path"</span>: <span class="string">"/jodis/codis-demo/proxy-620204800e7d3a781457f23ca974dfcb"</span>,</span><br><span class="line">    <span class="string">"product_name"</span>: <span class="string">"codis-demo"</span>,</span><br><span class="line">    <span class="string">"pid"</span>: 21563,</span><br><span class="line">    <span class="string">"pwd"</span>: <span class="string">"/home/parallels/codis3.2.2-go1.8.5-linux"</span>,</span><br><span class="line">    <span class="string">"sys"</span>: <span class="string">"Linux parallels-Parallels-Virtual-Platform 4.15.0-112-generic #113-Ubuntu SMP Thu Jul 9 23:41:39 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux"</span>,</span><br><span class="line">    <span class="string">"hostname"</span>: <span class="string">"parallels-Parallels-Virtual-Platform"</span>,</span><br><span class="line">    <span class="string">"datacenter"</span>: <span class="string">""</span></span><br><span class="line">&#125;</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - Connected to 127.0.0.1:2181</span><br><span class="line">2020/07/27 22:36:28 proxy.go:378: [WARN] [0xc4200a6e70] admin start service on [::]:11080</span><br><span class="line">2020/07/27 22:36:28 proxy.go:402: [WARN] [0xc4200a6e70] proxy start service on 0.0.0.0:19000</span><br><span class="line">2020/07/27 22:36:28 main.go:193: [WARN] create proxy with config</span><br><span class="line">...</span><br><span class="line">2020/07/27 22:36:28 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - Authenticated: id=72070581688008724, timeout=20000</span><br><span class="line">2020/07/27 22:36:28 zkclient.go:23: [INFO] zookeeper - Re-submitting `0` credentials after reconnect</span><br><span class="line">2020/07/27 22:36:29 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:30 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:31 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br><span class="line">2020/07/27 22:36:32 main.go:229: [WARN] [0xc4200a6e70] proxy waiting online ...</span><br></pre></td></tr></table></figure>
+
+<p>我们会发现proxy一直处于waiting online状态，这是因为没有将proxy 与 dashboard关联起来（而将proxy 与 dashboard关联需要我们显式地去操作）。</p>
+<h3 id="端口使用"><a href="#端口使用" class="headerlink" title="端口使用"></a>端口使用</h3><p>一个codis-proxy 会使用两个端口，一个用于被 redis-cli直接连接（proxy_addr，默认为19000），一个用于管理这个proxy（admin_addr，默认为11080）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -h 192.168.2.204 -p 19000</span><br><span class="line">192.168.2.204:19000&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lsof -i -P | grep -i <span class="string">"listen"</span> | grep <span class="string">"codis-proxy"</span></span><br><span class="line">codis-pro 20014 parallels    3u  IPv4 2246306      0t0  TCP *:19000 (LISTEN)</span><br><span class="line">codis-pro 20014 parallels    5u  IPv6 2246307      0t0  TCP *:11080 (LISTEN)</span><br></pre></td></tr></table></figure>
+
+<h3 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-proxy -h</span><br><span class="line">Usage:</span><br><span class="line">	codis-proxy [--ncpu=N [--max-ncpu=MAX]] [--config=CONF] [--<span class="built_in">log</span>=FILE] [--<span class="built_in">log</span>-level=LEVEL] [--host-admin=ADDR] [--host-proxy=ADDR] [--dashboard=ADDR|--zookeeper=ADDR [--zookeeper-auth=USR:PWD]|--etcd=ADDR [--etcd-auth=USR:PWD]|--filesystem=ROOT|--fillslots=FILE] [--<span class="built_in">ulimit</span>=NLIMIT] [--pidfile=FILE] [--product_name=NAME] [--product_auth=AUTH] [--session_auth=AUTH]</span><br><span class="line">	codis-proxy  --default-config</span><br><span class="line">	codis-proxy  --version</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">	--ncpu=N                    <span class="built_in">set</span> runtime.GOMAXPROCS to N, default is runtime.NumCPU().</span><br><span class="line">	-c CONF, --config=CONF      run with the specific configuration.</span><br><span class="line">	-l FILE, --<span class="built_in">log</span>=FILE         <span class="built_in">set</span> path/name of daliy rotated <span class="built_in">log</span> file.</span><br><span class="line">	--<span class="built_in">log</span>-level=LEVEL           <span class="built_in">set</span> the <span class="built_in">log</span>-level, should be INFO,WARN,DEBUG or ERROR, default is INFO.</span><br><span class="line">	--<span class="built_in">ulimit</span>=NLIMIT             run <span class="string">'ulimit -n'</span> to check the maximum number of open file descriptors.</span><br></pre></td></tr></table></figure>
+
+<h3 id="默认配置文件-proxy-toml"><a href="#默认配置文件-proxy-toml" class="headerlink" title="默认配置文件 proxy.toml"></a>默认配置文件 <code>proxy.toml</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-proxy --default-config | tee proxy.toml</span><br><span class="line"></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">#                  Codis-Proxy                   #</span></span><br><span class="line"><span class="comment">#                                                #</span></span><br><span class="line"><span class="comment">##################################################</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set Codis Product Name/Auth.</span></span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">product_auth = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set auth for client session</span></span><br><span class="line"><span class="comment">#   1. product_auth is used for auth validation among codis-dashboard,</span></span><br><span class="line"><span class="comment">#      codis-proxy and codis-server.</span></span><br><span class="line"><span class="comment">#   2. session_auth is different from product_auth, it requires clients</span></span><br><span class="line"><span class="comment">#      to issue AUTH &lt;PASSWORD&gt; before processing any other commands.</span></span><br><span class="line">session_auth = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set bind address for admin(rpc), tcp only.</span></span><br><span class="line">admin_addr = <span class="string">"0.0.0.0:11080"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set bind address for proxy, proto_type can be "tcp", "tcp4", "tcp6", "unix" or "unixpacket".</span></span><br><span class="line">proto_type = <span class="string">"tcp4"</span></span><br><span class="line">proxy_addr = <span class="string">"0.0.0.0:19000"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set jodis address &amp; session timeout</span></span><br><span class="line"><span class="comment">#   1. jodis_name is short for jodis_coordinator_name, only accept "zookeeper" &amp; "etcd".</span></span><br><span class="line"><span class="comment">#   2. jodis_addr is short for jodis_coordinator_addr</span></span><br><span class="line"><span class="comment">#   3. jodis_auth is short for jodis_coordinator_auth, for zookeeper/etcd, "user:password" is accepted.</span></span><br><span class="line"><span class="comment">#   4. proxy will be registered as node:</span></span><br><span class="line"><span class="comment">#        if jodis_compatible = true (not suggested):</span></span><br><span class="line"><span class="comment">#          /zk/codis/db_&#123;PRODUCT_NAME&#125;/proxy-&#123;HASHID&#125; (compatible with Codis2.0)</span></span><br><span class="line"><span class="comment">#        or else</span></span><br><span class="line"><span class="comment">#          /jodis/&#123;PRODUCT_NAME&#125;/proxy-&#123;HASHID&#125;</span></span><br><span class="line">jodis_name = <span class="string">""</span></span><br><span class="line">jodis_addr = <span class="string">""</span></span><br><span class="line">jodis_auth = <span class="string">""</span></span><br><span class="line">jodis_timeout = <span class="string">"20s"</span></span><br><span class="line">jodis_compatible = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set datacenter of proxy.</span></span><br><span class="line">proxy_datacenter = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set max number of alive sessions.</span></span><br><span class="line">proxy_max_clients = 1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set max offheap memory size. (0 to disable)</span></span><br><span class="line">proxy_max_offheap_size = <span class="string">"1024mb"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set heap placeholder to reduce GC frequency.</span></span><br><span class="line">proxy_heap_placeholder = <span class="string">"256mb"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Proxy will ping backend redis (and clear 'MASTERDOWN' state) in a predefined interval. (0 to disable)</span></span><br><span class="line">backend_ping_period = <span class="string">"5s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend recv buffer size &amp; timeout.</span></span><br><span class="line">backend_recv_bufsize = <span class="string">"128kb"</span></span><br><span class="line">backend_recv_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend send buffer &amp; timeout.</span></span><br><span class="line">backend_send_bufsize = <span class="string">"128kb"</span></span><br><span class="line">backend_send_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend pipeline buffer size.</span></span><br><span class="line">backend_max_pipeline = 20480</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend never read replica groups, default is false</span></span><br><span class="line">backend_primary_only = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend parallel connections per server</span></span><br><span class="line">backend_primary_parallel = 1</span><br><span class="line">backend_replica_parallel = 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set backend tcp keepalive period. (0 to disable)</span></span><br><span class="line">backend_keepalive_period = <span class="string">"75s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set number of databases of backend.</span></span><br><span class="line">backend_number_databases = 16</span><br><span class="line"></span><br><span class="line"><span class="comment"># If there is no request from client for a long time, the connection will be closed. (0 to disable)</span></span><br><span class="line"><span class="comment"># Set session recv buffer size &amp; timeout.</span></span><br><span class="line">session_recv_bufsize = <span class="string">"128kb"</span></span><br><span class="line">session_recv_timeout = <span class="string">"30m"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set session send buffer size &amp; timeout.</span></span><br><span class="line">session_send_bufsize = <span class="string">"64kb"</span></span><br><span class="line">session_send_timeout = <span class="string">"30s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Make sure this is higher than the max number of requests for each pipeline request, or your client may be blocked.</span></span><br><span class="line"><span class="comment"># Set session pipeline buffer size.</span></span><br><span class="line">session_max_pipeline = 10000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set session tcp keepalive period. (0 to disable)</span></span><br><span class="line">session_keepalive_period = <span class="string">"75s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set session to be sensitive to failures. Default is false, instead of closing socket, proxy will send an error response to client.</span></span><br><span class="line">session_break_on_failure = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set metrics server (such as http://localhost:28000), proxy will report json formatted metrics to specified server in a predefined period.</span></span><br><span class="line">metrics_report_server = <span class="string">""</span></span><br><span class="line">metrics_report_period = <span class="string">"1s"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set influxdb server (such as http://localhost:8086), proxy will report metrics to influxdb.</span></span><br><span class="line">metrics_report_influxdb_server = <span class="string">""</span></span><br><span class="line">metrics_report_influxdb_period = <span class="string">"1s"</span></span><br><span class="line">metrics_report_influxdb_username = <span class="string">""</span></span><br><span class="line">metrics_report_influxdb_password = <span class="string">""</span></span><br><span class="line">metrics_report_influxdb_database = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set statsd server (such as localhost:8125), proxy will report metrics to statsd.</span></span><br><span class="line">metrics_report_statsd_server = <span class="string">""</span></span><br><span class="line">metrics_report_statsd_period = <span class="string">"1s"</span></span><br><span class="line">metrics_report_statsd_prefix = <span class="string">""</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>product_name</td>
+<td>集群名称，参考 dashboard 参数说明</td>
+</tr>
+<tr>
+<td>product_auth</td>
+<td>集群密码，默认为空</td>
+</tr>
+<tr>
+<td>admin_addr</td>
+<td>RESTful API 端口</td>
+</tr>
+<tr>
+<td>proto_type</td>
+<td>Redis 端口类型，接受 tcp/tcp4/tcp6/unix/unixpacket</td>
+</tr>
+<tr>
+<td>proxy_addr</td>
+<td>Redis 端口地址或者路径</td>
+</tr>
+<tr>
+<td>jodis_addr</td>
+<td>Jodis 注册 zookeeper 地址</td>
+</tr>
+<tr>
+<td>jodis_timeout</td>
+<td>Jodis 注册 session timeout 时间，单位 second</td>
+</tr>
+<tr>
+<td>jodis_compatible</td>
+<td><strong>Jodis 注册 zookeeper 的路径</strong></td>
+</tr>
+<tr>
+<td>backend_ping_period</td>
+<td>与 codis-server 探活周期，单位 second，0 表示禁止</td>
+</tr>
+<tr>
+<td>session_max_timeout</td>
+<td>与 client 连接最大读超时，单位 second，0 表示禁止</td>
+</tr>
+<tr>
+<td>session_max_bufsize</td>
+<td>与 client 连接读写缓冲区大小，单位 byte</td>
+</tr>
+<tr>
+<td>session_max_pipeline</td>
+<td>与 client 连接最大的 pipeline 大小</td>
+</tr>
+<tr>
+<td>session_keepalive_period</td>
+<td>与 client 的 tcp keepalive 周期，仅 tcp 有效，0 表示禁止</td>
+</tr>
+</tbody></table>
+<h3 id="添加-Proxy方法"><a href="#添加-Proxy方法" class="headerlink" title="添加 Proxy方法"></a>添加 Proxy方法</h3><p>codis-proxy 启动后，处于 <code>waiting</code> 状态，监听 <code>proxy_addr</code> 地址，但是不会 <code>accept</code> 连接，添加到集群并完成集群状态的同步，才能改变状态为 <code>online</code>。添加的方法有以下两种：</p>
+<ul>
+<li>通过 codis-fe 添加：通过 <code>Add Proxy</code> 按钮，将 <code>admin_addr</code> 加入到集群中；</li>
+<li>通过 codis-admin 命令行工具添加，方法如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-admin --dashboard=127.0.0.1:18080 --create-proxy -x 127.0.0.1:11080</span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>127.0.0.1:18080</code> 以及 <code>127.0.0.1:11080</code> 分别为 dashboard 和 proxy 的 <code>admin_addr</code> 地址；</p>
+<p>在本Demo中，我们在Codis FE启动后，再对proxy进行处理。</p>
+<h2 id="启动-codis-server"><a href="#启动-codis-server" class="headerlink" title="启动 codis-server"></a>启动 codis-server</h2><p>codis-server 配置</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># vim config/redis.conf</span><br><span class="line">bind <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">port <span class="number">6379</span></span><br><span class="line">daemonize yes</span><br><span class="line">pidfile /<span class="keyword">var</span>/run/redis-<span class="number">6379</span>.pid</span><br><span class="line">dir /<span class="keyword">data</span>/redis-<span class="keyword">data</span>/redis-<span class="number">6379</span>/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /data</span><br><span class="line">$ sudo mkdir redis-data</span><br><span class="line">$ ./codis-server ./config/redis.conf --<span class="built_in">log</span>=logs/server.log --<span class="built_in">log</span>-level=WARN</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只指定端口</span></span><br><span class="line">$ ./codis-server --port 6380</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动 ./bin/codis-server，与启动普通 redis 的方法一致（这意味着）。</li>
+<li>启动完成后，可以通过 codis-fe 提供的界面或者 codis-admin 命令行工具添加到集群中。</li>
+</ul>
+<h3 id="帮助-1"><a href="#帮助-1" class="headerlink" title="帮助"></a>帮助</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-server -h</span><br><span class="line">Usage: ./redis-server [/path/to/redis.conf] [options]</span><br><span class="line">       ./redis-server - (<span class="built_in">read</span> config from stdin)</span><br><span class="line">       ./redis-server -v or --version</span><br><span class="line">       ./redis-server -h or --<span class="built_in">help</span></span><br><span class="line">       ./redis-server --<span class="built_in">test</span>-memory &lt;megabytes&gt;</span><br><span class="line"></span><br><span class="line">Examples:</span><br><span class="line">       ./redis-server (run the server with default conf)</span><br><span class="line">       ./redis-server /etc/redis/6379.conf</span><br><span class="line">       ./redis-server --port 7777</span><br><span class="line">       ./redis-server --port 7777 --slaveof 127.0.0.1 8888</span><br><span class="line">       ./redis-server /etc/myredis.conf --loglevel verbose</span><br><span class="line"></span><br><span class="line">Sentinel mode:</span><br><span class="line">       ./redis-server /etc/sentinel.conf --sentinel</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动-codis-fe"><a href="#启动-codis-fe" class="headerlink" title="启动 codis-fe"></a>启动 codis-fe</h2><p>codis-fe 启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ nohup ./codis-fe --ncpu=4 --<span class="built_in">log</span>=logs/fe.log --<span class="built_in">log</span>-level=WARN --zookeeper=127.0.0.1:2181 --listen=0.0.0.0:8081 &amp;</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动参数说明"><a href="#启动参数说明" class="headerlink" title="启动参数说明"></a>启动参数说明</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-fe -h</span><br><span class="line">Usage:</span><br><span class="line">	codis-fe [--ncpu=N] [--<span class="built_in">log</span>=FILE] [--<span class="built_in">log</span>-level=LEVEL] [--assets-dir=PATH] (--dashboard-list=FILE|--zookeeper=ADDR|--etcd=ADDR|--filesystem=ROOT) --listen=ADDR</span><br><span class="line">	codis-fe  --version</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">	--ncpu=N                        最大使用 CPU 个数</span><br><span class="line">	-d LIST, --dashboard-list=LIST  配置文件，能够自动刷新</span><br><span class="line">	-l FILE, --<span class="built_in">log</span>=FILE             设置 <span class="built_in">log</span> 输出文件</span><br><span class="line">	--<span class="built_in">log</span>-level=LEVEL               设置 <span class="built_in">log</span> 输出等级：INFO,WARN,DEBUG,ERROR；默认INFO，推荐WARN</span><br><span class="line">	--listen=ADDR                   HTTP 服务端口</span><br></pre></td></tr></table></figure>
+
+<p>配置文件 codis.json 可以手动编辑，也可以通过 codis-admin 从外部存储中拉取，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-admin --dashboard-list --zookeeper=127.0.0.1:2181 | tee codis.json</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;name&quot;: &quot;codis-demo&quot;,</span><br><span class="line">        &quot;dashboard&quot;: &quot;127.0.0.1:18080&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;name&quot;: &quot;codis-demo2&quot;,</span><br><span class="line">        &quot;dashboard&quot;: &quot;127.0.0.1:28080&quot;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>访问 <a href="http://192.168.2.204:8081/" target="_blank" rel="noopener">http://192.168.2.204:8081/</a> ，选择 codis-demo，即我们的 product name（这其实是因为一个 Codis FE 可以管理多个 Codis Dashboard ）</p>
+<p><img src="assets/image-20200727221144837.png" alt="image-20200727221144837"></p>
+<h2 id="添加-proxy"><a href="#添加-proxy" class="headerlink" title="添加 proxy"></a>添加 proxy</h2><p>通过web浏览器访问集群管理页面（即 codis-fe，<a href="http://192.168.2.204:8081/" target="_blank" rel="noopener">http://192.168.2.204:8081/</a> ），在 Proxy 栏我们并不能看到任何codis-proxy。</p>
+<p>这其实是由于前面说的，即：</p>
+<blockquote>
+<p>codis-proxy 启动后，处于 <code>waiting</code> 状态，监听 <code>proxy_addr</code> 地址，但是不会 <code>accept</code> 连接。</p>
+<p>只要添加到集群并完成集群状态的同步，才能改变状态为 <code>online</code>。添加的方法有以下两种：</p>
+<ul>
+<li>通过 codis-fe 添加：通过 <code>Add Proxy</code> 按钮，将 <code>admin_addr</code> 加入到集群中；</li>
+<li>通过 codis-admin 命令行工具添加，方法如下：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ ./bin/codis-admin --dashboard=127.0.0.1:18080 --create-proxy -x 127.0.0.1:11080</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>其中 <code>127.0.0.1:18080</code> 以及 <code>127.0.0.1:11080</code> 分别为 dashboard 和 proxy 的 <code>admin_addr</code> 地址；</p>
+</blockquote>
+<p>在添加完成后，就可以看到这个proxy的状态了：</p>
+<p><img src="assets/image-20200727225339947.png" alt="image-20200727225339947"></p>
+<p>同时，在codis-proxy的log中，也能看到对应的变化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2020/07/27 22:53:17 main.go:233: [WARN] [0xc4200a9340] proxy is working ...</span><br></pre></td></tr></table></figure>
+
+<h2 id="添加-codis-group-（即codis-server）"><a href="#添加-codis-group-（即codis-server）" class="headerlink" title="添加 codis-group （即codis-server）"></a>添加 codis-group （即codis-server）</h2><p>Proxy已经设置成功了，但是 Group 栏为空，因为我们启动的 codis-server 并未加入到集群。</p>
+<p><img src="assets/image-20200727231701198.png" alt="image-20200727231701198"></p>
+<p>GROUP 输入 1，Add Server 输入我们刚刚启动的 codis-server 地址（127.0.0.1:6380），添加到我们刚新建的 Group，然后再点击 Add Server 按钮即可，如上图所示。</p>
+<p><img src="assets/image-20200727232156783.png" alt="image-20200727232156783"></p>
+<p>这样以后，整个cluster只有一个Group（即codis-group），即 Group 1。</p>
+<p>当然，我们可以将更多个codis-server添加到cluster中，并将这些 codis-server 添加到不同的group中，这就是真正意义上的cluster了。</p>
+<p><img src="assets/architecture-5941797.png" alt="architecture"></p>
+<h2 id="通过codis-fe初始化slot"><a href="#通过codis-fe初始化slot" class="headerlink" title="通过codis-fe初始化slot"></a>通过codis-fe初始化slot</h2><p>新增的集群 slot 状态是 offline，因此我们需要对它进行初始化（将 1024 个 slot 分配到各个 group），而初始化最快的方法可通过 fe 提供的 <code>Rebalance All Slots</code>按钮来做，如下图所示，点击此按钮，我们即快速完成了一个集群的搭建。</p>
+<p><img src="assets/image-20200727232802590.png" alt="image-20200727232802590"></p>
+<h2 id="连接到codis-proxy"><a href="#连接到codis-proxy" class="headerlink" title="连接到codis-proxy"></a>连接到codis-proxy</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ redis-cli -h 192.168.2.204 -p 19000</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> 1 a</span><br><span class="line">OK</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> 2 b</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p>当我们进行set 时，就能看到keys的变化：</p>
+<p><img src="assets/image-20200727233000059.png" alt="image-20200727233000059"></p>
+<h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><h2 id="添加codis-proxy"><a href="#添加codis-proxy" class="headerlink" title="添加codis-proxy"></a>添加codis-proxy</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ cp config/proxy.toml config/proxy2.toml</span><br><span class="line">$ vim config/proxy2.toml</span><br><span class="line">product_name = <span class="string">"codis-demo"</span></span><br><span class="line">jodis_name = <span class="string">"zookeeper"</span></span><br><span class="line">jodis_addr = <span class="string">"127.0.0.1:2181"</span></span><br><span class="line">admin_addr = <span class="string">"0.0.0.0:11081"</span></span><br><span class="line">proxy_addr = <span class="string">"0.0.0.0:19001"</span></span><br><span class="line">$ ./codis-proxy --ncpu=4 --config=config/proxy2.toml</span><br><span class="line">...</span><br><span class="line">2020/07/28 20:49:37 main.go:229: [WARN] [0xc42034c2c0] proxy waiting online ...</span><br></pre></td></tr></table></figure>
+
+<p>启动一个新的codis-proxy，添加其到当前 cluster中：</p>
+<p><img src="assets/image-20200728205111235.png" alt="image-20200728205111235"></p>
+<h2 id="添加codis-server-作为一个已经存在的codis-group-中的slave节点"><a href="#添加codis-server-作为一个已经存在的codis-group-中的slave节点" class="headerlink" title="添加codis-server 作为一个已经存在的codis-group 中的slave节点"></a>添加codis-server 作为一个已经存在的codis-group 中的slave节点</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-server --port 6381</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>添加该 codis-server 到 Group 1（这也是 codis-server 6380 位于的 Group）中：</p>
+<p><img src="assets/image-20200728210208945.png" alt="image-20200728210208945"></p>
+<p>点击 127.0.0.1:6381 那一行对应的小扳手，以将数据从 127.0.0.1:6380 复制到 127.0.0.1:6381，即127.0.0.1:6381 作为 127.0.0.1:6380 的 slave节点。</p>
+<p>点击后，会有如下Log：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">17816:S 28 Jul 21:15:47.703 * SLAVE OF 127.0.0.1:6380 enabled (user request from &apos;id=36 addr=127.0.0.1:53494 fd=40 name= age=0 idle=0 flags=x db=0 sub=0 psub=0 multi=4 qbuf=0 qbuf-free=32768 obl=50 oll=0 omem=0 events=r cmd=exec&apos;)</span><br><span class="line">17816:S 28 Jul 21:15:47.908 * Connecting to MASTER 127.0.0.1:6380</span><br><span class="line">17816:S 28 Jul 21:15:47.909 * MASTER &lt;-&gt; SLAVE sync started</span><br><span class="line">17816:S 28 Jul 21:15:47.909 * Non blocking connect for SYNC fired the event.</span><br><span class="line">17816:S 28 Jul 21:15:47.909 * Master replied to PING, replication can continue...</span><br><span class="line">17816:S 28 Jul 21:15:47.910 * Partial resynchronization not possible (no cached master)</span><br><span class="line">17816:S 28 Jul 21:15:47.911 * Full resync from master: 0ee00b25600eef5b71196377532b70e70fdbbe5a:438</span><br><span class="line">17816:S 28 Jul 21:15:48.006 * MASTER &lt;-&gt; SLAVE sync: receiving 87 bytes from master</span><br><span class="line">17816:S 28 Jul 21:15:48.007 * MASTER &lt;-&gt; SLAVE sync: Flushing old data</span><br><span class="line">17816:S 28 Jul 21:15:48.007 * MASTER &lt;-&gt; SLAVE sync: Loading DB in memory</span><br><span class="line">17816:S 28 Jul 21:15:48.008 * MASTER &lt;-&gt; SLAVE sync: Finished with success</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，数据会被同步：</p>
+<p><img src="assets/image-20200728211949221.png" alt="image-20200728211949221"></p>
+<h2 id="添加codis-server到一个新的codis-group"><a href="#添加codis-server到一个新的codis-group" class="headerlink" title="添加codis-server到一个新的codis-group"></a>添加codis-server到一个新的codis-group</h2><p>添加一个新的group，我们设为group 2：</p>
+<p><img src="assets/image-20200728212317411.png" alt="image-20200728212317411"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-server --port 6382</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>添加该 codis-server 到 Group 2中：</p>
+<p><img src="assets/image-20200728212347936.png" alt="image-20200728212347936"></p>
+<p>这时，所以的数据还只会被存储到 Group 1，因为我们目前还是把所有的slot（slot [0, 1023]）分配给了 Group 1，点击”Rebalance All Slots”，以重新分配 slots：</p>
+<p><img src="assets/image-20200728214530479.png" alt="image-20200728214530479"></p>
+<p>我们随便插入一些数据以做测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ 192.168.2.204:19000&gt; <span class="built_in">set</span> 1 1</span><br><span class="line">OK</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> 2 2</span><br><span class="line">OK</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> 3 3</span><br><span class="line">OK</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> 4 4</span><br><span class="line">OK</span><br><span class="line">192.168.2.204:19000&gt; <span class="built_in">set</span> sw sw</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+
+<p><img src="assets/image-20200728214945256.png" alt="image-20200728214945256"></p>
+<p><img src="assets/image-20200728215035940.png" alt="image-20200728215035940"></p>
+<p>“Rebalance All Slots”可以帮我们很快的完成 cluster的横向扩展（当cluster的容量或者是CPU 成为 bottleneck时），即通过增加codis-group（每个codis-group中只包含一个 master codis-server），并将 slot 重分配到所有 Group 中（这个过程也称为”Rebalance”）。</p>
+<h1 id="Observation"><a href="#Observation" class="headerlink" title="Observation"></a>Observation</h1><h2 id="codis-proxy-到codis-server-的connection"><a href="#codis-proxy-到codis-server-的connection" class="headerlink" title="codis-proxy 到codis-server 的connection"></a>codis-proxy 到codis-server 的connection</h2><p>codis-proxy 会建立多条连接到codis-server，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ lsof -i -P | grep <span class="string">"codis-pr"</span></span><br><span class="line"></span><br><span class="line">codis-pro 21100 parallels    8u  IPv4 2250487      0t0  TCP localhost:60636-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels    9u  IPv4 2252281      0t0  TCP localhost:60638-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   10u  IPv4 2254068      0t0  TCP localhost:60640-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   11u  IPv4 2252282      0t0  TCP localhost:60642-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   12u  IPv4 2252283      0t0  TCP localhost:60644-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   13u  IPv4 2252284      0t0  TCP localhost:60646-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   14u  IPv4 2252285      0t0  TCP localhost:60648-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   15u  IPv4 2254069      0t0  TCP localhost:60650-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   16u  IPv4 2252286      0t0  TCP localhost:60652-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   17u  IPv4 2250488      0t0  TCP localhost:60654-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   18u  IPv4 2253039      0t0  TCP localhost:60656-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   19u  IPv4 2253040      0t0  TCP localhost:60658-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   20u  IPv4 2250489      0t0  TCP localhost:60660-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   21u  IPv4 2250490      0t0  TCP localhost:60662-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   22u  IPv4 2250491      0t0  TCP localhost:60664-&gt;localhost:6379 (ESTABLISHED)</span><br><span class="line">codis-pro 21100 parallels   23u  IPv4 2250492      0t0  TCP localhost:60666-&gt;localhost:6379 (ESTABLISHED)</span><br></pre></td></tr></table></figure>
+
+<p>而且，可以看到，每启动一个codis-proxy，这个proxy都会和当前active的所有的codis-server建立16个connection：</p>
+<p><img src="assets/image-20200728205334109.png" alt="image-20200728205334109"></p>
+<h2 id="master-codis-server-异常时"><a href="#master-codis-server-异常时" class="headerlink" title="master codis-server 异常时"></a>master codis-server 异常时</h2><p>当master挂了的时候（这里master node是127.0.0.1:6380），slave在默认情况下并不会主动promote成为master（如果设置了sentinel，则会在出现故障时，自动将 Slave Redis node 转换为 Master Redis node）。</p>
+<p>虽然我们可以在dashboard中看到error：</p>
+<p><img src="assets/image-20200728214234283.png" alt="image-20200728214234283"></p>
+<p>同样，通过proxy 来get 数据也会有error：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.2.204:19000&gt; get 1</span><br><span class="line">(error) ERR handle response, backend conn reset</span><br></pre></td></tr></table></figure>
+
+<h2 id="master-codis-server-增加后"><a href="#master-codis-server-增加后" class="headerlink" title="master codis-server 增加后"></a>master codis-server 增加后</h2><p>当 master codis-server 增加后，如预期的，codis-proxy会自动和这个 master codis-server 建立连接，以下是在增加了 127.0.0.1:6382 节点之后，且在”rebalance”之后：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lsof -i -P | grep <span class="string">"codis-pro"</span> | grep 12955 | grep 6382 | wc -l</span><br><span class="line"></span><br><span class="line">16</span><br></pre></td></tr></table></figure>
+
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><h2 id="Codis异常关闭后启动出错"><a href="#Codis异常关闭后启动出错" class="headerlink" title="Codis异常关闭后启动出错"></a>Codis异常关闭后启动出错</h2><h3 id="Situation"><a href="#Situation" class="headerlink" title="Situation"></a>Situation</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2020/07/27 21:25:06 main.go:171: [WARN] [0xc4202d1680] dashboard online failed [15]</span><br><span class="line">2020/07/27 21:25:08 topom.go:189: [ERROR] store: acquire lock of codis-demo failed</span><br><span class="line">[error]: zk: node already exists</span><br><span class="line">    6   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:247</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).create</span><br><span class="line">    5   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:196</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create.func1</span><br><span class="line">    4   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:129</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).shell</span><br><span class="line">    3   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/zk/zkclient.go:198</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models/zk.(*Client).Create</span><br><span class="line">    2   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/models/store.go:119</span><br><span class="line">            github.com/CodisLabs/codis/pkg/models.(*Store).Acquire</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:188</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">[stack]:</span><br><span class="line">    1   /home/travis/gopath/src/github.com/CodisLabs/codis/pkg/topom/topom.go:189</span><br><span class="line">            github.com/CodisLabs/codis/pkg/topom.(*Topom).Start</span><br><span class="line">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:169</span><br><span class="line">            main.main</span><br><span class="line">        ... ...</span><br><span class="line">2020/07/27 21:25:08 main.go:173: [PANIC] dashboard online failed, give up &amp; abort :<span class="string">'(</span></span><br><span class="line"><span class="string">[stack]:</span></span><br><span class="line"><span class="string">    0   /home/travis/gopath/src/github.com/CodisLabs/codis/cmd/dashboard/main.go:173</span></span><br><span class="line"><span class="string">            main.main</span></span><br><span class="line"><span class="string">        ... ...</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="codis-dashboard-异常退出的修复"><a href="#codis-dashboard-异常退出的修复" class="headerlink" title="codis-dashboard 异常退出的修复"></a>codis-dashboard 异常退出的修复</h3><p>当 codis-dashboard 启动时，会在外部存储上存放一条数据，用于存储 dashboard 信息，同时作为 LOCK 存在。当 codis-dashboard 安全退出时，会主动删除该数据。当 codis-dashboard 异常退出时，由于之前 LOCK 未安全删除，重启往往会失败。因此 codis-admin 提供了强制删除工具：</p>
+<ol>
+<li>确认 codis-dashboard 进程已经退出（<strong>很重要</strong>）；</li>
+<li>运行 codis-admin 删除 LOCK：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-admin --remove-lock --product=&lt;product name&gt; --zookeeper=&lt;zk address&gt;</span><br><span class="line"># e.g., ./codis-admin --remove-lock --product=codis-demo --zookeeper=127.0.0.1:2181</span><br></pre></td></tr></table></figure>
+
+<h3 id="codis-proxy-异常退出的修复"><a href="#codis-proxy-异常退出的修复" class="headerlink" title="codis-proxy 异常退出的修复"></a>codis-proxy 异常退出的修复</h3><p>通常 codis-proxy 都是通过 codis-dashboard 进行移除，移除过程中 codis-dashboard 为了安全会向 codis-proxy 发送 <code>offline</code> 指令，成功后才会将 proxy 信息从外部存储中移除。如果 codis-proxy 异常退出，该操作会失败。此时可以使用 codis-admin 工具进行移除：</p>
+<ol>
+<li>确认 codis-proxy 进程已经退出（<strong>很重要</strong>）；</li>
+<li>运行 codis-admin 删除 proxy：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/codis-admin --dashboard=127.0.0.1:18080 --remove-proxy --addr=127.0.0.1:11080 --force</span><br></pre></td></tr></table></figure>
+
+<p>选项 <code>--force</code> 表示，无论 <code>offline</code> 操作是否成功，都从外部存储中将该节点删除。所以操作前，一定要确认该 codis-proxy 进程已经退出。</p>
+<h1 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h1><h2 id="移除一个-group"><a href="#移除一个-group" class="headerlink" title="移除一个 group"></a>移除一个 group</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ codis-admin --dashboard=codis-dashboard:18080 --group-del --gid=1 --addr=172.17.0.14:6379</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以通过codis-fe来操作：</p>
+<p><img src="assets/image-20200727231047140.png" alt="image-20200727231047140"></p>
+<h2 id="使所有slot是offline状态"><a href="#使所有slot是offline状态" class="headerlink" title="使所有slot是offline状态"></a>使所有slot是offline状态</h2><p>要保证所有slot是offline状态，让所有slot offline命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ./codis-admin --dashboard=0.0.0.0:18080 --slots-assign --beg=0 --end=1023 --offline --confirm</span><br><span class="line"></span><br><span class="line"># 然后再移除这个 group</span><br><span class="line">$ codis-admin --dashboard=codis-dashboard:18080 --group-del --gid=1 --addr=172.17.0.14:6379</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><img src="assets/architecture-5941797.png" alt="architecture"></p>
+<ul>
+<li><p>Codis 最大的优点，就是当cluster的容量或者是CPU 成为 bottleneck时，Codis可以帮我们很快的完成 cluster的横向扩展（通过 “Rebalance All Slots”），即通过增加codis-group（每个codis-group中只包含一个 master codis-server），并将 slot 重分配到所有 Group 中（这个过程也称为”Rebalance”）。</p>
+</li>
+<li><p>每个codis-group中只包含一个 master codis-server，当然可以包含0或多个 slave codis-server</p>
+</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://github.com/CodisLabs/codis/blob/release3.2/doc/tutorial_zh.md" target="_blank" rel="noopener">https://github.com/CodisLabs/codis/blob/release3.2/doc/tutorial_zh.md</a></li>
+<li><a href="https://blog.csdn.net/u010383937/article/details/83987875" target="_blank" rel="noopener">https://blog.csdn.net/u010383937/article/details/83987875</a></li>
+<li><a href="https://github.com/CodisLabs/codis/issues/1631" target="_blank" rel="noopener">https://github.com/CodisLabs/codis/issues/1631</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Cache System</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Codis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/CacheSystem/" class="article-tag-list-link color2">CacheSystem</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Redis/" class="article-tag-list-link color1">Redis</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Codis/" class="article-tag-list-link color1">Codis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+   
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2020/07/25/【Java】安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          【Java】安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/07/24/【Golang】Golang-安装/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">【Golang】Golang 安装</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+  
+    <div class="duoshuo"></div>
+  
+
+
+
+
+          </div>
+        </div>
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 西维蜀黍
+    	</div>
+      	<div class="footer-right">
+      		
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		mathjax: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true,
+		root: "/",
+		innerArchive: true,
+		showTags: true
+	}
+</script>
+
+<script>!function(t){function n(r){if(e[r])return e[r].exports;var o=e[r]={exports:{},id:r,loaded:!1};return t[r].call(o.exports,o,o.exports,n),o.loaded=!0,o.exports}var e={};return n.m=t,n.c=e,n.p="./",n(0)}([function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}function o(t,n){var e=/\/|index.html/g;return t.replace(e,"")===n.replace(e,"")}function i(){for(var t=document.querySelectorAll(".js-header-menu li a"),n=window.location.pathname,e=0,r=t.length;e<r;e++){var i=t[e];o(n,i.getAttribute("href"))&&(0,d.default)(i,"active")}}function u(t){for(var n=t.offsetLeft,e=t.offsetParent;null!==e;)n+=e.offsetLeft,e=e.offsetParent;return n}function f(t){for(var n=t.offsetTop,e=t.offsetParent;null!==e;)n+=e.offsetTop,e=e.offsetParent;return n}function c(t,n,e,r,o){var i=u(t),c=f(t)-n;if(c-e<=o){var a=t.$newDom;a||(a=t.cloneNode(!0),(0,h.default)(t,a),t.$newDom=a,a.style.position="fixed",a.style.top=(e||c)+"px",a.style.left=i+"px",a.style.zIndex=r||2,a.style.width="100%",a.style.color="#fff"),a.style.visibility="visible",t.style.visibility="hidden"}else{t.style.visibility="visible";var s=t.$newDom;s&&(s.style.visibility="hidden")}}function a(){var t=document.querySelector(".js-overlay"),n=document.querySelector(".js-header-menu");c(t,document.body.scrollTop,-63,2,0),c(n,document.body.scrollTop,1,3,0)}function s(){document.querySelector("#container").addEventListener("scroll",function(t){a()}),window.addEventListener("scroll",function(t){a()}),a()}function l(){x.default.versions.mobile&&window.screen.width<800&&(i(),s())}var p=e(71),d=r(p),v=e(72),y=(r(v),e(84)),h=r(y),b=e(69),x=r(b),m=e(75),g=r(m),w=e(70);l(),(0,w.addLoadEvent)(function(){g.default.init()}),t.exports={}},function(t,n){var e=t.exports="undefined"!=typeof window&&window.Math==Math?window:"undefined"!=typeof self&&self.Math==Math?self:Function("return this")();"number"==typeof __g&&(__g=e)},function(t,n){var e={}.hasOwnProperty;t.exports=function(t,n){return e.call(t,n)}},function(t,n,e){var r=e(49),o=e(15);t.exports=function(t){return r(o(t))}},function(t,n,e){t.exports=!e(8)(function(){return 7!=Object.defineProperty({},"a",{get:function(){return 7}}).a})},function(t,n,e){var r=e(6),o=e(12);t.exports=e(4)?function(t,n,e){return r.f(t,n,o(1,e))}:function(t,n,e){return t[n]=e,t}},function(t,n,e){var r=e(10),o=e(30),i=e(24),u=Object.defineProperty;n.f=e(4)?Object.defineProperty:function(t,n,e){if(r(t),n=i(n,!0),r(e),o)try{return u(t,n,e)}catch(t){}if("get"in e||"set"in e)throw TypeError("Accessors not supported!");return"value"in e&&(t[n]=e.value),t}},function(t,n,e){var r=e(22)("wks"),o=e(13),i=e(1).Symbol,u="function"==typeof i,f=t.exports=function(t){return r[t]||(r[t]=u&&i[t]||(u?i:o)("Symbol."+t))};f.store=r},function(t,n){t.exports=function(t){try{return!!t()}catch(t){return!0}}},function(t,n,e){var r=e(35),o=e(16);t.exports=Object.keys||function(t){return r(t,o)}},function(t,n,e){var r=e(11);t.exports=function(t){if(!r(t))throw TypeError(t+" is not an object!");return t}},function(t,n){t.exports=function(t){return"object"==typeof t?null!==t:"function"==typeof t}},function(t,n){t.exports=function(t,n){return{enumerable:!(1&t),configurable:!(2&t),writable:!(4&t),value:n}}},function(t,n){var e=0,r=Math.random();t.exports=function(t){return"Symbol(".concat(void 0===t?"":t,")_",(++e+r).toString(36))}},function(t,n){var e=t.exports={version:"2.4.0"};"number"==typeof __e&&(__e=e)},function(t,n){t.exports=function(t){if(void 0==t)throw TypeError("Can't call method on  "+t);return t}},function(t,n){t.exports="constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf".split(",")},function(t,n){t.exports={}},function(t,n){t.exports=!0},function(t,n){n.f={}.propertyIsEnumerable},function(t,n,e){var r=e(6).f,o=e(2),i=e(7)("toStringTag");t.exports=function(t,n,e){t&&!o(t=e?t:t.prototype,i)&&r(t,i,{configurable:!0,value:n})}},function(t,n,e){var r=e(22)("keys"),o=e(13);t.exports=function(t){return r[t]||(r[t]=o(t))}},function(t,n,e){var r=e(1),o="__core-js_shared__",i=r[o]||(r[o]={});t.exports=function(t){return i[t]||(i[t]={})}},function(t,n){var e=Math.ceil,r=Math.floor;t.exports=function(t){return isNaN(t=+t)?0:(t>0?r:e)(t)}},function(t,n,e){var r=e(11);t.exports=function(t,n){if(!r(t))return t;var e,o;if(n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;if("function"==typeof(e=t.valueOf)&&!r(o=e.call(t)))return o;if(!n&&"function"==typeof(e=t.toString)&&!r(o=e.call(t)))return o;throw TypeError("Can't convert object to primitive value")}},function(t,n,e){var r=e(1),o=e(14),i=e(18),u=e(26),f=e(6).f;t.exports=function(t){var n=o.Symbol||(o.Symbol=i?{}:r.Symbol||{});"_"==t.charAt(0)||t in n||f(n,t,{value:u.f(t)})}},function(t,n,e){n.f=e(7)},function(t,n,e){var r=e(1),o=e(14),i=e(46),u=e(5),f="prototype",c=function(t,n,e){var a,s,l,p=t&c.F,d=t&c.G,v=t&c.S,y=t&c.P,h=t&c.B,b=t&c.W,x=d?o:o[n]||(o[n]={}),m=x[f],g=d?r:v?r[n]:(r[n]||{})[f];d&&(e=n);for(a in e)s=!p&&g&&void 0!==g[a],s&&a in x||(l=s?g[a]:e[a],x[a]=d&&"function"!=typeof g[a]?e[a]:h&&s?i(l,r):b&&g[a]==l?function(t){var n=function(n,e,r){if(this instanceof t){switch(arguments.length){case 0:return new t;case 1:return new t(n);case 2:return new t(n,e)}return new t(n,e,r)}return t.apply(this,arguments)};return n[f]=t[f],n}(l):y&&"function"==typeof l?i(Function.call,l):l,y&&((x.virtual||(x.virtual={}))[a]=l,t&c.R&&m&&!m[a]&&u(m,a,l)))};c.F=1,c.G=2,c.S=4,c.P=8,c.B=16,c.W=32,c.U=64,c.R=128,t.exports=c},function(t,n){var e={}.toString;t.exports=function(t){return e.call(t).slice(8,-1)}},function(t,n,e){var r=e(11),o=e(1).document,i=r(o)&&r(o.createElement);t.exports=function(t){return i?o.createElement(t):{}}},function(t,n,e){t.exports=!e(4)&&!e(8)(function(){return 7!=Object.defineProperty(e(29)("div"),"a",{get:function(){return 7}}).a})},function(t,n,e){"use strict";var r=e(18),o=e(27),i=e(36),u=e(5),f=e(2),c=e(17),a=e(51),s=e(20),l=e(58),p=e(7)("iterator"),d=!([].keys&&"next"in[].keys()),v="@@iterator",y="keys",h="values",b=function(){return this};t.exports=function(t,n,e,x,m,g,w){a(e,n,x);var O,S,_,j=function(t){if(!d&&t in A)return A[t];switch(t){case y:return function(){return new e(this,t)};case h:return function(){return new e(this,t)}}return function(){return new e(this,t)}},P=n+" Iterator",E=m==h,M=!1,A=t.prototype,T=A[p]||A[v]||m&&A[m],L=T||j(m),N=m?E?j("entries"):L:void 0,C="Array"==n?A.entries||T:T;if(C&&(_=l(C.call(new t)),_!==Object.prototype&&(s(_,P,!0),r||f(_,p)||u(_,p,b))),E&&T&&T.name!==h&&(M=!0,L=function(){return T.call(this)}),r&&!w||!d&&!M&&A[p]||u(A,p,L),c[n]=L,c[P]=b,m)if(O={values:E?L:j(h),keys:g?L:j(y),entries:N},w)for(S in O)S in A||i(A,S,O[S]);else o(o.P+o.F*(d||M),n,O);return O}},function(t,n,e){var r=e(10),o=e(55),i=e(16),u=e(21)("IE_PROTO"),f=function(){},c="prototype",a=function(){var t,n=e(29)("iframe"),r=i.length,o="<",u=">";for(n.style.display="none",e(48).appendChild(n),n.src="javascript:",t=n.contentWindow.document,t.open(),t.write(o+"script"+u+"document.F=Object"+o+"/script"+u),t.close(),a=t.F;r--;)delete a[c][i[r]];return a()};t.exports=Object.create||function(t,n){var e;return null!==t?(f[c]=r(t),e=new f,f[c]=null,e[u]=t):e=a(),void 0===n?e:o(e,n)}},function(t,n,e){var r=e(35),o=e(16).concat("length","prototype");n.f=Object.getOwnPropertyNames||function(t){return r(t,o)}},function(t,n){n.f=Object.getOwnPropertySymbols},function(t,n,e){var r=e(2),o=e(3),i=e(45)(!1),u=e(21)("IE_PROTO");t.exports=function(t,n){var e,f=o(t),c=0,a=[];for(e in f)e!=u&&r(f,e)&&a.push(e);for(;n.length>c;)r(f,e=n[c++])&&(~i(a,e)||a.push(e));return a}},function(t,n,e){t.exports=e(5)},function(t,n,e){var r=e(15);t.exports=function(t){return Object(r(t))}},function(t,n,e){t.exports={default:e(41),__esModule:!0}},function(t,n,e){t.exports={default:e(42),__esModule:!0}},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}n.__esModule=!0;var o=e(39),i=r(o),u=e(38),f=r(u),c="function"==typeof f.default&&"symbol"==typeof i.default?function(t){return typeof t}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":typeof t};n.default="function"==typeof f.default&&"symbol"===c(i.default)?function(t){return"undefined"==typeof t?"undefined":c(t)}:function(t){return t&&"function"==typeof f.default&&t.constructor===f.default&&t!==f.default.prototype?"symbol":"undefined"==typeof t?"undefined":c(t)}},function(t,n,e){e(65),e(63),e(66),e(67),t.exports=e(14).Symbol},function(t,n,e){e(64),e(68),t.exports=e(26).f("iterator")},function(t,n){t.exports=function(t){if("function"!=typeof t)throw TypeError(t+" is not a function!");return t}},function(t,n){t.exports=function(){}},function(t,n,e){var r=e(3),o=e(61),i=e(60);t.exports=function(t){return function(n,e,u){var f,c=r(n),a=o(c.length),s=i(u,a);if(t&&e!=e){for(;a>s;)if(f=c[s++],f!=f)return!0}else for(;a>s;s++)if((t||s in c)&&c[s]===e)return t||s||0;return!t&&-1}}},function(t,n,e){var r=e(43);t.exports=function(t,n,e){if(r(t),void 0===n)return t;switch(e){case 1:return function(e){return t.call(n,e)};case 2:return function(e,r){return t.call(n,e,r)};case 3:return function(e,r,o){return t.call(n,e,r,o)}}return function(){return t.apply(n,arguments)}}},function(t,n,e){var r=e(9),o=e(34),i=e(19);t.exports=function(t){var n=r(t),e=o.f;if(e)for(var u,f=e(t),c=i.f,a=0;f.length>a;)c.call(t,u=f[a++])&&n.push(u);return n}},function(t,n,e){t.exports=e(1).document&&document.documentElement},function(t,n,e){var r=e(28);t.exports=Object("z").propertyIsEnumerable(0)?Object:function(t){return"String"==r(t)?t.split(""):Object(t)}},function(t,n,e){var r=e(28);t.exports=Array.isArray||function(t){return"Array"==r(t)}},function(t,n,e){"use strict";var r=e(32),o=e(12),i=e(20),u={};e(5)(u,e(7)("iterator"),function(){return this}),t.exports=function(t,n,e){t.prototype=r(u,{next:o(1,e)}),i(t,n+" Iterator")}},function(t,n){t.exports=function(t,n){return{value:n,done:!!t}}},function(t,n,e){var r=e(9),o=e(3);t.exports=function(t,n){for(var e,i=o(t),u=r(i),f=u.length,c=0;f>c;)if(i[e=u[c++]]===n)return e}},function(t,n,e){var r=e(13)("meta"),o=e(11),i=e(2),u=e(6).f,f=0,c=Object.isExtensible||function(){return!0},a=!e(8)(function(){return c(Object.preventExtensions({}))}),s=function(t){u(t,r,{value:{i:"O"+ ++f,w:{}}})},l=function(t,n){if(!o(t))return"symbol"==typeof t?t:("string"==typeof t?"S":"P")+t;if(!i(t,r)){if(!c(t))return"F";if(!n)return"E";s(t)}return t[r].i},p=function(t,n){if(!i(t,r)){if(!c(t))return!0;if(!n)return!1;s(t)}return t[r].w},d=function(t){return a&&v.NEED&&c(t)&&!i(t,r)&&s(t),t},v=t.exports={KEY:r,NEED:!1,fastKey:l,getWeak:p,onFreeze:d}},function(t,n,e){var r=e(6),o=e(10),i=e(9);t.exports=e(4)?Object.defineProperties:function(t,n){o(t);for(var e,u=i(n),f=u.length,c=0;f>c;)r.f(t,e=u[c++],n[e]);return t}},function(t,n,e){var r=e(19),o=e(12),i=e(3),u=e(24),f=e(2),c=e(30),a=Object.getOwnPropertyDescriptor;n.f=e(4)?a:function(t,n){if(t=i(t),n=u(n,!0),c)try{return a(t,n)}catch(t){}if(f(t,n))return o(!r.f.call(t,n),t[n])}},function(t,n,e){var r=e(3),o=e(33).f,i={}.toString,u="object"==typeof window&&window&&Object.getOwnPropertyNames?Object.getOwnPropertyNames(window):[],f=function(t){try{return o(t)}catch(t){return u.slice()}};t.exports.f=function(t){return u&&"[object Window]"==i.call(t)?f(t):o(r(t))}},function(t,n,e){var r=e(2),o=e(37),i=e(21)("IE_PROTO"),u=Object.prototype;t.exports=Object.getPrototypeOf||function(t){return t=o(t),r(t,i)?t[i]:"function"==typeof t.constructor&&t instanceof t.constructor?t.constructor.prototype:t instanceof Object?u:null}},function(t,n,e){var r=e(23),o=e(15);t.exports=function(t){return function(n,e){var i,u,f=String(o(n)),c=r(e),a=f.length;return c<0||c>=a?t?"":void 0:(i=f.charCodeAt(c),i<55296||i>56319||c+1===a||(u=f.charCodeAt(c+1))<56320||u>57343?t?f.charAt(c):i:t?f.slice(c,c+2):(i-55296<<10)+(u-56320)+65536)}}},function(t,n,e){var r=e(23),o=Math.max,i=Math.min;t.exports=function(t,n){return t=r(t),t<0?o(t+n,0):i(t,n)}},function(t,n,e){var r=e(23),o=Math.min;t.exports=function(t){return t>0?o(r(t),9007199254740991):0}},function(t,n,e){"use strict";var r=e(44),o=e(52),i=e(17),u=e(3);t.exports=e(31)(Array,"Array",function(t,n){this._t=u(t),this._i=0,this._k=n},function(){var t=this._t,n=this._k,e=this._i++;return!t||e>=t.length?(this._t=void 0,o(1)):"keys"==n?o(0,e):"values"==n?o(0,t[e]):o(0,[e,t[e]])},"values"),i.Arguments=i.Array,r("keys"),r("values"),r("entries")},function(t,n){},function(t,n,e){"use strict";var r=e(59)(!0);e(31)(String,"String",function(t){this._t=String(t),this._i=0},function(){var t,n=this._t,e=this._i;return e>=n.length?{value:void 0,done:!0}:(t=r(n,e),this._i+=t.length,{value:t,done:!1})})},function(t,n,e){"use strict";var r=e(1),o=e(2),i=e(4),u=e(27),f=e(36),c=e(54).KEY,a=e(8),s=e(22),l=e(20),p=e(13),d=e(7),v=e(26),y=e(25),h=e(53),b=e(47),x=e(50),m=e(10),g=e(3),w=e(24),O=e(12),S=e(32),_=e(57),j=e(56),P=e(6),E=e(9),M=j.f,A=P.f,T=_.f,L=r.Symbol,N=r.JSON,C=N&&N.stringify,k="prototype",F=d("_hidden"),q=d("toPrimitive"),I={}.propertyIsEnumerable,B=s("symbol-registry"),D=s("symbols"),W=s("op-symbols"),H=Object[k],K="function"==typeof L,R=r.QObject,J=!R||!R[k]||!R[k].findChild,U=i&&a(function(){return 7!=S(A({},"a",{get:function(){return A(this,"a",{value:7}).a}})).a})?function(t,n,e){var r=M(H,n);r&&delete H[n],A(t,n,e),r&&t!==H&&A(H,n,r)}:A,G=function(t){var n=D[t]=S(L[k]);return n._k=t,n},$=K&&"symbol"==typeof L.iterator?function(t){return"symbol"==typeof t}:function(t){return t instanceof L},z=function(t,n,e){return t===H&&z(W,n,e),m(t),n=w(n,!0),m(e),o(D,n)?(e.enumerable?(o(t,F)&&t[F][n]&&(t[F][n]=!1),e=S(e,{enumerable:O(0,!1)})):(o(t,F)||A(t,F,O(1,{})),t[F][n]=!0),U(t,n,e)):A(t,n,e)},Y=function(t,n){m(t);for(var e,r=b(n=g(n)),o=0,i=r.length;i>o;)z(t,e=r[o++],n[e]);return t},Q=function(t,n){return void 0===n?S(t):Y(S(t),n)},X=function(t){var n=I.call(this,t=w(t,!0));return!(this===H&&o(D,t)&&!o(W,t))&&(!(n||!o(this,t)||!o(D,t)||o(this,F)&&this[F][t])||n)},V=function(t,n){if(t=g(t),n=w(n,!0),t!==H||!o(D,n)||o(W,n)){var e=M(t,n);return!e||!o(D,n)||o(t,F)&&t[F][n]||(e.enumerable=!0),e}},Z=function(t){for(var n,e=T(g(t)),r=[],i=0;e.length>i;)o(D,n=e[i++])||n==F||n==c||r.push(n);return r},tt=function(t){for(var n,e=t===H,r=T(e?W:g(t)),i=[],u=0;r.length>u;)!o(D,n=r[u++])||e&&!o(H,n)||i.push(D[n]);return i};K||(L=function(){if(this instanceof L)throw TypeError("Symbol is not a constructor!");var t=p(arguments.length>0?arguments[0]:void 0),n=function(e){this===H&&n.call(W,e),o(this,F)&&o(this[F],t)&&(this[F][t]=!1),U(this,t,O(1,e))};return i&&J&&U(H,t,{configurable:!0,set:n}),G(t)},f(L[k],"toString",function(){return this._k}),j.f=V,P.f=z,e(33).f=_.f=Z,e(19).f=X,e(34).f=tt,i&&!e(18)&&f(H,"propertyIsEnumerable",X,!0),v.f=function(t){return G(d(t))}),u(u.G+u.W+u.F*!K,{Symbol:L});for(var nt="hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables".split(","),et=0;nt.length>et;)d(nt[et++]);for(var nt=E(d.store),et=0;nt.length>et;)y(nt[et++]);u(u.S+u.F*!K,"Symbol",{for:function(t){return o(B,t+="")?B[t]:B[t]=L(t)},keyFor:function(t){if($(t))return h(B,t);throw TypeError(t+" is not a symbol!")},useSetter:function(){J=!0},useSimple:function(){J=!1}}),u(u.S+u.F*!K,"Object",{create:Q,defineProperty:z,defineProperties:Y,getOwnPropertyDescriptor:V,getOwnPropertyNames:Z,getOwnPropertySymbols:tt}),N&&u(u.S+u.F*(!K||a(function(){var t=L();return"[null]"!=C([t])||"{}"!=C({a:t})||"{}"!=C(Object(t))})),"JSON",{stringify:function(t){if(void 0!==t&&!$(t)){for(var n,e,r=[t],o=1;arguments.length>o;)r.push(arguments[o++]);return n=r[1],"function"==typeof n&&(e=n),!e&&x(n)||(n=function(t,n){if(e&&(n=e.call(this,t,n)),!$(n))return n}),r[1]=n,C.apply(N,r)}}}),L[k][q]||e(5)(L[k],q,L[k].valueOf),l(L,"Symbol"),l(Math,"Math",!0),l(r.JSON,"JSON",!0)},function(t,n,e){e(25)("asyncIterator")},function(t,n,e){e(25)("observable")},function(t,n,e){e(62);for(var r=e(1),o=e(5),i=e(17),u=e(7)("toStringTag"),f=["NodeList","DOMTokenList","MediaList","StyleSheetList","CSSRuleList"],c=0;c<5;c++){var a=f[c],s=r[a],l=s&&s.prototype;l&&!l[u]&&o(l,u,a),i[a]=i.Array}},function(t,n){"use strict";var e={versions:function(){var t=window.navigator.userAgent;return{trident:t.indexOf("Trident")>-1,presto:t.indexOf("Presto")>-1,webKit:t.indexOf("AppleWebKit")>-1,gecko:t.indexOf("Gecko")>-1&&t.indexOf("KHTML")==-1,mobile:!!t.match(/AppleWebKit.*Mobile.*/),ios:!!t.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:t.indexOf("Android")>-1||t.indexOf("Linux")>-1,iPhone:t.indexOf("iPhone")>-1||t.indexOf("Mac")>-1,iPad:t.indexOf("iPad")>-1,webApp:t.indexOf("Safari")==-1,weixin:t.indexOf("MicroMessenger")==-1}}()};t.exports=e},function(t,n,e){"use strict";function r(t){return t&&t.__esModule?t:{default:t}}var o=e(40),i=r(o),u=function(){function t(t,n,e){return n||e?String.fromCharCode(n||e):o[t]||t}function n(t){return l[t]}var e=/&quot;|&lt;|&gt;|&amp;|&nbsp;|&apos;|&#(\d+);|&#(\d+)/g,r=/['<> "&]/g,o={"&quot;":'"',"&lt;":"<","&gt;":">","&amp;":"&","&nbsp;":" "},f=/\u00a0/g,c=/<br\s*\/?>/gi,a=/\r?\n/g,s=/\s/g,l={};for(var p in o)l[o[p]]=p;return o["&apos;"]="'",l["'"]="&#39;",{encode:function(t){return t?(""+t).replace(r,n).replace(a,"<br/>").replace(s,"&nbsp;"):""},decode:function(n){return n?(""+n).replace(c,"\n").replace(e,t).replace(f," "):""},encodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},encodeBase16forJSON:function(t){if(!t)return t;t=t.replace(/[\u4E00-\u9FBF]/gi,function(t){return escape(t).replace("%u","\\u")});for(var n=[],e=0,r=t.length;r>e;e++)n.push(t.charCodeAt(e).toString(16).toUpperCase());return n.join("")},decodeBase16:function(t){if(!t)return t;t+="";for(var n=[],e=0,r=t.length;r>e;e+=2)n.push(String.fromCharCode("0x"+t.slice(e,e+2)));return n.join("")},encodeObject:function(t){if(t instanceof Array)for(var n=0,e=t.length;e>n;n++)t[n]=u.encodeObject(t[n]);else if("object"==("undefined"==typeof t?"undefined":(0,i.default)(t)))for(var r in t)t[r]=u.encodeObject(t[r]);else if("string"==typeof t)return u.encode(t);return t},loadScript:function(t){var n=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(n),n.setAttribute("src",t)},addLoadEvent:function(t){var n=window.onload;"function"!=typeof window.onload?window.onload=t:window.onload=function(){n(),t()}}}}();t.exports=u},function(t,n){function e(t,n){t.classList?t.classList.add(n):t.className+=" "+n}t.exports=e},function(t,n){function e(t,n){if(t.classList)t.classList.remove(n);else{var e=new RegExp("(^|\\b)"+n.split(" ").join("|")+"(\\b|$)","gi");t.className=t.className.replace(e," ")}}t.exports=e},,,function(t,n){"use strict";function e(){var t=document.querySelector("#page-nav");if(t&&!document.querySelector("#page-nav .extend.prev")&&(t.innerHTML='<a class="extend prev disabled" rel="prev">&laquo; Prev</a>'+t.innerHTML),t&&!document.querySelector("#page-nav .extend.next")&&(t.innerHTML=t.innerHTML+'<a class="extend next disabled" rel="next">Next &raquo;</a>'),yiliaConfig&&yiliaConfig.open_in_new){var n=document.querySelectorAll(".article-entry a:not(.article-more-a)");n.forEach(function(t){t.setAttribute("target","_blank")})}var e=document.querySelector("#js-aboutme");e&&0!==e.length&&(e.innerHTML=e.innerText)}t.exports={init:e}},,,,,,,,,function(t,n){function e(t,n){if("string"==typeof n)return t.insertAdjacentHTML("afterend",n);var e=t.nextSibling;return e?t.parentNode.insertBefore(n,e):t.parentNode.appendChild(n)}t.exports=e}])</script><script src="/./main.2d7529.js"></script><script>!function(){var e=function(e){var t=document.createElement("script");document.getElementsByTagName("body")[0].appendChild(t),t.setAttribute("src",e)};e("/slider.885efe.js")}()</script>
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-nav header-menu">
+    
+    
+      
+      
+      
+    
+      
+      
+      
+    
+    
+
+    <ul style="width: 70%">
+    
+    
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">Tag</a></li>
+      
+        
+      
+      <li style="width: 50%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">Friends</a></li>
+      
+        
+    </ul>
+  </div>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Architectural Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Architecture</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ArchitectureDesign</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Cache</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Browser</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Database</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Design Pattern</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Distributed System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Microservices</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Django</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Operating System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Netwok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Netwrok</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Node.js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">OOP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Operating Systems</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Security</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/en/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My English Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/oj/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>My OJ Blog</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://swsmile.info/gym/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>西维蜀黍的健身 Blog</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
+
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+
+
+</body>
+</html>

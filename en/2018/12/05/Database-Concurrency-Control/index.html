@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/en/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          [Database] Concurrency Control - Wei&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://swsmile.info/en/2018/12/05/Database-Concurrency-Control/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/en/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/en/css/beantech.min.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/en/css/highlight.css">
+
+    <link rel="stylesheet" href="/en/css/widget.css">
+
+    <link rel="stylesheet" href="/en/css/rocket.css">
+
+    <link rel="stylesheet" href="/en/css/signature.css">
+
+    <link rel="stylesheet" href="/en/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('../../../../img/tag-bg.png')
+            /*post*/
+        
+    }
+    
+    #signature{
+        background-image: url('/en/img/signature/BeanTechSign-white.png');
+    }
+    
+</style>
+
+<header class="intro-header">
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/en/tags/#Database" title="Database">Database</a>
+                            
+                        </div>
+                        <h1>[Database] Concurrency Control</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by Wei Shi on
+                            2018-12-05
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/en/">Wei&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/en/">Home</a>
+                    </li>
+
+                    
+
+                        
+                        <li>
+                            <a href="/en/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/en/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/en/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h1><span id="why-is-concurrency-control-needed">Why is concurrency control needed?</span></h1>
+<p>If transactions are executed <strong><em>serially</em></strong>, i.e., sequentially with no overlap in time, <strong>no transaction concurrency exists</strong>.</p>
+<p>However, if concurrent transactions with interleaving operations are allowed in an uncontrolled manner, some unexpected, undesirable results may occur, such as:</p>
+<ul>
+<li>The lost update problem</li>
+<li>The dirty read problem</li>
+<li>The incorrect summary problem</li>
+</ul>
+<p>Most high-performance transactional systems need to <strong>run transactions concurrently</strong> to meet their <strong>performance requirements</strong>. Thus, without concurrency control such systems can neither provide correct results nor maintain their databases consistently.</p>
+<h1><span id="basic-idea">Basic Idea</span></h1>
+<p>In information technology and computer science, especially in the fields of computer programming, operating systems, multiprocessors, and databases, <strong>concurrency control</strong> ensures that correct results for concurrent operations are generated, while getting those results as quickly as possible.</p>
+<p>Introducing concurrency control into a system means applying operation constraints which typically result in some <strong>performance reduction</strong>.</p>
+<p>Operation consistency and correctness should be achieved with as good as possible efficiency, without reducing performance below reasonable levels. Concurrency control can require significant additional complexity and overhead in a concurrent algorithm compared to the simpler sequential algorithm.</p>
+<h1><span id="concurrency-control-protocols">Concurrency Control Protocols</span></h1>
+<ul>
+<li>Lock-based protocols - You can avoid them, by employing a pessimistic locking mechanism (e.g. Read/Write locks, Two-Phase Locking)</li>
+<li>Timestamp-based protocols - You can allow conflicts to occur, but you need to detect them using an optimistic locking mechanism (e.g. logical clock, MVCC)</li>
+</ul>
+<h2><span id="lock-based-protocols">Lock-based Protocols</span></h2>
+<p>Database systems equipped with lock-based protocols use a mechanism by which any transaction cannot read or write data until it acquires an appropriate lock on it. Data items can be locked in two modes:</p>
+<ul>
+<li>
+<p><strong>Exclusive (X) mode</strong>: Data item can be both read as well as written. X-lock is requested using lock-X instruction.</p>
+</li>
+<li>
+<p><strong>Shared (S) mode</strong>: Data item can only be read. S-lock is requested using lock-S instruction.</p>
+</li>
+</ul>
+<p>Lock requests are made to the concurrency-control manager by the programmer. Transaction can proceed only after request is granted.</p>
+<h2><span id="timestamp-based-protocols">Timestamp-based Protocols</span></h2>
+<p>Lock-based protocols manage the order between the conflicting pairs among transactions at the time of execution, whereas timestamp-based protocols start working as soon as a transaction is created.</p>
+<p>Every transaction has a timestamp associated with it, and the ordering is determined by the age of the transaction. A transaction created at 0002 clock time would be older than all other transactions that come after it. For example, any transaction ‘y’ entering the system at 0004 is two seconds younger and the priority would be given to the older one.</p>
+<p>In addition, every data item is given the latest read and write-timestamp. This lets the system know when the last ‘read and write’ operation was performed on the data item.</p>
+<h1><span id="concurrency-control-mechanisms">Concurrency Control Mechanisms</span></h1>
+<h2><span id="two-phase-locking-2pl">Two-phase Locking (2PL)</span></h2>
+<p>Two-Phase Locking is the oldest concurrency control mechanism that’s guaranteed to provide a Serializable transaction schedule.</p>
+<p><strong>2PL uses two types of locks: shared (read) and exclusive (write) locks.</strong></p>
+<ul>
+<li>A <strong>shared lock</strong> can be acquired by multiple transactions, but it prevents any transaction from acquiring an exclusive lock.</li>
+<li>An <strong>exclusive lock</strong> prevents <strong>both shared and exclusive locks</strong> to be acquired until the acquired exclusive lock is released (during transaction commit or rollback).</li>
+</ul>
+<p>In Two-Phase Locking, locks can be acquired either at the row-level, to prevent lost updates, read and write skews, or they can be acquired for a range of rows so that phantom reads are prevented.</p>
+<hr>
+<p><strong>By the 2PL protocol, locks are applied and removed in two phases:</strong></p>
+<ul>
+<li>
+<p>Expanding phase: locks are acquired and no locks are released.</p>
+</li>
+<li>
+<p>Shrinking phase: locks are released and no locks are acquired.</p>
+</li>
+</ul>
+<p>Two types of locks are utilized by the basic protocol: <em>Shared</em> and <em>Exclusive</em> locks.</p>
+<p><img src="assets/image-20181203203845201-3869525.png" alt="image-20181203203845201"></p>
+<p><strong>On the other hand, this locking protocol divides the execution phase of a transaction into three parts:</strong></p>
+<ul>
+<li>the first part, when the transaction starts executing, it seeks permission for the locks it requires</li>
+<li>the second part is where the transaction acquires all the locks. As soon as the transaction releases its first lock, the third phase starts.</li>
+<li>the third phase, the transaction cannot demand any new locks; it only releases the acquired locks.</li>
+</ul>
+<h3><span id="strict-two-phase-locking">Strict two-phase locking</span></h3>
+<p>The first phase of Strict-2PL is same as 2PL. After acquiring all the locks in the first phase, the transaction continues to execute normally.</p>
+<p>But in contrast to 2PL, Strict-2PL does not release a lock after using it. Strict-2PL holds all the locks until the commit point and releases all the locks at a time.</p>
+<p><img src="assets/image-20181203204026468-3869626.png" alt="image-20181203204026468"></p>
+<h2><span id="multiversion-concurrency-control-mvcc">Multiversion Concurrency Control (MVCC)</span></h2>
+<p>Locks incur contention, and contention impacts scalability. Researchers have studied complementary concurrency control mechanism to provide <strong>better performance and throughput</strong> while still preventing data integrity issues.</p>
+<p>However, everything has a price, and MVCC is no different. MVCC is built on the assumption that <strong>Readers should not block Writers, and Writers should not block Readers</strong>. For this reason, shared locks are no longer employed, and <strong>transactions are allowed to modify entries that other concurrent transaction might have read in the meanwhile</strong>. So, MVCC takes an <strong>optimistic</strong> approach to resolving data integrity issues since conflicts can occur, but they need to be discovered prior to committing a given transaction.</p>
+<p>Even if MVCC uses less locking than 2PL, exclusive locks are still acquired every time we modify a record since otherwise, dirty writes might happen, and atomicity would be compromised.</p>
+<p>Going back to the example, when user A’s transaction requests data that user B is modifying, the database provides A with the version of that data that existed when user B started his transaction. User A gets a consistent view of the database even if other users are changing data. One implementation, namely snapshot isolation, relaxes the isolation property.</p>
+<hr>
+<p>MVCC is a great concurrency control mechanism, but, because it does not use pessimistic Predicate or Range locks, it must detect anomalies by inspecting the currently running transaction schedule. This is a very complex task, and there might be edge cases when a database engine might not detect some anomaly that would otherwise be prevented by a 2PL-based concurrency control mechanism.</p>
+<h2><span id="2pl-vs-mvcc">2PL vs MVCC</span></h2>
+<h3><span id="comparison">Comparison</span></h3>
+<p>When the ACID transaction properties were first defined, Serializability was assumed. And to provide a Strict Serializable transaction outcome, the <strong>2PL (Two-Phase Locking)</strong> mechanism was employed. When using 2PL, every read requires a shared lock acquisition, while a write operation requires taking an exclusive lock.</p>
+<ul>
+<li>a shared lock blocks Writers, but it allows other Readers to acquire the same shared lock</li>
+<li>an exclusive lock blocks both Readers and Writers concurring for the same lock</li>
+</ul>
+<p>However, locking incurs contention, and contention affects scalability. For this reason, database researchers have come up with a different Concurrency Control model which tries to reduce locking to a bare minimum so that:</p>
+<ul>
+<li>Readers don’t block Writers</li>
+<li>Writers don’t block Readers</li>
+</ul>
+<p>The only use case that can still generate contention is when two concurrent transactions try to modify the same record since, once modified, a row is always locked until the transaction that modified this record either commits or rolls back.</p>
+<p>In order to specify the aforementioned Reader/Writer non-locking behavior, the Concurrency Control mechanism must operate on multiple versions of the same record, hence this mechanism is called <strong>Multi-Version Concurrency Control (MVCC)</strong>.</p>
+<p>While 2PL is pretty much standard, there’s no standard MVCC implementation, each database taking a slightly different approach.</p>
+<hr>
+<p>MVCC is a great concurrency control mechanism, but, because it does not use <code>pessimistic Predicate lock</code> or <code>Range locks</code>, it must detect anomalies by inspecting the currently running transaction schedule. This is a very complex task, and there might be edge cases when a database engine might not detect some anomaly that would otherwise be prevented by a 2PL-based concurrency control mechanism.</p>
+<h3><span id="usaga-in-different-dbmss">Usaga In different DBMSs</span></h3>
+<p>Unlike SQL Server which, by default, relies on the 2PL (Two-Phase Locking) to implement the SQL standard isolation levels, Oracle, PostgreSQL, and MySQL InnoDB engine use MVCC (Multi-Version Concurrency Control).</p>
+<p>However, providing a truly Serializable isolation level on top of MVCC is really difficult, and, in this post, I’ll demonstrate that it’s very difficult to prevent the Phantom Read anomaly without resorting to pessimistic locking.</p>
+<h3><span id="pessimistic-concurrency-control">Pessimistic concurrency control</span></h3>
+<p>A pessimistic locking strategy assumes that the probability is high that another user will try to modify the same row in a table that you are changing.</p>
+<p>A lock is held between the time a row is selected and the time that a searched update or delete operation is attempted on that row (for example, by using the repeatable read isolation level or lock the table in exclusive mode).</p>
+<p>The advantage of pessimistic locking is that it is guaranteed that changes are made consistently and safely. The major disadvantage is that this locking strategy might not be very scalable.</p>
+<p><img src="assets/image-20181203200055490-3867255.png" alt="image-20181203200055490"></p>
+<p>The figure above illustrates the functioning of pessimistic locking. <code>Transaction 1</code> reads a specific record and places a lock on that row. It takes some time to decide whether the row will be updated. In the meantime, <code>transaction 2</code> wants access to that same row, but it has to wait until the lock is released by <code>Transaction 1</code>. Until then, <code>transaction 2</code> will receive results from its <code>SELECT</code> and can continue with its business logic.</p>
+<ul>
+<li>How does database pessimistic locking interact with INSERT, UPDATE, and DELETE SQL statements - <a href="https://vladmihalcea.com/how-does-database-pessimistic-locking-interact-with-insert-update-and-delete-sql-statements/" target="_blank" rel="noopener">https://vladmihalcea.com/how-does-database-pessimistic-locking-interact-with-insert-update-and-delete-sql-statements/</a></li>
+</ul>
+<h3><span id="optimistic-concurrency-control">Optimistic Concurrency Control</span></h3>
+<p>One recommended method for <strong>preventing lost updates</strong> is to use <strong>optimistic concurrency control</strong> to perform what is called <strong>optimistic locking</strong> on the data.</p>
+<p><img src="assets/image-20181203124059112-3840859.png" alt="image-20181203124059112"></p>
+<p>As shown in the figure above, <code>transaction 1</code> reads a specific record but then releases its lock. <code>Transaction 2</code> is now not prevented from retrieving that same row. Before committing the transaction, both <code>transaction 1</code> and <code>transaction 2</code> must check whether the row has changed after the previous <code>SELECT</code>. If a change has occurred, the transaction must restart with a new <code>SELECT</code> in order to retrieve the current data. However, if that row has <strong>not been changed</strong> after the previous <code>SELECT</code>, the data can be <strong>successfully</strong> <strong>updated</strong>.</p>
+<hr>
+<p><strong>In summary, Optimistic concurrency control typically uses four phases in order to help to ensure that data isn’t lost:</strong></p>
+<ul>
+<li><strong>Begin</strong>: A timestamp is recorded to pinpoint the beginning of the transaction.</li>
+<li><strong>Modify</strong>: Read values and make writes tentatively.</li>
+<li><strong>Validate</strong>: Make a check to ensure that other transactions have not <strong>modified any data that is used by the current transaction</strong> (including any transactions that have completed or are still active after the current transaction’s start time.</li>
+<li><strong>Commit or rollback</strong>: If there are <strong>not conflicts</strong>, the transaction can be <strong>committed</strong>. Otherwise, the transaction can be <strong>aborted</strong> (or other resolution methods can be employed) to prevent a lost update from occurring.</li>
+</ul>
+<h1><span id="major-goals-of-concurrency-control-mechanisms">Major goals of concurrency control mechanisms</span></h1>
+<p>Concurrency control mechanisms firstly need to operate correctly, i.e., to maintain each transaction’s integrity rules (as related to concurrency; application-specific integrity rule are out of the scope here) while transactions are running concurrently, and thus the integrity of the entire transactional system. Correctness needs to be achieved with as good performance as possible. In addition, increasingly a need exists to operate effectively while transactions are distributed over processes, computers, and computer networks. Other subjects that may affect concurrency control are recovery and replication.</p>
+<ul>
+<li>Correctness</li>
+<li>Serializability</li>
+<li>Recoverability</li>
+<li>Distribution</li>
+</ul>
+<h1><span id="reference">Reference</span></h1>
+<ul>
+<li>Wikipedia Concurrency control - <a href="https://en.wikipedia.org/wiki/Concurrency_control" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Concurrency_control</a></li>
+<li>Improve concurrency with DB2 9.5 optimistic locking - <a href="https://www.ibm.com/developerworks/data/library/techarticle/dm-0801schuetz/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/data/library/techarticle/dm-0801schuetz/</a></li>
+<li>tutorialspoint DBMS - Concurrency Control - <a href="https://www.tutorialspoint.com/dbms/dbms_concurrency_control.htm" target="_blank" rel="noopener">https://www.tutorialspoint.com/dbms/dbms_concurrency_control.htm</a></li>
+<li>A beginner’s guide to the Phantom Read anomaly, and how it differs between 2PL and MVCC - <a href="https://vladmihalcea.com/a-beginners-guide-to-the-phantom-read-anomaly-and-how-it-differs-between-2pl-and-mvcc/" target="_blank" rel="noopener">https://vladmihalcea.com/a-beginners-guide-to-the-phantom-read-anomaly-and-how-it-differs-between-2pl-and-mvcc/</a></li>
+<li>How does MVCC (Multi-Version Concurrency Control) work - <a href="https://vladmihalcea.com/how-does-mvcc-multi-version-concurrency-control-work/" target="_blank" rel="noopener">https://vladmihalcea.com/how-does-mvcc-multi-version-concurrency-control-work/</a></li>
+</ul>
+
+                
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/en/2018/12/05/Database-Consistent-Anomalies/" data-toggle="tooltip" data-placement="top" title="[Database] Consistent Anomalies">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/en/2018/12/01/Software-Testing-Difference-between-Verification-and-Validation/" data-toggle="tooltip" data-placement="top" title="[Software Testing] Difference between Verification and Validation">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <!-- duoshuo Share start -->
+                
+                <!-- 多说 Share end-->
+
+                <!-- 多说评论框 start -->
+                
+                <!-- 多说评论框 end -->
+
+                <!-- disqus comment start -->
+                
+                    <div class="comment">
+                        <div id="disqus_thread" class="disqus-thread"></div>
+                    </div>
+                
+                <!-- disqus comment end -->
+            </div>
+            
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text">Why is concurrency control needed?</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text">Basic Idea</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text">Concurrency Control Protocols</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.1.</span> <span class="toc-nav-text">Lock-based Protocols</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.2.</span> <span class="toc-nav-text">Timestamp-based Protocols</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text">Concurrency Control Mechanisms</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.</span> <span class="toc-nav-text">Two-phase Locking (2PL)</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.1.1.</span> <span class="toc-nav-text">Strict two-phase locking</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.2.</span> <span class="toc-nav-text">Multiversion Concurrency Control (MVCC)</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.</span> <span class="toc-nav-text">2PL vs MVCC</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.1.</span> <span class="toc-nav-text">Comparison</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.2.</span> <span class="toc-nav-text">Usaga In different DBMSs</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.3.</span> <span class="toc-nav-text">Pessimistic concurrency control</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.3.4.</span> <span class="toc-nav-text">Optimistic Concurrency Control</span></a></li></ol></li></ol></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text">Major goals of concurrency control mechanisms</span></a></li><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">6.</span> <span class="toc-nav-text">Reference</span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+                
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/en/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/en/tags/#Database" title="Database">Database</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://swsmile.info" target="_blank">My Chinese Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus embedded js code start (one page only need to embed once) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "your-disqus-ID";
+    var disqus_identifier = "http://swsmile.info/2018/12/05/Database-Concurrency-Control/";
+    var disqus_url = "http://swsmile.info/2018/12/05/Database-Concurrency-Control/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus embedded js code start end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/swsmile666">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://github.com/swsmile">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/weishi1028">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Wei Shi 2020 
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="http://beantech.org">BeanTech</a> | 
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="91px" height="20px" src="https://ghbtns.com/github-btn.html?user=YenYuHsuan&repo=hexo-theme-beantech&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/en/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/en/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/en/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://swsmile.info/en/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-78769787-2';
+    var _gaDomain = 'en';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = '4481376a6b117446f0ad6f2b9b796afc';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/en/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/en/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://swsmile.info/en/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
