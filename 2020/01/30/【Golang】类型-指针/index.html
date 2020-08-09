@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="指针（Pointers）我们都知道，变量是一种使用方便的占位符，用于引用计算机内存地址。 Go 语言的取地址符是 &amp;amp;，放到一个变量前使用就会返回相应变量的内存地址。  在一个指针类型的变量前面加上 * 号（前缀）来获取指针所指向的内容。 在一个非指针类型的变量前面加上 &amp;amp; 来获取一个变量所存储的内存地址的地址值  以下实例演示了变量在内存中地址： 实例 12345678910111">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.323Z">
+<meta property="og:updated_time" content="2020-08-09T08:11:19.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Golang】指针（Pointers）">
 <meta name="twitter:description" content="指针（Pointers）我们都知道，变量是一种使用方便的占位符，用于引用计算机内存地址。 Go 语言的取地址符是 &amp;amp;，放到一个变量前使用就会返回相应变量的内存地址。  在一个指针类型的变量前面加上 * 号（前缀）来获取指针所指向的内容。 在一个非指针类型的变量前面加上 &amp;amp; 来获取一个变量所存储的内存地址的地址值  以下实例演示了变量在内存中地址： 实例 12345678910111">
@@ -342,7 +342,7 @@ var _hmt = _hmt || [];
 </ul>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> i *<span class="keyword">int</span></span><br><span class="line">	i = <span class="built_in">new</span>(<span class="keyword">int</span>)</span><br><span class="line">	*i = <span class="number">1</span></span><br><span class="line">	fmt.Println(i, &amp;i, *i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Example4-指向对象的指针变量"><a href="#Example4-指向对象的指针变量" class="headerlink" title="Example4 - 指向对象的指针变量"></a>Example4 - 指向对象的指针变量</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	user := User&#123;UserName: <span class="string">"user1"</span>&#125;</span><br><span class="line">	fmt.Println(user)</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;user)</span><br><span class="line"></span><br><span class="line">	tryToModify(user)</span><br><span class="line"></span><br><span class="line">	fmt.Println(user)</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;user)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">tryToModify</span><span class="params">(u User)</span></span> &#123;</span><br><span class="line">	fmt.Println(u)</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;u)</span><br><span class="line"></span><br><span class="line">	u.UserName = <span class="string">"user2"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">&#123;user1&#125;</span><br><span class="line"><span class="number">0xc000170090</span></span><br><span class="line"></span><br><span class="line">&#123;user2&#125;</span><br><span class="line"><span class="number">0xc0001701b0</span></span><br><span class="line"></span><br><span class="line">&#123;user1&#125;</span><br><span class="line"><span class="number">0xc000170090</span></span><br></pre></td></tr></table></figure>
+<h2 id="Example-4-指向对象的指针变量"><a href="#Example-4-指向对象的指针变量" class="headerlink" title="Example 4 - 指向对象的指针变量"></a>Example 4 - 指向对象的指针变量</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	user := User&#123;UserName: <span class="string">"user1"</span>&#125;</span><br><span class="line">	fmt.Println(user)</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;user)</span><br><span class="line"></span><br><span class="line">	tryToModify(user)</span><br><span class="line"></span><br><span class="line">	fmt.Println(user)</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;user)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">tryToModify</span><span class="params">(u User)</span></span> &#123;</span><br><span class="line">	fmt.Println(u)</span><br><span class="line">	fmt.Printf(<span class="string">"%p\n"</span>, &amp;u)</span><br><span class="line"></span><br><span class="line">	u.UserName = <span class="string">"user2"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//output</span></span><br><span class="line">&#123;user1&#125;</span><br><span class="line"><span class="number">0xc000170090</span></span><br><span class="line"></span><br><span class="line">&#123;user2&#125;</span><br><span class="line"><span class="number">0xc0001701b0</span></span><br><span class="line"></span><br><span class="line">&#123;user1&#125;</span><br><span class="line"><span class="number">0xc000170090</span></span><br></pre></td></tr></table></figure>
 
 <p>我们来分析一下：</p>
 <ul>
@@ -358,6 +358,8 @@ var _hmt = _hmt || [];
 <li>同时，在调用 tryToModify 时，需要提供 user 对象的地址（而不是提供 user 对象，因为并不能将一个对象赋值给一个指针变量，而只能将一个空间地址赋值给一个指针变量），因此改为 <code>tryToModify(&amp;user)</code>。</li>
 </ul>
 <p>这样，我们就实现了在一个函数内修改对象的属性。</p>
+<h2 id="Example-5"><a href="#Example-5" class="headerlink" title="Example 5"></a>Example 5</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modifySlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	s[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := <span class="number">1</span></span><br><span class="line">	fmt.Printf(<span class="string">"变量 a 存储的值: %v\n"</span>, a)</span><br><span class="line">	fmt.Printf(<span class="string">"变量 a 的地址: %x\n"</span>, &amp;a)</span><br><span class="line">	<span class="keyword">var</span> b *<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">	b = &amp;a</span><br><span class="line">	fmt.Printf(<span class="string">"变量 b 的地址: %v\n"</span>, &amp;b)</span><br><span class="line">	fmt.Printf(<span class="string">"变量 b 存储的值（是一个地址）: %v\n"</span>, b)</span><br><span class="line">	fmt.Printf(<span class="string">"变量 b 指向的地址所存储的值: %v\n"</span>, *b)</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="comment">// 变量 a 存储的值: 1</span></span><br><span class="line"><span class="comment">// 变量 a 的地址: c0000a2008</span></span><br><span class="line"><span class="comment">// 变量 b 的地址: 0xc00000e018</span></span><br><span class="line"><span class="comment">// 变量 b 存储的值（是一个地址）: 0xc0000a2008</span></span><br><span class="line"><span class="comment">// 变量 b 指向的地址所存储的值: 1</span></span><br></pre></td></tr></table></figure>
+
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  <span class="keyword">var</span> a <span class="keyword">int</span> = <span class="number">20</span>  */\* 声明一个变量 \*<span class="comment">/*</span></span><br><span class="line"><span class="comment">  var ip *int     */</span>\* 声明一个指针变量 \*<span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  ip = &amp;a  */</span>\* &amp;a 表示获取这个变量所存储在的内存地址值，并将这个内存地址值赋值为指针变量 \*<span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  fmt.Printf("a 变量的地址是: %x\n", &amp;a  )   */</span>\* &amp;a 表示获取变量 a 所存储在的内存地址值 \*<span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  */</span>\* 指针变量的存储地址 \*<span class="comment">/*</span></span><br><span class="line"><span class="comment">  fmt.Printf("ip 变量储存的指针地址: %x\n", ip )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  */</span>\* 使用指针访问值 \*<span class="comment">/*</span></span><br><span class="line"><span class="comment">  fmt.Printf("*ip 变量的值: %d\n", *ip )</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -640,23 +642,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,7 +662,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,6 +679,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Data Structure</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,15 +718,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -796,11 +798,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -820,15 +822,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -840,15 +838,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Operating Systems</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -864,19 +866,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -916,15 +918,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
             
             <div class="clearfix"></div>
