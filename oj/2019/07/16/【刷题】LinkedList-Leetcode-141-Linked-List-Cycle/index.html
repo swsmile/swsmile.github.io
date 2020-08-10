@@ -223,13 +223,13 @@
 <p>To represent a cycle in the given linked list, we use an integer <code>pos</code> which represents the position (0-indexed) in the linked list where tail connects to. If <code>pos</code>is <code>-1</code>, then there is no cycle in the linked list.</p>
 <p><strong>Example 1:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: head = [3,2,0,-4], pos = 1</span><br><span class="line">Output: true</span><br><span class="line">Explanation: There is a cycle in the linked list, where tail connects to the second node.</span><br></pre></td></tr></table></figure>
-<p><img src="assets/circularlinkedlist.png" alt="img"></p>
+<p><img src="/oj/pic/circularlinkedlist.png" alt="img"></p>
 <p><strong>Example 2:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: head = [1,2], pos = 0</span><br><span class="line">Output: true</span><br><span class="line">Explanation: There is a cycle in the linked list, where tail connects to the first node.</span><br></pre></td></tr></table></figure>
-<p><img src="assets/circularlinkedlist_test2.png" alt="img"></p>
+<p><img src="/oj/pic/circularlinkedlist_test2.png" alt="img"></p>
 <p><strong>Example 3:</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: head = [1], pos = -1</span><br><span class="line">Output: false</span><br><span class="line">Explanation: There is no cycle in the linked list.</span><br></pre></td></tr></table></figure>
-<p><img src="assets/circularlinkedlist_test3.png" alt="img"></p>
+<p><img src="/oj/pic/circularlinkedlist_test3.png" alt="img"></p>
  <a id="more"></a> 
 <p><strong>Follow up:</strong></p>
 <p>Can you solve it using <em>O(1)</em> (i.e. constant) memory?</p>
@@ -253,14 +253,14 @@
 （2）规定，slow 指针每次前进 1 个节点，fast 指针每次前进两个节点。<br>
 （3）当 slow 与 fast 相等，且二者均不为空，则链表存在环。</p>
 <h4><span id="无环过程"><strong>无环过程</strong></span></h4>
-<p><img src="assets/169461c5e876da70.png" alt="图 6"></p>
-<p><img src="assets/169461c61f6272c4.png" alt="图 7"></p>
-<p><img src="assets/169461c620cc9d48.png" alt="图 8"></p>
+<p><img src="/oj/pic/169461c5e876da70.png" alt="图 6"></p>
+<p><img src="/oj/pic/169461c61f6272c4.png" alt="图 7"></p>
+<p><img src="/oj/pic/169461c620cc9d48.png" alt="图 8"></p>
 <p>通过图解过程可以看出，若表中不存在环形，fast 与 slow 指针只能在链表末尾相遇。</p>
 <h4><span id="有环过程"><strong>有环过程</strong></span></h4>
-<p><img src="assets/169461c621583154.png" alt="图 9"></p>
-<p><img src="assets/169461c623dfacb0.png" alt="图 10"></p>
-<p><img src="assets/169461c6244139b8.png" alt="图 11"></p>
+<p><img src="/oj/pic/169461c621583154.png" alt="图 9"></p>
+<p><img src="/oj/pic/169461c623dfacb0.png" alt="图 10"></p>
+<p><img src="/oj/pic/169461c6244139b8.png" alt="图 11"></p>
 <p>图解过程可以看出，若链表中存在环，则快慢指针必然能在环中相遇。这就好比在环形跑道中进行龟兔赛跑。由于兔子速度大于乌龟速度，则必然会出现兔子与乌龟再次相遇情况。因此，当出现快慢指针相等时，且二者不为NULL，则表明链表存在环。</p>
 <h4><span id="实现">实现</span></h4>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    ListNode next;</span><br><span class="line"></span><br><span class="line">    ListNode(<span class="keyword">int</span> x) &#123;</span><br><span class="line">        val = x;</span><br><span class="line">        next = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">hasCycle</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (fast != <span class="keyword">null</span> &amp;&amp; fast.next != <span class="keyword">null</span>) &#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (slow == fast)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ListNode n1 = <span class="keyword">new</span> ListNode(<span class="number">3</span>);</span><br><span class="line">        ListNode n2 = <span class="keyword">new</span> ListNode(<span class="number">2</span>);</span><br><span class="line">        ListNode n3 = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode n4 = <span class="keyword">new</span> ListNode(-<span class="number">4</span>);</span><br><span class="line">        n1.next = n2;</span><br><span class="line">        n2.next = n3;</span><br><span class="line">        n3.next = n4;</span><br><span class="line"></span><br><span class="line">        Solution.hasCycle(n1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -286,13 +286,13 @@ L = 8；<br>
 r = 6；<br>
 可以得出 a = (n - 1) * r + (L - a - X)结果成立。</p>
 <p>图解过程</p>
-<p><img src="assets/169461c62a99363e.png" alt="图 12"></p>
-<p><img src="assets/169461c64ba9f2e7.png" alt="图 13"></p>
+<p><img src="/oj/pic/169461c62a99363e.png" alt="图 12"></p>
+<p><img src="/oj/pic/169461c64ba9f2e7.png" alt="图 13"></p>
 <h2><span id="计算环长度">计算环长度</span></h2>
 <p>令 solw 与 fast 指针从相遇节点出发，按照之前的前进规则，当 slow 与fast 再次相遇时，slow 走过的长度正好为环的长度。</p>
 <p><strong>图解过程</strong></p>
-<p><img src="assets/169461c64d3a85d1.png" alt="图 14"></p>
-<p><img src="assets/169461c64ee1e655.png" alt="图 15"></p>
+<p><img src="/oj/pic/169461c64d3a85d1.png" alt="图 14"></p>
+<p><img src="/oj/pic/169461c64ee1e655.png" alt="图 15"></p>
 <h1><span id="reference">Reference</span></h1>
 <ul>
 <li>几道和「链表」有关的面试题  - <a href="https://cxyxiaowu.com/articles/2019/04/04/1554346134716.html" target="_blank" rel="noopener">https://cxyxiaowu.com/articles/2019/04/04/1554346134716.html</a></li>

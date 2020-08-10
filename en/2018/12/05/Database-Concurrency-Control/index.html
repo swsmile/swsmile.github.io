@@ -264,7 +264,7 @@
 </li>
 </ul>
 <p>Two types of locks are utilized by the basic protocol: <em>Shared</em> and <em>Exclusive</em> locks.</p>
-<p><img src="assets/image-20181203203845201-3869525.png" alt="image-20181203203845201"></p>
+<p><img src="/en/pic/image-20181203203845201-3869525.png" alt="image-20181203203845201"></p>
 <p><strong>On the other hand, this locking protocol divides the execution phase of a transaction into three parts:</strong></p>
 <ul>
 <li>the first part, when the transaction starts executing, it seeks permission for the locks it requires</li>
@@ -274,7 +274,7 @@
 <h3><span id="strict-two-phase-locking">Strict two-phase locking</span></h3>
 <p>The first phase of Strict-2PL is same as 2PL. After acquiring all the locks in the first phase, the transaction continues to execute normally.</p>
 <p>But in contrast to 2PL, Strict-2PL does not release a lock after using it. Strict-2PL holds all the locks until the commit point and releases all the locks at a time.</p>
-<p><img src="assets/image-20181203204026468-3869626.png" alt="image-20181203204026468"></p>
+<p><img src="/en/pic/image-20181203204026468-3869626.png" alt="image-20181203204026468"></p>
 <h2><span id="multiversion-concurrency-control-mvcc">Multiversion Concurrency Control (MVCC)</span></h2>
 <p>Locks incur contention, and contention impacts scalability. Researchers have studied complementary concurrency control mechanism to provide <strong>better performance and throughput</strong> while still preventing data integrity issues.</p>
 <p>However, everything has a price, and MVCC is no different. MVCC is built on the assumption that <strong>Readers should not block Writers, and Writers should not block Readers</strong>. For this reason, shared locks are no longer employed, and <strong>transactions are allowed to modify entries that other concurrent transaction might have read in the meanwhile</strong>. So, MVCC takes an <strong>optimistic</strong> approach to resolving data integrity issues since conflicts can occur, but they need to be discovered prior to committing a given transaction.</p>
@@ -306,14 +306,14 @@
 <p>A pessimistic locking strategy assumes that the probability is high that another user will try to modify the same row in a table that you are changing.</p>
 <p>A lock is held between the time a row is selected and the time that a searched update or delete operation is attempted on that row (for example, by using the repeatable read isolation level or lock the table in exclusive mode).</p>
 <p>The advantage of pessimistic locking is that it is guaranteed that changes are made consistently and safely. The major disadvantage is that this locking strategy might not be very scalable.</p>
-<p><img src="assets/image-20181203200055490-3867255.png" alt="image-20181203200055490"></p>
+<p><img src="/en/pic/image-20181203200055490-3867255.png" alt="image-20181203200055490"></p>
 <p>The figure above illustrates the functioning of pessimistic locking. <code>Transaction 1</code> reads a specific record and places a lock on that row. It takes some time to decide whether the row will be updated. In the meantime, <code>transaction 2</code> wants access to that same row, but it has to wait until the lock is released by <code>Transaction 1</code>. Until then, <code>transaction 2</code> will receive results from its <code>SELECT</code> and can continue with its business logic.</p>
 <ul>
 <li>How does database pessimistic locking interact with INSERT, UPDATE, and DELETE SQL statements - <a href="https://vladmihalcea.com/how-does-database-pessimistic-locking-interact-with-insert-update-and-delete-sql-statements/" target="_blank" rel="noopener">https://vladmihalcea.com/how-does-database-pessimistic-locking-interact-with-insert-update-and-delete-sql-statements/</a></li>
 </ul>
 <h3><span id="optimistic-concurrency-control">Optimistic Concurrency Control</span></h3>
 <p>One recommended method for <strong>preventing lost updates</strong> is to use <strong>optimistic concurrency control</strong> to perform what is called <strong>optimistic locking</strong> on the data.</p>
-<p><img src="assets/image-20181203124059112-3840859.png" alt="image-20181203124059112"></p>
+<p><img src="/en/pic/image-20181203124059112-3840859.png" alt="image-20181203124059112"></p>
 <p>As shown in the figure above, <code>transaction 1</code> reads a specific record but then releases its lock. <code>Transaction 2</code> is now not prevented from retrieving that same row. Before committing the transaction, both <code>transaction 1</code> and <code>transaction 2</code> must check whether the row has changed after the previous <code>SELECT</code>. If a change has occurred, the transaction must restart with a new <code>SELECT</code> in order to retrieve the current data. However, if that row has <strong>not been changed</strong> after the previous <code>SELECT</code>, the data can be <strong>successfully</strong> <strong>updated</strong>.</p>
 <hr>
 <p><strong>In summary, Optimistic concurrency control typically uses four phases in order to help to ensure that data isn’t lost:</strong></p>

@@ -220,7 +220,7 @@
 </ul>
 <h2><span id="channels-and-buffers">Channels and Buffers</span></h2>
 <p>From the <code>Channel</code> data can be read into a <code>Buffer</code>. Data can also be written from a <code>Buffer</code> into a <code>Channel</code>.</p>
-<p><img src="assets/image-20190304111210340.png" alt="image-20190304111210340"></p>
+<p><img src="/en/pic/image-20190304111210340.png" alt="image-20190304111210340"></p>
 <h2><span id="types-of-channels">Types of Channels</span></h2>
 <p>Here are the most important Channel implementations in Java NIO:</p>
 <ul>
@@ -263,7 +263,7 @@
 </ul>
 <p>The meaning of <code>position</code> and <code>limit</code> depends on whether the <code>Buffer</code> is in read or write mode. Capacity always means the same, no matter the buffer mode.</p>
 <p>Here is an illustration of capacity, position and limit in write and read modes. The explanation follows in the sections after the illustration.</p>
-<p><img src="assets/image-20190304112755809.png" alt="image-20190304112755809"></p>
+<p><img src="/en/pic/image-20190304112755809.png" alt="image-20190304112755809"></p>
 <h3><span id="capacity">Capacity</span></h3>
 <p>Being a memory block, a <code>Buffer</code> has a certain fixed size, also called its “capacity”. You can only write <code>capacity</code> bytes, longs, chars etc. into the Buffer. Once the Buffer is full, you need to empty it (read the data, or clear it) before you can write more data into it.</p>
 <h3><span id="position">Position</span></h3>
@@ -350,14 +350,14 @@
 <h2><span id="scattering-reads">Scattering Reads</span></h2>
 <p>A “scattering read” reads data from a single channel into multiple buffers. Here is an illustration of that principle:</p>
 <p>Here is an illustration of the <code>Scatter</code> principle:</p>
-<p><img src="assets/image-20190304114319694.png" alt="image-20190304114319694"></p>
+<p><img src="/en/pic/image-20190304114319694.png" alt="image-20190304114319694"></p>
 <p>Here is a code example that shows how to perform a scattering read:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer header = ByteBuffer.allocate(<span class="number">128</span>);</span><br><span class="line">ByteBuffer body   = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">ByteBuffer[] bufferArray = &#123; header, body &#125;;</span><br><span class="line"></span><br><span class="line">channel.read(bufferArray);</span><br></pre></td></tr></table></figure>
 <p>Notice how the buffers are first inserted into an array, then the array passed as parameter to the <code>channel.read()</code> method. The <code>read()</code>method then writes data from the channel in the sequence the buffers occur in the array. Once a buffer is full, the channel moves on to fill the next buffer.</p>
 <p>The fact that scattering reads fill up one buffer before moving on to the next, means that it is not suited for dynamically sized message parts. In other words, if you have a header and a body, and the header is fixed size (e.g. 128 bytes), then a scattering read works fine.</p>
 <h2><span id="gathering-writes">Gathering Writes</span></h2>
 <p>A “gathering write” writes data from multiple buffers into a single channel. Here is an illustration of that principle:</p>
-<p><img src="assets/image-20190304114416705.png" alt="image-20190304114416705"></p>
+<p><img src="/en/pic/image-20190304114416705.png" alt="image-20190304114416705"></p>
 <p>Here is a code example that shows how to perform a gathering write:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer header = ByteBuffer.allocate(<span class="number">128</span>);</span><br><span class="line">ByteBuffer body   = ByteBuffer.allocate(<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//write data into buffers</span></span><br><span class="line"></span><br><span class="line">ByteBuffer[] bufferArray = &#123; header, body &#125;;</span><br><span class="line"></span><br><span class="line">channel.write(bufferArray);</span><br></pre></td></tr></table></figure>
 <p>The array of buffers are passed into the <code>write()</code> method, which writes the content of the buffers in the sequence they are encountered in the array. Only the data between position and limit of the buffers is written. Thus, if a buffer has a capacity of 128 bytes, but only contains 58 bytes, only 58 bytes are written from that buffer to the channel. Thus, a gathering write works fine with dynamically sized message parts, in contrast to scattering reads.</p>
@@ -379,7 +379,7 @@
 <p>The advantage of using just a single thread to handle multiple channels is that you need less threads to handle the channels. Actually, you can use just one thread to handle all of your channels. Switching between threads is expensive for an operating system, and each thread takes up some resources (memory) in the operating system too. Therefore, the less threads you use, the better.</p>
 <p>Keep in mind though, that modern operating systems and CPU’s become better and better at multitasking, so the overheads of multithreading becomes smaller over time. In fact, if a CPU has multiple cores, you might be wasting CPU power by not multitasking. Anyways, that design discussion belongs in a different text. It suffices to say here, that you can handle multiple channels with a single thread, using a Selector.</p>
 <p>Here is an illustration of a thread using a Selector to handle 3 Channel’s:</p>
-<p><img src="assets/image-20190304111544951.png" alt="image-20190304111544951"></p>
+<p><img src="/en/pic/image-20190304111544951.png" alt="image-20190304111544951"></p>
 <p>To use a <code>Selector</code> you register the <code>Channel</code>'s with it. Then you call it’s <code>select()</code> method. This method will block until there is an event ready for one of the registered channels. Once the method returns, the thread can then process these events. Examples of events are incoming connection, data received etc.</p>
 <h2><span id="creating-a-selector">Creating a Selector</span></h2>
 <p>You create a <code>Selector</code> by calling the <code>Selector.open()</code> method, like this:</p>

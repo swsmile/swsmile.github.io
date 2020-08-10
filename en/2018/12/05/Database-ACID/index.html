@@ -217,7 +217,7 @@ In order to maintain consistency in a database, before and after transaction, ce
 <p>Transactions are often composed of multiple statements. <strong>Atomicity guarantees that each transaction is treated as a single “unit”</strong>, which <strong>either succeeds completely, or fails completely</strong>, i.e., take a transaction as an all-or-nothing unit of work: if any of the statements constituting a transaction fails to complete, the entire transaction fails and the database is left unchanged (by conducting a rollback operation). An atomic system must guarantee atomicity in each and every situation, including power failures, errors and crashes.</p>
 <h2><span id="example">Example</span></h2>
 <p>Consider the following transaction <strong>T</strong> consisting of <strong>O1</strong> and <strong>O2</strong>: Transfer of 100 from account <strong>X</strong> to account <strong>Y</strong>.</p>
-<p><img src="assets/image-20181202221731158-3789051.png" alt="image-20181202221731158"></p>
+<p><img src="/en/pic/image-20181202221731158-3789051.png" alt="image-20181202221731158"></p>
 <p>If the transaction fails after completion of <strong>O1</strong> but before completion of <strong>O2</strong>.( say, after <strong>write(X)</strong> but before <strong>write(Y)</strong>), then amount has been deducted from <strong>X</strong> but not added to <strong>Y</strong>.</p>
 <p>This results in an inconsistent database state. Therefore, <strong>the transaction must be executed in entirety in order to ensure correctness of database state.</strong></p>
 <h1><span id="consistency">Consistency</span></h1>
@@ -234,7 +234,7 @@ In order to maintain consistency in a database, before and after transaction, ce
 <h2><span id="example">Example</span></h2>
 <p>Let <strong>X</strong>= 500, <strong>Y</strong> = 500.<br>
 Consider two transactions <strong>T</strong> and <strong>T”.</strong></p>
-<p><img src="assets/image-20181202222928708-3789768.png" alt="image-20181202222928708"></p>
+<p><img src="/en/pic/image-20181202222928708-3789768.png" alt="image-20181202222928708"></p>
 <p>Suppose <strong>T</strong> has been executed till <strong>Read (Y)</strong> and then <strong>T’’</strong> starts. As a result , interleaving of operations takes place due to which <strong>T’’</strong> reads correct value of <strong>X</strong> but incorrect value of <strong>Y</strong> and sum computed by<br>
 <strong>T’’: (X+Y = 50, 000+500=50, 500)</strong> is thus not consistent with the sum at end of transaction: <strong>T: (X+Y = 50, 000 + 450 = 50, 450)</strong>.<br>
 This results in database inconsistency, due to a loss of 50 units. Hence, transactions must take place in isolation and changes should be visible only after a they have been made to the main memory.</p>

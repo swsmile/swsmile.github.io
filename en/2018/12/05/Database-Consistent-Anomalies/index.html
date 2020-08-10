@@ -224,7 +224,7 @@
 <h1><span id="lost-update">Lost Update</span></h1>
 <p>A lost update occurs when <strong>two different transactions are trying to update the same column on the same row within a database at the same time</strong>.</p>
 <p>Typically, one transaction updates a particular column in a particular row, while another that began very shortly afterward did not see this update before updating the same value itself. The result of the first transaction is then “lost”, as it is simply overwritten by the second transaction.</p>
-<p><img src="assets/image-20181203104719566-3834039-3837841.png" alt="image-20181203104719566"></p>
+<p><img src="/en/pic/image-20181203104719566-3834039-3837841.png" alt="image-20181203104719566"></p>
 <p>The image above shows <strong>the sequence of events that can occur in a lost update</strong>.</p>
 <p>Notice that both transactions are seeing a beginning value of 7 for the quantity column; however, the second transaction needs to see a value of 6 to be correct, as the first transaction was initiated in order to update that same column.</p>
 <p>Since the second transaction is unaware of the change made by the first transaction, it simply changes the quantity to 10, overwriting and thus losing the update made by the first transaction.</p>
@@ -235,7 +235,7 @@
 <p>A dirty read happens when a transaction (name as <code>Transaction A</code>) is allowed to read the uncommitted changes of some other concurrent transaction  (name as <code>Transaction B</code>) .</p>
 <p>This is known as a <strong>dirty read</strong> scenario because there is always the possibility that the <code>Transaction B</code> may rollback the change, resulting in the <code>Transaction A</code> having read an invalid data.</p>
 <p>Taking a business decision on a value that has not been committed is risky because uncommitted changes might get rolled back.</p>
-<p><img src="assets/image-20181204121648943-3925808.png" alt="image-20181204121648943"></p>
+<p><img src="/en/pic/image-20181204121648943-3925808.png" alt="image-20181204121648943"></p>
 <p>In the diagram above, the flow of statements goes like this:</p>
 <ol>
 <li>Alice and Bob start two database transactions.</li>
@@ -246,13 +246,13 @@
 <p>This anomaly is <strong>only permitted</strong> by the <strong>Read Uncommitted isolation level</strong>, and, because of the impact on data integrity, most database systems offer a higher default isolation level.</p>
 <h1><span id="non-repeatable-read">Non-repeatable Read</span></h1>
 <p>Non Repeatable Reads happen when in <strong>a same transaction same query yields to a different result</strong>. This occurs when one transaction repeatedly retrieves the data, while a difference transactions alters the underlying data. This causes the different or non-repeatable results to be read by the first transaction.</p>
-<p><img src="assets/image-20181204131410954-3929250.png" alt="image-20181204131410954"></p>
+<p><img src="/en/pic/image-20181204131410954-3929250.png" alt="image-20181204131410954"></p>
 <p>In this example, <code>Transaction 2</code> commits successfully, which means that its changes to the row with id 1 should become visible. However, <code>Transaction 1</code> has already seen a different value for <em>age</em> in that row.</p>
 <p>Non-repeatable reads phenomenon may occur in a <strong>lock-based concurrency control</strong> method when read locks are not acquired when performing a SELECT, or when the acquired locks on affected rows are released as soon as the SELECT operation is performed.</p>
 <p>Under the <strong>multiversion concurrency control</strong> method, non-repeatable reads may occur when the requirement that a transaction affected by a commit conflict must roll back is relaxed.</p>
 <h1><span id="phantom-read">Phantom Read</span></h1>
 <p>The phantom reads anomaly is a <strong>special case</strong> of <code>Non-repeatable reads</code> when <code>Transaction 1</code> repeats a ranged <code>SELECT ... WHERE</code> query and, between both operations, <code>Transaction 2</code> creates new rows (i.e., INSERT) or deletes existing rows (i.e., DELETE) (in the target table) which fulfill that WHERE clause.</p>
-<p><img src="assets/image-20181205105025707-4007025.png" alt="image-20181205105025707"></p>
+<p><img src="/en/pic/image-20181205105025707-4007025.png" alt="image-20181205105025707"></p>
 <p>In the diagram above, the flow of statements goes like this:</p>
 <ol>
 <li>Alice and Bob start two database transactions.</li>
@@ -268,7 +268,7 @@
 <p>he 2PL-based Serializable isolation prevents Phantom Reads through the use of predicate locking while MVCC (Multi-Version Concurrency Control) database engines address the Phantom Read anomaly by returning consistent snapshots.</p>
 <p>However, a concurrent transaction can still modify the range of records that was read previously. Even if the MVCC database engine introspects the transaction schedule, the outcome is not always the same as a 2PL-based implementation. One such example is when the second transaction issues an insert without reading the same range of records as the first transaction. In this particular use case, some MVCC database engines will not end up rolling back the first transaction.</p>
 <h1><span id="read-skew">Read Skew</span></h1>
-<p><img src="assets/image-20181205115626307-4010986.png" alt="image-20181205115626307"></p>
+<p><img src="/en/pic/image-20181205115626307-4010986.png" alt="image-20181205115626307"></p>
 <ul>
 <li>Alice selects a <code>Post</code> entity.</li>
 <li>Bob sneaks in and updates both the <code>Post</code> and the <code>PostDetails</code> entities.</li>
@@ -276,7 +276,7 @@
 </ul>
 <p>If read skew is permitted, Alice sees Bob’s update and she can assume that the previous <em>Post</em> version (that she read at the beginning of her transaction) was issued by Bob, therefore breaking consistency.</p>
 <h1><span id="write-skew">Write Skew</span></h1>
-<p><img src="assets/image-20181205115809413-4011089.png" alt="image-20181205115809413"></p>
+<p><img src="/en/pic/image-20181205115809413-4011089.png" alt="image-20181205115809413"></p>
 <ul>
 <li>Both Alice and Bob select the Post and the PostDetails entities.</li>
 <li>Bob modifies the Post title, but, since the PostDetails is already marked as updated by Bob, the dirty checking mechanism will skip updating the PostDetails entity, therefore preventing a redundant UPDATE statement.</li>
