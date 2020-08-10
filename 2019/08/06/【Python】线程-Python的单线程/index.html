@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Python 中的伪多线程实验如果你不幸拥有一个多核CPU，你肯定在想，多核应该可以同时执行多个线程。 如果写一个死循环的话，会出现什么情况呢？ 打开Mac OS X的Activity Monitor，或者Windows的Task Manager，都可以监控某个进程的CPU使用率。 我们可以监控到一个死循环线程会100%占用一个CPU。 如果有两个死循环线程，在多核CPU中，可以监控到会占用200">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/08/06/【Python】线程-Python的单线程/assets/v2-13ce457fa21e1230410d29335051f223_hd.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-13ce457fa21e1230410d29335051f223_hd.jpg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Python】Python 的单线程">
 <meta name="twitter:description" content="Python 中的伪多线程实验如果你不幸拥有一个多核CPU，你肯定在想，多核应该可以同时执行多个线程。 如果写一个死循环的话，会出现什么情况呢？ 打开Mac OS X的Activity Monitor，或者Windows的Task Manager，都可以监控某个进程的CPU使用率。 我们可以监控到一个死循环线程会100%占用一个CPU。 如果有两个死循环线程，在多核CPU中，可以监控到会占用200">
-<meta name="twitter:image" content="http://swsmile.info/2019/08/06/【Python】线程-Python的单线程/assets/v2-13ce457fa21e1230410d29335051f223_hd.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-13ce457fa21e1230410d29335051f223_hd.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -232,7 +232,7 @@ var _hmt = _hmt || [];
 <h2 id="实验-3"><a href="#实验-3" class="headerlink" title="实验 3"></a>实验 3</h2><p>为了验证这是Python中的GIL搞得鬼，我试着用Java写相同的代码，开启线程，我们观察一下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class TestThread &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        <span class="keyword">for</span> (int i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">            new Thread(new Runnable() &#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">                @Override</span></span><br><span class="line">                public void run() &#123;</span><br><span class="line">                    <span class="keyword">while</span> (true) &#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(true)&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/v2-13ce457fa21e1230410d29335051f223_hd.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-13ce457fa21e1230410d29335051f223_hd.jpg" alt="img"></p>
 <p>由此可见，Java中的多线程是可以利用多核的，这是真正的多线程！而Python中的多线程只能利用单核，这是假的多线程！</p>
 <p>难道就如此？我们没有办法在Python中利用多核？当然可以！刚才的多进程算是一种解决方案，还有一种就是调用C语言的链接库。对所有面向I/O的（会调用内建的操作系统C代码的）程序来说，GIL会在这个I/O调用之前被释放，以允许其他线程在这个线程等待I/O的时候运行。<strong>我们可以把一些计算密集型任务用C语言编写，然后把.so链接库内容加载到Python中，因为执行C代码，GIL锁会释放，这样一来，就可以做到每个核都跑一个线程的目的！</strong></p>
 <hr>
@@ -540,10 +540,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -556,19 +552,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -616,11 +616,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,7 +628,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -648,11 +648,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,11 +684,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,11 +696,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,15 +720,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,11 +772,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -788,15 +788,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -804,11 +800,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -820,11 +820,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="日志服务日志服务是我们应用程序后端不可或缺的一个组件，通常我们会组合使用 ELK（Elasticsearch+Logstash+Kibana）技术栈来自行搭建一个日志存储和分析系统。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/07/07/【ELK】ELK学习/assets/ELK.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/07/【ELK】ELK学习/assets/1*GBhIJ9AZGH4QXEZOPJhc2A.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/07/【ELK】ELK学习/assets/image21-1024x328.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/07/【ELK】ELK学习/assets/image6-1024x422.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/07/【ELK】ELK学习/assets/1*TyzCoLUMDNZznHuE__zsdg.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/07/【ELK】ELK学习/assets/1*WB5FSGFEr5ozSiEPcaxAEQ.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ELK.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1*GBhIJ9AZGH4QXEZOPJhc2A.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image21-1024x328.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image6-1024x422.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1*TyzCoLUMDNZznHuE__zsdg.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1*WB5FSGFEr5ozSiEPcaxAEQ.png">
 <meta property="og:updated_time" content="2020-07-09T10:33:21.957Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【ELK】ELK（Elasticsearch+Logstash+Kibana）学习">
 <meta name="twitter:description" content="日志服务日志服务是我们应用程序后端不可或缺的一个组件，通常我们会组合使用 ELK（Elasticsearch+Logstash+Kibana）技术栈来自行搭建一个日志存储和分析系统。">
-<meta name="twitter:image" content="http://swsmile.info/2020/07/07/【ELK】ELK学习/assets/ELK.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ELK.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -227,23 +227,23 @@ var _hmt = _hmt || [];
 <li>服务诊断：通过对日志信息进行统计、分析，了解服务器的负荷和服务运行状态</li>
 <li>数据分析：可以做进一步的数据分析。</li>
 </ul>
-<h1 id="ELK"><a href="#ELK" class="headerlink" title="ELK"></a>ELK</h1><h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p><img src="assets/ELK.png" alt="Mulesoft External Logging using ELK | Lets Integrate"></p>
+<h1 id="ELK"><a href="#ELK" class="headerlink" title="ELK"></a>ELK</h1><h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ELK.png" alt="Mulesoft External Logging using ELK | Lets Integrate"></p>
 <p> ELK是什么东西，很好理解，就是收集（L:Logstash），存储（E：Elasticsearch），可视化日志（K：Kibana）的。</p>
 <p>在前几年ELK为什么没有怎么听说，那是因为在服务器上 <code>tail -f</code> 就可以看日志，或者下载下来打开直接看。但是随着软件的不断发展，分布式，推荐系统，大数据等等，这些数据日积月累后的必然产物就诞生了。</p>
 <p>就拿分布式系统来说，日志都分布在各个node上，要查看一个bug，需要登录到服务器上看好多node上的日志，再比如调用连很长的话，在服务器上看日志，或者下载下来看日志，我只能说有可能好几天都找不出来问题所在。还有登陆到服务器上，是一个很危险的信号，万一rm -rf，就真的是从入门到删库跑路了。以上种种问题怎么解决呢？这个时候就是ELK上场了。</p>
-<h2 id="ELK工作流程"><a href="#ELK工作流程" class="headerlink" title="ELK工作流程"></a>ELK工作流程</h2><p><img src="assets/1*GBhIJ9AZGH4QXEZOPJhc2A.png" alt="img"></p>
+<h2 id="ELK工作流程"><a href="#ELK工作流程" class="headerlink" title="ELK工作流程"></a>ELK工作流程</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1*GBhIJ9AZGH4QXEZOPJhc2A.png" alt="img"></p>
 <p>在需要收集日志的所有服务上部署logstash，作为logstash agent（logstash shipper）用于监控并过滤收集日志，将过滤后的内容发送到Redis，然后logstash indexer将日志收集在一起交给全文搜索服务ElasticSearch，可以用ElasticSearch进行自定义搜索，通过Kibana 来结合自定义搜索进行页面展示。</p>
 <h2 id="部署方式"><a href="#部署方式" class="headerlink" title="部署方式"></a>部署方式</h2><p>ELK部署最简单的方式就是L-E-K方式，不添加任何其他辅助系统，部署简单快速，容易上手。</p>
-<p><img src="assets/image21-1024x328.png" alt="ELK Stack Architecture"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image21-1024x328.png" alt="ELK Stack Architecture"></p>
 <p>第二种方式：随着业务的增长，上面的方案已满足不了我们的需求，这个时候我们可以增加一层缓冲层，比如用消息队列（如Kafka）、Redis。</p>
 <p>这种架构使用 Logstash 从各个数据源搜集数据，然后经消息队列输出插件输出到消息队列中。目前 Logstash 支持 Kafka、Redis、RabbitMQ 等常见消息队列。然后 Logstash 通过消息队列输入插件从队列中获取数据，分析过滤后经输出插件发送到 Elasticsearch，最后通过 Kibana 展示。</p>
-<p><img src="assets/image6-1024x422.png" alt="ELK Stack Architecture"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image6-1024x422.png" alt="ELK Stack Architecture"></p>
 <h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><p>Elasticsearch是个开源分布式全文搜索和分析引擎（full-text search and analysis engine），它的特点有：分布式，零配置，自动发现，索引自动分片，索引副本机制，restful风格接口，多数据源，自动搜索负载等。</p>
 <h2 id="Logstash-Log-Aggregator"><a href="#Logstash-Log-Aggregator" class="headerlink" title="Logstash - Log Aggregator"></a>Logstash - Log Aggregator</h2><p>Logstash是一个完全开源的工具，他可以对你的日志进行收集、过滤，并将其存储供以后使用（如用于搜索）。</p>
 <p>Logstash 主要是用来日志的搜集、分析、过滤日志的工具，支持大量的数据获取方式。一般工作方式为c/s架构，client端安装在需要收集日志的主机上，server端负责将收到的各节点日志进行过滤、修改等操作在一并发往elasticsearch上去。</p>
 <h2 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h2><p>Kibana 也是一个开源和免费的工具，它Kibana可以为 Logstash 和 ElasticSearch 提供的日志分析友好的 Web 界面，可以帮助您汇总、分析和搜索重要数据日志</p>
-<h2 id="使用Filebeat来采集日志"><a href="#使用Filebeat来采集日志" class="headerlink" title="使用Filebeat来采集日志"></a>使用Filebeat来采集日志</h2><p><img src="assets/1*TyzCoLUMDNZznHuE__zsdg.png" alt="img"></p>
-<p><img src="assets/1*WB5FSGFEr5ozSiEPcaxAEQ.png" alt="img"></p>
+<h2 id="使用Filebeat来采集日志"><a href="#使用Filebeat来采集日志" class="headerlink" title="使用Filebeat来采集日志"></a>使用Filebeat来采集日志</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1*TyzCoLUMDNZznHuE__zsdg.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1*WB5FSGFEr5ozSiEPcaxAEQ.png" alt="img"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html" target="_blank" rel="noopener">https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html</a></li>
 <li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">https://www.elastic.co/guide/index.html</a></li>
@@ -503,10 +503,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -519,19 +515,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -579,11 +579,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,7 +591,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -611,11 +611,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,11 +647,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,11 +659,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -683,15 +683,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -735,11 +735,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,15 +751,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,11 +763,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,11 +783,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

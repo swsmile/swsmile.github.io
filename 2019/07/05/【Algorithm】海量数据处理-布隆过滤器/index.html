@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="判断一个元素是否存在一个集合中先来看几个比较常见的例子  字处理软件中，需要检查一个英语单词是否拼写正确 在 FBI，一个嫌疑人的名字是否已经在嫌疑名单上 在网络爬虫里，一个网址是否被访问过 yahoo, gmail等邮箱垃圾邮件过滤功能  这几个例子有一个共同的特点： 如何判断一个元素是否存在一个集合中？ 常规思路：  数组 链表 树、平衡二叉树、Trie HashMap （红黑树）：通过将值映">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/assets/169a878fc1c67913.gif">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/assets/v2-530c9d4478398718c15632b9aa025c36_hd.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/assets/v2-a0ee721daf43f29dd42b7d441b79d227_hd.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/assets/v2-c0c20d8e06308aae1578c16afdea3b6a_hd.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/assets/v2-05d4a17ec47911d9ff0e72dc788d5573_hd.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/169a878fc1c67913.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-530c9d4478398718c15632b9aa025c36_hd.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-a0ee721daf43f29dd42b7d441b79d227_hd.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-c0c20d8e06308aae1578c16afdea3b6a_hd.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-05d4a17ec47911d9ff0e72dc788d5573_hd.jpg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm】海量数据处理 - 布隆过滤器（Bloom Filter）">
 <meta name="twitter:description" content="判断一个元素是否存在一个集合中先来看几个比较常见的例子  字处理软件中，需要检查一个英语单词是否拼写正确 在 FBI，一个嫌疑人的名字是否已经在嫌疑名单上 在网络爬虫里，一个网址是否被访问过 yahoo, gmail等邮箱垃圾邮件过滤功能  这几个例子有一个共同的特点： 如何判断一个元素是否存在一个集合中？ 常规思路：  数组 链表 树、平衡二叉树、Trie HashMap （红黑树）：通过将值映">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-布隆过滤器/assets/169a878fc1c67913.gif">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/169a878fc1c67913.gif">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -245,23 +245,23 @@ var _hmt = _hmt || [];
 <li>如果这些点有任何一个点的值为 0，则被检索元素一定不在于集合中； </li>
 <li>如果所有这些点的值都是 1，则被检索元素很可能存在于集合中。</li>
 </ul>
-<p><img src="assets/169a878fc1c67913.gif" alt="å¸é"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/169a878fc1c67913.gif" alt="å¸é"></p>
 <p>但 Bloom Filter 的这种高效是有一定代价的：<strong>在判断一个元素是否属于某个集合时，有可能会把不属于这个集合的元素误认为属于这个集合（false positive）</strong>。因此，Bloom Filter 不适合那些“零 错误”的应用场合。而在能容忍低错误率的应用场合下，Bloom Filter 通过极少的错误换取了存储空间的极大节省。</p>
 <a id="more"></a> 
 
 <h1 id="布隆过滤器数据结构"><a href="#布隆过滤器数据结构" class="headerlink" title="布隆过滤器数据结构"></a>布隆过滤器数据结构</h1><p>布隆过滤器是一个 bit 向量或者说 bit 数组，长这样：</p>
-<p><img src="assets/v2-530c9d4478398718c15632b9aa025c36_hd.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-530c9d4478398718c15632b9aa025c36_hd.jpg" alt="img"></p>
 <p>如果我们要映射一个值到布隆过滤器中，我们需要使用<strong>多个不同的哈希函数</strong>以生成<strong>多个哈希值，</strong>并对每个生成的哈希值进行 mod 运算（取余运算），最终得到一个特定的 bit 位索引，将这个 bit 位的值置 1，例如针对值 “baidu” 和三个不同的哈希函数分别生成哈希值并取余，得到 1、4、7，则上图转变为：</p>
-<p><img src="assets/v2-a0ee721daf43f29dd42b7d441b79d227_hd.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-a0ee721daf43f29dd42b7d441b79d227_hd.jpg" alt="img"></p>
 <p>Ok，我们现在再存一个值 “tencent”，如果哈希函数返回 3、4、8 的话，图继续变为：</p>
-<p><img src="assets/v2-c0c20d8e06308aae1578c16afdea3b6a_hd.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-c0c20d8e06308aae1578c16afdea3b6a_hd.jpg" alt="img"></p>
 <p>值得注意的是，4 这个 bit 位由于两个值的哈希函数都返回了这个 bit 位，因此它被覆盖了。</p>
 <p>现在我们如果想查询 “dianping” 这个值是否存在，哈希函数返回了 1、5、8三个值，结果我们发现 5 这个 bit 位上的值为 0，<strong>说明没有任何一个值映射到这个 bit 位上</strong>，因此我们可以很确定地说 “dianping” 这个值不存在。</p>
 <p>而当我们需要查询 “baidu” 这个值是否存在的话，那么哈希函数必然会返回 1、4、7，然后我们检查发现这三个 bit 位上的值均为 1，那么我们可以说 “baidu” <strong>存在了么？答案是不可以，只能是 “baidu” 这个值可能存在。</strong></p>
 <p>这是为什么呢？答案跟简单，因为随着增加的值越来越多，被置为 1 的 bit 位也会越来越多，这样某个值 “taobao” 即使没有被存储过，但是万一哈希函数返回的三个 bit 位都被其他值置位了 1 ，那么程序还是会判断 “taobao” 这个值存在。</p>
 <h2 id="如何选择哈希函数个数和布隆过滤器长度"><a href="#如何选择哈希函数个数和布隆过滤器长度" class="headerlink" title="如何选择哈希函数个数和布隆过滤器长度"></a><strong>如何选择哈希函数个数和布隆过滤器长度</strong></h2><p>很显然，过小的布隆过滤器很快所有的 bit 位均为 1，那么查询任何值都会返回“可能存在”，起不到过滤的目的了。布隆过滤器的长度会直接影响误报率，布隆过滤器越长其误报率越小。</p>
 <p>另外，哈希函数的个数也需要权衡，个数越多则布隆过滤器 bit 位置位 1 的速度越快，且布隆过滤器的效率越低；但是如果太少的话，那我们的误报率会变高。</p>
-<p><img src="assets/v2-05d4a17ec47911d9ff0e72dc788d5573_hd.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-05d4a17ec47911d9ff0e72dc788d5573_hd.jpg" alt="img"></p>
 <p>k 为哈希函数个数，m 为布隆过滤器长度，n 为插入的元素个数，p 为误报率</p>
 <h1 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h1><p>布隆过滤器的最大的用处就是，能够迅速判断一个元素是否在一个集合中。因此它有如下三个使用场景:</p>
 <ul>
@@ -526,10 +526,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -542,19 +538,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,11 +602,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,7 +614,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,11 +634,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,11 +670,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,11 +682,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,15 +706,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,11 +758,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -774,15 +774,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -790,11 +786,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,11 +806,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Problem12345678&amp;gt;&amp;gt;&amp;gt; paras = &amp;#123;u&apos;name&apos;: u&apos;\U0001f600&apos;&amp;#125;&amp;gt;&amp;gt;&amp;gt; from core import models&amp;gt;&amp;gt;&amp;gt; models.Channel.objects.create(**paras)Traceback (most recent call last):    ...">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/10/31/【Django】通过-ORM-访问-MySQL，插入-Emoji-报错/assets/image-20191022103723716.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/31/【Django】通过-ORM-访问-MySQL，插入-Emoji-报错/assets/image-20191022105050996.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191022103723716.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191022105050996.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Django】通过 ORM 访问 MySQL，插入 Emoji 报错">
 <meta name="twitter:description" content="Problem12345678&amp;gt;&amp;gt;&amp;gt; paras = &amp;#123;u&apos;name&apos;: u&apos;\U0001f600&apos;&amp;#125;&amp;gt;&amp;gt;&amp;gt; from core import models&amp;gt;&amp;gt;&amp;gt; models.Channel.objects.create(**paras)Traceback (most recent call last):    ...">
-<meta name="twitter:image" content="http://swsmile.info/2019/10/31/【Django】通过-ORM-访问-MySQL，插入-Emoji-报错/assets/image-20191022103723716.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191022103723716.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -222,14 +222,14 @@ var _hmt = _hmt || [];
 
 <h1 id="Solition"><a href="#Solition" class="headerlink" title="Solition"></a>Solition</h1><h2 id="查看字符集（Charater-Set）"><a href="#查看字符集（Charater-Set）" class="headerlink" title="查看字符集（Charater Set）"></a>查看字符集（Charater Set）</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">WHERE</span> Variable_name <span class="keyword">LIKE</span> <span class="string">'character\_set\_%'</span> <span class="keyword">OR</span> Variable_name <span class="keyword">LIKE</span> <span class="string">'collation%'</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/image-20191022103723716.png" alt="image-20191022103723716"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191022103723716.png" alt="image-20191022103723716"></p>
 <h2 id="修改字符集"><a href="#修改字符集" class="headerlink" title="修改字符集"></a>修改字符集</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For each database:</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DATABASE</span> &#123;your_db_name&#125; <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> = utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_unicode_ci;</span><br><span class="line"><span class="comment"># For each table:</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;your_tb_name&#125; <span class="keyword">CONVERT</span> <span class="keyword">TO</span> <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_unicode_ci;</span><br><span class="line"><span class="comment"># For each column:</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> &#123;your_tb_name&#125; <span class="keyword">CHANGE</span> &#123;your_column_name&#125; <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">128</span>) <span class="built_in">CHARACTER</span> <span class="keyword">SET</span> utf8mb4 <span class="keyword">COLLATE</span> utf8mb4_unicode_ci <span class="keyword">NOT</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
 
 <h2 id="重启-MySQL"><a href="#重启-MySQL" class="headerlink" title="重启 MySQL"></a>重启 MySQL</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mysql.server restart</span><br></pre></td></tr></table></figure>
 
 <h2 id="查看字符集（Charater-Set）-1"><a href="#查看字符集（Charater-Set）-1" class="headerlink" title="查看字符集（Charater Set）"></a>查看字符集（Charater Set）</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">WHERE</span> Variable_name <span class="keyword">LIKE</span> <span class="string">'character\_set\_%'</span> <span class="keyword">OR</span> Variable_name <span class="keyword">LIKE</span> <span class="string">'collation%'</span>;</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/image-20191022105050996.png" alt="image-20191022105050996"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191022105050996.png" alt="image-20191022105050996"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="http://blog.manbolo.com/2014/03/31/using-emojis-in-django-model-fields" target="_blank" rel="noopener">http://blog.manbolo.com/2014/03/31/using-emojis-in-django-model-fields</a></li>
 <li><a href="https://exana.io/community/a-helping-hand/2016/08/23/django-utf8mb4-selected-columns.html" target="_blank" rel="noopener">https://exana.io/community/a-helping-hand/2016/08/23/django-utf8mb4-selected-columns.html</a></li>
@@ -484,10 +484,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -500,19 +496,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,11 +560,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,7 +572,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,11 +592,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -628,11 +628,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -640,11 +640,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,15 +664,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,11 +716,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,15 +732,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,11 +744,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,11 +764,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

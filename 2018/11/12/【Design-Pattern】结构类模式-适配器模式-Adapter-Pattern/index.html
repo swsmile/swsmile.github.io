@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="1 动机 希望复用一个已经存在的类 但这个类的接口与一个新类的接口不一致 不希望单纯地将已经存在的类中的代码完全复制到这个新类中  我们可以使用适配器模式来包装这个已经存在的类，使得接口得到统一，最终我们能够完全复用这个已经存在的类（而不是通过复制代码到新类中来实现）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-适配器模式-Adapter-Pattern/assets/3ed559e8-43d2-4672-b153-c74536d78d78.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-适配器模式-Adapter-Pattern/assets/5dbe2ea2-7b10-4d7f-a96d-d1d277393ec9.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-适配器模式-Adapter-Pattern/assets/89cf6128-3416-42cb-9452-6df0a7e46769.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-适配器模式-Adapter-Pattern/assets/069089b6-aca5-4f74-99e8-3a85098c59eb.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-适配器模式-Adapter-Pattern/assets/a953f576-83d5-41ec-9cb3-d34bae8dc3ce.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-适配器模式-Adapter-Pattern/assets/6437b880-11de-4467-9e5b-51b2866425ab.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/3ed559e8-43d2-4672-b153-c74536d78d78.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/5dbe2ea2-7b10-4d7f-a96d-d1d277393ec9.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/89cf6128-3416-42cb-9452-6df0a7e46769.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/069089b6-aca5-4f74-99e8-3a85098c59eb.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a953f576-83d5-41ec-9cb3-d34bae8dc3ce.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/6437b880-11de-4467-9e5b-51b2866425ab.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Design Pattern】结构类模式 -- 适配器模式 (Adapter Pattern)">
 <meta name="twitter:description" content="1 动机 希望复用一个已经存在的类 但这个类的接口与一个新类的接口不一致 不希望单纯地将已经存在的类中的代码完全复制到这个新类中  我们可以使用适配器模式来包装这个已经存在的类，使得接口得到统一，最终我们能够完全复用这个已经存在的类（而不是通过复制代码到新类中来实现）。">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/12/【Design-Pattern】结构类模式-适配器模式-Adapter-Pattern/assets/3ed559e8-43d2-4672-b153-c74536d78d78.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/3ed559e8-43d2-4672-b153-c74536d78d78.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -226,17 +226,17 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <hr>
-<p><img src="assets/3ed559e8-43d2-4672-b153-c74536d78d78.jpg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/3ed559e8-43d2-4672-b153-c74536d78d78.jpg" alt=""></p>
 <p>其实，这个思想类似于电源的转换器。比如，有一天，朋友送了我一个有英标插头的电器，我希望能够在家里使用：</p>
 <ul>
 <li><p>希望直接利用墙上的中国标准插头来为这个电器提供电力；</p>
-<p><img src="assets/5dbe2ea2-7b10-4d7f-a96d-d1d277393ec9.jpg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/5dbe2ea2-7b10-4d7f-a96d-d1d277393ec9.jpg" alt=""></p>
 </li>
 <li><p>墙上的插口是中国标准插孔，而这个电器拥有英国标准插头；</p>
-<p><img src="assets/89cf6128-3416-42cb-9452-6df0a7e46769.jpg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/89cf6128-3416-42cb-9452-6df0a7e46769.jpg" alt=""></p>
 </li>
 <li><p>不希望改造现有的家里的供电系统，即通过自己在墙上造一个英标母插孔来实现对这个电器的电力供应（实在是小题大做了，费时费力，而且没有充分利用现有资源）；</p>
-<p><img src="assets/069089b6-aca5-4f74-99e8-3a85098c59eb.jpg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/069089b6-aca5-4f74-99e8-3a85098c59eb.jpg" alt=""></p>
 </li>
 <li><p>同时，也不希望破坏这个新电器的现有结构（毕竟把英标插头剪掉，而通过自己接线把一个中国标准插头重新接到这个电器上的方式，可能会导致漏电安全隐患）。</p>
 </li>
@@ -252,14 +252,14 @@ var _hmt = _hmt || [];
 <p>当调用者调用适配器的方法时，在适配器的内部将调用被适配者类的对应方法，这个过程对调用者来说是透明的（调用者并不直接访问被适配者类）。</p>
 <p>最终，适配器使得接口不兼容的类最终可以一起工作。</p>
 <h1 id="2-定义"><a href="#2-定义" class="headerlink" title="2 定义"></a>2 定义</h1><p>适配器模式（Adapter Pattern）将一个特殊实现类转换为一个标准接口，最终，对于调用者而言，系统中所有实现类拥有统一的接口。</p>
-<h1 id="3-构成"><a href="#3-构成" class="headerlink" title="3 构成"></a>3 构成</h1><h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="assets/a953f576-83d5-41ec-9cb3-d34bae8dc3ce.jpg" alt=""></p>
+<h1 id="3-构成"><a href="#3-构成" class="headerlink" title="3 构成"></a>3 构成</h1><h3 id="UML图"><a href="#UML图" class="headerlink" title="UML图"></a>UML图</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a953f576-83d5-41ec-9cb3-d34bae8dc3ce.jpg" alt=""></p>
 <h1 id="4-示例"><a href="#4-示例" class="headerlink" title="4 示例"></a>4 示例</h1><p>Lloyds银行是一家国际银行，并向全世界提供服务。</p>
 <ul>
 <li>对于拥有海外账号（Offshore Account）的用户，税率为0.03%。</li>
 <li>对于英国用户，提供两种账号：普通账号（Standard Account）和白金账号（Platinum Account）。且没有税率。</li>
 </ul>
 <p>我们作为Lloyds银行系统的开发者，需要对外提供一个的账号信息接口（Account），以提供账号信息查询服务。</p>
-<h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="assets/6437b880-11de-4467-9e5b-51b2866425ab.png" alt=""></p>
+<h3 id="UML图-1"><a href="#UML图-1" class="headerlink" title="UML图"></a>UML图</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/6437b880-11de-4467-9e5b-51b2866425ab.png" alt=""></p>
 <h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><ul>
 <li>为被适配者<code>OffshoreAccount</code>增加一个适配器<code>AccountAdapter</code>，使之遵循<code>Account</code>接口</li>
 </ul>
@@ -542,10 +542,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -558,19 +554,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,11 +618,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -630,7 +630,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,11 +650,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -686,11 +686,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -698,11 +698,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,15 +722,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -774,11 +774,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -790,15 +790,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,11 +802,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -822,11 +822,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

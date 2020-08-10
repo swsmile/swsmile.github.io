@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="水平分库分表水平分库当数据库中单表的数据量很大时，采用水平分区的方式对数据进行拆分（将同一个表中不同的数据拆分到不同数据库中）。比如，以对某个主键进行hash取模的方式（以保证对N个数据库的访问负载是均衡的），将数据分布表到N个数据库中。 值得一提的是，进行分库分表后，进行对跨库的表join、事务操作或者数据统计、排序时，又出现了新的性能问题。 使用原因大部分互联网业务数据量很大，单库容量容易成为">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Database】分库分表/assets/191937431352964.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Database】分库分表/assets/ddb1ceb8.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Database】分库分表/assets/f80cafa2.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Database】分库分表/assets/52610d6d.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Database】分库分表/assets/191926445106317.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/191937431352964.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ddb1ceb8.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/f80cafa2.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/52610d6d.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/191926445106317.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Database】分库分表">
 <meta name="twitter:description" content="水平分库分表水平分库当数据库中单表的数据量很大时，采用水平分区的方式对数据进行拆分（将同一个表中不同的数据拆分到不同数据库中）。比如，以对某个主键进行hash取模的方式（以保证对N个数据库的访问负载是均衡的），将数据分布表到N个数据库中。 值得一提的是，进行分库分表后，进行对跨库的表join、事务操作或者数据统计、排序时，又出现了新的性能问题。 使用原因大部分互联网业务数据量很大，单库容量容易成为">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/12/【Database】分库分表/assets/191937431352964.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/191937431352964.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -226,20 +226,20 @@ var _hmt = _hmt || [];
 <p>此时可以使用水平切分架构。</p>
 <p>一句话总结，水平切分主要解决“数据库数据量大”问题，在数据库容量扛不住的时候，通常水平切分。</p>
 <h2 id="水平分表"><a href="#水平分表" class="headerlink" title="水平分表"></a>水平分表</h2><p>水平分表也称为横向分表，比较容易理解，就是将表中不同的数据行按照一定规律分布到不同的数据库表中（这些表保存在同一个数据库中），这样来降低单表数据量，优化查询性能。最常见的方式就是通过主键或者时间等字段进行 Hash 和取模后拆分。</p>
-<p><img src="assets/191937431352964.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/191937431352964.png" alt="img"></p>
 <a id="more"></a> 
 
 <h2 id="切分策略"><a href="#切分策略" class="headerlink" title="切分策略"></a>切分策略</h2><h3 id="1-查询切分"><a href="#1-查询切分" class="headerlink" title="1 查询切分"></a>1 查询切分</h3><p>将ID和库的Mapping关系记录在一个单独的库中。</p>
-<p><img src="assets/ddb1ceb8.png" alt="查询切分"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ddb1ceb8.png" alt="查询切分"></p>
 <p>优点：ID和库的Mapping算法可以随意更改。<br>缺点：引入额外的单点。</p>
 <h3 id="2-范围切分"><a href="#2-范围切分" class="headerlink" title="2 范围切分"></a>2 范围切分</h3><p>比如按照时间区间或ID区间来切分。</p>
-<p><img src="assets/f80cafa2.png" alt="范围切分"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/f80cafa2.png" alt="范围切分"></p>
 <p>优点：单表大小可控，天然水平扩展。<br>缺点：无法解决集中写入瓶颈的问题。</p>
 <h3 id="3-Hash切分"><a href="#3-Hash切分" class="headerlink" title="3 Hash切分"></a>3 Hash切分</h3><p>一般采用Mod来切分，下面着重讲一下Mod的策略。</p>
-<p><img src="assets/52610d6d.png" alt="hash切分"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/52610d6d.png" alt="hash切分"></p>
 <p>数据水平切分后我们希望是一劳永逸或者是易于水平扩展的，所以推荐采用$mod  2^n$这种一致性Hash。</p>
 <p>以统一订单库为例，我们分库分表的方案是32*32的，即通过UserId后四位mod 32分到32个库中，同时再将UserId后四位Div 32 Mod 32将每个库分为32个表，共计分为1024张表。线上部署情况为8个集群(主从)，每个集群4个库。</p>
-<h1 id="垂直分表分库"><a href="#垂直分表分库" class="headerlink" title="垂直分表分库"></a>垂直分表分库</h1><h2 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h2><p><img src="assets/191926445106317.png" alt="img"></p>
+<h1 id="垂直分表分库"><a href="#垂直分表分库" class="headerlink" title="垂直分表分库"></a>垂直分表分库</h1><h2 id="垂直分表"><a href="#垂直分表" class="headerlink" title="垂直分表"></a>垂直分表</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/191926445106317.png" alt="img"></p>
 <p>典型的应用场景是在文章列表这样的场景，一般来讲，我们的文章表会有title、userId、Content等字段，其中的Content字段一般是Text或者LongText类型，而其它的字段都是固定长度的数据类型。我们知道一个数据库优化规则是：</p>
 <ul>
 <li>如果一个表的所有字段都是固定长度类型的，那么它就是定长表，定长表比动态长度表查询性能要高</li>
@@ -515,10 +515,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -531,19 +527,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -591,11 +591,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -603,7 +603,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,11 +623,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,11 +659,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -671,11 +671,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,15 +695,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,11 +747,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,15 +763,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -779,11 +775,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -795,11 +795,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

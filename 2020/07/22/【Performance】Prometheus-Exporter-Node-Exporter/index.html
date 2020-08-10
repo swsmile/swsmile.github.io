@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter/assets/image-20200721185609311.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter/assets/image-20200721185637394.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter/assets/image-20200723201717192.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter/assets/image-20200722232824605.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185637394.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200723201717192.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200722232824605.png">
 <meta property="og:updated_time" content="2020-07-25T08:15:55.556Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Performance】Prometheus - Node Exporter">
 <meta name="twitter:description" content="安装Node Exporter 在Prometheus的架构设计中，Prometheus Server并不直接服务监控特定的目标，其主要任务负责数据的收集，存储并且对外提供数据查询支持。因此为了能够能够监控到某些东西，如主机的CPU使用率，我们需要使用到Exporter。Prometheus周期性的从Exporter暴露的HTTP服务地址（通常是/metrics）拉取监控样本数据。 xporter">
-<meta name="twitter:image" content="http://swsmile.info/2020/07/22/【Performance】Prometheus-Exporter-Node-Exporter/assets/image-20200721185609311.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -236,9 +236,9 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">level=info ts=2020-07-22T15:10:28.758Z <span class="built_in">caller</span>=node_exporter.go:177 msg=<span class="string">"Starting node_exporter"</span> version=<span class="string">"(version=1.0.1, branch=HEAD, revision=3715be6ae899f2a9b9dbfd9c39f3e09a7bd4559f)"</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.758Z <span class="built_in">caller</span>=node_exporter.go:178 msg=<span class="string">"Build context"</span> build_context=<span class="string">"(go=go1.14.4, user=root@1f76dbbcfa55, date=20200616-12:44:12)"</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:105 msg=<span class="string">"Enabled collectors"</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=arp</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=bcache</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=bonding</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=btrfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=conntrack</span><br><span class="line">level=info ts=2020-07-22T15:10:28.759Z <span class="built_in">caller</span>=node_exporter.go:112 collector=cpu</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=cpufreq</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=diskstats</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=edac</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=entropy</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=filefd</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=filesystem</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=hwmon</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=infiniband</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=ipvs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=loadavg</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=mdadm</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=meminfo</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=netclass</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=netdev</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=netstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=nfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=nfsd</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=powersupplyclass</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=pressure</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=rapl</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=schedstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=sockstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=softnet</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=<span class="built_in">stat</span></span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=textfile</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=thermal_zone</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=time</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=timex</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=udp_queues</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=uname</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=vmstat</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=xfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.760Z <span class="built_in">caller</span>=node_exporter.go:112 collector=zfs</span><br><span class="line">level=info ts=2020-07-22T15:10:28.761Z <span class="built_in">caller</span>=node_exporter.go:191 msg=<span class="string">"Listening on"</span> address=:9100</span><br><span class="line">level=info ts=2020-07-22T15:10:28.761Z <span class="built_in">caller</span>=tls_config.go:170 msg=<span class="string">"TLS is disabled and it cannot be enabled on the fly."</span> http2=<span class="literal">false</span></span><br></pre></td></tr></table></figure>
 
 <p>访问 <a href="http://localhost:9100/" target="_blank" rel="noopener">http://localhost:9100/</a> 可以看到以下页面：</p>
-<p><img src="assets/image-20200721185609311.png" alt="image-20200721185609311"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185609311.png" alt="image-20200721185609311"></p>
 <h2 id="初识-Node-Exporter-监控-metrics"><a href="#初识-Node-Exporter-监控-metrics" class="headerlink" title="初识 Node Exporter 监控 metrics"></a>初识 Node Exporter 监控 metrics</h2><p>访问<a href="http://localhost:9100/metrics" target="_blank" rel="noopener">http://localhost:9100/metrics</a> ，可以看到当前node exporter获取到的当前主机的所有监控数据，如下所示：</p>
-<p><img src="assets/image-20200721185637394.png" alt="image-20200721185637394"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200721185637394.png" alt="image-20200721185637394"></p>
 <p>每一个监控指标之前都会有一段类似于如下形式的信息：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># HELP node_cpu Seconds the cpus spent in each mode.</span><br><span class="line"># TYPE node_cpu counter</span><br><span class="line">node_cpu&#123;cpu=&quot;cpu0&quot;,mode=&quot;idle&quot;&#125; 362812.7890625</span><br><span class="line"># HELP node_load1 1m load average.</span><br><span class="line"># TYPE node_load1 gauge</span><br><span class="line">node_load1 3.0703125</span><br></pre></td></tr></table></figure>
 
@@ -281,13 +281,13 @@ var _hmt = _hmt || [];
 <td align="left">The average network traffic received, per second, over the last minute (in bytes)</td>
 </tr>
 </tbody></table>
-<p><img src="assets/image-20200723201717192.png" alt="image-20200723201717192"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200723201717192.png" alt="image-20200723201717192"></p>
 <h1 id="Grafana查看"><a href="#Grafana查看" class="headerlink" title="Grafana查看"></a>Grafana查看</h1><p>Prometheus虽然自带了web页面，但一般会和更专业的Grafana配套做指标的可视化，Grafana有很多模板，用于更友好地展示出指标的情况，如</p>
 <ul>
 <li><a href="https://grafana.com/dashboards/8919" target="_blank" rel="noopener">https://grafana.com/dashboards/8919</a></li>
 <li><a href="https://grafana.com/grafana/dashboards/1860" target="_blank" rel="noopener">https://grafana.com/grafana/dashboards/1860</a></li>
 </ul>
-<p><img src="assets/image-20200722232824605.png" alt="image-20200722232824605"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200722232824605.png" alt="image-20200722232824605"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://prometheus.io/docs/guides/node-exporter/" target="_blank" rel="noopener">https://prometheus.io/docs/guides/node-exporter/</a></li>
 <li><a href="https://github.com/prometheus/node_exporter" target="_blank" rel="noopener">https://github.com/prometheus/node_exporter</a></li>
@@ -543,10 +543,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -559,19 +555,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,11 +619,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -631,7 +631,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -651,11 +651,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -687,11 +687,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -699,11 +699,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,15 +723,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,11 +775,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,15 +791,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -807,11 +803,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -823,11 +823,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

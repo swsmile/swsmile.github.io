@@ -16,19 +16,19 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景对于锁大家肯定不会陌生，在Java中synchronized关键字和ReentrantLock可重入锁在我们的代码中是经常见的，一般我们用其在多线程环境中控制对资源的并发访问，但是随着分布式的快速发展，本地的加锁往往不能满足我们的需要，在我们的分布式环境中上面加锁的方法就会失去作用。于是人们为了在分布式环境中也能实现本地锁的效果，也是纷纷各出其招，今天让我们来聊一聊一般分布式锁实现的套路。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711215849366.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711220604751.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711220726166.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711220839202.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711220851881.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711220922674.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711221402512.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711223720080.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711215849366.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220604751.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220726166.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220839202.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220851881.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220922674.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711221402512.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711223720080.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.307Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】分布式锁（Distributed Lock）">
 <meta name="twitter:description" content="背景对于锁大家肯定不会陌生，在Java中synchronized关键字和ReentrantLock可重入锁在我们的代码中是经常见的，一般我们用其在多线程环境中控制对资源的并发访问，但是随着分布式的快速发展，本地的加锁往往不能满足我们的需要，在我们的分布式环境中上面加锁的方法就会失去作用。于是人们为了在分布式环境中也能实现本地锁的效果，也是纷纷各出其招，今天让我们来聊一聊一般分布式锁实现的套路。">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/11/【Distributed-System】分布式锁/assets/image-20190711215849366.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711215849366.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -252,20 +252,20 @@ var _hmt = _hmt || [];
 </ul>
 <p>下面分开介绍一下这些分布式锁的实现原理。</p>
 <h1 id="MySQL分布式锁"><a href="#MySQL分布式锁" class="headerlink" title="MySQL分布式锁"></a>MySQL分布式锁</h1><p>首先来说一下Mysql分布式锁的实现原理，相对来说这个比较容易理解，毕竟数据库和我们开发人员在平时的开发中息息相关。对于分布式锁我们可以创建一个锁表:</p>
-<p><img src="assets/image-20190711215849366.png" alt="image-20190711215849366"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711215849366.png" alt="image-20190711215849366"></p>
 <p> 前面我们所说的lock(),trylock(long timeout)，trylock()这几个方法可以用下面的伪代码实现。</p>
 <h2 id="lock"><a href="#lock" class="headerlink" title="lock()"></a>lock()</h2><p>lock一般是阻塞式的获取锁，意思就是不获取到锁誓不罢休，那么我们可以写一个死循环来执行其操作: </p>
-<p><img src="assets/image-20190711220604751.png" alt="image-20190711220604751"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220604751.png" alt="image-20190711220604751"></p>
 <p><code>mysqlLock.lock()</code>方法内部会执行一个SQL，为了达到可重入锁的效果那么我们应该先进行查询，如果有值，那么需要比较node_info是否一致，这里的node_info可以用机器IP和线程名字来表示，如果一致那么就加可重入锁count的值，如果不一致那么就返回false。如果没有值那么直接插入一条数据。伪代码如下: </p>
-<p><img src="assets/image-20190711220726166.png" alt="image-20190711220726166"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220726166.png" alt="image-20190711220726166"></p>
 <p>需要注意的是这一段代码需要加事务，必须要保证这一系列操作的原子性。</p>
 <h2 id="tryLock-和tryLock-long-timeout"><a href="#tryLock-和tryLock-long-timeout" class="headerlink" title="tryLock()和tryLock(long timeout)"></a>tryLock()和tryLock(long timeout)</h2><p>tryLock()是非阻塞获取锁，如果获取不到那么就会马上返回，代码可以如下: </p>
-<p><img src="assets/image-20190711220839202.png" alt="image-20190711220839202"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220839202.png" alt="image-20190711220839202"></p>
 <p> tryLock(long timeout)实现如下: </p>
-<p><img src="assets/image-20190711220851881.png" alt="image-20190711220851881"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220851881.png" alt="image-20190711220851881"></p>
 <p> mysqlLock.lock和上面一样，但是要注意的是select … for update这个是阻塞的获取行锁，如果同一个资源并发量较大还是有可能会退化成阻塞的获取锁。</p>
 <h2 id="unlock"><a href="#unlock" class="headerlink" title="unlock()"></a>unlock()</h2><p>unlock的话如果这里的count为1那么可以删除，如果大于1那么需要减去1。</p>
-<p><img src="assets/image-20190711220922674.png" alt="image-20190711220922674"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711220922674.png" alt="image-20190711220922674"></p>
 <h2 id="锁超时"><a href="#锁超时" class="headerlink" title="锁超时"></a>锁超时</h2><p>我们有可能会遇到我们的机器节点挂了，那么这个锁就不会得到释放，我们可以启动一个定时任务，通过计算一般我们处理任务的一般的时间，比如是5ms，那么我们可以稍微扩大一点，当这个锁超过20ms没有被释放我们就可以认定是节点挂了然后将其直接释放。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
 <li>适用场景：MySQL分布式锁一般适用于资源不存在数据库，如果数据库存在比如订单，那么可以直接对这条数据加行锁，不需要我们上面多的繁琐的步骤，比如一个订单，那么我们可以用<code>select * from order_table where id = &#39;xxx&#39; for update</code>进行加行锁，那么其他的事务就不能对其进行修改。</li>
@@ -279,12 +279,12 @@ var _hmt = _hmt || [];
 <p>那我们的文件系统有什么特点？那就是同一个目录下文件名称不能重复，同样ZooKeeper也是这样的。</p>
 <p>在ZooKeeper所有的节点，也就是文件夹称作Znode，而且这个Znode节点是可以存储数据的。</p>
 <p>我们以某个资源为目录，然后这个目录下面的节点就是我们需要获取锁的客户端，未获取到锁的客户端注册需要注册Watcher到上一个客户端，可以用下图表示：</p>
-<p><img src="assets/image-20190711221402512.png" alt="image-20190711221402512"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711221402512.png" alt="image-20190711221402512"></p>
 <p> <code>/lock</code> 是我们用于加锁的目录，<code>/resource_name</code> 是我们锁定的资源，其下面的节点按照我们加锁的顺序排列。</p>
 <h2 id="Curator"><a href="#Curator" class="headerlink" title="Curator"></a>Curator</h2><p>Curator封装了Zookeeper底层的API，使我们更加容易方便的对Zookeeper进行操作，并且它封装了分布式锁的功能，这样我们就不需要再自己实现了。</p>
 <p>Curator实现了可重入锁（InterProcessMutex），也实现了不可重入锁（InterProcessSemaphoreMutex）。在可重入锁中还实现了读写锁。</p>
 <h2 id="InterProcessMutex"><a href="#InterProcessMutex" class="headerlink" title="InterProcessMutex"></a>InterProcessMutex</h2><p>InterProcessMutex是Curator实现的可重入锁，我们可以通过下面的一段代码实现我们的可重入锁:</p>
-<p><img src="assets/image-20190711223720080.png" alt="image-20190711223720080"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190711223720080.png" alt="image-20190711223720080"></p>
 <p>我们利用acuire进行加锁，release进行解锁。</p>
 <p>加锁的流程具体如下：</p>
 <ol>
@@ -576,10 +576,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -592,19 +588,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -652,11 +652,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,7 +664,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,11 +684,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,11 +720,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,11 +732,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -756,15 +756,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -808,11 +808,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,15 +824,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -840,11 +836,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -856,11 +856,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

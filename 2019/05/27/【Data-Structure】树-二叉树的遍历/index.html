@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="二叉树节点类树节点1234567891011class TreeNode &amp;#123;    int val;    //左子树    TreeNode left;    //右子树    TreeNode right;    //构造方法    TreeNode(int x) &amp;#123;        val = x;    &amp;#125;&amp;#125;">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/27/【Data-Structure】树-二叉树的遍历/assets/2-1FS01325394F-20190527210512082.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/27/【Data-Structure】树-二叉树的遍历/assets/2-1FS01325394F-20190527210512082.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/27/【Data-Structure】树-二叉树的遍历/assets/2-1FS01325394F-20190527210759762.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/27/【Data-Structure】树-二叉树的遍历/assets/2-1FS0143134W9.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS01325394F-20190527210512082.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS01325394F-20190527210512082.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS01325394F-20190527210759762.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS0143134W9.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.290Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】二叉树的遍历（Traversal）">
 <meta name="twitter:description" content="二叉树节点类树节点1234567891011class TreeNode &amp;#123;    int val;    //左子树    TreeNode left;    //右子树    TreeNode right;    //构造方法    TreeNode(int x) &amp;#123;        val = x;    &amp;#125;&amp;#125;">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/27/【Data-Structure】树-二叉树的遍历/assets/2-1FS01325394F-20190527210512082.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS01325394F-20190527210512082.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -229,7 +229,7 @@ var _hmt = _hmt || [];
 <li>访问当前节点的左子树；</li>
 <li>若当前节点无左子树，则访问当前节点的右子树；</li>
 </ul>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p><img src="assets/2-1FS01325394F-20190527210512082.png" alt="img"></p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS01325394F-20190527210512082.png" alt="img"></p>
 <p>以上图为例，采用先序遍历的思想遍历该二叉树的过程为：</p>
 <ol>
 <li>访问该二叉树的根节点，找到 1；</li>
@@ -263,7 +263,7 @@ var _hmt = _hmt || [];
 <li>访问根节点；</li>
 <li>访问当前节点的右子树；</li>
 </ul>
-<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p><img src="assets/2-1FS01325394F-20190527210512082.png" alt="img"></p>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS01325394F-20190527210512082.png" alt="img"></p>
 <p>以上图为例，采用中序遍历的思想遍历该二叉树的过程为：</p>
 <ol>
 <li>访问该二叉树的根节点，找到 1；</li>
@@ -285,7 +285,7 @@ var _hmt = _hmt || [];
 <h4 id="非递归（Iterative）实现-1"><a href="#非递归（Iterative）实现-1" class="headerlink" title="非递归（Iterative）实现"></a>非递归（Iterative）实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrderTraverse</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">  	Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">  	stack.push(root);</span><br><span class="line">		TreeNode pNode = root;</span><br><span class="line">  </span><br><span class="line">  	<span class="keyword">while</span> (pNode != <span class="keyword">null</span> || !stack.isEmpty())&#123;</span><br><span class="line">      <span class="keyword">if</span>(pNode != <span class="keyword">null</span>)&#123;</span><br><span class="line">        stack.push(pNode);</span><br><span class="line">        pNode = pNode.left;</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123; <span class="comment">//!stack.isEmpty() &amp;&amp; pNode == null</span></span><br><span class="line">        TreeNode node = stack.pop();</span><br><span class="line">        System.out.print(node.val+<span class="string">"  "</span>);</span><br><span class="line">        pNode = node.right;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="二叉树后序遍历（Post-order-Traversal）"><a href="#二叉树后序遍历（Post-order-Traversal）" class="headerlink" title="二叉树后序遍历（Post-order Traversal）"></a>二叉树后序遍历（Post-order Traversal）</h2><p>二叉树后序遍历的实现思想是：从根节点出发，依次遍历各节点的左右子树，直到当前节点左右子树遍历完成后，才访问该节点元素。</p>
-<h3 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h3><p><img src="assets/2-1FS01325394F-20190527210759762.png" alt="img"></p>
+<h3 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS01325394F-20190527210759762.png" alt="img"></p>
 <p>如上图中，对此二叉树进行后序遍历的操作过程为：</p>
 <ol>
 <li>从根节点 1 开始，遍历该节点的左子树（以节点 2 为根节点）；</li>
@@ -309,7 +309,7 @@ var _hmt = _hmt || [];
 <h1 id="广度优先遍历（Breadth-first-Search，BFS）"><a href="#广度优先遍历（Breadth-first-Search，BFS）" class="headerlink" title="广度优先遍历（Breadth-first Search，BFS）"></a>广度优先遍历（Breadth-first Search，BFS）</h1><h2 id="二叉树层次遍历（Level-order-Traversal）"><a href="#二叉树层次遍历（Level-order-Traversal）" class="headerlink" title="二叉树层次遍历（Level-order Traversal）"></a>二叉树层次遍历（Level-order Traversal）</h2><p>前边介绍了二叉树的先序、中序和后序的遍历算法，运用了栈的数据结构，主要思想就是按照先左子树后右子树的顺序依次遍历树中各个结点。</p>
 <p>本节介绍另外一种遍历方式：按照二叉树中的层次从左到右依次遍历每层中的结点。</p>
 <p>具体的实现思路是：通过使用队列的数据结构，从树的根结点开始，依次将其左孩子和右孩子入队。而后每次队列中一个结点出队，都将其左孩子和右孩子入队，直到树中所有结点都出队，出队结点的先后顺序就是层次遍历的最终结果。</p>
-<h3 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h3><p><img src="assets/2-1FS0143134W9.png" alt="img"></p>
+<h3 id="例子-3"><a href="#例子-3" class="headerlink" title="例子"></a>例子</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2-1FS0143134W9.png" alt="img"></p>
 <p>层次遍历上图中的二叉树：</p>
 <ul>
 <li>首先，根结点 1 入队；</li>
@@ -573,10 +573,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -589,19 +585,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,11 +649,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -661,7 +661,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,11 +681,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,11 +717,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,15 +753,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -805,11 +805,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -821,15 +821,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -837,11 +833,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -853,11 +853,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="事件循环（Event Loop）Node的执行模型称为事件循环（Event Loop）。在Node进程启动后，Node会用主线程来执行所有用户代码。当主线程对应的栈为空时（所有用户代码执行完毕了）Node会开始执行一个类似while(true)的事件循环（Event Loop）（从Node代码实现的角度来说，并不存在这样的while(true)）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/assets/image-20181027131444682.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/assets/image-20181027121843088.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/assets/image-20181027125050056.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/assets/image-20190118110311827.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/assets/image-20190118111008030.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181027131444682.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181027121843088.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181027125050056.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118110311827.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118111008030.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Node.js】Node.js 的 Event Loop 与异步 I&#x2F;O">
 <meta name="twitter:description" content="事件循环（Event Loop）Node的执行模型称为事件循环（Event Loop）。在Node进程启动后，Node会用主线程来执行所有用户代码。当主线程对应的栈为空时（所有用户代码执行完毕了）Node会开始执行一个类似while(true)的事件循环（Event Loop）（从Node代码实现的角度来说，并不存在这样的while(true)）。">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/06/【Node-js】Node-js的Event-Loop与异步IO/assets/image-20181027131444682.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181027131444682.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -223,7 +223,7 @@ var _hmt = _hmt || [];
 <p>浏览器采用了类似的机制。事件可能来自用户的点击或者加载某些文件时产生，而这些产生的事件都有对应的观察者。在Node中，事件主要来源于网络请求、文件I/O等，这些事件对应的观察者有文件I/O观察者、网络I/O观察者等。观察者将事件进行了分类。</p>
 <p>事件循环是一个典型的<strong>生产者/消费者模型</strong>。异步I/O、网络请求等则是事件的生产者，源源 不断为Node提供不同类型的事件，这些事件被传递到对应的观察者那里，事件循环则从观察者那里取出事件并处理。</p>
 <p>在Windows下，这个循环基于IOCP创建，而在*nix下则基于多线程创建。</p>
-<p><img src="assets/image-20181027131444682.png" alt="image-20181027131444682"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181027131444682.png" alt="image-20181027131444682"></p>
 <hr>
 <p>对于I/O操作，Node使用了自己设计的libuv，libuv是一个基于事件驱动的跨平台抽象层，封装了不同操作系统一些底层特性，对外提供统一的API。具体来说，</p>
 <h2 id="事件循环的各个阶段（Phase）"><a href="#事件循环的各个阶段（Phase）" class="headerlink" title="事件循环的各个阶段（Phase）"></a>事件循环的各个阶段（Phase）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">   ┌───────────────────────────┐</span><br><span class="line">┌─&gt;│           timers          │</span><br><span class="line">│  └─────────────┬─────────────┘</span><br><span class="line">│  ┌─────────────┴─────────────┐</span><br><span class="line">│  │     pending callbacks     │</span><br><span class="line">│  └─────────────┬─────────────┘</span><br><span class="line">│  ┌─────────────┴─────────────┐</span><br><span class="line">│  │       idle, prepare       │</span><br><span class="line">│  └─────────────┬─────────────┘      ┌───────────────┐</span><br><span class="line">│  ┌─────────────┴─────────────┐      │   incoming:   │</span><br><span class="line">│  │           poll            │&lt;─────┤  connections, │</span><br><span class="line">│  └─────────────┬─────────────┘      │   data, etc.  │</span><br><span class="line">│  ┌─────────────┴─────────────┐      └───────────────┘</span><br><span class="line">│  │           check           │</span><br><span class="line">│  └─────────────┬─────────────┘</span><br><span class="line">│  ┌─────────────┴─────────────┐</span><br><span class="line">└──┤      close callbacks      │</span><br><span class="line">   └───────────────────────────┘</span><br></pre></td></tr></table></figure>
@@ -253,13 +253,13 @@ var _hmt = _hmt || [];
 <p>可以发现，当<code>poll</code>的队列为空时，代码中又包含<code>setImmediate()</code>任务，Event Loop会立即执行<code>setImmediate()</code>的回调函数，这样的机制是尽可能保证<code>setImmediate()</code>可以被尽早执行。</p>
 <h1 id="Node异步的内部实现机制"><a href="#Node异步的内部实现机制" class="headerlink" title="Node异步的内部实现机制"></a>Node异步的内部实现机制</h1><h2 id="I-O的异步API"><a href="#I-O的异步API" class="headerlink" title="I/O的异步API"></a>I/O的异步API</h2><p>以一个简单的<code>fs.open()</code>例子，来探索从JavaScript代码层的调用（异步调用），到异步I/O如何被执行，最终回调函数如何被调用（执行回调）。</p>
 <h4 id="JavaScript代码层的异步调用"><a href="#JavaScript代码层的异步调用" class="headerlink" title="JavaScript代码层的异步调用"></a>JavaScript代码层的异步调用</h4><p>fs.open()的作用是根据指定路径和参数去打开一个文件，从而得到一个文件描述符，这是后续所有I/O操作的初始操作。JavaScript层面的代码通过调用C++核心模块以实现下层的操作。</p>
-<p><img src="assets/image-20181027121843088.png" alt="image-20181027121843088"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181027121843088.png" alt="image-20181027121843088"></p>
 <p>具体来说，JavaScript调用Node的核心模块，核心模块调用C++内建模块，内建模块通过libuv库进行系统内核调用，这里libuv作为封装层，有两个平台的实现，实质上是调用了uv_fs_open()方法。</p>
 <h4 id="异步I-O的执行"><a href="#异步I-O的执行" class="headerlink" title="异步I/O的执行"></a>异步I/O的执行</h4><p>在uv_fs_open()的调用过程中，Node底层会创建一个<strong>FSReqWrap请求对象</strong>。从JavaScript层传入的参数和回调函数都被封装在这个请求对象中。此后，FSReqWrap请求对象诶推入线程池中等待执行。</p>
 <p>至此， JavaScript调用立即返回， <strong>由JavaScript层面发起的异步调用的第一阶段就此结束</strong>。 JavaScript线程可以继续执行当前任务的后续操作。当前的I/O操作在线程池中等待执行，不管它是否阻塞I/O，都不会影响到JavaScript线程的后续执行，如此就达到了Node异步I/0的目的。</p>
 <h4 id="执行回调"><a href="#执行回调" class="headerlink" title="执行回调"></a>执行回调</h4><p>JavaScript代码层的异步调用、组装好请求对象、送入I/O线程池等待执行，实际上只是完成了JavaScript代码层的调用和异步I/O的执行，这只是异步I/O的第一部分。获得回调通知并执行回调则是第二部分。</p>
 <p>在event loop的每次Tick的<strong>poll</strong>阶段，Node引擎会检查线程池中是否有已经完成的I/O操作，如果有，则将其请求对象放入<strong>poll</strong>阶段的队列中。之前提到，请求对象中包含该I/O操作对应的JavaScript回调函数。因此，该回调函数就能被执行了。</p>
-<p><img src="assets/image-20181027125050056.png" alt="image-20181027125050056"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181027125050056.png" alt="image-20181027125050056"></p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>事件循环、观察者、请求对象、I/O线程池这四者共同构成了Node异步I/O模型的基本要素。 </p>
 <p>Windows下主要通过IOCP来向系统内核发送I/O调用和从内核获取已完成的I/O操作，配以事件循环，以此完成异步I/O的过程。在Linux下通过epoll实现这个过程，FreeBSD下通过kqueue实现，Solaris下通过Event ports实现。不同的是线程池在Windows下由内核（IOCP）直接提供，*nix 系列下由libuv自行实现。</p>
 <h2 id="非-I-O-的异步-API"><a href="#非-I-O-的异步-API" class="headerlink" title="非 I/O 的异步 API"></a>非 I/O 的异步 API</h2><p>尽管在介绍Node的时候，多数情况下都会提到<strong>异步I/O</strong>，但是Node中其实还存在一些与 I/O无关的异步API，它们分别是setTimeout()、setInterval()、 setImmediate()和process.nextTick()。</p>
@@ -282,9 +282,9 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>libuv 是 Node 的副产品。最开始 Node 用 libev 监听各种异步事件，后来因为它无法支持 Windows 才不得不自己写了个 libuv，加入了 Windows 支持。</p>
 </blockquote>
-<p><img src="assets/image-20190118110311827.png" alt="image-20190118110311827"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118110311827.png" alt="image-20190118110311827"></p>
 <p>libuv是一个<strong>高性能事件驱动库</strong>，使用异步和基于事件驱动的编程方式，核心是提供I/O的事件循环和异步回调。从本质上来说，libuv实现了一套自己的<strong>线程池（Thread Pool）</strong>来处理所有同步操作（从而模拟出异步的效果）。</p>
-<p><img src="assets/image-20190118111008030.png" alt="image-20190118111008030"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118111008030.png" alt="image-20190118111008030"></p>
 <p>libuv提供了一个跨平台的抽象，libuv是一个<strong>高性能事件驱动库</strong>。本质上，会根据当前运行的操作系统来决定最底层到底使用哪个内核事件通知机制。</p>
 <p>在Windows 平台中，依赖的内核事件通知机制是IOCP；在Linux中，对应epoll；在FreeBSD中，对应kqueue()；在中Solaris，对应event ports。</p>
 <hr>
@@ -559,10 +559,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -575,19 +571,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,11 +635,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,7 +647,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,11 +667,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,11 +703,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,11 +715,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,15 +739,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -791,11 +791,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -807,15 +807,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -823,11 +819,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -839,11 +839,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

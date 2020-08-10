@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Context12345678910111213141516171819202122232425262728293031package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	x := make(map[int]int)	for i := 0; i &amp;lt; 30; i++ &amp;#123;		x[i] = i	&amp;#125;	for i := 0; i &amp;lt; 1">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/06/14/【Golang】类型-map-遍历-map-时-key-随机化问题/assets/image-20200614122335282.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200614122335282.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Golang】Golang 遍历 map 时 key 随机化问题">
 <meta name="twitter:description" content="Context12345678910111213141516171819202122232425262728293031package mainimport (	&quot;fmt&quot;)func main() &amp;#123;	x := make(map[int]int)	for i := 0; i &amp;lt; 30; i++ &amp;#123;		x[i] = i	&amp;#125;	for i := 0; i &amp;lt; 1">
-<meta name="twitter:image" content="http://swsmile.info/2020/06/14/【Golang】类型-map-遍历-map-时-key-随机化问题/assets/image-20200614122335282.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200614122335282.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -221,7 +221,7 @@ var _hmt = _hmt || [];
 
 <p>在Java中，并没有这个问题。</p>
 <p>因为在 Java 中的 Hashmap 会把每个 pair object 在 heap 中的指针存在一个 array 中（根据hash 函数算出一个特定的 pair object 存储在这个 array 中的 哪个 index 位置上）。而每次遍历 map 时，都会从这个 array 的头部开始一个一个元素的扫描（如果不为 nill ，说明当前位置存储了 pair 元素），</p>
-<img src="assets/image-20200614122335282.png" alt="image-20200614122335282" style="zoom:67%;">
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200614122335282.png" alt="image-20200614122335282" style="zoom:67%;">
 
 <h1 id="Staightforward-Idea"><a href="#Staightforward-Idea" class="headerlink" title="Staightforward Idea"></a>Staightforward Idea</h1><p>如果希望每次遍历 map 时，访问元素的顺序均相同，可以把 key 先提前取出来，存在 slice 里，然后对 key 排序。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"sort"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span></span><br><span class="line"><span class="keyword">var</span> keys []<span class="keyword">int</span></span><br><span class="line"><span class="keyword">for</span> k := <span class="keyword">range</span> m &#123;</span><br><span class="line">    keys = <span class="built_in">append</span>(keys, k)</span><br><span class="line">&#125;</span><br><span class="line">sort.Ints(keys)</span><br><span class="line"><span class="keyword">for</span> _, k := <span class="keyword">range</span> keys &#123;</span><br><span class="line">    fmt.Println(<span class="string">"Key:"</span>, k, <span class="string">"Value:"</span>, m[k])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -485,10 +485,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -501,19 +497,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -561,11 +561,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -573,7 +573,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,11 +593,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,11 +629,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,11 +641,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,15 +665,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -717,11 +717,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,15 +733,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -749,11 +745,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -765,11 +765,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

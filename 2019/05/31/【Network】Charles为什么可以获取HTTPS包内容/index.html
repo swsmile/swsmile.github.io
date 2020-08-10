@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景之前，我们在【Security】HTTPS 和 【Security】安全的 HTTP 的演化中介绍了HTTPS的工作原理，HTTPS的一个重要的作用，就是防止中间人攻击（Man-in-the-Middle Attack，MITM）。 然而，不知道你有没有考虑过，作为一个常用的macOS下抓包工具 - Charles，它是如何获取到HTTPS包中明文内容的。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/31/【Network】Charles为什么可以获取HTTPS包内容/assets/image-20190531162226942.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/31/【Network】Charles为什么可以获取HTTPS包内容/assets/image-20190601103539574.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/31/【Network】Charles为什么可以获取HTTPS包内容/assets/image-20190601104755010.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/31/【Network】Charles为什么可以获取HTTPS包内容/assets/image-20190513120149537.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/31/【Network】Charles为什么可以获取HTTPS包内容/assets/image-20190601105310379.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/31/【Network】Charles为什么可以获取HTTPS包内容/assets/image-20190601105204020.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531162226942.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601103539574.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601104755010.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190513120149537.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601105310379.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601105204020.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】Charles 为什么可以获取 HTTPS 包内容">
 <meta name="twitter:description" content="背景之前，我们在【Security】HTTPS 和 【Security】安全的 HTTP 的演化中介绍了HTTPS的工作原理，HTTPS的一个重要的作用，就是防止中间人攻击（Man-in-the-Middle Attack，MITM）。 然而，不知道你有没有考虑过，作为一个常用的macOS下抓包工具 - Charles，它是如何获取到HTTPS包中明文内容的。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/31/【Network】Charles为什么可以获取HTTPS包内容/assets/image-20190531162226942.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531162226942.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -222,7 +222,7 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <p>比如，当我访问<a href="https://github.com" target="_blank" rel="noopener">https://github.com</a> 后，我能够在Charles里获取到首页对应的html的内容，如下所示：</p>
-<p><img src="assets/image-20190531162226942.png" alt="image-20190531162226942"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190531162226942.png" alt="image-20190531162226942"></p>
 <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p>我们知道，在我们能让Charles抓取HTTPS包之前，需要进行”Install Charles Certificate”操作，而关键就在这里。</p>
 <p>来看看 Charles对这个Certificate的解释：</p>
 <blockquote>
@@ -232,15 +232,15 @@ var _hmt = _hmt || [];
 <p>重点在于，当我们访问一个网站时（比如GitHub），Charles为会这个网站动态生成一张CA证书，这张由Charles动态生成的CA证书是能通过Charles Root Certificate验证的。</p>
 <p>##### </p>
 <p>我们知道，操作系统都内置了多个根证书（如下所示）：</p>
-<p><img src="assets/image-20190601103539574.png" alt="image-20190601103539574"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601103539574.png" alt="image-20190601103539574"></p>
 <p>进行”Install Charles Certificate”操作，其实就是向操作系统添加一张根证书，根证书信息如下所示：</p>
-<p><img src="assets/image-20190601104755010.png" alt="image-20190601104755010"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601104755010.png" alt="image-20190601104755010"></p>
 <p>而所有的站点证书都基于证书链验证机制（如下图所示），即站点证书需要通过根证书的验证（否则，在浏览器中会提示当前访问网站不安全）。</p>
-<p><img src="assets/image-20190513120149537.png" alt="image-20190513120149537"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190513120149537.png" alt="image-20190513120149537"></p>
 <h3 id="验证分析"><a href="#验证分析" class="headerlink" title="验证分析"></a>验证分析</h3><p>在未打开Charles时，我们访问<a href="https://github.com，可以看到当前github的网站证书是由DigiCert（权威CA）签发的。自然地，也由DigiCert" target="_blank" rel="noopener">https://github.com，可以看到当前github的网站证书是由DigiCert（权威CA）签发的。自然地，也由DigiCert</a> 的根证书来验证。</p>
-<p><img src="assets/image-20190601105310379.png" alt="image-20190601105310379"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601105310379.png" alt="image-20190601105310379"></p>
 <p>而在打开Charles之后，我们再次访问<a href="https://github.com，可以看到，这个github的网站证书其实是在我们访问时，由Charles动态生成的，更准确地说，是通过Charles导入操作系统的根证书签发的。" target="_blank" rel="noopener">https://github.com，可以看到，这个github的网站证书其实是在我们访问时，由Charles动态生成的，更准确地说，是通过Charles导入操作系统的根证书签发的。</a></p>
-<p><img src="assets/image-20190601105204020.png" alt="image-20190601105204020"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190601105204020.png" alt="image-20190601105204020"></p>
 <h1 id="启发"><a href="#启发" class="headerlink" title="启发"></a>启发</h1><p>Charles其实就是一个支持HTTPS的中间人攻击（Man-in-the-Middle Attack，MITM）工具，而支持HTTPS的关键在于，我们需要向被攻击者的操作系统中添加我们的根证书。</p>
 <p>同时，这也说明了HTTPS机制的安全性是基于客户端操作系统中根证书的正常性所保证的，换句话说，如果被攻击者在无意识的情况下，被攻击者向其其中添加了”攻击”根证书。</p>
 <p>这种无意识的情况，可以通过很多种方式来实现，比如我们使用Adobe破解工具时，它请求了root权限，理论上，它也有可能向我们的操作系统中添加”攻击”根证书。</p>
@@ -497,10 +497,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -513,19 +509,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -573,11 +573,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -585,7 +585,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -605,11 +605,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,11 +641,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,11 +653,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,15 +677,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,15 +745,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,11 +757,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -777,11 +777,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

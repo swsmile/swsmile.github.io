@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。 那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/assets/image-20181106130806206.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/assets/image-20190117213847674.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/assets/image-20181106130559969.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181106130806206.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190117213847674.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181106130559969.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Node.js】Node.js中的单线程模型与多线程&#x2F;进程">
 <meta name="twitter:description" content="JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。 那么，为什么JavaScript不能有多个线程呢？这样能提高效率啊。">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/12/【Node-js】Node-js中的单线程模型与多线程-进程/assets/image-20181106130806206.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181106130806206.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -240,7 +240,7 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ node main.js</span><br><span class="line">finish fibonacci</span><br><span class="line">13010ms fibonacci</span><br><span class="line">process.nextTick</span><br><span class="line">13014ms process.nextTick</span><br><span class="line">setImmediate1</span><br><span class="line">13014ms setImmediate1</span><br><span class="line">setImmediate2</span><br><span class="line">13014ms setImmediate2</span><br><span class="line">setTimeout</span><br><span class="line">13018ms setTimeout</span><br></pre></td></tr></table></figure>
 
 <p>可以明显看到所有的异步操作（easy task）均被Fibonacci的计算（difficult task）阻塞了，如下图所示：</p>
-<p><img src="assets/image-20181106130806206.png" alt="image-20181106130806206"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181106130806206.png" alt="image-20181106130806206"></p>
 <p>这是一个典型的CPU密集型（CPU intensive）场景，Node.js为了解决在CPU密集型应用中，异步回调被长期阻塞的问题，引入了多进程机制。</p>
 <p>因此，我们通过总结Node 的两种不同应用场景来讨论解决方案。</p>
 <h1 id="Node-的应用场景"><a href="#Node-的应用场景" class="headerlink" title="Node 的应用场景"></a>Node 的应用场景</h1><p>关于Node，探讨得较多的主要有I/O密集型和CPU密集型。</p>
@@ -262,7 +262,7 @@ var _hmt = _hmt || [];
 
 <h5 id="support-js"><a href="#support-js" class="headerlink" title="support.js"></a>support.js</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"进程 "</span> + process.argv[<span class="number">2</span>] + <span class="string">" 执行。"</span> );</span><br></pre></td></tr></table></figure>
 
-<h3 id="cluster-模块-创建子进程"><a href="#cluster-模块-创建子进程" class="headerlink" title="cluster 模块 - 创建子进程"></a>cluster 模块 - 创建子进程</h3><p><img src="assets/image-20190117213847674.png" alt="image-20190117213847674"></p>
+<h3 id="cluster-模块-创建子进程"><a href="#cluster-模块-创建子进程" class="headerlink" title="cluster 模块 - 创建子进程"></a>cluster 模块 - 创建子进程</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190117213847674.png" alt="image-20190117213847674"></p>
 <p>除此之外，还可以使用cluster 模块。<strong>cluster 模块</strong>对 child_process 模块提供了一层封装，可以说是为了发挥服务器多核优势而量身定做的。</p>
 <p>cluster 模块的工作的结构很简单。我们创建一个主进程并且主进程衍生（fork）了一些工作进程（worker process），然后管理它们。每一个工作进程代理表了一个我们想要扩展的应用的一个实例。所有到来的请求都被主进程所处理，它决定着哪一个工作进程应该处理一个到来的请求。</p>
 <p>简单的一个 fork方法，不需要开发者修改任何的应用代码便能够实现多进程部署。</p>
@@ -271,7 +271,7 @@ var _hmt = _hmt || [];
 <p>最初的 Node.js 多进程模型就是这样实现的，master 进程创建 socket，绑定到某个地址以及端口后，自身不调用 listen 来监听连接以及 accept 连接，而是将该 socket 的 fd 传递到 fork 出来的 worker 进程，worker 接收到 fd 后再调用 listen，accept 新的连接。但实际一个新到来的连接最终只能被某一个 worker 进程 accpet 再做处理，至于是哪个 worker 能够 accept 到，开发者完全无法预知以及干预。这势必就导致了当一个新连接到来时，多个 worker 进程会产生竞争，最终由胜出的 worker 获取连接。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cluster = <span class="built_in">require</span>(<span class="string">'cluster'</span>),</span><br><span class="line">…</span><br><span class="line"><span class="comment">// heroku config compatible</span></span><br><span class="line"><span class="keyword">var</span> MAX_PROCESSES = process.env.MAX_PROCESSES || <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">…</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (cluster.isMaster) &#123;</span><br><span class="line">  <span class="comment">// fork!</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; MAX_PROCESSES; i++) &#123;</span><br><span class="line">    cluster.fork();</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  cluster.on(<span class="string">'exit'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">worker, code, signal</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'worker '</span> + worker.process.pid + <span class="string">' died'</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  http.createServer(app).listen(app.get(<span class="string">'port'</span>), <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Express server listening on port "</span> + app.get(<span class="string">'port'</span>));</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p><img src="assets/image-20181106130559969.png" alt="image-20181106130559969"></p>
+<h3 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181106130559969.png" alt="image-20181106130559969"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>《深入浅出Node.js》</li>
 <li>cluster 模块 - <a href="http://taobaofed.org/blog/2015/11/03/nodejs-cluster/" target="_blank" rel="noopener">http://taobaofed.org/blog/2015/11/03/nodejs-cluster/</a></li>
@@ -538,10 +538,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -554,19 +550,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,11 +614,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,7 +626,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,11 +646,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,11 +682,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,11 +694,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,15 +718,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,11 +770,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -786,15 +786,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,11 +798,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -818,11 +818,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

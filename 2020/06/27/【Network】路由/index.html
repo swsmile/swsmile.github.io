@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Simple Case我们先看一种最简单的情况，两台设备在一个VLAN内，他们都连接了一个Router，并进行 TCP 通讯：">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/06/27/【Network】路由/assets/image-20200627203355589.png">
-<meta property="og:image" content="http://swsmile.info/2020/06/27/【Network】路由/assets/image-20200627191210979.png">
-<meta property="og:image" content="http://swsmile.info/2020/06/27/【Network】路由/assets/image-20200627202320116.png">
-<meta property="og:image" content="http://swsmile.info/2020/06/27/【Network】路由/assets/image-20200627234103463.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627203355589.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627191210979.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627202320116.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627234103463.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】路由（Route）">
 <meta name="twitter:description" content="Simple Case我们先看一种最简单的情况，两台设备在一个VLAN内，他们都连接了一个Router，并进行 TCP 通讯：">
-<meta name="twitter:image" content="http://swsmile.info/2020/06/27/【Network】路由/assets/image-20200627203355589.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627203355589.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -216,14 +216,14 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Simple-Case"><a href="#Simple-Case" class="headerlink" title="Simple Case"></a>Simple Case</h1><p>我们先看一种最简单的情况，两台设备在一个VLAN内，他们都连接了一个Router，并进行 TCP 通讯：</p>
-<p><img src="assets/image-20200627203355589.png" alt="image-20200627203355589"></p>
-<p><img src="assets/image-20200627191210979.png" alt="image-20200627191210979"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627203355589.png" alt="image-20200627203355589"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627191210979.png" alt="image-20200627191210979"></p>
 <a id="more"></a> 
 
 
 
 <p>我们假设PC2后于 PC1 连接Router。在PC2连接时，会（向当前网段内所有主机）进行ARP广播：</p>
-<p><img src="assets/image-20200627202320116.png" alt="image-20200627202320116"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627202320116.png" alt="image-20200627202320116"></p>
 <p>这样各个设备就获得了 PC2 MAC  地址和 IP地址的关系，同时，PC2也获得了其他设备的 MAC  地址和 IP地址的关系。</p>
 <p>当 PC2 连接前，PC1中的ARP表：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ arp -a</span><br><span class="line">openwrt.lan (192.168.1.1) at 88:c3:97:9b:51:60 on en8 ifscope [ethernet]</span><br><span class="line">weishi-mac.lan (192.168.1.173) at 0:e0:4c:6a:56:1b on en8 ifscope permanent [ethernet]</span><br></pre></td></tr></table></figure>
@@ -236,7 +236,7 @@ var _hmt = _hmt || [];
 <p>第二层（交換机）的产品功能在于，将网络上各个电脑的MAC地址记在MAC地址表中，当局域网中的电脑要经过交換机去交换传递数据时，就查询交換机上的MAC地址表中的信息，将数据包发送给指定的电脑，而不会像第一层的产品（如集线器）每台在网络中的电脑都发送。</p>
 <p>而路由器除了有交換机的功能外，更拥有路由表作为发送数据包时的依据，在有多种选择的路径中选择最佳的路径。此外，并可以连接两个以上不同网段的网络，而交換机只能连接两个。并具有IP分享的功能，如：区分哪些数据包是要发送至WAN。路由表存储了（向前往）某一网络的最佳路径，该路径的“路由度量值”以及下一个（跳路由器）。参考条目路由获得这个过程的详细描述。</p>
 <h2 id="路由表（Routing-Table）"><a href="#路由表（Routing-Table）" class="headerlink" title="路由表（Routing Table）"></a>路由表（Routing Table）</h2><p>在计算机网络中，路由表（routing table）或称路由择域信息库（RIB, Routing Information Base），是一个存储在路由器或者联网计算机中的电子表格（文件）或类数据库。路由表存储着指向<strong>特定网络地址</strong>的路径（在有些情况下，还记录有路径的路由度量值）。路由表中含有网络周边的拓扑信息。路由表创建的主要目标是为了实现路由协议和静态路由选择。</p>
-<p><img src="assets/image-20200627234103463.png" alt="image-20200627234103463"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200627234103463.png" alt="image-20200627234103463"></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ route</span><br><span class="line">Kernel IP routing table</span><br><span class="line">Destination     Gateway         Genmask         Flags Metric Ref    Use Iface</span><br><span class="line">default         192.168.2.1     0.0.0.0         UG    0      0        0 wan</span><br><span class="line">192.168.1.0     *               255.255.255.0   U     0      0        0 br-lan</span><br><span class="line">192.168.2.0     *               255.255.255.0   U     0      0        0 wan</span><br></pre></td></tr></table></figure>
 
 <p>各列字段说明：</p>
@@ -583,10 +583,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -599,19 +595,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,11 +659,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -671,7 +671,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -691,11 +691,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -727,11 +727,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,11 +739,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,15 +763,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -815,11 +815,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -831,15 +831,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -847,11 +843,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -863,11 +863,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

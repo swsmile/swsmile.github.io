@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="本文将介绍常用的线程间通信工具 CountDownLatch、CyclicBarrier 和Phaser 的用法，并结合实例介绍它们各自的适用场景及相同点和不同点。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/01/【Java】多线程-线程间通信工具CountDownLatch、CyclicBarrier-和-Phaser-类/assets/Jietu20190610-112642.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/01/【Java】多线程-线程间通信工具CountDownLatch、CyclicBarrier-和-Phaser-类/assets/Jietu20190610-112608.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190610-112642.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190610-112608.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.345Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】多线程-线程间通信工具CountDownLatch、CyclicBarrier 和 Phaser 类">
 <meta name="twitter:description" content="本文将介绍常用的线程间通信工具 CountDownLatch、CyclicBarrier 和Phaser 的用法，并结合实例介绍它们各自的适用场景及相同点和不同点。">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/01/【Java】多线程-线程间通信工具CountDownLatch、CyclicBarrier-和-Phaser-类/assets/Jietu20190610-112642.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190610-112642.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -217,7 +217,7 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <h1 id="CountDownLatch-类"><a href="#CountDownLatch-类" class="headerlink" title="CountDownLatch 类"></a>CountDownLatch 类</h1><h2 id="CountDownLatch适用场景"><a href="#CountDownLatch适用场景" class="headerlink" title="CountDownLatch适用场景"></a>CountDownLatch适用场景</h2><p>Java 多线程编程中经常会碰到这样一种场景——<strong>某个线程需要等待一个或多个线程操作结束（或达到某种状态）才继续执行</strong>。</p>
-<p><img src="assets/Jietu20190610-112642.png" alt="3"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190610-112642.png" alt="3"></p>
 <p>比如开发一个并发测试工具时，耗时计算线程需要等到所有测试线程均执行完成再开始统计总共耗费的时间，此时可以通过 CountDownLatch 轻松实现。</p>
 <h2 id="CountDownLatch实例"><a href="#CountDownLatch实例" class="headerlink" title="CountDownLatch实例"></a>CountDownLatch实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CountDownLatch;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> totalThread = <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">        CountDownLatch countDown = <span class="keyword">new</span> CountDownLatch(totalThread);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; totalThread; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span> String threadName = <span class="string">"Thread "</span> + i;</span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                System.out.println(String.format(<span class="string">"%s\t%s %s"</span>, System.currentTimeMillis(), threadName, <span class="string">"started"</span>));</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (threadName.equals(<span class="string">"Thread 0"</span>))</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (threadName.equals(<span class="string">"Thread 1"</span>))</span><br><span class="line">                        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (threadName.equals(<span class="string">"Thread 2"</span>))</span><br><span class="line">                        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                    ex.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                countDown.countDown();</span><br><span class="line">                System.out.println(String.format(<span class="string">"%s\t%s %s"</span>, System.currentTimeMillis(), threadName, <span class="string">"ended"</span>));</span><br><span class="line">            &#125;).start();;</span><br><span class="line">        &#125;</span><br><span class="line">        countDown.await();</span><br><span class="line">        <span class="keyword">long</span> stop = System.currentTimeMillis();</span><br><span class="line">        System.out.println(String.format(<span class="string">"Total time : %sms"</span>, (stop - start)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -234,7 +234,7 @@ var _hmt = _hmt || [];
 <h1 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h1><h2 id="CyclicBarrier-适用场景"><a href="#CyclicBarrier-适用场景" class="headerlink" title="CyclicBarrier 适用场景"></a>CyclicBarrier 适用场景</h2><p><strong>内存屏障（Memory Barrier）</strong>能保证屏障之前的代码一定在屏障之后的代码之前被执行。</p>
 <p>CyclicBarrier 可以译为循环屏障，也有类似的功能。</p>
 <p>CyclicBarrier 可以在构造时指定需要在屏障前执行 await 的个数，所有线程对 await 的调用都导致自己被阻塞，直到调用await的次数达到预定值，此后所有被阻塞的线程都会立即被唤醒。</p>
-<p><img src="assets/Jietu20190610-112608.png" alt="22"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190610-112608.png" alt="22"></p>
 <p>从使用场景上来说，CyclicBarrier 是让多个线程互相等待某一事件的发生，然后同时被唤醒。而上文讲的 CountDownLatch 是让某一线程等待多个线程的状态，然后该线程被唤醒。</p>
 <h2 id="CyclicBarrier-实例"><a href="#CyclicBarrier-实例" class="headerlink" title="CyclicBarrier 实例"></a>CyclicBarrier 实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CyclicBarrier;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.CyclicBarrier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> totalThread = <span class="number">5</span>;</span><br><span class="line">        CyclicBarrier barrier = <span class="keyword">new</span> CyclicBarrier(totalThread);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; totalThread; i++) &#123;</span><br><span class="line">            String threadName = <span class="string">"Thread "</span> + i;</span><br><span class="line">            <span class="keyword">long</span> start = System.currentTimeMillis();</span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; &#123;</span><br><span class="line">                System.out.println(String.format(<span class="string">"%s\t%s %s"</span>,System.currentTimeMillis(), threadName, <span class="string">" is waiting"</span>));</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (threadName.equals(<span class="string">"Thread 0"</span>))</span><br><span class="line">                        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (threadName.equals(<span class="string">"Thread 1"</span>))</span><br><span class="line">                        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span> (threadName.equals(<span class="string">"Thread 2"</span>))</span><br><span class="line">                        Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">                    barrier.await();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">                    ex.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(String.format(<span class="string">"%s\t%s %s"</span>, System.currentTimeMillis(), threadName, <span class="string">"ended"</span>));</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (threadName.equals(<span class="string">"Thread 0"</span>)) &#123;</span><br><span class="line">                    <span class="keyword">long</span> stop = System.currentTimeMillis();</span><br><span class="line">                    System.out.println(String.format(<span class="string">"Total time : %sms"</span>, (stop - start)));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start();</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -512,10 +512,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -528,19 +524,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,11 +588,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,7 +600,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,11 +620,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,11 +656,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -668,11 +668,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,15 +692,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -744,11 +744,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,15 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -776,11 +772,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -792,11 +792,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

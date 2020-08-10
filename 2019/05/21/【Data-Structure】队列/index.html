@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="队列（Queue）通常，称进数据的一端为 “队尾”（rear），出数据的一端为 “队头”（top），数据元素进队列的过程称为 “入队（enqueque）”，出队列的过程称为 “出队（dequeue）”。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】队列/assets/image-20190521111419400.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】队列/assets/image-20190521111703782.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】队列/assets/image-20190521111830939.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】队列/assets/image-20190521112328325.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】队列/assets/image-20190521123607847.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/21/【Data-Structure】队列/assets/image-20190521123704028.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521111419400.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521111703782.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521111830939.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521112328325.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521123607847.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521123704028.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】队列（Queue）">
 <meta name="twitter:description" content="队列（Queue）通常，称进数据的一端为 “队尾”（rear），出数据的一端为 “队头”（top），数据元素进队列的过程称为 “入队（enqueque）”，出队列的过程称为 “出队（dequeue）”。">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/21/【Data-Structure】队列/assets/image-20190521111419400.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521111419400.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -265,13 +265,13 @@ var _hmt = _hmt || [];
 </ul>
 <p>两者的区别仅是顺序表和链表的区别，即在实际的物理空间中，数据集中存储的队列是顺序队列，分散存储的队列是链队列。</p>
 <h2 id="顺序队列简单实现"><a href="#顺序队列简单实现" class="headerlink" title="顺序队列简单实现"></a>顺序队列简单实现</h2><p>由于顺序队列的底层使用的是数组，因此需预先申请一块足够大的内存空间初始化顺序队列。除此之外，为了满足顺序队列中数据从队尾进，队头出且先进先出的要求，我们还需要定义两个指针（top 和 rear）分别用于指向顺序队列中的队头元素和队尾元素，如下图所示：</p>
-<p><img src="assets/image-20190521111419400.png" alt="image-20190521111419400"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521111419400.png" alt="image-20190521111419400"></p>
 <p>由于顺序队列初始状态没有存储任何元素，因此 top 指针和 rear 指针重合，且由于顺序队列底层实现靠的是数组，因此 top 和 rear 实际上是两个变量，它的值分别是队头元素和队尾元素所在数组位置的下标。</p>
 <p>在上图的基础上，当有数据元素进队列时，对应的实现操作是将其存储在指针 rear 指向的数组位置，然后 rear+1；当需要队头元素出队时，仅需做 top+1 操作。</p>
 <p>例如，在上图基础上将 <code>{1,2,3,4}</code> 用顺序队列存储的实现操作如下图所示：</p>
-<p><img src="assets/image-20190521111703782.png" alt="image-20190521111703782"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521111703782.png" alt="image-20190521111703782"></p>
 <p>在上图基础上，顺序队列中数据出队列的实现过程如下图所示：</p>
-<p><img src="assets/image-20190521111830939.png" alt="image-20190521111830939"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521111830939.png" alt="image-20190521111830939"></p>
 <p>通过对比在所有元素入队之前和所有元素出队之后的状态，你会发现，指针 top 和 rear 重合位置指向了  a[4] 而不再是 a[0]。也就是说，整个顺序队列在数据不断地进队出队过程中，在顺序表中的位置不断后移。</p>
 <p>顺序队列整体后移造成的影响是：</p>
 <ul>
@@ -280,11 +280,11 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="顺序队列另一种实现方法-循环队列"><a href="#顺序队列另一种实现方法-循环队列" class="headerlink" title="顺序队列另一种实现方法 - 循环队列"></a>顺序队列另一种实现方法 - 循环队列</h2><p>既然明白了上面这种方法的弊端，那么我们可以试着在它的基础上对其改良。</p>
 <p>为了解决以上两个问题，可以使用巧妙的方法将顺序表打造成一个<strong>环状表</strong>，如下图所示：</p>
-<p><img src="assets/image-20190521112328325.png" alt="image-20190521112328325"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521112328325.png" alt="image-20190521112328325"></p>
 <h2 id="链表队列的实现"><a href="#链表队列的实现" class="headerlink" title="链表队列的实现"></a>链表队列的实现</h2><p>链式队列的实现思想同顺序队列类似，只需创建两个指针（命名为 top 和 rear）分别指向链表中队列的队头元素和队尾元素，如下图所示：</p>
-<p><img src="assets/image-20190521123607847.png" alt="image-20190521123607847"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521123607847.png" alt="image-20190521123607847"></p>
 <p>例如，在上图的基础上，我们依次将 <code>{1,2,3}</code> 依次入队，各个数据元素入队的过程如下图所示:</p>
-<p><img src="assets/image-20190521123704028.png" alt="image-20190521123704028"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190521123704028.png" alt="image-20190521123704028"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>数据结构概述 - <a href="http://data.biancheng.net/intro/" target="_blank" rel="noopener">http://data.biancheng.net/intro/</a></li>
 </ul>
@@ -538,10 +538,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -554,19 +550,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -614,11 +614,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,7 +626,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,11 +646,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,11 +682,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,11 +694,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,15 +718,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -770,11 +770,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -786,15 +786,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,11 +798,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -818,11 +818,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

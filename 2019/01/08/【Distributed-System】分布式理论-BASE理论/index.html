@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="BASE理论eBay 的架构师 Dan Pritchett 源于对大规模分布式系统的实践总结，在 ACM 上发表文章提出 BASE 理论，BASE 理论是对 CAP 理论的延伸，核心思想是：即使无法做到强一致性（Strong Consistency），CAP 的一致性就是强一致性），但每个应用都可以根据自身的业务特点，采用适合的方式来达到最终一致性（Eventual Consitency）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/01/08/【Distributed-System】分布式理论-BASE理论/assets/image-20190108145044011.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/08/【Distributed-System】分布式理论-BASE理论/assets/image-20190109154826871.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190108145044011.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109154826871.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】分布式理论 - BASE理论">
 <meta name="twitter:description" content="BASE理论eBay 的架构师 Dan Pritchett 源于对大规模分布式系统的实践总结，在 ACM 上发表文章提出 BASE 理论，BASE 理论是对 CAP 理论的延伸，核心思想是：即使无法做到强一致性（Strong Consistency），CAP 的一致性就是强一致性），但每个应用都可以根据自身的业务特点，采用适合的方式来达到最终一致性（Eventual Consitency）。">
-<meta name="twitter:image" content="http://swsmile.info/2019/01/08/【Distributed-System】分布式理论-BASE理论/assets/image-20190108145044011.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190108145044011.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -228,11 +228,11 @@ var _hmt = _hmt || [];
 <p>比如，<strong>数据库读写分离</strong>，写库同步到读库（主库同步到从库）会有一个延时，这样实际是一种柔性状态。</p>
 <h2 id="最终一致性（-Eventual-Consistency）"><a href="#最终一致性（-Eventual-Consistency）" class="headerlink" title="最终一致性（ Eventual Consistency）"></a>最终一致性（ Eventual Consistency）</h2><p>上面说软状态，然后不可能一直是软状态，必须有个时间期限。在期限过后，应当保证所有副本保持数据一致性，从而达到数据的最终一致性（ Eventual Consistency）。这个时间期限取决于网络延时、系统负载、数据复制方案设计等等因素。</p>
 <p>弱一致性和强一致性相反，最终一致性是弱一致性的一种特殊情况。</p>
-<h1 id="ACID-和-BASE-的区别与联系"><a href="#ACID-和-BASE-的区别与联系" class="headerlink" title="ACID 和 BASE 的区别与联系"></a>ACID 和 BASE 的区别与联系</h1><p><img src="assets/image-20190108145044011.png" alt="image-20190108145044011"></p>
+<h1 id="ACID-和-BASE-的区别与联系"><a href="#ACID-和-BASE-的区别与联系" class="headerlink" title="ACID 和 BASE 的区别与联系"></a>ACID 和 BASE 的区别与联系</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190108145044011.png" alt="image-20190108145044011"></p>
 <p>ACID 和 BASE 代表了两种截然相反的设计哲学，而 CAP 也正是 ACID 和 BASE 长期博弈（trade off）的结果。</p>
 <p>ACID 是传统数据库常用的设计理念，追求强一致性模型。因此 ACID 伴随数据库的诞生定义了系统基本设计思路，</p>
 <p>2000年左右，随着互联网的发展，高可用的话题被摆上桌面，所以提出了 BASE ，即通过牺牲强一致性获得高可用性。从此 C 和 A 的取舍消长此起彼伏，其结晶就是 CAP 理论。</p>
-<p><img src="assets/image-20190109154826871.png" alt="image-20190109154826871"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109154826871.png" alt="image-20190109154826871"></p>
 <p>在高可用与高性能的应用场景，分布式事务的最佳实践是放弃 ACID，遵循 BASE 的原则重构业务流程。</p>
 <hr>
 <p>CAP 并不与 ACID 中的 A（原子性）冲突，值得讨论的是 ACID 中的 C（一致性）和 I（隔离性）。<strong>ACID 的 C 指的是事务不能破坏任何数据库规则</strong>，如键的唯一性。与之相比，CAP 的 C 仅指单一副本这个意义上的一致性，<strong>因此 CAP 的 C 只是 ACID 一致性约束的一个严格的子集</strong>。</p>
@@ -491,10 +491,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -507,19 +503,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -567,11 +567,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -579,7 +579,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,11 +599,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,11 +635,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -647,11 +647,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -671,15 +671,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,11 +723,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,15 +739,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,11 +751,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,11 +771,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

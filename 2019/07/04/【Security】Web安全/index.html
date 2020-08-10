@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="XSS首先说下最常见的 XSS 漏洞，XSS (Cross Site Script)，跨站脚本攻击，因为缩写和 CSS (Cascading Style Sheets) 重叠，所以只能叫 XSS。 XSS 的原理是恶意攻击者往 Web 页面里插入恶意可执行网页脚本代码，当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行，从而可以达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的。XSS">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/04/【Security】Web安全/assets/image-20190706113743276.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/04/【Security】Web安全/assets/image-20190708104101141.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190706113743276.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190708104101141.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Security】Web安全">
 <meta name="twitter:description" content="XSS首先说下最常见的 XSS 漏洞，XSS (Cross Site Script)，跨站脚本攻击，因为缩写和 CSS (Cascading Style Sheets) 重叠，所以只能叫 XSS。 XSS 的原理是恶意攻击者往 Web 页面里插入恶意可执行网页脚本代码，当用户浏览该页之时，嵌入其中 Web 里面的脚本代码会被执行，从而可以达到攻击者盗取用户信息或其他侵犯用户安全隐私的目的。XSS">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/04/【Security】Web安全/assets/image-20190706113743276.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190706113743276.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
 <li>在非 Chrome 浏览器（比如使用 Firefox，因为 Chrome 默认开启了防 XSS 攻击）中打开 <code>localhost:3000/?query=&lt;script&gt;alert(&quot;你的工商银行账户已经被锁定，请联系QQ12345&quot;)&lt;/script&gt;</code> 页面</li>
 </ul>
 <p>你会发现页面上跳出了这个警告：</p>
-<p><img src="assets/image-20190706113743276.png" alt="image-20190706113743276"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190706113743276.png" alt="image-20190706113743276"></p>
 <p>如果这个 XSS 漏洞出现了工商银行的网站上，你将在访问 icbc.com.cn 的页面时突然弹出这样的提示，可见其危险性。</p>
 <blockquote>
 <p> 你可以尝试在 <a href="https://xss-game.appspot.com/level1" target="_blank" rel="noopener">https://xss-game.appspot.com/level1</a> （存在反射性  XSS 漏洞的页面）中来主动构造一个反射性  XSS 。</p>
@@ -280,7 +280,7 @@ var _hmt = _hmt || [];
 <p>XSS Filter在用户提交数据时获取变量，并进行XSS检查；但此时用户数据并没有结合渲染页面的HTML代码，因此XSS Filter对语境的理解并不完整。甚至有可能用户输入1&lt;3，直接会把&lt;符号给过滤掉，所以一个好的XSSFilter是比较重要的。</p>
 <h3 id="输出检查"><a href="#输出检查" class="headerlink" title="输出检查"></a>输出检查</h3><p>一般来说，除了富文本的书除外，在变量输出到HTML页面时，可以使用编码火转移的方式来防御XSS攻击。和输入检查差不多。</p>
 <h1 id="CSRF（跨站请求伪造攻击）"><a href="#CSRF（跨站请求伪造攻击）" class="headerlink" title="CSRF（跨站请求伪造攻击）"></a>CSRF（跨站请求伪造攻击）</h1><p><strong>CSRF（Cross-Site Request Forgery）</strong>，即<strong>跨站请求伪造攻击</strong>，是一种常见的Web攻击，它利用用户已登录的身份，在用户毫不知情的情况下，以用户的名义完成非法操作。</p>
-<p><img src="assets/image-20190708104101141.png" alt="image-20190708104101141"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190708104101141.png" alt="image-20190708104101141"></p>
 <p>受害者用户登录网站A，输入个人信息，在本地保存服务器生成的cookie。攻击者构建一条恶意链接，例如对受害者在网站A的信息及状态进行操作，典型的例子就是转账。受害者打开了攻击者构建的网页B，浏览器发出该恶意连接的请求，浏览器发起会话的过程中发送本地保存的cookie到网址A，A网站收到cookie，以为此链接是受害者发出的操作，导致受害者的身份被盗用，完成攻击者恶意的目的。</p>
 <p>举个简单的例子来说明下CSRF的危害。用户登陆某银行网站，以Get请求的方式完成到另一银行的转账，如：<a href="http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000。攻击者可构造另一危险链接http://www.mybank.com/Transfer.php?toUserId=100&amp;money=1000并把该链接通过一定方式发给受害者用户。受害者用户若在浏览器打开此链接，会将之前登陆后的cookie信息一起发送给银行网站，服务器在接收到该请求后，确认cookie信息无误，会完成改请求操作，造成攻击行为完成。攻击者可以构造CGI的每一个参数，伪造请求。这也是存在CSRF漏洞的最本质原因。" target="_blank" rel="noopener">http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000。攻击者可构造另一危险链接http://www.mybank.com/Transfer.php?toUserId=100&amp;money=1000并把该链接通过一定方式发给受害者用户。受害者用户若在浏览器打开此链接，会将之前登陆后的cookie信息一起发送给银行网站，服务器在接收到该请求后，确认cookie信息无误，会完成改请求操作，造成攻击行为完成。攻击者可以构造CGI的每一个参数，伪造请求。这也是存在CSRF漏洞的最本质原因。</a></p>
 <p>所以遇到 CSRF 攻击时，将对终端用户的数据和操作指令构成严重的威胁。当受攻击的终端用户具有管理员帐户的时候，CSRF 攻击将危及整个 Web 应用程序。</p>
@@ -644,10 +644,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -660,19 +656,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,11 +720,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,7 +732,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -752,11 +752,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -788,11 +788,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,11 +800,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,15 +824,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -876,11 +876,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -892,15 +892,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -908,11 +904,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -924,11 +924,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

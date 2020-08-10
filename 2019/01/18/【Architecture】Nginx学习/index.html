@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="初探Nginx架构nginx在启动后，在unix系统中会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。我们也可以手动地关掉后台模式，让nginx在前台运行，并且通过配置让nginx取消master进程，从而可以使nginx以单进程方式运行。很显然，生产环境下我们肯定不会这么做，所以关闭后台模式，一般是用来调试用的，在后面的章节里面，我们会详细地讲解如何调试">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/01/18/【Architecture】Nginx学习/assets/image-20190111153509618.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/18/【Architecture】Nginx学习/assets/image-20190118120847258.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/18/【Architecture】Nginx学习/assets/image-20190118120311155.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190111153509618.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118120847258.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118120311155.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Architecture】Nginx学习">
 <meta name="twitter:description" content="初探Nginx架构nginx在启动后，在unix系统中会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。我们也可以手动地关掉后台模式，让nginx在前台运行，并且通过配置让nginx取消master进程，从而可以使nginx以单进程方式运行。很显然，生产环境下我们肯定不会这么做，所以关闭后台模式，一般是用来调试用的，在后面的章节里面，我们会详细地讲解如何调试">
-<meta name="twitter:image" content="http://swsmile.info/2019/01/18/【Architecture】Nginx学习/assets/image-20190111153509618.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190111153509618.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,7 +219,7 @@ var _hmt = _hmt || [];
 
 <p>nginx在启动后，会有一个master进程和多个worker进程。master进程主要用来管理worker进程，包含：接收来自外界的信号，向各worker进程发送信号，监控worker进程的运行状态，当worker进程退出后(异常情况下)，会自动重新启动新的worker进程。而基本的网络事件，则是放在worker进程中来处理了。多个worker进程之间是对等的，他们同等竞争来自客户端的请求，各进程互相之间是独立的。一个请求，只可能在一个worker进程中处理，一个worker进程，不可能处理其它进程的请求。worker进程的个数是可以设置的，一般我们会设置与机器cpu核数一致，这里面的原因与nginx的进程模型以及事件处理模型是分不开的。</p>
 <p>nginx的进程模型，可以由下图来表示：</p>
-<p><img src="assets/image-20190111153509618.png" alt="image-20190111153509618"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190111153509618.png" alt="image-20190111153509618"></p>
 <h1 id="Nginx-的负载均衡策略"><a href="#Nginx-的负载均衡策略" class="headerlink" title="Nginx 的负载均衡策略"></a>Nginx 的负载均衡策略</h1><p>负载均衡技术少不了相关的均衡策略，Nginx 中提供了 4 种均衡策略，我们可以根据具体的业务场景选择合适的均衡策略。下面分别介绍这 4 中均衡策略：</p>
 <h2 id="1-基于轮询的均衡策略"><a href="#1-基于轮询的均衡策略" class="headerlink" title="1 基于轮询的均衡策略"></a>1 基于轮询的均衡策略</h2><p>轮询嘛，就是说对进到nginx的request按照遍历的方式进行分发，如果request 1 分发到 Server A，那么request 2将被分发到 Server B,……以此循环类推。</p>
 <h2 id="2-基于最少连接数的均衡策略"><a href="#2-基于最少连接数的均衡策略" class="headerlink" title="2 基于最少连接数的均衡策略"></a>2 基于最少连接数的均衡策略</h2><p>最少连接，也就是说nginx会判断后端集群服务器中哪个Server当前的 Active Connection 数是最少的，那么对于每个新进来的request,nginx将该request分发给对应的Server。</p>
@@ -234,7 +234,7 @@ var _hmt = _hmt || [];
 <li>正向代理服务器</li>
 </ul>
 <h2 id="高性能HTTP服务器"><a href="#高性能HTTP服务器" class="headerlink" title="高性能HTTP服务器"></a>高性能HTTP服务器</h2><p>Nginx可以作为一个高性能的HTTP服务器，以向用户提供静态资源。</p>
-<h2 id="反向代理（Reverse-Proxy）服务器（负载均衡）"><a href="#反向代理（Reverse-Proxy）服务器（负载均衡）" class="headerlink" title="反向代理（Reverse Proxy）服务器（负载均衡）"></a>反向代理（Reverse Proxy）服务器（负载均衡）</h2><p><img src="assets/image-20190118120847258.png" alt="image-20190118120847258"></p>
+<h2 id="反向代理（Reverse-Proxy）服务器（负载均衡）"><a href="#反向代理（Reverse-Proxy）服务器（负载均衡）" class="headerlink" title="反向代理（Reverse Proxy）服务器（负载均衡）"></a>反向代理（Reverse Proxy）服务器（负载均衡）</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118120847258.png" alt="image-20190118120847258"></p>
 <p><strong>反向代理（Reverse Proxy）</strong>方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
 <hr>
 <p>通过一个反向代理服务器实现负载均衡是一个很常见的场景。</p>
@@ -244,7 +244,7 @@ var _hmt = _hmt || [];
 <p><strong>提高访问速度：</strong>反向代理服务器可以对于静态内容及短时间内有大量访问请求的动态内容提供缓存服务，提高访问速度。</p>
 <p><strong>提供安全保障：</strong>反向代理服务器可以作为应用层防火墙，为网站提供对基于Web的攻击行为（例如DoS/DDoS）的防护，更容易排查恶意软件等。还可以为后端服务器统一提供加密和SSL加速（如SSL终端代理），提供HTTP访问认证等。</p>
 <h2 id="正向代理（Forward-Proxy）服务器"><a href="#正向代理（Forward-Proxy）服务器" class="headerlink" title="正向代理（Forward Proxy）服务器"></a>正向代理（Forward Proxy）服务器</h2><p>正向代理（Forward Proxy）通常都被简称为代理，就是在用户无法正常访问外部资源，比方说受到GFW的影响无法访问twitter的时候，我们可以通过代理的方式，让用户绕过防火墙，从而连接到目标网络或者服务。</p>
-<p><img src="assets/image-20190118120311155.png" alt="image-20190118120311155"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190118120311155.png" alt="image-20190118120311155"></p>
 <p><strong>正向代理的工作原理就像一个跳板</strong>，比如：我访问不了google.com，但是我能访问一个代理服务器A，A能访问google.com，于是我先连上代理服务器A，告诉他我需要google.com的内容，A就去取回来，然后返回给我。从网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。</p>
 <p><strong>结论就是，正向代理是一个位于客户端和原始服务器(origin server)之间的服务器</strong>。为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。</p>
 <h3 id="正向代理的用途"><a href="#正向代理的用途" class="headerlink" title="正向代理的用途"></a>正向代理的用途</h3><p><strong>突破访问限制：</strong>通过代理服务器，可以突破自身IP访问限制，访问国外网站，教育网等。</p>
@@ -514,10 +514,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -530,19 +526,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,11 +590,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,7 +602,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -622,11 +622,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,11 +658,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,11 +670,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,15 +694,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,11 +746,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,15 +762,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -778,11 +774,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -794,11 +794,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

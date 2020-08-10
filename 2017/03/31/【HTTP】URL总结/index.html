@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="我每天都在使用URL，每天和他打交道。但是，在阅读《HTTP权威指南》后，才发现我对URL的理解是不全面的、碎片化的。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/03/31/【HTTP】URL总结/assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg">
-<meta property="og:image" content="http://swsmile.info/2017/03/31/【HTTP】URL总结/assets/fc5f46f2-82db-43a7-a793-867a6a40e96f.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/fc5f46f2-82db-43a7-a793-867a6a40e96f.jpg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【HTTP】URL总结">
 <meta name="twitter:description" content="我每天都在使用URL，每天和他打交道。但是，在阅读《HTTP权威指南》后，才发现我对URL的理解是不全面的、碎片化的。">
-<meta name="twitter:image" content="http://swsmile.info/2017/03/31/【HTTP】URL总结/assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -221,7 +221,7 @@ var _hmt = _hmt || [];
 <p>这是不是意味着每种不同的 URL scheme 都会有完全不同的语法呢？实际上，不是的。 大部分URL都遵循通用的URL语法，而且不同 URL scheme 的风格和语法都有不少重叠。</p>
 <p>大多数 URL scheme 的 URL 语法都建立在这个由 9 部分构成的通用格式上：</p>
 <pre class="md-fences md-end-block" lang="" contenteditable="false" cid="c18" mdtype="fences" style="box-sizing: border-box; overflow: visible; font-family: Consolas, &quot;Liberation Mono&quot;, Courier, monospace; font-size: 0.9em; white-space: pre; display: block; break-inside: avoid; text-align: left; background-image: inherit; background-position: inherit; background-size: inherit; background-repeat: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: rgb(248, 248, 248); position: relative !important; border: 1px solid rgb(221, 221, 221); border-radius: 3px; padding: 8px 1em 6px; margin-bottom: 15px; margin-top: 15px; width: inherit; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
-<scheme>：//<user>：<password>@<host>：<port>/<path>；<params>?<query>#<frag></frag></query></params></path></port></host></password></user></scheme></pre>
+<scheme>：//<user>：<password>@<host>：<port>/<path></path>；<params>?<query>#<frag></frag></query></params></port></host></password></user></scheme></pre>
 
 <p>几乎没有哪个 URL 中包含了所有这些组件。<strong>URL 最重要的3个部分是 scheme、host 和 path</strong>。</p>
 <table>
@@ -343,7 +343,7 @@ http://www.joes-hardware.eom/tools.html#drills</pre>
 
 <p>在这个例子中，片段drills引用了五金商店Web服务器上页面/tools.html中的一个部分。这部分的名字叫做drills。</p>
 <p>HTTP服务器通常只处理在URL中除 Frag 以外的元素，因此客户端也不能将 Frag 组件传送给服务器（参考下图）。但是，浏览器会记录下此前的Frag值，当从服务器获得了整个资源之后，浏览器会把该Frag值填充到URL中，并根据 Frag 来显示你感兴趣的那部分资源。</p>
-<p><img src="assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1ec7ae7-68a3-43f0-bd29-eac411dc4963.jpg" alt=""></p>
 <h1 id="4-理解URL构成的意义"><a href="#4-理解URL构成的意义" class="headerlink" title="4.理解URL构成的意义"></a>4.理解URL构成的意义</h1><p>在日常开发中，我们可能会碰到以下需求：</p>
 <ul>
 <li><p>从一个URL中提取出host</p>
@@ -354,7 +354,7 @@ http://www.joes-hardware.eom/tools.html#drills</pre>
 <p>我们可以根据URL格式的定义，从<code>://</code>后，可能包含[User:Password@] ，也可能不包含，所以可以以URL字符串中是否包含“@”字符做为判断是否包含[User:Password@] ，如果包含那“@”之后就是host（当然还要考虑host后的param和querystring），具体思路就不展开了。当然，你也可以用正则表达式来提取，但是你仍然需要参考URL的标准格式定义。</p>
 <p>更全面与详细的URL定义与约定，你可以查询RFC。</p>
 <h1 id="5-URL、URN、URI-区别"><a href="#5-URL、URN、URI-区别" class="headerlink" title="5.URL、URN、URI 区别"></a>5.URL、URN、URI 区别</h1><h3 id="5-1-定义"><a href="#5-1-定义" class="headerlink" title="5.1 定义"></a>5.1 定义</h3><p><strong>URN（Uniform Resource Name）</strong>：唯一标识一个实体的标识符，但不给出实体的位置。<br><strong>URI（Uniform Resource Identifier）</strong>：是一个紧凑的字符串用来标示抽象或物理资源的标识符。<br><strong>URL（Uniform Resource Locator）</strong>：除了确定一个资源外，还提供一种定位该资源的标识符。</p>
-<h3 id="5-2-关系"><a href="#5-2-关系" class="headerlink" title="5.2 关系"></a>5.2 关系</h3><p>以下这种图足以概括三者的关系：<br><img src="assets/fc5f46f2-82db-43a7-a793-867a6a40e96f.jpg" alt=""></p>
+<h3 id="5-2-关系"><a href="#5-2-关系" class="headerlink" title="5.2 关系"></a>5.2 关系</h3><p>以下这种图足以概括三者的关系：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/fc5f46f2-82db-43a7-a793-867a6a40e96f.jpg" alt=""></p>
 <p><strong>概括的来说</strong>，URL 和 URN 都是 URI，但是 URI 不一定是 URL 或者 URN。</p>
 <p><strong>具体来说：</strong></p>
 <p><strong>URL</strong>是URI的一种，不仅标识了Web 资源，还指定了操作或者获取方式，同时指出了主要访问机制和网络位置。一个恰当的比喻，一个人的住址是一个URL，通过这个URL你可以准确找到这个人（根据URL可以准确获取到某个 Web 资源）。</p>
@@ -705,10 +705,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -721,19 +717,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -781,11 +781,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,7 +793,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -813,11 +813,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -849,11 +849,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -861,11 +861,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -885,15 +885,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -937,11 +937,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -953,15 +953,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -969,11 +965,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -985,11 +985,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,19 +16,19 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景由于HashMap不是线程安全的，因此在并发环境下可能会发生死锁问题，且导致CPU占用率接近100%。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314125141249.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314125711376.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314125728524.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314131213312.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314132844457.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314133156378.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314133719175.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314135014934.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314125141249.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314125711376.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314125728524.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314131213312.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314132844457.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314133156378.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314133719175.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314135014934.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】集合类-HashMap的并发问题">
 <meta name="twitter:description" content="背景由于HashMap不是线程安全的，因此在并发环境下可能会发生死锁问题，且导致CPU占用率接近100%。">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/14/【Java】集合类-HashMap的并发问题/assets/image-20190314125141249.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314125141249.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -243,43 +243,43 @@ var _hmt = _hmt || [];
 <li>最上面的是old hash 表，其中的Hash表的size=2, 所以key = 3, 7, 5，在mod 2以后都冲突在table[1]这里了。</li>
 <li>接下来的三个步骤是Hash表 resize成4，然后所有的&lt;key,value&gt; 重新rehash的过程</li>
 </ul>
-<p><img src="assets/image-20190314125141249.png" alt="image-20190314125141249"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314125141249.png" alt="image-20190314125141249"></p>
 <h3 id="并发下的Rehash"><a href="#并发下的Rehash" class="headerlink" title="并发下的Rehash"></a>并发下的Rehash</h3><p>假设我们有两个线程，在下图中分别用红色和浅蓝色标注。</p>
 <p>同时，假设线程一执行到下面代码位置就被调度器挂起了，而轮到线程二执行。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    Entry&lt;K,V&gt; next = e.next; <span class="comment">// &lt;--假设线程一执行到这里就被调度挂起了</span></span><br><span class="line">    <span class="keyword">int</span> i = indexFor(e.hash, newCapacity);</span><br><span class="line">    e.next = newTable[i];</span><br><span class="line">    newTable[i] = e;</span><br><span class="line">    e = next;</span><br><span class="line">&#125; <span class="keyword">while</span> (e != <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
 
 <p>线程一被挂起时，处于以下状态：</p>
-<p><img src="assets/image-20190314125711376.png" alt="image-20190314125711376"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314125711376.png" alt="image-20190314125711376"></p>
 <p>而线程二开始执行了，执行完了整个rehash过程，此时状态如下图所示：</p>
-<p><img src="assets/image-20190314125728524.png" alt="image-20190314125728524"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314125728524.png" alt="image-20190314125728524"></p>
 <p>值得一提的是，这时，key为7的next指针指向了key为3的元素。</p>
 <hr>
 <p>这时，又轮到线程一执行了（线程一被调度回来），紧接着执行循环体中的下面三句代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">e.next = newTable[i];</span><br><span class="line">newTable[i] = e;</span><br><span class="line">e = next;</span><br></pre></td></tr></table></figure>
 
 <p>此时的状态如下所示：</p>
-<p><img src="assets/image-20190314131213312.png" alt="image-20190314131213312"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314131213312.png" alt="image-20190314131213312"></p>
 <p>这时候一切正常。</p>
 <hr>
 <p>线程一继续执行下一个循环：</p>
 <p>当执行完 <code>Entry&lt;K,V&gt; next = e.next;</code> 后：</p>
-<p><img src="assets/image-20190314132844457.png" alt="image-20190314132844457"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314132844457.png" alt="image-20190314132844457"></p>
 <hr>
 <p>继续执行下面代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = indexFor(e.hash, newCapacity);</span><br><span class="line">e.next = newTable[i];</span><br><span class="line">newTable[i] = e;</span><br><span class="line">e = next;</span><br></pre></td></tr></table></figure>
 
 <p>执行完成后，为此状态：</p>
-<p><img src="assets/image-20190314133156378.png" alt="image-20190314133156378"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314133156378.png" alt="image-20190314133156378"></p>
 <hr>
 <p>线程一继续仍然再执行下一个循环：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Entry&lt;K,V&gt; next = e.next;</span><br><span class="line"><span class="keyword">int</span> i = indexFor(e.hash, newCapacity);</span><br><span class="line">e.next = newTable[i];</span><br><span class="line">newTable[i] = e;</span><br><span class="line">e = next;</span><br></pre></td></tr></table></figure>
 
 <p>执行完成  <code>Entry&lt;K,V&gt; next = e.next;</code> 后，如下情况：</p>
-<p><img src="assets/image-20190314133719175.png" alt="image-20190314133719175"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314133719175.png" alt="image-20190314133719175"></p>
 <p>接下来，执行 <code>e.next = newTable[i];</code> 后会导致下面的情况：</p>
 <p>![image-20190314133719175 copy](assets/image-20190314133719175 copy.png)</p>
 <p>而执行完 <code>newTable[i] = e;</code> 和 <code>e = next;</code> 后，则会形成环，如下所示：</p>
-<p><img src="assets/image-20190314135014934.png" alt="image-20190314135014934"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190314135014934.png" alt="image-20190314135014934"></p>
 <hr>
 <p>此后，由于e为null，因此跳出循环。</p>
 <p>当调用到hashMap.get()方法，且进入索引为3的Bucket，而且所提供的key不在索引为3的Bucket中所包含的所有元素的key范围内时（比如调用hashMap.get(11)），则会进入无限循环（infinite loop）。</p>
@@ -536,10 +536,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -552,19 +548,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,11 +612,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,7 +624,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,11 +644,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,11 +680,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,11 +692,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,15 +716,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -768,11 +768,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,15 +784,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,11 +796,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -816,11 +816,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

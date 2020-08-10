@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景虚拟机把描述类的数据从 Class 文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的 Java 类型，这就是虚拟机的类加载机制（ClassLoad Mechanism）。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/06/【Java】类加载-类加载机制（ClassLoad-Mechanism）/assets/image-20190305155130334.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/06/【Java】类加载-类加载机制（ClassLoad-Mechanism）/assets/image-20190305114242684.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/06/【Java】类加载-类加载机制（ClassLoad-Mechanism）/assets/image-20190305152618349.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/06/【Java】类加载-类加载机制（ClassLoad-Mechanism）/assets/image-20190306114646069.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/06/【Java】类加载-类加载机制（ClassLoad-Mechanism）/assets/image-20190305125641917.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/06/【Java】类加载-类加载机制（ClassLoad-Mechanism）/assets/image-20190305151939003.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305155130334.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305114242684.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305152618349.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190306114646069.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305125641917.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305151939003.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.351Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】JVM-类加载机制（ClassLoad Mechanism）">
 <meta name="twitter:description" content="背景虚拟机把描述类的数据从 Class 文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的 Java 类型，这就是虚拟机的类加载机制（ClassLoad Mechanism）。">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/06/【Java】类加载-类加载机制（ClassLoad-Mechanism）/assets/image-20190305155130334.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305155130334.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -221,7 +221,7 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <p>注意，这里说的 Class 文件，并非指存在于具体磁盘中的某个文件，而是一串二进制的字节流，至于这个字节流从哪里获取我们是不关心的。换句话说，这个字节流可能从网络传输中获得。</p>
-<h1 id="类的生命周期（Life-Cycle）"><a href="#类的生命周期（Life-Cycle）" class="headerlink" title="类的生命周期（Life Cycle）"></a>类的生命周期（Life Cycle）</h1><p><img src="assets/image-20190305155130334.png" alt="image-20190305155130334"></p>
+<h1 id="类的生命周期（Life-Cycle）"><a href="#类的生命周期（Life-Cycle）" class="headerlink" title="类的生命周期（Life Cycle）"></a>类的生命周期（Life Cycle）</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305155130334.png" alt="image-20190305155130334"></p>
 <p>类从被加载到内存中开始，到卸载（Unloading）出内存，经历了<strong>加载（Loading）、链接（Linking）、初始化（Initialization）、使用（Using）</strong>四个阶段。</p>
 <p>其中<strong>连接（Linking）</strong>又包含了<strong>验证（verification）、准备（Preparation）、解析（Resolutions）</strong>三个步骤。</p>
 <ul>
@@ -255,7 +255,7 @@ var _hmt = _hmt || [];
 <h1 id="类加载的时机"><a href="#类加载的时机" class="headerlink" title="类加载的时机"></a>类加载的时机</h1><p>在深入了解类加载机制各个阶段的细节之前，我们首先要知道什么时候类需要被加载。</p>
 <p>然而，Java 虚拟机规范并没有约束这一点，但是，却严格规定了类必须进行<strong>初始化（Initialization）阶段</strong>的 5 种情况。很显然，<strong>加载（Loading）和链接（Linking）阶段</strong>必须在初始化（Initialization）阶段之前。</p>
 <p>下面具体来说说这 5 种情况：</p>
-<p><img src="assets/image-20190305114242684.png" alt="image-20190305114242684"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305114242684.png" alt="image-20190305114242684"></p>
 <h2 id="主动引用"><a href="#主动引用" class="headerlink" title="主动引用"></a>主动引用</h2><p>这 5 种场景中的行为称为对一个类进行<strong>主动引用</strong>。主动引用一定会触发类的初始化。</p>
 <p>我们对上面的场景进行分别举例：</p>
 <p><strong>1. 遇到 new、getstatic、putstatic 或 invokestatic 这 4 条字节码指令时，如果类没有进行初始化，则需要先触发其初始化。</strong></p>
@@ -309,10 +309,10 @@ var _hmt = _hmt || [];
 <li><strong>ExtClassLoader（扩展类加载器）</strong>：它是由sun.misc.Launcher$ExtClassLoader实现，负责加载 <code>%JAVA_HOME%/jre/lib/ext</code> 路径下的所有<code>classes</code>目录以及<code>java.ext.dirs</code> 系统变量指定的路径中的类库。</li>
 <li><strong>AppClassLoader（应用程序类加载器）</strong>：由sun.misc.Launcher$AppClassLoader来实现，它负责加载用户类路径（ClassPath）中的类，开发者可以直接使用该类加载器。一般来说，开发者自定义的类就是由应用程序类加载器加载的。</li>
 </ul>
-<p><img src="assets/image-20190305152618349.png" alt="image-20190305152618349"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305152618349.png" alt="image-20190305152618349"></p>
 <h2 id="双亲委派模型（Parents-Delegation-model）"><a href="#双亲委派模型（Parents-Delegation-model）" class="headerlink" title="双亲委派模型（Parents Delegation model）"></a>双亲委派模型（Parents Delegation model）</h2><p><strong>双亲委派模型（Parents Delegation model）</strong>要求除了顶层的启动类加载器外，其余的类加载器都应当有自己的父类加载器。这里类加载器之间的父子关系不是以继承的关系来实现的，而是都使用<strong>递归</strong>的方式来调用父加载器的代码。</p>
 <p><strong>双亲委派模型的工作过程：</strong></p>
-<p><img src="assets/image-20190306114646069.png" alt="image-20190306114646069"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190306114646069.png" alt="image-20190306114646069"></p>
 <ol>
 <li>当前类加载器首先从自己已经加载的类中，查询是否此类已经加载，如果已经加载，则直接返回原来已经加载的类。</li>
 <li>如果在当前类加载器的缓存中，没有找到期待被加载的类时，委托父类加载器去加载。父类加载器采用同样的策略，首先查看自己的缓存，然后委托父类的父类去加载，一直到 BootStrapClassLoader（启动类加载器）。</li>
@@ -331,7 +331,7 @@ var _hmt = _hmt || [];
 <li><strong>字节码验证</strong>：该阶段验证的主要工作是进行数据流和控制流分析，对类的方法体进行校验分析，以保证被校验的类的方法在运行时不会做出危害虚拟机安全的行为。</li>
 <li><strong>符号引用验证</strong>：这是最后一个阶段的验证，它发生在虚拟机将符号引用转化为直接引用的时候（解析阶段中发生该转化），主要是对类自身以外的信息（常量池中的各种符号引用）进行匹配性的校验。</li>
 </ul>
-<p><img src="assets/image-20190305125641917.png" alt="image-20190305125641917"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305125641917.png" alt="image-20190305125641917"></p>
 <h3 id="文件格式验证"><a href="#文件格式验证" class="headerlink" title="文件格式验证"></a>文件格式验证</h3><p>主要验证字节流是否符合Class文件格式规范，并且能被当前版本的虚拟机处理。</p>
 <p>主要验证点：  </p>
 <ul>
@@ -434,7 +434,7 @@ var _hmt = _hmt || [];
 <p>符号引用就是 Class 文件中的<strong>CONSTANT_Class_info</strong>、 <strong>CONSTANT_Fieldref_info</strong>、<strong>CONSTANT_Methodref_info</strong>等类型的常量。</p>
 <p><strong>直接引用（Direct References）</strong>：直接引用时直接指向目标的指针、相对偏移量或是一个能间接定位到目标的句柄。直接引用和虚拟机实现的内存布局相关，同一个符号引用在不同虚拟机上翻译出来的直接引用一般不会相同。如果有了直接引用，那么它一定已经存在于内存中了。</p>
 <p>以下Java虚拟机指令会将符号引用指向运行时常量池，执行任意一条指令都需要对它的符号引用进行解析：</p>
-<p><img src="assets/image-20190305151939003.png" alt="image-20190305151939003"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190305151939003.png" alt="image-20190305151939003"></p>
 <p>对同一个符号进行多次解析请求是很常见的，除了invokedynamic指令以外，虚拟机基本都会对第一次解析的结果进行缓存，后面再遇到时，直接引用，从而避免解析动作重复。</p>
 <p><strong>字段解析</strong></p>
 <p>要解析一个未被解析过的字段符号引用，首先会对字段表内class_index项中索引的 <code>CONSTANT_Class_info</code> 符号引用进行解析，也就是字段所属的类或接口的符号引用。</p>
@@ -718,10 +718,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -734,19 +730,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -794,11 +794,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,7 +806,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -826,11 +826,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -862,11 +862,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -874,11 +874,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -898,15 +898,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -950,11 +950,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -966,15 +966,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -982,11 +978,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -998,11 +998,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

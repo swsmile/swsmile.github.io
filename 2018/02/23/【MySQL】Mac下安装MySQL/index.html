@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="MySQL 安装【方法 1】 通过brew安装MySQL1234567891011121314$ brew install mysql# 指定安装版本$ brew install mysql56# 后台运行$ brew services start mysql@5.6# 前台运行$ /usr/local/opt/mysql@5.5/bin/mysql.server start# 停止$ brew">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/02/23/【MySQL】Mac下安装MySQL/assets/image-20191013142810557.png">
-<meta property="og:image" content="http://swsmile.info/2018/02/23/【MySQL】Mac下安装MySQL/assets/77c3c749-62fa-41e9-9add-f5a35a8b467c.png">
-<meta property="og:image" content="http://swsmile.info/2018/02/23/【MySQL】Mac下安装MySQL/assets/edff7ba3-2e8f-4201-b118-4ff869ba48f3.png">
-<meta property="og:image" content="http://swsmile.info/2018/02/23/【MySQL】Mac下安装MySQL/assets/1770a510-15c6-4eed-abb2-3d73da6a9096.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191013142810557.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/77c3c749-62fa-41e9-9add-f5a35a8b467c.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/edff7ba3-2e8f-4201-b118-4ff869ba48f3.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1770a510-15c6-4eed-abb2-3d73da6a9096.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.370Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【MySQL】Mac 下安装 MySQL">
 <meta name="twitter:description" content="MySQL 安装【方法 1】 通过brew安装MySQL1234567891011121314$ brew install mysql# 指定安装版本$ brew install mysql56# 后台运行$ brew services start mysql@5.6# 前台运行$ /usr/local/opt/mysql@5.5/bin/mysql.server start# 停止$ brew">
-<meta name="twitter:image" content="http://swsmile.info/2018/02/23/【MySQL】Mac下安装MySQL/assets/image-20191013142810557.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191013142810557.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,7 +224,7 @@ var _hmt = _hmt || [];
 
 <h2 id="【方法-2】通过-MySQL-Installer-安装"><a href="#【方法-2】通过-MySQL-Installer-安装" class="headerlink" title="【方法 2】通过 MySQL Installer 安装"></a>【方法 2】通过 MySQL Installer 安装</h2><p>从 <a href="https://dev.mysql.com/downloads/" target="_blank" rel="noopener">https://dev.mysql.com/downloads/</a> 下载 MySQL Community并安装</p>
 <p>进入 Preference，选择 MySQL，并启动 MySQL：</p>
-<p><img src="assets/image-20191013142810557.png" alt="image-20191013142810557"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191013142810557.png" alt="image-20191013142810557"></p>
 <p>此时我们在命令行输入<code>mysql -uroot -p</code>命令会提示没有commod not found，这是因为我们还需要将mysql加入系统环境变量：</p>
 <p>进入<code>/usr/local/mysql/bin</code>，查看此目录下是否有mysql；</p>
 <p>执行 <code>vim ~/.bash_profile</code>（或者 <code>vim ~/.zshrc</code>，如果你使用 oh-my-zsh），在该文件中添加：</p>
@@ -236,17 +236,17 @@ var _hmt = _hmt || [];
 <p>注意，默认安装好的<code>MySQL</code>的<code>root</code>是没有密码的，<strong>强烈建议设置一个高强度的密码</strong>，我们可以通过<code>mysql_secure_installation</code>来完成密码设置。</p>
 <p>且默认情况下，<code>MySQL</code>只能被本机连接。</p>
 <h1 id="使用MySQL"><a href="#使用MySQL" class="headerlink" title="使用MySQL"></a>使用MySQL</h1><p>此时如果直接执行<code>mysql</code>以连接本机MySQL数据库，会提示：</p>
-<p><img src="assets/77c3c749-62fa-41e9-9add-f5a35a8b467c.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/77c3c749-62fa-41e9-9add-f5a35a8b467c.png" alt=""></p>
 <p>原因是因为此时<code>MySQL</code>服务还没有启动。</p>
 <hr>
-<p>Note：要修改相关安全性设置，输入<code>mysql_secure_installation</code>以启动配置设置：<br><img src="assets/edff7ba3-2e8f-4201-b118-4ff869ba48f3.png" alt=""></p>
+<p>Note：要修改相关安全性设置，输入<code>mysql_secure_installation</code>以启动配置设置：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/edff7ba3-2e8f-4201-b118-4ff869ba48f3.png" alt=""></p>
 <p><strong>启动<code>MySQL</code>服务：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ mysql.server start</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">$ /usr/<span class="built_in">local</span>/mysql/bin/mysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">$ sudo /usr/<span class="built_in">local</span>/mysql/support-files/mysql.server start</span><br></pre></td></tr></table></figure>
 
 <p><strong>再次连接数据库：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mysql -uroot</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/1770a510-15c6-4eed-abb2-3d73da6a9096.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1770a510-15c6-4eed-abb2-3d73da6a9096.png" alt=""></p>
 <h1 id="卸载-MySQL"><a href="#卸载-MySQL" class="headerlink" title="卸载 MySQL"></a>卸载 MySQL</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ brew remove mysql</span><br><span class="line">$ brew cleanup</span><br><span class="line"></span><br><span class="line">$ sudo rm /usr/<span class="built_in">local</span>/mysql</span><br><span class="line">$ sudo rm -rf /usr/<span class="built_in">local</span>/var/mysql</span><br><span class="line">$ sudo rm -rf /usr/<span class="built_in">local</span>/mysql*</span><br><span class="line">$ sudo rm ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist</span><br><span class="line">$ sudo rm -rf /Library/StartupItems/MySQLCOM</span><br><span class="line">$ sudo rm -rf /Library/PreferencePanes/MySql*</span><br><span class="line"></span><br><span class="line">$ launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist</span><br><span class="line"></span><br><span class="line">$ rm -rf ~/Library/PreferencePanes/My*    </span><br><span class="line">$ sudo rm -rf /Library/Receipts/mysql*</span><br><span class="line">$ sudo rm -rf /Library/Receipts/MySQL*</span><br><span class="line">$ sudo rm -rf /private/var/db/receipts/*mysql*</span><br></pre></td></tr></table></figure>
 
 
@@ -499,10 +499,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -515,19 +511,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -575,11 +575,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,7 +587,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,11 +607,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -643,11 +643,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -655,11 +655,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,15 +679,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -731,11 +731,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -747,15 +747,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -763,11 +759,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -779,11 +779,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="题目10亿int整型数，以及一台可用内存为1GB的机器，时间复杂度要求O(n)，统计只出现一次的数？">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm-Problem】海量数据处理-10亿int型数，统计只出现一次的数/assets/37237-20160302211041080-958649492.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm-Problem】海量数据处理-10亿int型数，统计只出现一次的数/assets/37237-20160302215109220-1394239868.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/37237-20160302211041080-958649492.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/37237-20160302215109220-1394239868.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm Problem】海量数据处理 - 10亿int型数，统计只出现一次的数">
 <meta name="twitter:description" content="题目10亿int整型数，以及一台可用内存为1GB的机器，时间复杂度要求O(n)，统计只出现一次的数？">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/05/【Algorithm-Problem】海量数据处理-10亿int型数，统计只出现一次的数/assets/37237-20160302211041080-958649492.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/37237-20160302211041080-958649492.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -235,7 +235,7 @@ var _hmt = _hmt || [];
 <li>~~</li>
 </ul>
 <p>假设这10亿int数据为：6,3,8,16,18,……，那么具体的BitMap表示为：</p>
-<p><img src="assets/37237-20160302211041080-958649492.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/37237-20160302211041080-958649492.png" alt="img"></p>
 <ol>
 <li>如何判断int数字放在哪一个tmp数组中：将数字直接除以16取整数部分（x/16），例如：整数15除以16取整等于0，那么15就在tmp[0]上；而整数 16 除以16取整等于1，那么 16 就在 tmp[1]上。</li>
 <li>如何确定数字放在32个位中的哪个位（索引从 0 开始）：将数字mod16取模再乘以 2（x % 16 * 2）。比如，我们知道了整数 0 在tmp[0]后，如果确定其在哪一位呢？计算0 % 16 * 2 = 0，因此在tmp[0]的第 0 位。又如整数8，8 % 16 * 2 =  16，因此在tmp[0]的第 16 位（从右边数起）。</li>
@@ -254,7 +254,7 @@ var _hmt = _hmt || [];
 <p><strong>具体的过程如下：</strong>扫描着3亿个整数，组BitMap，先查看BitMap中的对应位置，如果00则变成01，是01则变成11，是11则保持不变，当将3亿个整数扫描完之后也就是说整个BitMap已经组装完毕。最后查看BitMap将对应位为11的整数输出即可。</p>
 <h3 id="2-对没有重复元素的整数进行排序"><a href="#2-对没有重复元素的整数进行排序" class="headerlink" title="2 对没有重复元素的整数进行排序"></a>2 对没有重复元素的整数进行排序</h3><p>对于非重复的整数排序BitMap有着天然的优势，它只需要将给出的无重复整数扫描完毕，组装成为BitMap之后，那么直接遍历一遍Bit区域就可以达到排序效果了。</p>
 <p>举个例子：对整数4、3、1、7、6进行排序：</p>
-<p><img src="assets/37237-20160302215109220-1394239868.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/37237-20160302215109220-1394239868.png" alt="img"></p>
 <p>直接按Bit位输出就可以得到排序结果了。</p>
 <h3 id="3-已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数"><a href="#3-已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数" class="headerlink" title="3 已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数"></a>3 已知某个文件内包含一些电话号码，每个号码为8位数字，统计不同号码的个数</h3><p>8位最多99 999 999，大概需要99m个bit，大概10几m字节的内存即可。可以理解为从0-99 999 999的数字，每个数字对应一个Bit位，所以只需要99M个Bit==1.2MBytes，这样，就用了小小的1.2M左右的内存表示了所有的8位数的电话。</p>
 <h3 id="4-2-5亿个整数中找出不重复的整数的个数，内存空间不足以容纳这2-5亿个整数"><a href="#4-2-5亿个整数中找出不重复的整数的个数，内存空间不足以容纳这2-5亿个整数" class="headerlink" title="4 2.5亿个整数中找出不重复的整数的个数，内存空间不足以容纳这2.5亿个整数"></a>4 2.5亿个整数中找出不重复的整数的个数，内存空间不足以容纳这2.5亿个整数</h3><p>将bit-map扩展一下，用2bit表示一个数即可：0表示未出现；1表示出现一次；2表示出现2次及以上，即重复，在遍历这些数的时候，如果对应位置的值是0，则将其置为1；如果是1，将其置为2；如果是2，则保持不变。或者我们不用2bit来进行表示，我们用两个bit-map即可模拟实现这个2bit-map，都是一样的道理。</p>
@@ -516,10 +516,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -532,19 +528,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -592,11 +592,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,7 +604,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,11 +624,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -660,11 +660,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,11 +672,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -696,15 +696,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,11 +748,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,15 +764,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -780,11 +776,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -796,11 +796,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

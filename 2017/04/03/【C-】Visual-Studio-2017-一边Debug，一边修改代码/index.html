@@ -16,19 +16,19 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="好久没写C#了，最近在学习著名科学上网工具 shadowsocks-windows 的源代码，想着可以边断点调试，边加上一些注释以方便理解，stackoverflow 和 msdn 随便翻了一下，竟发现了Debug新世界。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/74896df0-a85a-472a-9fc3-067531df63ca.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/2f12a501-f8a1-4aae-b815-6be7f7fc5a7a.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/98600aa3-76dc-40ed-9f80-9bfe722837e3.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/a1935a13-23ea-4f7c-88d8-9802e09fa861.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/ecd911df-66e2-42c4-8f60-1d35e93cd8d0.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/807e761e-3d0f-4f79-9ddf-9c6c020a4f0e.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/c7438efe-a44e-42c6-b774-f6a34b829e89.png">
-<meta property="og:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/4021a067-3dae-47f2-8dea-db30e8ea826c.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/74896df0-a85a-472a-9fc3-067531df63ca.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2f12a501-f8a1-4aae-b815-6be7f7fc5a7a.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/98600aa3-76dc-40ed-9f80-9bfe722837e3.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1935a13-23ea-4f7c-88d8-9802e09fa861.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/ecd911df-66e2-42c4-8f60-1d35e93cd8d0.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/807e761e-3d0f-4f79-9ddf-9c6c020a4f0e.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/c7438efe-a44e-42c6-b774-f6a34b829e89.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/4021a067-3dae-47f2-8dea-db30e8ea826c.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【C#】Visual Studio 2017 一边Debug，一边修改代码">
 <meta name="twitter:description" content="好久没写C#了，最近在学习著名科学上网工具 shadowsocks-windows 的源代码，想着可以边断点调试，边加上一些注释以方便理解，stackoverflow 和 msdn 随便翻了一下，竟发现了Debug新世界。">
-<meta name="twitter:image" content="http://swsmile.info/2017/04/03/【C-】Visual-Studio-2017-一边Debug，一边修改代码/assets/74896df0-a85a-472a-9fc3-067531df63ca.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/74896df0-a85a-472a-9fc3-067531df63ca.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -223,7 +223,7 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <h1 id="原始需求"><a href="#原始需求" class="headerlink" title="原始需求"></a>原始需求</h1><p>原始需求是这样，本来我只是希望在断点调试项目的时候，可以增加一些注释，以方便理解。</p>
-<p><strong>但是遇到一个问题：</strong><br>在处于<strong>断点模式</strong>（Break Mode，即程序当前命中了断点，并在断点处阻塞着不能向下执行）时，是可以随意增加注释的：<br><img src="assets/74896df0-a85a-472a-9fc3-067531df63ca.png" alt=""></p>
+<p><strong>但是遇到一个问题：</strong><br>在处于<strong>断点模式</strong>（Break Mode，即程序当前命中了断点，并在断点处阻塞着不能向下执行）时，是可以随意增加注释的：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/74896df0-a85a-472a-9fc3-067531df63ca.png" alt=""></p>
 <p>当不处于命中断点的状态时（Debug Mode， 程序正在跑呀跑呀跑~），如果我尝试增加注释，就会有这样的提示<code>Changes are not allowed while code is running</code>。</p>
 <p>有小伙伴说可以用<code>Bookmark</code>，试了一下也不知道是怎么玩的。</p>
 <blockquote>
@@ -231,18 +231,18 @@ var _hmt = _hmt || [];
 </blockquote>
 <h1 id="惊喜的发现"><a href="#惊喜的发现" class="headerlink" title="惊喜的发现"></a>惊喜的发现</h1><p>随便逛逛 stackoverflow 和 Microsoft blog，惊喜的发现，原来早在<code>Visual Studio 2013</code>，就可以在断点模式（Break Mode）下增加注释，<strong>而且，还可以修改代码，编译器和根据你修改的代码实时改变代码运行过程中的流程（<a href="https://blogs.msdn.microsoft.com/visualstudioalm/2013/06/26/debugging-support-for-64-bit-edit-and-continue-in-visual-studio-2013/" target="_blank" rel="noopener">see here</a>）。</strong></p>
 <p>举个例子就可以清晰地明白：</p>
-<p>以下是一个基于MVC5的<code>Web Application</code>，此时根据变量<code>a</code>的值决定是否<strong>进入if内部</strong>，显而易见，这时候肯定是会进入if内部的：<br><img src="assets/2f12a501-f8a1-4aae-b815-6be7f7fc5a7a.png" alt=""></p>
-<p>现在，我将<code>if(a)</code> 修改为 <code>if(b)</code>（这时候编译器会根据代码的修改，立刻编译），并且<code>step into</code>往下走，<strong>竟然发现，我可以实时的改变代码，且改变代码的执行流（修改后，不满足if的条件，因此不会<code>return Content(&quot;ss&quot;)</code>）。</strong><br><img src="assets/98600aa3-76dc-40ed-9f80-9bfe722837e3.png" alt=""></p>
-<p><img src="assets/a1935a13-23ea-4f7c-88d8-9802e09fa861.png" alt=""></p>
+<p>以下是一个基于MVC5的<code>Web Application</code>，此时根据变量<code>a</code>的值决定是否<strong>进入if内部</strong>，显而易见，这时候肯定是会进入if内部的：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2f12a501-f8a1-4aae-b815-6be7f7fc5a7a.png" alt=""></p>
+<p>现在，我将<code>if(a)</code> 修改为 <code>if(b)</code>（这时候编译器会根据代码的修改，立刻编译），并且<code>step into</code>往下走，<strong>竟然发现，我可以实时的改变代码，且改变代码的执行流（修改后，不满足if的条件，因此不会<code>return Content(&quot;ss&quot;)</code>）。</strong><br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/98600aa3-76dc-40ed-9f80-9bfe722837e3.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a1935a13-23ea-4f7c-88d8-9802e09fa861.png" alt=""></p>
 <p>在之前的使用中，如果我发现<strong>这里的判断条件需要修改</strong>，且我仍然需要<strong>动态调试</strong>，我会<code>Stop debugging</code>（Shift + F5），将<code>if(a) 修改为 if(b)</code>，<code>Start Debugging</code>，最终代码断点执行到这个位置。</p>
 <h1 id="如何开启Edit-and-Continue"><a href="#如何开启Edit-and-Continue" class="headerlink" title="如何开启Edit and Continue"></a>如何开启<code>Edit and Continue</code></h1><p><strong>从<code>Visual Studio 2013</code>开始，这一功能是默认开启的。</strong>当然我现在用的是<code>Visual Studio 2017</code>啦，爽爽哒。</p>
 <p><strong>如果你发现这个功能不能使用，你需要在你的<code>Project</code>和<code>Visual Studio</code>中分别检查是否正确设置了：</strong></p>
-<h3 id="检查在Project中是否开启了这一功能："><a href="#检查在Project中是否开启了这一功能：" class="headerlink" title="检查在Project中是否开启了这一功能："></a>检查在<code>Project</code>中是否开启了这一功能：</h3><p>对于<code>Web Application</code>是可以在Project中手动开启和关闭的（在 WinForm 的 Project 中好像我没有找到设置）：<br><img src="assets/ecd911df-66e2-42c4-8f60-1d35e93cd8d0.png" alt=""></p>
-<p><img src="assets/807e761e-3d0f-4f79-9ddf-9c6c020a4f0e.png" alt=""></p>
+<h3 id="检查在Project中是否开启了这一功能："><a href="#检查在Project中是否开启了这一功能：" class="headerlink" title="检查在Project中是否开启了这一功能："></a>检查在<code>Project</code>中是否开启了这一功能：</h3><p>对于<code>Web Application</code>是可以在Project中手动开启和关闭的（在 WinForm 的 Project 中好像我没有找到设置）：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/ecd911df-66e2-42c4-8f60-1d35e93cd8d0.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/807e761e-3d0f-4f79-9ddf-9c6c020a4f0e.png" alt=""></p>
 <h3 id="检查在Visual-Studio中是否开启了这一功能："><a href="#检查在Visual-Studio中是否开启了这一功能：" class="headerlink" title="检查在Visual Studio中是否开启了这一功能："></a>检查在<code>Visual Studio</code>中是否开启了这一功能：</h3><ul>
-<li><p>[Tools / Options]<br><img src="assets/c7438efe-a44e-42c6-b774-f6a34b829e89.png" alt=""></p>
+<li><p>[Tools / Options]<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/c7438efe-a44e-42c6-b774-f6a34b829e89.png" alt=""></p>
 </li>
-<li><p>搜索<code>Enable Edit and Continue</code>，并勾选<br><img src="assets/4021a067-3dae-47f2-8dea-db30e8ea826c.png" alt=""></p>
+<li><p>搜索<code>Enable Edit and Continue</code>，并勾选<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/4021a067-3dae-47f2-8dea-db30e8ea826c.png" alt=""></p>
 </li>
 </ul>
 <h1 id="一些不能使用的场景"><a href="#一些不能使用的场景" class="headerlink" title="一些不能使用的场景"></a>一些不能使用的场景</h1><p>官方指出有些场景下是明确不能使用的（From <a href="https://msdn.microsoft.com/en-us/library/7932e88z.aspx" target="_blank" rel="noopener">msdn</a>）：</p>
@@ -521,10 +521,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -537,19 +533,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -597,11 +597,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -609,7 +609,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,11 +629,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,11 +665,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,11 +677,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,15 +701,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -753,11 +753,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -769,15 +769,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -785,11 +781,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -801,11 +801,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

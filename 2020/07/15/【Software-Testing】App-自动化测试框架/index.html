@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="iOS对于 iOS 9.2 及更低版本，苹果唯一的自动化技术被称为UIAutomation，它运行在 Instruments 中。从 iOS 10 开始，苹果已经完全删除了 UIAutomation 工具。 同时，苹果推出了一款名为XCUITest 的新型自动化技术，从 iOS 9.3 到 iOS 10 及以上版本，这将是苹果唯一支持的自动化框架。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/07/15/【Software-Testing】App-自动化测试框架/assets/967677-20170325220745158-1754607317.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/15/【Software-Testing】App-自动化测试框架/assets/image-20200714233256815.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/967677-20170325220745158-1754607317.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200714233256815.png">
 <meta property="og:updated_time" content="2020-07-19T05:08:18.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Software Testing】App 自动化测试框架">
 <meta name="twitter:description" content="iOS对于 iOS 9.2 及更低版本，苹果唯一的自动化技术被称为UIAutomation，它运行在 Instruments 中。从 iOS 10 开始，苹果已经完全删除了 UIAutomation 工具。 同时，苹果推出了一款名为XCUITest 的新型自动化技术，从 iOS 9.3 到 iOS 10 及以上版本，这将是苹果唯一支持的自动化框架。">
-<meta name="twitter:image" content="http://swsmile.info/2020/07/15/【Software-Testing】App-自动化测试框架/assets/967677-20170325220745158-1754607317.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/967677-20170325220745158-1754607317.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -235,7 +235,7 @@ var _hmt = _hmt || [];
 <p>KIF 优势</p>
 <p>1，测试时直接获取到UIView：KIF在测试过程中，是直接获取到应用程序，可以直接取得UIView等控件，因此各种属性可以直接判断；而 XCTest就显得很不方便，它并没有直接取得应用程序，而是在现有的视图上取得XCUIElement，该类和UIView有很大差别，基本上UIView的属性我们无法判断。</p>
 <p>2，XCTest原则上每个UI测试都要重新启动一遍应用，这样的耗时是惊人的，而KIF则不用。文档、教程比较多：KIF从2011年推出至今，网上已有大量的教程和问答，可能很方便找到解决方案，而XCode UI Test则不同，推出不久，相关资料还不是很多。</p>
-<h1 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h1><p><img src="assets/967677-20170325220745158-1754607317.png" alt="img"></p>
+<h1 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/967677-20170325220745158-1754607317.png" alt="img"></p>
 <h2 id="Espresso"><a href="#Espresso" class="headerlink" title="Espresso"></a>Espresso</h2><p>Espresso 是 Google 针对 Android 平台开源的一款 Android 自动化白盒测试框架，主要是用于 Android App UI 自动化测试。</p>
 <p>在这里简单说下 UI 自动化测试：我们作为 App 的使用者，要让机器模拟我们的测试过程，那么就需要针对我们肉眼看到的那些界面，那些按钮，也就是 UI 组件进行相应的操作以及对结果正确性的验证。</p>
 <p>比如说，作为用户我们并不关心某个网络请求返回值的具体数据是否正确，我们关心的是在界面上看到我们想要看到的结果。因此，做 UI 自动化测试用例的时候，一个通用的思路就是：<strong>找到某个元素，做一些操作，检查结果</strong>，把自己当成用户，只关注我能看到的东西。</p>
@@ -280,7 +280,7 @@ var _hmt = _hmt || [];
 <p>Appium提供各个语言的第三方库，在库内部会将测试脚本转化成 WebDriver 协议下的标准请求，并发送到Appium Server。</p>
 <p>Appium Server是一个基于Node.js的服务，Appium Server发送到各个平台上的代理工具，代理工具在运行过程中不断接收 URL，根据 WebDriver 协议解析出要执行的操作，然后调用各个平台上的原生测试框架完成测试，再将测试结果返回给 Node 服务器。</p>
 <p>Appium iOS封装了苹果公司的Instruments框架，主要用了Instrument里的UiAutomation（Apple的自动化测试框架），然后在设备中注入，如下图所示：</p>
-<p><img src="assets/image-20200714233256815.png" alt="image-20200714233256815"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200714233256815.png" alt="image-20200714233256815"></p>
 <ol>
 <li>WebDriver script 是selenium风格的测试脚本；</li>
 <li>中间的是Appium服务，Appium启动一个服务（4723端口），与Selenium-WebDriver测试框架相类似，Appium支持标准的WebDriver JSONWireProtocol。它提供一套Web服务，Appium Server接收WebDriver标准请求，解析请求内容，调用对应框架相应操作；</li>
@@ -545,10 +545,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -561,19 +557,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,11 +621,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,7 +633,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,11 +653,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,11 +689,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -701,11 +701,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -725,15 +725,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -777,11 +777,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,15 +793,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -809,11 +805,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -825,11 +825,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

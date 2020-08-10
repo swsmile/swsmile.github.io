@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Service DiscoveryLet’s imagine that you are writing some code that invokes a service that has a REST API or Thrift API. In order to make a request, your code needs to know the network location (IP add">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】服务注册与服务发现/assets/Richardson-microservices-part4-1_difficult-service-discovery.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】服务注册与服务发现/assets/Richardson-microservices-part4-2_client-side-pattern.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】服务注册与服务发现/assets/Richardson-microservices-part4-3_server-side-pattern.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】服务注册与服务发现/assets/Richardson-microservices-part4-4_self-registration-pattern.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】服务注册与服务发现/assets/Richardson-microservices-part4-5_third-party-pattern.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】服务注册与服务发现/assets/image-20200725183955939-5736039.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-1_difficult-service-discovery.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-2_client-side-pattern.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-3_server-side-pattern.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-4_self-registration-pattern.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-5_third-party-pattern.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200725183955939-5736039.png">
 <meta property="og:updated_time" content="2020-07-26T09:34:00.669Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Microservices】微服务 - 服务注册（Service Registry）和服务发现（Service Discovery）">
 <meta name="twitter:description" content="Service DiscoveryLet’s imagine that you are writing some code that invokes a service that has a REST API or Thrift API. In order to make a request, your code needs to know the network location (IP add">
-<meta name="twitter:image" content="http://swsmile.info/2020/07/26/【Microservices】服务注册与服务发现/assets/Richardson-microservices-part4-1_difficult-service-discovery.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-1_difficult-service-discovery.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,18 +219,18 @@ var _hmt = _hmt || [];
       
         <h1 id="Service-Discovery"><a href="#Service-Discovery" class="headerlink" title="Service Discovery"></a>Service Discovery</h1><p>Let’s imagine that you are writing some code that invokes a service that has a REST API or Thrift API. In order to make a request, your code needs to know the network location (IP address and port) of a service instance. In a traditional application running on physical hardware, the network locations of service instances are relatively static. For example, your code can read the network locations from a configuration file that is occasionally updated.</p>
 <p>In a modern, cloud‑based microservices application, however, this is a much more difficult problem to solve as shown in the following diagram.</p>
-<p><img src="assets/Richardson-microservices-part4-1_difficult-service-discovery.png" alt="Service discovery is difficult in a modern, cloud-based microservices application because the set of instances, and their IP addresses, are subject to constant change"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-1_difficult-service-discovery.png" alt="Service discovery is difficult in a modern, cloud-based microservices application because the set of instances, and their IP addresses, are subject to constant change"></p>
 <a id="more"></a> 
 
 <h1 id="Service-Discovery-Pattern"><a href="#Service-Discovery-Pattern" class="headerlink" title="Service Discovery Pattern"></a>Service Discovery Pattern</h1><h2 id="The-Client‑Side-Discovery-Pattern"><a href="#The-Client‑Side-Discovery-Pattern" class="headerlink" title="The Client‑Side Discovery Pattern"></a>The Client‑Side Discovery Pattern</h2><p>When using <a href="https://microservices.io/patterns/client-side-discovery.html" target="_blank" rel="noopener">client‑side discovery</a>, the client is responsible for determining the network locations of available service instances and load balancing requests across them. The client queries a service registry, which is a database of available service instances. The client then uses a load‑balancing algorithm to select one of the available service instances and makes a request.</p>
 <p>The following diagram shows the structure of this pattern.</p>
-<p><img src="assets/Richardson-microservices-part4-2_client-side-pattern.png" alt="With client-side service discovery, the client determines the network locations of available service instances and load balances requests across them"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-2_client-side-pattern.png" alt="With client-side service discovery, the client determines the network locations of available service instances and load balances requests across them"></p>
 <p>The network location of a service instance is registered with the service registry when it starts up. It is removed from the service registry when the instance terminates. The service instance’s registration is typically refreshed periodically using a heartbeat mechanism.</p>
 <p><a href="https://netflix.github.io/" target="_blank" rel="noopener">Netflix OSS</a> provides a great example of the client‑side discovery pattern. <a href="https://github.com/Netflix/eureka" target="_blank" rel="noopener">Netflix Eureka</a> is a service registry. It provides a REST API for managing service‑instance registration and for querying available instances. <a href="https://github.com/Netflix/ribbon" target="_blank" rel="noopener">Netflix Ribbon</a> is an IPC client that works with Eureka to load balance requests across the available service instances. We will discuss Eureka in more depth later in this article.</p>
 <p>The client‑side discovery pattern has a variety of benefits and drawbacks. This pattern is relatively straightforward and, except for the service registry, there are no other moving parts. Also, since the client knows about the available services instances, it can make intelligent, application‑specific load‑balancing decisions such as using hashing consistently. </p>
 <p>One significant drawback of this pattern is that it couples the client with the service registry. You must implement client‑side service discovery logic for each programming language and framework used by your service clients.</p>
 <h2 id="The-Server‑Side-Discovery-Pattern"><a href="#The-Server‑Side-Discovery-Pattern" class="headerlink" title="The Server‑Side Discovery Pattern"></a>The Server‑Side Discovery Pattern</h2><p>The following diagram shows the structure of this pattern.</p>
-<p><img src="assets/Richardson-microservices-part4-3_server-side-pattern.png" alt="With the server-side service discovery, the load balancer queries a service registry about service locations; clients interact only with the load balancer"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-3_server-side-pattern.png" alt="With the server-side service discovery, the load balancer queries a service registry about service locations; clients interact only with the load balancer"></p>
 <p>The client makes a request to a service via a load balancer. The load balancer queries the service registry and routes each request to an available service instance. As with client‑side discovery, service instances are registered and deregistered with the service registry.</p>
 <p>HTTP servers and load balancers such as <a href="https://www.nginx.com/products/" target="_blank" rel="noopener">NGINX Plus</a> and NGINX can also be used as a server-side discovery load balancer. </p>
 <p>Some deployment environments such as <a href="https://github.com/kubernetes/kubernetes/" target="_blank" rel="noopener">Kubernetes</a> and <a href="https://mesosphere.github.io/marathon/docs/service-discovery-load-balancing.html" target="_blank" rel="noopener">Marathon</a> run a proxy on each host in the cluster. The proxy plays the role of a server‑side discovery load balancer. In order to make a request to a service, a client routes the request via the proxy using the host’s IP address and the service’s assigned port. The proxy then transparently forwards the request to an available service instance running somewhere in the cluster.</p>
@@ -239,12 +239,12 @@ var _hmt = _hmt || [];
 <p>As mentioned earlier, <a href="https://github.com/Netflix/eureka" target="_blank" rel="noopener">Netflix Eureka</a> is good example of a service registry. It provides a REST API for registering and querying service instances. A service instance registers its network location using a <code>POST</code> request. Every 30 seconds it must refresh its registration using a <code>PUT</code> request. A registration is removed by either using an HTTP <code>DELETE</code> request or by the instance registration timing out. As you might expect, a client can retrieve the registered service instances by using an HTTP <code>GET</code> request.</p>
 <h2 id="Service-Registry-Patterns"><a href="#Service-Registry-Patterns" class="headerlink" title="Service Registry Patterns"></a>Service Registry Patterns</h2><p>As previously mentioned, service instances must be registered with and deregistered from the service registry. There are a couple of different ways to handle the registration and deregistration. One option is for service instances to register themselves, the <a href="https://microservices.io/patterns/self-registration.html" target="_blank" rel="noopener">self‑registration pattern</a>. The other option is for some other system component to manage the registration of service instances, the <a href="https://microservices.io/patterns/3rd-party-registration.html" target="_blank" rel="noopener">third‑party registration pattern</a>. </p>
 <h3 id="The-Self‑Registration-Pattern"><a href="#The-Self‑Registration-Pattern" class="headerlink" title="The Self‑Registration Pattern"></a>The Self‑Registration Pattern</h3><p>When using the <a href="https://microservices.io/patterns/self-registration.html" target="_blank" rel="noopener">self‑registration pattern</a>, a service instance is responsible for registering and deregistering itself with the service registry. Also, if required, a service instance sends heartbeat requests to prevent its registration from expiring. The following diagram shows the structure of this pattern.</p>
-<p><img src="assets/Richardson-microservices-part4-4_self-registration-pattern.png" alt="With the self-registration pattern for service discovery, a service instance registers and deregisters itself with the service registry"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-4_self-registration-pattern.png" alt="With the self-registration pattern for service discovery, a service instance registers and deregisters itself with the service registry"></p>
 <p>A good example of this approach is the <a href="https://github.com/Netflix/eureka" target="_blank" rel="noopener">Netflix OSS Eureka client</a>. The Eureka client handles all aspects of service instance registration and deregistration. The <a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener">Spring Cloud project</a>, which implements various patterns including service discovery, makes it easy to automatically register a service instance with Eureka. You simply annotate your Java Configuration class with an <code>@EnableEurekaClient</code> annotation.</p>
 <p>The self‑registration pattern has various benefits and drawbacks. One benefit is that it is relatively simple and doesn’t require any other system components. However, a major drawback is that it couples the service instances to the service registry. You must implement the registration code in each programming language and framework used by your services.</p>
 <p>The alternative approach, which decouples services from the service registry, is the third‑party registration pattern.</p>
 <h3 id="The-Third‑Party-Registration-Pattern"><a href="#The-Third‑Party-Registration-Pattern" class="headerlink" title="The Third‑Party Registration Pattern"></a>The Third‑Party Registration Pattern</h3><p>When using the <a href="https://microservices.io/patterns/3rd-party-registration.html" target="_blank" rel="noopener">third-party registration pattern</a>, service instances aren’t responsible for registering themselves with the service registry. Instead, another system component known as the <em>service registrar</em> handles the registration. The service registrar tracks changes to the set of running instances by either polling the deployment environment or subscribing to events. When it notices a newly available service instance it registers the instance with the service registry. The service registrar also deregisters terminated service instances. The following diagram shows the structure of this pattern.</p>
-<p><img src="assets/Richardson-microservices-part4-5_third-party-pattern.png" alt="With the third-party registration pattern for service discovery, a separate service registrar registers and deregisters service instances with the service registry"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Richardson-microservices-part4-5_third-party-pattern.png" alt="With the third-party registration pattern for service discovery, a separate service registrar registers and deregisters service instances with the service registry"></p>
 <p>One example of a service registrar is the open source <a href="https://github.com/gliderlabs/registrator" target="_blank" rel="noopener">Registrator</a> project. It automatically registers and deregisters service instances that are deployed as Docker containers. Registrator supports several service registries, including etcd and Consul.</p>
 <p>Another example of a service registrar is <a href="https://github.com/netflix/Prana" target="_blank" rel="noopener">NetflixOSS Prana</a>. Primarily intended for services written in non‑JVM languages, it is a sidecar application that runs side by side with a service instance. Prana registers and deregisters the service instance with Netflix Eureka.</p>
 <p>The service registrar is a built‑in component of deployment environments. The EC2 instances created by an Autoscaling Group can be automatically registered with an ELB. Kubernetes services are automatically registered and made available for discovery.</p>
@@ -255,7 +255,7 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="优雅的服务注册与服务下线"><a href="#优雅的服务注册与服务下线" class="headerlink" title="优雅的服务注册与服务下线"></a>优雅的服务注册与服务下线</h2><p>绝大多数的服务注册中心都提供了<strong>健康检查</strong>功能，在应用停止后会自动摘除服务所对应的节点。但是我们也不能完全依赖此功能，应用应该在停止时主动调用服务注册中心的服务下线接口。</p>
 <p>在Dubbo中，我们利用ZooKeeper 中的瞬时节点（ephemeral node）了，即当服务的消费者 subscribe 了自己依赖的一个服务生产者的信息后，当服务生产者在Zookeeper中心更新了自己的节点信息时，服务的消费者可以实时的收到通知。</p>
-<p><img src="assets/image-20200725183955939-5736039.png" alt="image-20200725183955939"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200725183955939-5736039.png" alt="image-20200725183955939"></p>
 <p>这意味着我们可以实现“优雅的服务注册与服务下线”，即服务消费者可以（通过被push的形式）实时的感知到服务生产者的节点变化。</p>
 <p>或者，首先切断流量，再进行 server 的下线。具体的做法便是：先关闭心跳开关，客户端感知停止调用后，再关闭服务进程。</p>
 <h3 id="感知服务的下线"><a href="#感知服务的下线" class="headerlink" title="感知服务的下线"></a>感知服务的下线</h3><p>服务上线时自然要注册到注册中心，但下线时也得从注册中心中摘除。注册是一个主动的行为，这没有特别要注意的地方，但服务下线却是一个值得思考的问题。服务下线包含了主动下线和系统宕机等异常方式的下线。</p>
@@ -536,10 +536,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -552,19 +548,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -612,11 +612,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -624,7 +624,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,11 +644,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,11 +680,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,11 +692,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -716,15 +716,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -768,11 +768,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,15 +784,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,11 +796,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -816,11 +816,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

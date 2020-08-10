@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="本文将按照Java源代码从编译到执行的过程，进行一步一步的分析。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/assets/0e8fbcd2-6ef9-413d-ad24-93655788ba1f.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/assets/858e8ff5-0cb4-49c7-a6f5-dc0b07a3137b.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/assets/940007a2-06af-4dfd-abf2-97e01c3f477d.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/assets/7b99e15c-ba2e-4b8f-9750-8be648999016.jpg">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/assets/98ac2074-932e-44d1-8090-e2125e3aef28.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/0e8fbcd2-6ef9-413d-ad24-93655788ba1f.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/858e8ff5-0cb4-49c7-a6f5-dc0b07a3137b.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/940007a2-06af-4dfd-abf2-97e01c3f477d.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/7b99e15c-ba2e-4b8f-9750-8be648999016.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/98ac2074-932e-44d1-8090-e2125e3aef28.jpg">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】Java程序的编译与运行">
 <meta name="twitter:description" content="本文将按照Java源代码从编译到执行的过程，进行一步一步的分析。">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/11/【Java】编译与反编译-Java程序的编译与运行/assets/0e8fbcd2-6ef9-413d-ad24-93655788ba1f.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/0e8fbcd2-6ef9-413d-ad24-93655788ba1f.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -219,11 +219,11 @@ var _hmt = _hmt || [];
         <p>本文将按照Java源代码从编译到执行的过程，进行一步一步的分析。</p>
 <a id="more"></a> 
 
-<h5 id="Java程序编译到运行过程："><a href="#Java程序编译到运行过程：" class="headerlink" title="Java程序编译到运行过程："></a>Java程序编译到运行过程：</h5><p><img src="assets/0e8fbcd2-6ef9-413d-ad24-93655788ba1f.png" alt=""></p>
+<h5 id="Java程序编译到运行过程："><a href="#Java程序编译到运行过程：" class="headerlink" title="Java程序编译到运行过程："></a>Java程序编译到运行过程：</h5><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/0e8fbcd2-6ef9-413d-ad24-93655788ba1f.png" alt=""></p>
 <h1 id="一-源代码编写"><a href="#一-源代码编写" class="headerlink" title="一.源代码编写"></a>一.源代码编写</h1><p>首先编写java源代码程序，文件扩展名：.java。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//MainApp.java  </span><br><span class="line">public class MainApp &#123;  </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">        Animal animal = new Animal(&quot;SW&quot;);  </span><br><span class="line">        animal.printName();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">//Animal.java  </span><br><span class="line">public class Animal &#123;  </span><br><span class="line">    public String name;  </span><br><span class="line">    public Animal(String name) &#123;  </span><br><span class="line">        this.name = name;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void printName() &#123;  </span><br><span class="line">        System.out.println(&quot;printName：Name-&quot; + this.name);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="二-编译成字节码（ByteCode）"><a href="#二-编译成字节码（ByteCode）" class="headerlink" title="二.编译成字节码（ByteCode）"></a>二.编译成字节码（ByteCode）</h1><p>在命令行模式中，输入命令：<code>javac 源文件名.java</code>，会对源代码进行编译，最终生成字节码文件（.class文件）；<br><img src="assets/858e8ff5-0cb4-49c7-a6f5-dc0b07a3137b.jpg" alt=""></p>
+<h1 id="二-编译成字节码（ByteCode）"><a href="#二-编译成字节码（ByteCode）" class="headerlink" title="二.编译成字节码（ByteCode）"></a>二.编译成字节码（ByteCode）</h1><p>在命令行模式中，输入命令：<code>javac 源文件名.java</code>，会对源代码进行编译，最终生成字节码文件（.class文件）；<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/858e8ff5-0cb4-49c7-a6f5-dc0b07a3137b.jpg" alt=""></p>
 <h4 id="（1）编译过程"><a href="#（1）编译过程" class="headerlink" title="（1）编译过程"></a>（1）编译过程</h4><p><strong>Java编译器在编译一个Java类时，会检查该类所依赖的类是否存在且已被编译：</strong></p>
 <ul>
 <li>如果存在，但是未被编译：Java编译器会先编译这个被依赖的类，然后引用</li>
@@ -239,17 +239,17 @@ var _hmt = _hmt || [];
 <li>方法信息<br>对应 Java 源码中语句和表达式对应的信息。包含字节码、异常处理器表、求值栈与局部变量区大小、求值栈的类型记录、调试符号信息。</li>
 </ul>
 <hr>
-<h5 id="使用javap查看："><a href="#使用javap查看：" class="headerlink" title="使用javap查看："></a>使用<code>javap</code>查看：</h5><p><img src="assets/940007a2-06af-4dfd-abf2-97e01c3f477d.png" alt=""></p>
+<h5 id="使用javap查看："><a href="#使用javap查看：" class="headerlink" title="使用javap查看："></a>使用<code>javap</code>查看：</h5><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/940007a2-06af-4dfd-abf2-97e01c3f477d.png" alt=""></p>
 <h1 id="三-字节码由JVM解释执行"><a href="#三-字节码由JVM解释执行" class="headerlink" title="三.字节码由JVM解释执行"></a>三.字节码由JVM解释执行</h1><p>编译完成后，如果没有报错信息，输入命令：<code>java MainApp</code>，JVM 对class字节码文件进行解释运行，执行时不需要添加.class扩展名。</p>
 <p><strong>Java类运行时，分为两个过程：</strong></p>
 <ul>
 <li>类的加载（在加载过程中，<code>JIT编译器</code>会将字节码编译成机器码）</li>
 <li>类的执行</li>
 </ul>
-<h3 id="1-类的加载："><a href="#1-类的加载：" class="headerlink" title="1.类的加载："></a>1.类的加载：</h3><h4 id="（1）加载时编译"><a href="#（1）加载时编译" class="headerlink" title="（1）加载时编译"></a>（1）加载时编译</h4><p>在加载前，JVM中的<code>JIT编译器</code>会将字节码先编译：<br><img src="assets/7b99e15c-ba2e-4b8f-9750-8be648999016.jpg" alt=""></p>
+<h3 id="1-类的加载："><a href="#1-类的加载：" class="headerlink" title="1.类的加载："></a>1.类的加载：</h3><h4 id="（1）加载时编译"><a href="#（1）加载时编译" class="headerlink" title="（1）加载时编译"></a>（1）加载时编译</h4><p>在加载前，JVM中的<code>JIT编译器</code>会将字节码先编译：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/7b99e15c-ba2e-4b8f-9750-8be648999016.jpg" alt=""></p>
 <h4 id="（2）懒加载"><a href="#（2）懒加载" class="headerlink" title="（2）懒加载"></a>（2）懒加载</h4><p><strong>类采用懒加载（Lazy Loading）的方式。</strong></p>
 <p>即，JVM会在类即将要被第一次使用时，才加载它（此后一直保留在内存中）。而不是一开始，就把程序中的所有类都加载到内存中。</p>
-<h4 id="（3）加载机制"><a href="#（3）加载机制" class="headerlink" title="（3）加载机制"></a>（3）加载机制</h4><p>JVM 的类加载是通过 ClassLoader 及其子类来完成的，类的<code>加载顺序</code>和<code>加载检查顺序</code>如下所示：<br><img src="assets/98ac2074-932e-44d1-8090-e2125e3aef28.jpg" alt=""></p>
+<h4 id="（3）加载机制"><a href="#（3）加载机制" class="headerlink" title="（3）加载机制"></a>（3）加载机制</h4><p>JVM 的类加载是通过 ClassLoader 及其子类来完成的，类的<code>加载顺序</code>和<code>加载检查顺序</code>如下所示：<br><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/98ac2074-932e-44d1-8090-e2125e3aef28.jpg" alt=""></p>
 <h5 id="a-Bootstrap-ClassLoader"><a href="#a-Bootstrap-ClassLoader" class="headerlink" title="a.Bootstrap ClassLoader"></a>a.Bootstrap ClassLoader</h5><p>负责加载$JAVA_HOME中jre/lib/rt.jar里所有的 class，由 C++ 实现，不是 ClassLoader 子类。</p>
 <h5 id="b-Extension-ClassLoader"><a href="#b-Extension-ClassLoader" class="headerlink" title="b.Extension ClassLoader"></a>b.Extension ClassLoader</h5><p>负责加载Java平台中扩展功能的一些 jar 包，包括$JAVA_HOME中jre/lib/*.jar或-Djava.ext.dirs指定目录下的 jar 包。</p>
 <h5 id="c-App-ClassLoader"><a href="#c-App-ClassLoader" class="headerlink" title="c.App ClassLoader"></a>c.App ClassLoader</h5><p>负责记载 classpath 中指定的 jar 包及目录中 class。</p>
@@ -519,10 +519,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -535,19 +531,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -595,11 +595,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,7 +607,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,11 +627,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,11 +663,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,11 +675,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -699,15 +699,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,11 +751,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -767,15 +767,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -783,11 +779,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -799,11 +799,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

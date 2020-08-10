@@ -16,18 +16,18 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="递归（Recursion）先下定义：递归算法是一种直接或者间接调用自身函数或者方法的算法。 通俗来说，递归算法的实质是把问题分解成规模缩小的同类问题的子问题，然后递归调用方法来表示问题的解。它有如下特点：  一个问题的解可以分解为几个子问题的解 这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样 存在递归终止条件，即必须有一个明确的递归结束条件，称之为递归出口  理解">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181223155402.gif">
-<meta property="og:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181223162901.gif">
-<meta property="og:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181223171618.gif">
-<meta property="og:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181223171628.gif">
-<meta property="og:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181225095208.gif">
-<meta property="og:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181225100413.gif">
-<meta property="og:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181225101112.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223155402.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223162901.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223171618.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223171628.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181225095208.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181225100413.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181225101112.gif">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm】递归（Recursion）">
 <meta name="twitter:description" content="递归（Recursion）先下定义：递归算法是一种直接或者间接调用自身函数或者方法的算法。 通俗来说，递归算法的实质是把问题分解成规模缩小的同类问题的子问题，然后递归调用方法来表示问题的解。它有如下特点：  一个问题的解可以分解为几个子问题的解 这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样 存在递归终止条件，即必须有一个明确的递归结束条件，称之为递归出口  理解">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/29/【Algorithm】递归/assets/20181223155402.gif">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223155402.gif">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -225,7 +225,7 @@ var _hmt = _hmt || [];
 <li>这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样</li>
 <li>存在递归终止条件，即必须有一个明确的递归结束条件，称之为<strong>递归出口</strong></li>
 </ul>
-<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><p><img src="assets/20181223155402.gif" alt="递归动画"></p>
+<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223155402.gif" alt="递归动画"></p>
 <a id="more"></a> 
 
 <p>通过动画一个一个特点来进行分析。</p>
@@ -234,7 +234,7 @@ var _hmt = _hmt || [];
 <h3 id="2-这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样"><a href="#2-这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样" class="headerlink" title="2 这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样"></a>2 这个问题与分解之后的子问题，除了数据规模不同，求解思路完全一样</h3><p>「①号划分为②号」与「②号划分为③号」的逻辑是一致的，求解思路是一样的。</p>
 <h3 id="3-存在递归终止条件，即存在递归出口"><a href="#3-存在递归终止条件，即存在递归出口" class="headerlink" title="3 存在递归终止条件，即存在递归出口"></a>3 存在递归终止条件，即存在递归出口</h3><p>把问题分解为子问题，把子问题再分解为子子问题，一层一层分解下去，不能存在无限循环，这就需要有终止条件。</p>
 <p>①号划分为②号，②号划分为③号，③号划分为④号，划分到④号的时候每个区域只有一个不能划分的问题，这就表明存在递归终止条件。</p>
-<h2 id="经典递归示例"><a href="#经典递归示例" class="headerlink" title="经典递归示例"></a>经典递归示例</h2><h3 id="1-数组求和"><a href="#1-数组求和" class="headerlink" title="1 数组求和"></a>1 数组求和</h3><p><img src="assets/20181223162901.gif" alt="数组求和"></p>
+<h2 id="经典递归示例"><a href="#经典递归示例" class="headerlink" title="经典递归示例"></a>经典递归示例</h2><h3 id="1-数组求和"><a href="#1-数组求和" class="headerlink" title="1 数组求和"></a>1 数组求和</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223162901.gif" alt="数组求和"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Sum(arr[0...n-1]) = arr[0] + Sum(arr[1...n-1])</span><br></pre></td></tr></table></figure>
 
 <p>后面的 Sum 函数要解决的就是比前一个 Sum 更小的同一问题。</p>
@@ -247,8 +247,8 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>汉诺塔问题：古代有一个梵塔，塔内有三个座A、B、C，A座上有64个盘子，盘子大小不等，大的在下，小的在上。有一个和尚想把这个盘子从A座移到B座，但每次只能允许移动一个盘子，并且在移动过程中，3个座上的盘子始终保持大盘在下，小盘在上。</p>
 </blockquote>
-<p><img src="assets/20181223171618.gif" alt="两个盘子"></p>
-<p><img src="assets/20181223171628.gif" alt="三个盘子"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223171618.gif" alt="两个盘子"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181223171628.gif" alt="三个盘子"></p>
 <ul>
 <li>如果只有 1 个盘子，则不需要利用 B 塔，直接将盘子从 A 移动到 C 。</li>
 <li>如果有 2 个盘子，可以先将盘子 2 上的盘子 1 移动到 B ；将盘子 2 移动到 C ；将盘子 1 移动到 C 。这说明了：可以借助 B 将 2 个盘子从 A 移动到 C ，当然，也可以借助 C 将 2 个盘子从 A 移动到 B 。</li>
@@ -260,9 +260,9 @@ var _hmt = _hmt || [];
 <p>一个人爬楼梯，每次只能爬1个或2个台阶，假设有n个台阶，那么这个人有多少种不同的爬楼梯方法？</p>
 </blockquote>
 <p>先从简单的开始，以 4 个台阶为例，可以通过每次爬 1 个台阶爬完楼梯：</p>
-<p><img src="assets/20181225095208.gif" alt="每次爬 1 个台阶"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181225095208.gif" alt="每次爬 1 个台阶"></p>
 <p>可以通过先爬 2 个台阶，剩下的每次爬 1 个台阶爬完楼梯</p>
-<p><img src="assets/20181225100413.gif" alt="先爬 2 个台阶"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181225100413.gif" alt="先爬 2 个台阶"></p>
 <p>在这里，可以思考一下：可以根据第一步的走法把所有走法分为两类：</p>
 <ul>
 <li>① 第一类是第一步走了 1 个台阶</li>
@@ -283,7 +283,7 @@ var _hmt = _hmt || [];
 <li>假设只有一个台阶，那么只有一种走法，那就是爬 1 个台阶</li>
 <li>假设有两个台阶，那么有两种走法，一步走完或者分两步来走</li>
 </ul>
-<p><img src="assets/20181225101112.gif" alt="递归终止条件"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/20181225101112.gif" alt="递归终止条件"></p>
 <p>通过递归条件：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f(1) = 1;</span><br><span class="line">f(2) = 2;</span><br><span class="line">f(n) = f(n-1)+f(n-2)</span><br></pre></td></tr></table></figure>
 
@@ -550,10 +550,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -566,19 +562,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,11 +626,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -638,7 +638,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,11 +658,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -694,11 +694,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,11 +706,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +730,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -782,11 +782,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -798,15 +798,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -814,11 +810,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -830,11 +830,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

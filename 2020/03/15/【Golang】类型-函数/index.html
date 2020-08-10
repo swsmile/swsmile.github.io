@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="函数定义A function type denotes the set of all functions with the same parameter and result types. The value of an uninitialized variable of function type is nil. Go 语言函数定义格式如下： 123func function_name( [pa">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/03/15/【Golang】类型-函数/assets/slices_and_variadic_funcs.png">
-<meta property="og:image" content="http://swsmile.info/2020/03/15/【Golang】类型-函数/assets/passed_slice_spooky_action_in_distance.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/slices_and_variadic_funcs.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/passed_slice_spooky_action_in_distance.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.323Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Golang】函数">
 <meta name="twitter:description" content="函数定义A function type denotes the set of all functions with the same parameter and result types. The value of an uninitialized variable of function type is nil. Go 语言函数定义格式如下： 123func function_name( [pa">
-<meta name="twitter:image" content="http://swsmile.info/2020/03/15/【Golang】类型-函数/assets/slices_and_variadic_funcs.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/slices_and_variadic_funcs.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -268,7 +268,7 @@ var _hmt = _hmt || [];
 <h2 id="你可以不传或传入更多的参数"><a href="#你可以不传或传入更多的参数" class="headerlink" title="你可以不传或传入更多的参数"></a>你可以不传或传入更多的参数</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">toFullname(<span class="string">"carl"</span>, <span class="string">"sagan"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// output: "carl sagan"</span></span><br><span class="line"></span><br><span class="line">toFullname(<span class="string">"carl"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// output: "carl"</span></span><br><span class="line"></span><br><span class="line">toFullname()</span><br><span class="line"></span><br><span class="line"><span class="comment">// output: ""</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="切片和可变参数函数"><a href="#切片和可变参数函数" class="headerlink" title="切片和可变参数函数"></a>切片和可变参数函数</h2><p>可变参数函数会在其内部创建一个”新的切片”。事实上，可变参数是一个简化了切片类型参数传入的<a href="https://en.wikipedia.org/wiki/Syntactic_sugar" target="_blank" rel="noopener"><em>语法糖</em></a>。</p>
-<p><img src="assets/slices_and_variadic_funcs.png" alt="slices and the variadic funcs"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/slices_and_variadic_funcs.png" alt="slices and the variadic funcs"></p>
 <h2 id="不传参数"><a href="#不传参数" class="headerlink" title="不传参数"></a>不传参数</h2><p>当你不传入参数的时候，可变参数会成为一个空值切片（ <code>nil</code> )。</p>
 <h2 id="传入已有的切片"><a href="#传入已有的切片" class="headerlink" title="传入已有的切片"></a>传入已有的切片</h2><p>你可以通过向一个已有的切片添加可变参数运算符 ”…“ 后缀的方式将其传入可变参数函数。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">names := []<span class="keyword">string</span>&#123;<span class="string">"carl"</span>, <span class="string">"sagan"</span>&#125;</span><br><span class="line"></span><br><span class="line">toFullname(names...)</span><br><span class="line"></span><br><span class="line"><span class="comment">// output: "carl sagan"</span></span><br></pre></td></tr></table></figure>
@@ -289,7 +289,7 @@ var _hmt = _hmt || [];
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[]<span class="keyword">string</span>&#123;<span class="string">"dennis"</span>, <span class="string">"ritchie"</span>&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这是因为，传入的切片和函数内部使用的切片共享同一个底层数组，因此在函数内部改变这个数组的值同样会影响到传入的切片：</p>
-<p><img src="assets/passed_slice_spooky_action_in_distance.png" alt="spooky action"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/passed_slice_spooky_action_in_distance.png" alt="spooky action"></p>
 <p>如果你直接传入参数（不使用切片），自然就不会产生这个现象了。</p>
 <h1 id="同类型函数参数"><a href="#同类型函数参数" class="headerlink" title="同类型函数参数"></a>同类型函数参数</h1><p>When two or more consecutive named function parameters share a type, you can omit the type from all but the last.</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(x, y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(add(<span class="number">42</span>, <span class="number">13</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -568,10 +568,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -584,19 +580,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,11 +644,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,7 +656,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,11 +676,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,11 +712,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,11 +724,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,15 +748,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,11 +800,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -816,15 +816,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -832,11 +828,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -848,11 +848,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

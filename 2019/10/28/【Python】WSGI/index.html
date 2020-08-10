@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="关于Web Server（Web 服务器）、Web Application Server（Web 应用服务器）和 CGI（Common Gateway Interface）的区别，可以访问【HTTP】Web Server（Web 服务器）、Web Application Server（Web 应用服务器）和 CGI（Common Gateway Interface）的故事 。 WSGI（Web S">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/10/28/【Python】WSGI/assets/image-20191101151718025.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/28/【Python】WSGI/assets/image-20191028205625943.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/28/【Python】WSGI/assets/image-20191028205834923.png">
-<meta property="og:image" content="http://swsmile.info/2019/10/28/【Python】WSGI/assets/bVm2I5.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191101151718025.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191028205625943.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191028205834923.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bVm2I5.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Python】WSGI（Web Server Gateway Interface）、uWSGI Server、uwsgi、WSGI Application 的故事">
 <meta name="twitter:description" content="关于Web Server（Web 服务器）、Web Application Server（Web 应用服务器）和 CGI（Common Gateway Interface）的区别，可以访问【HTTP】Web Server（Web 服务器）、Web Application Server（Web 应用服务器）和 CGI（Common Gateway Interface）的故事 。 WSGI（Web S">
-<meta name="twitter:image" content="http://swsmile.info/2019/10/28/【Python】WSGI/assets/image-20191101151718025.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191101151718025.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -235,7 +235,7 @@ var _hmt = _hmt || [];
 <li>start_response是一个callback函数，WSGI application通过调用start_response，将response headers/status 返回给WSGI server。此外这个WSGI application会return 一个iterator对象 ，这个iterator就是response body。</li>
 </ul>
 <p>一个HTTP请求的过程可以分为两个阶段，第一阶段是从客户端（比如 Postman，当然也可以是浏览器）到WSGI Server，第二阶段是从WSGI Server 到WSGI Application。</p>
-<img src="assets/image-20191101151718025.png" alt="image-20191101151718025" style="zoom:50%;">
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191101151718025.png" alt="image-20191101151718025" style="zoom:50%;">
 
 <h2 id="WSGI-Middleware"><a href="#WSGI-Middleware" class="headerlink" title="WSGI Middleware"></a>WSGI Middleware</h2><p>有些功能可能介于 WSGI Server 和 WSGI Application 之间，例如，WSGI Server 拿到了客户端请求的URL, 不同的URL需要交由不同的函数处理，这个功能叫做 URL Routing，这个功能就可以放在二者中间实现，这个中间层就是 middleware。</p>
 <p>middleware对 WSGI Server 和 WSGI Application 是透明的，也就是说，WSGI Server 以为它就是应用程序，而WSGI Application 以为它就是服务器。</p>
@@ -274,7 +274,7 @@ var _hmt = _hmt || [];
 
 <p>确保以上两个文件在同一个目录下，然后在命令行输入<code>python server.py</code>来启动WSGI server。</p>
 <p>打开浏览器，输入<code>http://localhost:8000/</code>，就可以看到结果了：</p>
-<p><img src="assets/image-20191028205625943.png" alt="image-20191028205625943"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191028205625943.png" alt="image-20191028205625943"></p>
 <p>在命令行可以看到wsgiref打印的log信息：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python main.py</span><br><span class="line">Serving HTTP on port <span class="number">8000.</span>..</span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> - - [<span class="number">28</span>/Oct/<span class="number">2019</span> <span class="number">20</span>:<span class="number">55</span>:<span class="number">49</span>] <span class="string">"GET / HTTP/1.1"</span> <span class="number">200</span> <span class="number">20</span></span><br><span class="line"><span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> - - [<span class="number">28</span>/Oct/<span class="number">2019</span> <span class="number">20</span>:<span class="number">55</span>:<span class="number">49</span>] <span class="string">"GET /favicon.ico HTTP/1.1"</span> <span class="number">200</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
 
@@ -282,7 +282,7 @@ var _hmt = _hmt || [];
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hello.py</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">application</span><span class="params">(environ, start_response)</span>:</span></span><br><span class="line">    start_response(<span class="string">'200 OK'</span>, [(<span class="string">'Content-Type'</span>, <span class="string">'text/html'</span>)])</span><br><span class="line">    body = <span class="string">'&lt;h1&gt;Hello, %s!&lt;/h1&gt;'</span> % (environ[<span class="string">'PATH_INFO'</span>][<span class="number">1</span>:] <span class="keyword">or</span> <span class="string">'web'</span>)</span><br><span class="line">    <span class="keyword">return</span> [body.encode(<span class="string">'utf-8'</span>)]</span><br></pre></td></tr></table></figure>
 
 <p>你可以在地址栏输入用户名作为URL的一部分，将返回<code>Hello, xxx!</code>。</p>
-<p><img src="assets/image-20191028205834923.png" alt="image-20191028205834923"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191028205834923.png" alt="image-20191028205834923"></p>
 <h1 id="WSGI-Middleware-1"><a href="#WSGI-Middleware-1" class="headerlink" title="WSGI Middleware"></a>WSGI Middleware</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>了解了WSGI框架，我们发现：其实一个Web App，就是写一个WSGI的处理函数，针对每个HTTP请求进行响应。</p>
 <p>但是如何处理HTTP请求不是问题，问题是如何处理100个不同的URL。</p>
 <p>每一个URL可以对应GET和POST请求，当然还有PUT、DELETE等请求，但是我们通常只考虑最常见的GET和POST请求。</p>
@@ -293,7 +293,7 @@ var _hmt = _hmt || [];
 <p>代码这么写没法维护的原因是因为WSGI提供的接口虽然比HTTP接口高级了不少，但和Web App的处理逻辑比，还是比较低级，我们需要在WSGI接口之上能进一步抽象，让我们专注于用一个函数处理一个URL，至于URL到函数的映射，就交给Web框架来做。</p>
 <p>由于用Python开发一个Web框架十分容易，所以Python有上百个开源的Web框架，比如 Flask。</p>
 <h2 id="WSGI-Middleware-2"><a href="#WSGI-Middleware-2" class="headerlink" title="WSGI Middleware"></a>WSGI Middleware</h2><p>我们可以通过下图来说明middleware是如何工作的：</p>
-<p><img src="assets/bVm2I5.png" alt="WSGImiddleware"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bVm2I5.png" alt="WSGImiddleware"></p>
 <p>上图中最上面的三个彩色框表示角色，中间的白色框表示操作，操作的发生顺序按照1 ~ 5进行了排序，我们直接对着上图来说明middleware是如何工作的：</p>
 <ol>
 <li>Server收到客户端的HTTP请求后，生成了<code>environ_s</code>，并且已经定义了<code>start_response_s</code>。</li>
@@ -604,10 +604,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -620,19 +616,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,11 +680,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,7 +692,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,11 +712,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,11 +748,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,11 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,15 +784,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,11 +836,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -852,15 +852,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -868,11 +864,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -884,11 +884,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景分布式事务 是所有分布式数据库产品都需要解决的核心问题。这一问题的关键是 —— 数据存储在多个节点，原本在单机数据库上不难实现的 ACID 特性在分布式环境下变得困难：  因为网络通信的不可靠，事务的原子性需要用多次日志和网络通信来保证。 存储节点的增加，放大了单个存储节点在事务过程中出现故障的风险。 用锁实现的事务隔离性，在故障或网络抖动时严重影响性能。  因此，在高可用与高性能的应用场景，">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】柔性事务/assets/image-20190109221026343.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】柔性事务/assets/image-20190110130747121.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】柔性事务/assets/1517793866569016851.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】柔性事务/assets/1517793897087064173.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】柔性事务/assets/1517793929963047822.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】柔性事务/assets/image-20190111101505090.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109221026343.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190110130747121.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1517793866569016851.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1517793897087064173.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1517793929963047822.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190111101505090.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.308Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】柔性事务（Flexible Transactions）">
 <meta name="twitter:description" content="背景分布式事务 是所有分布式数据库产品都需要解决的核心问题。这一问题的关键是 —— 数据存储在多个节点，原本在单机数据库上不难实现的 ACID 特性在分布式环境下变得困难：  因为网络通信的不可靠，事务的原子性需要用多次日志和网络通信来保证。 存储节点的增加，放大了单个存储节点在事务过程中出现故障的风险。 用锁实现的事务隔离性，在故障或网络抖动时严重影响性能。  因此，在高可用与高性能的应用场景，">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/12/【Distributed-System】柔性事务/assets/image-20190109221026343.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109221026343.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,7 +224,7 @@ var _hmt = _hmt || [];
 <li>用锁实现的事务隔离性，在故障或网络抖动时严重影响性能。</li>
 </ol>
 <p>因此，在高可用与高性能的应用场景，分布式事务的最佳实践是放弃 ACID，遵循 BASE 的原则重构业务流程：</p>
-<p><img src="assets/image-20190109221026343.png" alt="image-20190109221026343"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109221026343.png" alt="image-20190109221026343"></p>
 <p>区别于 ACID 特性的数据库事务（满足ACID的事务称为钢性事务），这种放弃强一致性，采取最终一致的方式来执行的分布式事务称为<strong>柔性事务（Flexible Transactions）</strong>。</p>
 <a id="more"></a> 
 
@@ -243,7 +243,7 @@ var _hmt = _hmt || [];
 <p>国内最早关于TCC的报道，应该是InfoQ上对阿里程立博士的一篇采访。经过程博士的这一次传道之后，TCC在国内逐渐被大家广为了解并接受。</p>
 <p>Atomikos公司在商业版本事务管理器ExtremeTransactions中提供了TCC方案的实现，但是由于其是收费的，因此相应的很多的开源实现方案也就涌现出来，如：tcc-transaction、ByteTCC、spring-cloud-rest-tcc。</p>
 <p>TCC的作用主要是解决跨服务调用场景下的分布式事务问题，</p>
-<p><img src="assets/image-20190110130747121.png" alt="image-20190110130747121"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190110130747121.png" alt="image-20190110130747121"></p>
 <p>TCC 即 Try-Confirm-Cancel。</p>
 <p><strong>Try: 尝试执行业务</strong></p>
 <ul>
@@ -264,15 +264,15 @@ var _hmt = _hmt || [];
 </ul>
 <p>这种类型和可补偿操作类似，就是提供一种提交和回滚的机制。是一种典型的两阶段类型的操作。这里说的两阶段类型操作并不是指2PC，他和2PC还是有区别的。</p>
 <h3 id="场景案例"><a href="#场景案例" class="headerlink" title="场景案例"></a><strong>场景案例</strong></h3><p>有一次，笔者买彩票中奖了(纯属虚构)，准备从合肥出发，到云南大理去游玩，然后使用美团App(机票代理商)来订机票。发现没有从合肥直达大理的航班，需要到昆明进行中转。如下图： </p>
-<p><img src="assets/1517793866569016851.png" alt="B121F546-2D0F-45F5-962D-758B07337692.png"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1517793866569016851.png" alt="B121F546-2D0F-45F5-962D-758B07337692.png"></p>
 <p>从图中我们可以看出来，从合肥到昆明乘坐的是四川航空，从昆明到大理乘坐的是东方航空。</p>
 <p>由于使用的是美团App预定，当我选择了这种航班预定方案后，美团App要去四川航空和东方航空各帮我购买一张票。如下图： </p>
-<p><img src="assets/1517793897087064173.png" alt="B87CD059-6891-4A30-A5C4-B8EC7735EADF.png"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1517793897087064173.png" alt="B87CD059-6891-4A30-A5C4-B8EC7735EADF.png"></p>
 <p> 考虑最简单的情况：美团先去川航帮我买票，如果买不到，那么东航也没必要买了。如果川航购买成功，再去东航购买另一张票。</p>
 <p>现在问题来了：假设美团先从川航成功买到了票，然后去东航买票的时候，因为天气问题，东航航班被取消了。那么此时，美团必须取消川航的票，因为只有一张票是没用的，不取消就是浪费我的钱。那么如果取消会怎样呢？如果读者有取消机票经历的话，非正常退票，肯定要扣手续费的。在这里，川航本来已经购买成功，现在因为东航的原因要退川航的票，川航应该是要扣代理商的钱的。</p>
 <p>那么美团就要保证，如果任一航班购买失败，都不能扣钱，怎么做呢？</p>
 <p>两个航空公司都为美团提供以下3个接口：机票预留接口、确认接口、取消接口。美团App分2个阶段进行调用，如下所示： </p>
-<p><img src="assets/1517793929963047822.png" alt="F58C00A0-976A-4295-818C-C9F96B191060.png"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1517793929963047822.png" alt="F58C00A0-976A-4295-818C-C9F96B191060.png"></p>
 <p><strong>在第1阶段：</strong></p>
 <p>美团分别请求两个航空公司预留机票，两个航空公司分别告诉美图预留成功还是失败。航空公司需要保证，机票预留成功的话，之后一定能购买到。</p>
 <p><strong>在第2阶段：</strong></p>
@@ -293,7 +293,7 @@ var _hmt = _hmt || [];
 <li>定期校对：业务活动的被动方，根据定时策略，向业务活动主动方查询(主动方提供查询接口)，恢复丢失的业务消息。</li>
 </ul>
 <p> 举例来说：笔者曾经做过一个短信发送平台，背景是公司内部有多个业务都有发送短信的需求，如果每个业务独立实现短信发送功能，存在功能实现上的重复。因此专门做了一个短信平台项目，所有的业务方都接入这个短信平台，来实现发送短信的功能。简化后的架构如下所示： </p>
-<p><img src="assets/image-20190111101505090.png" alt="image-20190111101505090"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190111101505090.png" alt="image-20190111101505090"></p>
 <p><strong>短信发送流程如下：</strong></p>
 <ol>
 <li>业务方将短信发送请求提交给短信平台</li>
@@ -562,10 +562,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -578,19 +574,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -638,11 +638,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,7 +650,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -670,11 +670,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,11 +706,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,11 +718,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -742,15 +742,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -794,11 +794,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -810,15 +810,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -826,11 +822,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -842,11 +842,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

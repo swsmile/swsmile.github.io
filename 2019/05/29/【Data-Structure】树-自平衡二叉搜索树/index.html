@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景实际上，二叉搜索树操作的运行时间与树的高度（Height）是有关系的。一个树的高度指的是从树的根开始所能到达的最长的路径长度。树的高度可被递归性地定义为：  如果节点没有子节点，则高度为 0； 如果节点只有一个子节点，则高度为该子节点的高度加 1； 如果节点有两个子节点，则高度为两个子节点中高度较高的加 1；">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/29/【Data-Structure】树-自平衡二叉搜索树/assets/060024030598400.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/29/【Data-Structure】树-自平衡二叉搜索树/assets/020002097776806.gif">
-<meta property="og:image" content="http://swsmile.info/2019/05/29/【Data-Structure】树-自平衡二叉搜索树/assets/1060770-20180101093327440-391795266.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/29/【Data-Structure】树-自平衡二叉搜索树/assets/1060770-20180101093401534-1808842232.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/060024030598400.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/020002097776806.gif">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093327440-391795266.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093401534-1808842232.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.294Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Data Structure】自平衡二叉搜索树（Self-balancing Binary Search Tree）">
 <meta name="twitter:description" content="背景实际上，二叉搜索树操作的运行时间与树的高度（Height）是有关系的。一个树的高度指的是从树的根开始所能到达的最长的路径长度。树的高度可被递归性地定义为：  如果节点没有子节点，则高度为 0； 如果节点只有一个子节点，则高度为该子节点的高度加 1； 如果节点有两个子节点，则高度为两个子节点中高度较高的加 1；">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/29/【Data-Structure】树-自平衡二叉搜索树/assets/060024030598400.gif">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/060024030598400.gif">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,9 +224,9 @@ var _hmt = _hmt || [];
 <a id="more"></a> 
 
 <p>计算树的高度要从叶子节点开始，首先将叶子节点的高度置为 0，然后根据上面的规则向上计算父节点的高度。以此类推直到树中所有的节点高度都被标注后，则根节点的高度就是树的高度。</p>
-<p><img src="assets/060024030598400.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/060024030598400.gif" alt="img"></p>
 <h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>下图显示了几棵不同的二叉搜索树：</p>
-<p><img src="assets/020002097776806.gif" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/020002097776806.gif" alt="img"></p>
 <p>理想情况下，如果树中节点的数量为 n，则一棵满足平均时间复杂度为 $O(log_2n)$ 的二叉搜索树的高度，应接近于比 $log_2n$ 小的最大整数。</p>
 <h5 id="树-b"><a href="#树-b" class="headerlink" title="树 (b)"></a>树 (b)</h5><p>上图中的三棵二叉搜索树中，<strong>树 (b) 拥有最好的高度与节点数量的比例</strong>。树 (b) 的高度为 3 ，节点数量为 8，所以 $log_28$ = 3，结果正好与树的高度相等。</p>
 <h5 id="树-a"><a href="#树-a" class="headerlink" title="树 (a)"></a>树 (a)</h5><p>树 (a) 的节点数量为 10，而高度为 4，$log_210$ = 3.3219，比 3.3219 小的最大整数是 3，所以树 (a) 最理想的高度应该为 3。我们可以通过移动距离最远的节点到中间的某个非叶子节点，以减少数的高度，以使该树的高度与节点数量的比例达到最优。</p>
@@ -235,9 +235,9 @@ var _hmt = _hmt || [];
 <h5 id="插入的顺序影响二叉搜索树的构造"><a href="#插入的顺序影响二叉搜索树的构造" class="headerlink" title="插入的顺序影响二叉搜索树的构造"></a>插入的顺序影响二叉搜索树的构造</h5><p>因为二叉搜索树的拓扑结构与节点的插入顺序息息相关。同样的数据集合， 插入二叉搜素树中的顺序的不同，树的形状和结构也是不同的。</p>
 <p>以put方法为例，我们重复调用它， 用key为1, 2, 3, 4的结点构造一颗二叉搜索树。那么这颗二叉搜索树的形状取决于不同的key的插入顺序。</p>
 <p> <strong>如果按照完全正序或者逆序输入， 二叉搜索树的形状就会走向一个不好的极端：</strong>如果按照 1 -&gt; 2 -&gt; 3 -&gt; 4 的顺序插入， 那么这颗二叉树在形状上会变得像一颗单链表！</p>
-<p><img src="assets/1060770-20180101093327440-391795266.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093327440-391795266.png" alt="img"></p>
 <p>同样，如果按照4 -&gt; 3 -&gt; 2 -&gt;1 的顺序插入， 它在形状上会变成一颗向左倾斜的链表</p>
-<p><img src="assets/1060770-20180101093401534-1808842232.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/1060770-20180101093401534-1808842232.png" alt="img"></p>
 <h5 id="为什么二叉搜索树会变得低效？"><a href="#为什么二叉搜索树会变得低效？" class="headerlink" title="为什么二叉搜索树会变得低效？"></a>为什么二叉搜索树会变得低效？</h5><p>二叉搜索树查找的原理和二分查找类似，就是<strong>借助于它本身的结构，在遍历查找的过程中跳过一些不必要的结点的比较，从而实现高效的查找。</strong> BST的其他API也是借助了这一优势实现性能的飞跃。<strong>但是，在这种情况下</strong>， 查找一个结点将要像链表一样遍历它经过的所有结点， <strong>二叉搜索树的高效之源已经丧失了</strong>。 这就是最坏的情况。</p>
 <h5 id="插入和删除操作都可能降低未来操作的性能"><a href="#插入和删除操作都可能降低未来操作的性能" class="headerlink" title="插入和删除操作都可能降低未来操作的性能"></a>插入和删除操作都可能降低未来操作的性能</h5><p>上面只描述了插入操作对二叉树形状和操作性能的影响。而事实上，删除操作的效果也有类似之处： 可能使得原来分布得比较均匀的结点， 在删除部分结点之后，整体的分布变得不均匀了，并影响到未来操作的性能。</p>
 <h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>综上所述，我们希望在进行动态操作（插入和删除）之后，能够通过一些指标，对二叉树的形状变化进行监督， 当发现树的形状开始变得不平衡的时候， 立即修正二叉树的形状。</p>
@@ -500,10 +500,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -516,19 +512,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -576,11 +576,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,7 +588,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -608,11 +608,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,11 +644,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,11 +656,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -680,15 +680,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,11 +732,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,15 +748,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -764,11 +760,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -780,11 +780,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

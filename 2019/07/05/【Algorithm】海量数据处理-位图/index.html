@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="Bitmap所谓的 Bit-map 就是用一个 bit 位来标记某个元素对应的 Value， 而 Key 即是该元素。由于采用了 Bit 为单位来存储数据，因此在存储空间方面，可以大大节省。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-位图/assets/Center-5755264-5755284.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Center-5755264-5755284.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm】海量数据处理 - 位图（Bitmap）">
 <meta name="twitter:description" content="Bitmap所谓的 Bit-map 就是用一个 bit 位来标记某个元素对应的 Value， 而 Key 即是该元素。由于采用了 Bit 为单位来存储数据，因此在存储空间方面，可以大大节省。">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/05/【Algorithm】海量数据处理-位图/assets/Center-5755264-5755284.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Center-5755264-5755284.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -220,7 +220,7 @@ var _hmt = _hmt || [];
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>举个例子，假如有10亿个int数，10亿个 int 数大约是占用 $10 * 10^8 * 4 Byte = 4 GB$（注意，在 Java 中，一个 int 占用 4 个字节）。</p>
 <p>如果对这样大的一个数据集做查找和排序，对内存的消耗是相当大的，有人说，这些数据可以不用一次性加载，那就是要存盘了，存盘必然消耗I/O，则意味着处理速度的变慢。</p>
 <p>如果用BitMap思想来解决的话，就好很多。一个byte是占8个bit，如果每一个bit的值就是有或者没有，也就是二进制的0或者1，如果用bit的位置代表数组值有还是没有，那么0代表该数值没有出现过，1代表该数组值出现过。对应占用的内存为 $2^{32} bit = 2^{32}/8 Byte = 2^{29} Byte = 512 MB$ 。具体如下图：</p>
-<p><img src="assets/Center-5755264-5755284.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Center-5755264-5755284.png" alt="img"></p>
 <h2 id="bitmap算法代码实现"><a href="#bitmap算法代码实现" class="headerlink" title="bitmap算法代码实现"></a>bitmap算法代码实现</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitMap</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> maxValue;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[] words;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//构造函数中传入数据中的最大值（范围为 1-最大值）</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BitMap</span><span class="params">(<span class="keyword">long</span> maxValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.maxValue = maxValue;</span><br><span class="line">        <span class="comment">// 根据长度算出，所需数组大小</span></span><br><span class="line">        words = <span class="keyword">new</span> <span class="keyword">int</span>[(<span class="keyword">int</span>) ((maxValue - <span class="number">1</span>) &gt;&gt; <span class="number">5</span>)];   <span class="comment">// 用移位运算代替除法，效率更高</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getBit</span><span class="params">(<span class="keyword">long</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> word = words[(<span class="keyword">int</span>) ((index - <span class="number">1</span>) &gt;&gt; <span class="number">5</span>)];</span><br><span class="line">        <span class="comment">//  (index - 1) &amp; 31 相当于对 index-1 按 32 求余数</span></span><br><span class="line">        <span class="keyword">int</span> offset = (<span class="keyword">int</span>) ((index - <span class="number">1</span>) &amp; <span class="number">31</span>);</span><br><span class="line">        <span class="keyword">return</span> (word &gt;&gt; offset) &amp; <span class="number">0x01</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBit</span><span class="params">(<span class="keyword">long</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 求出该index - 1所在bitMap的下标</span></span><br><span class="line">        <span class="keyword">int</span> wordIndex = (<span class="keyword">int</span>) ((index - <span class="number">1</span>) &gt;&gt; <span class="number">5</span>);</span><br><span class="line">        <span class="comment">// 求出该值的偏移量(求余)</span></span><br><span class="line">        <span class="keyword">int</span> offset = (<span class="keyword">int</span>) ((index - <span class="number">1</span>) &amp; <span class="number">31</span>);</span><br><span class="line">        <span class="keyword">int</span> word = words[wordIndex];</span><br><span class="line">        words[wordIndex] = word | (<span class="number">0x01</span> &lt;&lt; offset);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        (words[wordIndex] &amp; (bitIndex &gt;&gt; <span class="number">1L</span>))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        BitMap bitMap = <span class="keyword">new</span> BitMap(<span class="number">32</span>);</span><br><span class="line">        bitMap.setBit(<span class="number">32</span>);</span><br><span class="line">        System.out.println(bitMap.getBit(<span class="number">1</span>));</span><br><span class="line">        System.out.println(bitMap.getBit(<span class="number">32</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h1 id="问题实例"><a href="#问题实例" class="headerlink" title="问题实例"></a>问题实例</h1><h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p>在 2.5 亿个整数中找出不重复的整数，注，内存不足以容纳这 2.5 亿个整数。</p>
@@ -482,10 +482,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -498,19 +494,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -558,11 +558,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -570,7 +570,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -590,11 +590,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -626,11 +626,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -638,11 +638,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,15 +662,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,11 +714,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,15 +730,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,11 +742,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,11 +762,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

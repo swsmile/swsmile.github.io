@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="数据类型数据分为基本数据类型（String，Number，Boolean，Null，Undefined，Symbol）和对象数据类型。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/01/07/【OOP】对象的深拷贝与浅拷贝/assets/image-20190107211711364.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/07/【OOP】对象的深拷贝与浅拷贝/assets/image-20190107220634025.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/07/【OOP】对象的深拷贝与浅拷贝/assets/image-20190107222520022.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/07/【OOP】对象的深拷贝与浅拷贝/assets/image-20190107223653220.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107211711364.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107220634025.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107222520022.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107223653220.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【OOP】对象的深拷贝（Deep Copy）与浅拷贝（Shallow Copy）">
 <meta name="twitter:description" content="数据类型数据分为基本数据类型（String，Number，Boolean，Null，Undefined，Symbol）和对象数据类型。">
-<meta name="twitter:image" content="http://swsmile.info/2019/01/07/【OOP】对象的深拷贝与浅拷贝/assets/image-20190107211711364.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107211711364.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -223,7 +223,7 @@ var _hmt = _hmt || [];
 <li>引用数据类型的特点：<strong>存储的是该对象在栈（Stack）中引用，真实的数据存放在堆（Heap）内存里</strong></li>
 </ul>
 <p>引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。</p>
-<p><img src="assets/image-20190107211711364.png" alt="image-20190107211711364"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107211711364.png" alt="image-20190107211711364"></p>
 <h1 id="浅拷贝（Shallow-Copy）与深拷贝（Deep-Copy）"><a href="#浅拷贝（Shallow-Copy）与深拷贝（Deep-Copy）" class="headerlink" title="浅拷贝（Shallow Copy）与深拷贝（Deep Copy）"></a>浅拷贝（Shallow Copy）与深拷贝（Deep Copy）</h1><p><strong>深拷贝和浅拷贝是只针对Object和Array这样的引用数据类型的</strong>。而对于值类型而言，所有的拷贝都是深拷贝。</p>
 <h2 id="浅拷贝（Shallow-Copy）"><a href="#浅拷贝（Shallow-Copy）" class="headerlink" title="浅拷贝（Shallow Copy）"></a>浅拷贝（Shallow Copy）</h2><p>浅拷贝会基于原对象，在堆或者栈中实例化一个新的对象，而对于该新对象中的字段（field）为不同数据类型时，会进行不同的处理：</p>
 <ul>
@@ -241,15 +241,15 @@ var _hmt = _hmt || [];
 <p>如果属性是<code>基本类型</code>，拷贝的就是基本类型的值；如果属性是<code>内存地址</code>（引用类型），拷贝的就是内存地址 ，因此如果其中一个对象改变了这个地址，就会影响到另一个对象。即默认拷贝构造函数只是对对象进行浅拷贝复制(逐个成员依次拷贝)，即只复制对象空间而不复制资源。</p>
 <h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><h2 id="对象赋值"><a href="#对象赋值" class="headerlink" title="对象赋值"></a>对象赋值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象赋值</span></span><br><span class="line"> <span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    <span class="string">'name'</span> : <span class="string">'zhangsan'</span>,</span><br><span class="line">    <span class="string">'age'</span> :  <span class="string">'18'</span>,</span><br><span class="line">    <span class="string">'language'</span> : [<span class="number">1</span>,[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>]],</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj2 = obj1;</span><br><span class="line">obj2.name = <span class="string">"lisi"</span>;</span><br><span class="line">obj2.language[<span class="number">1</span>] = [<span class="string">"二"</span>,<span class="string">"三"</span>];</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'obj1'</span>,obj1)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'obj2'</span>,obj2)</span><br></pre></td></tr></table></figure>
 
-<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p><img src="assets/image-20190107220634025.png" alt="image-20190107220634025"></p>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107220634025.png" alt="image-20190107220634025"></p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>可以看到，由于 <code>var obj2 = obj1;</code> 的本质是将<code>obj1</code>所指向的对象的内存地址赋值给<code>obj2</code>，因此无论使用<code>obj1</code>还是<code>obj2</code>，本质上都是在操作同一块堆内存。</p>
 <h2 id="浅拷贝-1"><a href="#浅拷贝-1" class="headerlink" title="浅拷贝"></a>浅拷贝</h2><h3 id="情况1"><a href="#情况1" class="headerlink" title="情况1"></a>情况1</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浅拷贝1</span></span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    <span class="string">'name'</span> : <span class="string">'zhangsan'</span>,</span><br><span class="line">    <span class="string">'age'</span> :  <span class="string">'18'</span>,</span><br><span class="line">    <span class="string">'language'</span> : [<span class="number">1</span>,[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>]],</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> obj3 = shallowCopy(obj1);</span><br><span class="line"></span><br><span class="line">obj3.name = <span class="string">"lisi"</span>;</span><br><span class="line">obj3.language = [<span class="string">"一"</span>,<span class="string">"二"</span>,<span class="string">"三"</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'obj1'</span>,obj1)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'obj3'</span>,obj3)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">src</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">var</span> dst = &#123;&#125;;</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> src) &#123;</span><br><span class="line">       <span class="keyword">if</span> (src.hasOwnProperty(prop)) &#123;</span><br><span class="line">           dst[prop] = src[prop];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="assets/image-20190107222520022.png" alt="image-20190107222520022"></p>
+<h4 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107222520022.png" alt="image-20190107222520022"></p>
 <h4 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h4><p>对于<code>obj3.language = [&quot;一&quot;,&quot;二&quot;,&quot;三&quot;];</code>而言，<code>obj3.language</code>是一个引用数据类型。因此，最终<code>obj3</code>对象的<code>language</code>字段会指向<code>[&quot;一&quot;,&quot;二&quot;,&quot;三&quot;]</code>所在的堆内存。而<code>obj1</code>对象的<code>language</code>字段仍然指向<code>[1,[2,3],[4,5]]</code>所在的堆内存，因此值不会被改变。</p>
 <h3 id="情况2"><a href="#情况2" class="headerlink" title="情况2"></a>情况2</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 浅拷贝2</span></span><br><span class="line"> <span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    <span class="string">'name'</span> : <span class="string">'zhangsan'</span>,</span><br><span class="line">    <span class="string">'age'</span> :  <span class="string">'18'</span>,</span><br><span class="line">    <span class="string">'language'</span> : [<span class="number">1</span>,[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>]],</span><br><span class="line">&#125;;</span><br><span class="line"> <span class="keyword">var</span> obj3 = shallowCopy(obj1);</span><br><span class="line"> obj3.name = <span class="string">"lisi"</span>;</span><br><span class="line"> obj3.language[<span class="number">1</span>] = [<span class="string">"二"</span>,<span class="string">"三"</span>];</span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">src</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dst = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> src) &#123;</span><br><span class="line">        <span class="keyword">if</span> (src.hasOwnProperty(prop)) &#123;</span><br><span class="line">            dst[prop] = src[prop];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'obj1'</span>,obj1)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'obj3'</span>,obj3)</span><br></pre></td></tr></table></figure>
 
-<h4 id="运行结果-2"><a href="#运行结果-2" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="assets/image-20190107223653220.png" alt="image-20190107223653220"></p>
+<h4 id="运行结果-2"><a href="#运行结果-2" class="headerlink" title="运行结果"></a>运行结果</h4><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190107223653220.png" alt="image-20190107223653220"></p>
 <h4 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h4><p>对于 <code>obj3.language[1] = [&quot;二&quot;,&quot;三&quot;];</code> ：</p>
 <ul>
 <li><p>由于<code>language</code>字段为一个引用数据类型，因此<code>obj1</code>和<code>obj3</code>的<code>language</code>字段均指向同一个堆内存地址。</p>
@@ -513,10 +513,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -529,19 +525,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -589,11 +589,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,7 +601,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,11 +621,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,11 +657,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,11 +669,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -693,15 +693,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,11 +745,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,15 +761,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -777,11 +773,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -793,11 +793,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

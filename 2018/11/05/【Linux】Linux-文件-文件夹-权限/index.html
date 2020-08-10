@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="文件权限修改常用命令 - chmod先上常用命令。 修改文件权限为可读可写可执行（777）： 1chmod 777 [文件或文件夹路径]    如chmod 777 /var/home/userid/cc，此文件cc的权限就变为可读可写可执行（777）了。 修改文件夹及该文件夹内所有文件和子文件夹（包括子文件夹中的文件和文件夹）权限为可读可写可执行（777）： 1chmod -R 777 [文件或">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/05/【Linux】Linux-文件-文件夹-权限/assets/image-20181105100638797.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/05/【Linux】Linux-文件-文件夹-权限/assets/image-20181105100807394.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/05/【Linux】Linux-文件-文件夹-权限/assets/image-20181105163124833.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105100638797.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105100807394.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105163124833.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Linux】chmod&#x2F;chown - Linux 文件&#x2F;文件夹 权限">
 <meta name="twitter:description" content="文件权限修改常用命令 - chmod先上常用命令。 修改文件权限为可读可写可执行（777）： 1chmod 777 [文件或文件夹路径]    如chmod 777 /var/home/userid/cc，此文件cc的权限就变为可读可写可执行（777）了。 修改文件夹及该文件夹内所有文件和子文件夹（包括子文件夹中的文件和文件夹）权限为可读可写可执行（777）： 1chmod -R 777 [文件或">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/05/【Linux】Linux-文件-文件夹-权限/assets/image-20181105100638797.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105100638797.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -223,9 +223,9 @@ var _hmt = _hmt || [];
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 777 [文件或文件夹路径]</span><br></pre></td></tr></table></figure>
 
 <p> 如可以看到<code>test</code>文件夹中包含2个文件和一个子文件夹（其中<code>file2</code>文件位于该子文件夹中）：</p>
-<p><img src="assets/image-20181105100638797.png" alt="image-20181105100638797"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105100638797.png" alt="image-20181105100638797"></p>
 <p>使用 <code>chmod -R 777 ./test</code>后，这2个文件和这个子文件夹的权限都会变成可读可写可执行（777）。</p>
-<p><img src="assets/image-20181105100807394.png" alt="image-20181105100807394"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105100807394.png" alt="image-20181105100807394"></p>
 <p><code>chmod</code>命令可用于改变文件或目录的访问权限。</p>
 <p>该命令有两种用法。一种是包含字母和操作符表达式的文字设定法；另一种是包含数字的数字设定法。</p>
 <a id="more"></a> 
@@ -237,7 +237,7 @@ var _hmt = _hmt || [];
 <li><strong>x(eXecute，执行)：</strong>对文件而言，具有执行文件的权限；对文件夹来说，具有访问该文件夹的权限</li>
 </ul>
 <p>通过<code>ls -l [文件（夹）名]</code>，可以看到不同用户（组）对该文件的权限，比如：</p>
-<p><img src="assets/image-20181105163124833.png" alt="image-20181105163124833"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20181105163124833.png" alt="image-20181105163124833"></p>
 <p>具体来说，不同用户（组）又细分为<code>文件所有者访问权限</code>、<code>文件所有者所在群组访问权限</code>或<code>其他用户访问权限</code>。在@后的左边三个字母（<code>--x</code>）表示<code>其他人访问权限</code>对该文件的访问权限，接下来的三个字母（<code>rw-</code>）表示<code>文件所有者所在群组访问权限</code>，再接下来的三个字母（<code>rwx</code>）表示<code>文件所有者访问权限</code>。</p>
 <p>在上图中，除了当前用户所在组之外的其他用户对<code>file1</code>文件的访问权限为<code>只可执行</code>， 文件所有者所在组中所有用户对<code>file1</code>文件的访问权限为<code>可读可写</code>，当前用户对<code>file1</code>文件的访问权限为<code>可读可写可执行</code>。</p>
 <p>再比如，我们希望设置：文件所有者有“读”、“写”、“执行”权限，群组用户有“读”权限，其他用户有“读”权限，则对应的字母表示为<code>rwx r– r–</code>。</p>
@@ -601,10 +601,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -617,19 +613,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,11 +677,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,7 +689,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -709,11 +709,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,11 +745,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -757,11 +757,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -781,15 +781,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -833,11 +833,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -849,15 +849,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -865,11 +861,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -881,11 +881,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

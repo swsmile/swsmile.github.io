@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="三次握手 (Three-way Handshake) 过程">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/03/【Network】Wireshark-抓包学习TCP通讯/assets/image-20190503103628074.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/03/【Network】Wireshark-抓包学习TCP通讯/assets/image-20190503105436150.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/03/【Network】Wireshark-抓包学习TCP通讯/assets/image-20190503130937300.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/03/【Network】Wireshark-抓包学习TCP通讯/assets/image-20190506101641218.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190503103628074.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190503105436150.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190503130937300.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190506101641218.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】Wireshark 抓包学习TCP通讯">
 <meta name="twitter:description" content="三次握手 (Three-way Handshake) 过程">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/03/【Network】Wireshark-抓包学习TCP通讯/assets/image-20190503103628074.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190503103628074.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -218,7 +218,7 @@ var _hmt = _hmt || [];
         <h1 id="三次握手-Three-way-Handshake-过程"><a href="#三次握手-Three-way-Handshake-过程" class="headerlink" title="三次握手 (Three-way Handshake) 过程"></a>三次握手 (Three-way Handshake) 过程</h1><a id="more"></a> 
 
 <h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>我们在浏览器的地址栏中输入swsmile.info，以观察浏览器进程与这个主机的Web服务器进程进行三次握手的过程。</p>
-<p><img src="assets/image-20190503103628074.png" alt="image-20190503103628074"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190503103628074.png" alt="image-20190503103628074"></p>
 <h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p>![三次握手 (Three-way Handshake) 过程-6851119](assets/三次握手 (Three-way Handshake) 过程.png)</p>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>通过添加过滤条件<code>(ip.addr == 185.199.109.153 &amp;&amp; tcp.port == 63901) || dns.qry.name == swsmile.info</code>，可以看到：</p>
 <ol>
@@ -257,7 +257,7 @@ var _hmt = _hmt || [];
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /logo.jpg HTTP/1.1</span><br><span class="line">Host: swsmile.info</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36</span><br><span class="line">Accept: image/webp,image/apng,image/*,*/*;q=0.8</span><br><span class="line">Referer: http://swsmile.info/</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: en,zh-CN;q=0.9,zh;q=0.8,en-GB;q=0.7</span><br><span class="line">Cookie: _ga=GA1.2.1893643200.1546350896; Hm_lvt_4481376a6b117446f0ad6f2b9b796afc=1554796946,1554900954,1555126437,1556590964; _gid=GA1.2.507500758.1556768292; Hm_lpvt_4481376a6b117446f0ad6f2b9b796afc=1556769331</span><br></pre></td></tr></table></figure>
 
 <p>通过在Wireshark中，添加过滤条件<code>ip.addr == 185.199.109.153 &amp;&amp; tcp.port == 63908</code>，可以看到：</p>
-<p><img src="assets/image-20190503105436150.png" alt="image-20190503105436150"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190503105436150.png" alt="image-20190503105436150"></p>
 <h3 id="图示-1"><a href="#图示-1" class="headerlink" title="图示"></a>图示</h3><p>![TCP Segment被重装配成HTTP包的过程](assets/TCP Segment被重装配成HTTP包的过程.png)</p>
 <h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>从宏观的层面来看，无非是浏览器进程发送一个GET请求，以获得 <code>/logo.jpg</code>资源，Web服务器返回一个图片资源。</p>
 <p>从微观层面来看，这个图片文件较大，因此这个HTTP Response，其实是被分割了若干个TCP segment（分别对应若干次TCP传输）进行传输的，当所有的这些TCP segment都达到操作系统内核后，由内核负责拼接这个TCP segment，最终获得了一个完整的HTTP Response。</p>
@@ -267,13 +267,13 @@ var _hmt = _hmt || [];
 <p>通过Content-Length域，我们知道了这个图片文件的大小为11204 bytes。</p>
 <hr>
 <p>在Wireshark中，标示出了这个HTTP Response其实是通过装配包号为284、285、287、288、291、292、294、295和296这9个TCP包中的Body获得的。</p>
-<p><img src="assets/image-20190503130937300.png" alt="image-20190503130937300"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190503130937300.png" alt="image-20190503130937300"></p>
 <p>我们尝试验证一下，这九个TCP包的Body长度分别为1388、1388、1388、1388、1388、1388、1388、1388 和 709 bytes，加起来总共是11813 bytes。</p>
 <p>前面提到，HTTP Reponse的Header的长度为587 bytes，图片文件的大小为11204 bytes。因此加起来587 + 11204 = 11791 bytes。按理说，将这九个TCP包的Body拼接起来后的长度应该等于HTTP Reponse的Header的长度加上图片文件的大小。</p>
 <p>这里暂时存疑。</p>
 <h1 id="TCP传输中的Sequence-Number设置问题"><a href="#TCP传输中的Sequence-Number设置问题" class="headerlink" title="TCP传输中的Sequence Number设置问题"></a>TCP传输中的Sequence Number设置问题</h1><p>我们再来看看，如果与统一主机连续请求两个HTTP，这两个HTTP的Reponse对应的第一个TCP包的Sequence Number是如何设置的。</p>
 <p>这里有四个HTTP包，分别是两对HTTP通信。</p>
-<p><img src="assets/image-20190506101641218.png" alt="image-20190506101641218"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190506101641218.png" alt="image-20190506101641218"></p>
 <p>通过增加<code>tcp &amp;&amp;  ip.addr == 158.199.142.239</code>过滤条件，我们摘取出以下关键TCP包。</p>
 <h5 id="300（TCP，HTTP，第一个HTTP-Request）"><a href="#300（TCP，HTTP，第一个HTTP-Request）" class="headerlink" title="#300（TCP，HTTP，第一个HTTP Request）"></a>#300（TCP，HTTP，第一个HTTP Request）</h5><p>Sequence number = 1</p>
 <p>Acknowledge number = 302</p>
@@ -558,10 +558,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -574,19 +570,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,11 +634,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,7 +646,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -666,11 +666,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,11 +702,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,11 +714,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,15 +738,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -790,11 +790,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,15 +806,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -822,11 +818,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -838,11 +838,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="分布式一致性回顾在分布式系统中，为了保证数据的高可用，通常，我们会将数据保留多个副本（replica），这些副本会放置在不同的物理的机器上。为了对用户提供正确的增\删\改\查等语义，我们需要保证这些放置在不同物理机器上的副本是一致的。 为了解决这种分布式一致性问题，前人在性能和数据一致性的反反复复权衡过程中总结了许多典型的协议和算法。其中比较著名的有二阶提交协议（Two-phase Commit">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/01/09/【Distributed-System】分布式事务=两阶段提交/assets/image-20190109140851742.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/09/【Distributed-System】分布式事务=两阶段提交/assets/image-20190109113540549.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109140851742.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109113540549.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】分布式事务 - 两阶段提交">
 <meta name="twitter:description" content="分布式一致性回顾在分布式系统中，为了保证数据的高可用，通常，我们会将数据保留多个副本（replica），这些副本会放置在不同的物理的机器上。为了对用户提供正确的增\删\改\查等语义，我们需要保证这些放置在不同物理机器上的副本是一致的。 为了解决这种分布式一致性问题，前人在性能和数据一致性的反反复复权衡过程中总结了许多典型的协议和算法。其中比较著名的有二阶提交协议（Two-phase Commit">
-<meta name="twitter:image" content="http://swsmile.info/2019/01/09/【Distributed-System】分布式事务=两阶段提交/assets/image-20190109140851742.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109140851742.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,7 +224,7 @@ var _hmt = _hmt || [];
 <h1 id="两阶段提交的过程"><a href="#两阶段提交的过程" class="headerlink" title="两阶段提交的过程"></a>两阶段提交的过程</h1><p>两阶段提交包含<strong>事务协调者（Transaction Coordinator）</strong>和若干<strong>事务参与者（Transaction Participant）</strong>两种角色。</p>
 <p>这里的<strong>事务参与者</strong>就是具体的数据库，抽象点可以说是可以控制给数据库的程序。 事务协调者可以和事务参与者在一台机器上。</p>
 <p><strong>所谓的两个阶段是指准备阶段（Prepare Phase）和提交阶段（Commit Phase）：</strong></p>
-<p><img src="assets/image-20190109140851742.png" alt="image-20190109140851742"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109140851742.png" alt="image-20190109140851742"></p>
 <h3 id="准备阶段（Prepare-Phase）"><a href="#准备阶段（Prepare-Phase）" class="headerlink" title="准备阶段（Prepare Phase）"></a>准备阶段（Prepare Phase）</h3><p> <strong>准备阶段（Prepare Phase）</strong>，又称为<strong>投票阶段（Voting Phase）</strong>。</p>
 <p>在这一阶段，协调者通过向所有参与者发送 <code>query to commit</code> 消息以询问所有参与者是否准备好提交，此后：</p>
 <ul>
@@ -242,7 +242,7 @@ var _hmt = _hmt || [];
 <li>参与者收到 <code>rollback</code> 命令后，会回滚事务（有必要的情况下还要持久化一条 abort 日志），并释放本地资源和锁。最终，向协调者发送 <code>acknowledgement</code> 消息以表示 rollback 成功；</li>
 <li>当协调者收到所有参与者回复的 <code>acknowledgement</code> 消息后，协调者取消该事务，并向客户端返回事务失败消息。</li>
 </ul>
-<h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p><img src="assets/image-20190109113540549.png" alt="image-20190109113540549"></p>
+<h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190109113540549.png" alt="image-20190109113540549"></p>
 <p>我们设想从支付宝里转10000元到余额宝的场景…… </p>
 <ol>
 <li>首先我们的应用程序发起一个请求到事务协调者（Transaction Coordinator），然后由事务协调者来保证分布式事务。</li>
@@ -570,10 +570,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -586,19 +582,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -646,11 +646,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,7 +658,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -678,11 +678,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -714,11 +714,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -726,11 +726,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -750,15 +750,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,11 +802,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -818,15 +818,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -834,11 +830,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -850,11 +850,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

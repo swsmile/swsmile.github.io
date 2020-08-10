@@ -16,17 +16,17 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="工厂模式具体包括三种：  简单工厂模式（Simple Factory Pattern）/静态工厂方法模式（Static Factory Method Pattern） 工厂方法模式（Factory Method Pattern） 抽象工厂模式（Abstruct Factory Pattern）">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】创建类模式-工厂模式-Factory-Pattern）/assets/image-20190410115131626.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】创建类模式-工厂模式-Factory-Pattern）/assets/image-20190410115321786.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】创建类模式-工厂模式-Factory-Pattern）/assets/image-20190410115335501.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】创建类模式-工厂模式-Factory-Pattern）/assets/image-20190410153826041.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】创建类模式-工厂模式-Factory-Pattern）/assets/image-20190411154713503.png">
-<meta property="og:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】创建类模式-工厂模式-Factory-Pattern）/assets/image-20190411154820435.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410115131626.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410115321786.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410115335501.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410153826041.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190411154713503.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190411154820435.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Design Pattern】创建类模式 -- 工厂模式 (Factory Pattern）">
 <meta name="twitter:description" content="工厂模式具体包括三种：  简单工厂模式（Simple Factory Pattern）/静态工厂方法模式（Static Factory Method Pattern） 工厂方法模式（Factory Method Pattern） 抽象工厂模式（Abstruct Factory Pattern）">
-<meta name="twitter:image" content="http://swsmile.info/2018/11/11/【Design-Pattern】创建类模式-工厂模式-Factory-Pattern）/assets/image-20190410115131626.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410115131626.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -228,7 +228,7 @@ var _hmt = _hmt || [];
 <h1 id="1-简单工厂模式（Simple-Factory-Pattern）-静态工厂方法模式（Static-Factory-Method-Pattern）"><a href="#1-简单工厂模式（Simple-Factory-Pattern）-静态工厂方法模式（Static-Factory-Method-Pattern）" class="headerlink" title="1 简单工厂模式（Simple Factory Pattern）/静态工厂方法模式（Static Factory Method Pattern）"></a>1 简单工厂模式（Simple Factory Pattern）/静态工厂方法模式（Static Factory Method Pattern）</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><strong>简单工厂模式（Simple Factory Pattern)</strong>，又称为静态工厂方法模式（Static Factory Method Pattern），它属于<strong>创建式</strong>模式。</p>
 <p>在简单工厂模式中，包含一个工厂类，在这个工厂类中，包含一个静态方法；在调用该静态方法时，需要传入一个参数，这个参数标识了我们具体需要哪一种产品类。</p>
 <p>客户端在调用了这个静态方法后，将返回一个被指定的产品类的实例。</p>
-<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p><img src="assets/image-20190410115131626.png" alt="image-20190410115131626"></p>
+<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410115131626.png" alt="image-20190410115131626"></p>
 <p>简单工厂模式包含如下角色：</p>
 <ul>
 <li><strong>Product（抽象产品角色）</strong>：抽象产品角色是所创建的所有对象的父类，负责描述所有实例所共有的公共接口</li>
@@ -250,9 +250,9 @@ var _hmt = _hmt || [];
 <h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Program</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(string[] args)</span> </span>&#123;</span><br><span class="line">        Button button = ButtonFactory.CreateButton(ButtonType.RoundButton);</span><br><span class="line">        <span class="keyword">if</span> (button != <span class="keyword">null</span>) &#123;</span><br><span class="line">            button.draw();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>在真实的系统中，产品可以形成复杂的等级结构，比如下图所示的树形结构上就有许多抽象产品类和具体产品类。如下图：</p>
-<p><img src="assets/image-20190410115321786.png" alt="image-20190410115321786"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410115321786.png" alt="image-20190410115321786"></p>
 <p>这个时候，简单工厂模式采取的是同一使用同一个工厂类，来处理同一产品类（抽象）。如下图：</p>
-<p><img src="assets/image-20190410115335501.png" alt="image-20190410115335501"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410115335501.png" alt="image-20190410115335501"></p>
 <p>这样做的好处是设计简单，产品类的等级结构不过反映到工厂类中来，从而产品类的等级结构的变化也不会影响工厂类。但这样做的缺点是，增加新的产品必将导致工厂类的修改。</p>
 <h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
 <li>对调用者来说，获得一个具体产品对象非常简单。当需要一个圆形按钮对象时，只需要传入一个圆形按钮标识参数，即可获得一个圆形按钮对象，而无需了解其创建细节；</li>
@@ -268,7 +268,7 @@ var _hmt = _hmt || [];
 <p><strong>这种抽象化的结果使这种结构可以在不修改具体工厂类的情况下引进新的产品，如果出现新的按钮类型，只需要为这种新类型的按钮创建一个具体的工厂类就可以获得该新按钮的实例</strong>，这一特点无疑使得工厂方法模式比简单工厂模式更具有良好的扩展性，同时完全符合开闭原则（The Open Closed Principle）。。</p>
 <h2 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h2><p><strong>工厂方法模式（Factory Method Pattern）</strong>又称为<strong>工厂模式</strong>，它属于类创建型模式。</p>
 <p>在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。</p>
-<h2 id="组成-1"><a href="#组成-1" class="headerlink" title="组成"></a>组成</h2><p><img src="assets/image-20190410153826041.png" alt="image-20190410153826041"></p>
+<h2 id="组成-1"><a href="#组成-1" class="headerlink" title="组成"></a>组成</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190410153826041.png" alt="image-20190410153826041"></p>
 <p><strong>工厂方法模式包含如下角色：</strong></p>
 <ul>
 <li>抽象产品（Abstract Product）</li>
@@ -298,9 +298,9 @@ var _hmt = _hmt || [];
 <p><strong>但是有时候，我们需要一个工厂可以提供多个创建不同具体产品对象的方法。</strong></p>
 <p>当需要一个工程不仅仅只提供某一个具体产品（而是可提供多个具体产品）时，就需要使用抽象工厂模式。</p>
 <h2 id="产品等级结构、产品族的概念"><a href="#产品等级结构、产品族的概念" class="headerlink" title="产品等级结构、产品族的概念"></a>产品等级结构、产品族的概念</h2><p>产品等级结构：属于同一抽象产品下的所有产品组成了一个产品等级结构，比如像下图中的Button、Text就是二个产品等级结构。</p>
-<p><img src="assets/image-20190411154713503.png" alt="image-20190411154713503"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190411154713503.png" alt="image-20190411154713503"></p>
 <p>所谓产品族，是指位于不同产品等级结构中，功能相关联的产品组成的家族，比如下图中的UnixButton、UnixText就是一个产品族，而WinButton、WinText又是另一个产品族。看下图会更清楚一点：</p>
-<p><img src="assets/image-20190411154820435.png" alt="image-20190411154820435"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190411154820435.png" alt="image-20190411154820435"></p>
 <p>比如Button与Text就是不同的两个产品级结构，而Uinx下Button与Text就组成了Unix下的一个产品族，相似地Windows属于另一产品族。</p>
 <h2 id="模式定义"><a href="#模式定义" class="headerlink" title="模式定义"></a>模式定义</h2><p><strong>抽象工厂模式（Abstract Factory Pattern）</strong>：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类，属于对象创建型模式。</p>
 <h2 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h2><p>抽象工厂模式包含如下角色：</p>
@@ -568,10 +568,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -584,19 +580,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -644,11 +644,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,7 +656,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,11 +676,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,11 +712,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,11 +724,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -748,15 +748,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -800,11 +800,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -816,15 +816,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -832,11 +828,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -848,11 +848,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,20 +16,20 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景事务（Transaction）事务（Transaction）提供一种机制将一个活动涉及的所有操作纳入到一个不可分割的执行单元，组成事务的所有操作只有在所有操作均能正常执行的情况下方能提交，只要其中任一操作执行失败，都将导致整个事务的回滚。简单地说，事务提供一种“要么什么都不做，要么做全套（All or Nothing）”机制。 数据库本地事务 - ACID说到数据库事务就不得不说，数据库事务中">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/image-20190712131218613.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/image-20190712131247227.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/image-20190712131406346.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/image-20190712131416049.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/2012101111283859.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/285763-20171207115710503-285156614.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/Jietu20190712-155832.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/image-20190712133512383.png">
-<meta property="og:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/image-20190712134144920.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131218613.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131247227.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131406346.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131416049.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/2012101111283859.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/285763-20171207115710503-285156614.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190712-155832.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712133512383.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712134144920.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Distributed System】分布式事务（Distributed Transaction）">
 <meta name="twitter:description" content="背景事务（Transaction）事务（Transaction）提供一种机制将一个活动涉及的所有操作纳入到一个不可分割的执行单元，组成事务的所有操作只有在所有操作均能正常执行的情况下方能提交，只要其中任一操作执行失败，都将导致整个事务的回滚。简单地说，事务提供一种“要么什么都不做，要么做全套（All or Nothing）”机制。 数据库本地事务 - ACID说到数据库事务就不得不说，数据库事务中">
-<meta name="twitter:image" content="http://swsmile.info/2019/07/12/【Distributed-System】分布式事务/assets/image-20190712131218613.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131218613.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -232,17 +232,17 @@ var _hmt = _hmt || [];
 <h3 id="持久性（Durability）"><a href="#持久性（Durability）" class="headerlink" title="持久性（Durability）"></a>持久性（Durability）</h3><p>指的是只要事务成功结束，它对数据库所做的更新就必须永久保存下来。即使发生系统崩溃，重新启动数据库系统后，数据库还能恢复到事务成功结束时的状态。</p>
 <p>打个比方，你买东西的时候需要记录在账本上，即使老板忘记了那也有据可查。</p>
 <h2 id="InnoDB实现原理"><a href="#InnoDB实现原理" class="headerlink" title="InnoDB实现原理"></a>InnoDB实现原理</h2><p>InnoDB是mysql的一个存储引擎，大部分人对mysql都比较熟悉，这里简单介绍一下数据库事务实现的一些基本原理，在本地事务中，服务和资源在事务的包裹下可以看做是一体的:</p>
-<p><img src="assets/image-20190712131218613.png" alt="image-20190712131218613"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131218613.png" alt="image-20190712131218613"></p>
 <p> 我们的本地事务由资源管理器进行管理: </p>
-<p><img src="assets/image-20190712131247227.png" alt="image-20190712131247227"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131247227.png" alt="image-20190712131247227"></p>
 <p> 而事务的ACID是通过InnoDB日志和锁来保证。事务的隔离性是通过数据库锁的机制实现的，持久性通过redo log（重做日志）来实现，原子性和一致性通过Undo log来实现。UndoLog的原理很简单，为了满足事务的原子性，在操作任何数据之前，首先将数据备份到一个地方（这个存储数据备份的地方称为UndoLog）。然后进行数据的修改。如果出现了错误或者用户执行了ROLLBACK语句，系统可以利用Undo Log中的备份将数据恢复到事务开始之前的状态。 和Undo Log相反，RedoLog记录的是新数据的备份。在事务提交前，只要将RedoLog持久化即可，不需要将数据持久化。当系统崩溃时，虽然数据没有持久化，但是RedoLog已经持久化。系统可以根据RedoLog的内容，将所有数据恢复到最新的状态。 对具体实现过程有兴趣的同学可以去自行搜索扩展。</p>
 <h1 id="分布式事务（Distributed-Transaction）"><a href="#分布式事务（Distributed-Transaction）" class="headerlink" title="分布式事务（Distributed Transaction）"></a>分布式事务（Distributed Transaction）</h1><h2 id="什么是分布式事务"><a href="#什么是分布式事务" class="headerlink" title="什么是分布式事务"></a>什么是分布式事务</h2><p>分布式事务就是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上。简单的说，就是一次大的操作由不同的小操作组成，这些小的操作分布在不同的服务器上，且属于不同的应用，分布式事务需要保证这些小操作要么全部成功，要么全部失败。本质上来说，分布式事务就是为了保证不同数据库的数据一致性。</p>
 <h2 id="分布式事务产生的原因"><a href="#分布式事务产生的原因" class="headerlink" title="分布式事务产生的原因"></a>分布式事务产生的原因</h2><p>从上面本地事务来看，我们可以看为两块，一个是service产生多个节点，另一个是resource产生多个节点。</p>
 <h3 id="service多个节点（跨库事务）"><a href="#service多个节点（跨库事务）" class="headerlink" title="service多个节点（跨库事务）"></a>service多个节点（<strong>跨库事务</strong>）</h3><p>随着互联网快速发展，微服务，SOA等服务架构模式正在被大规模的使用，举个简单的例子，一个公司之内，用户的资产可能分为好多个部分，比如余额，积分，优惠券等等。在公司内部有可能积分功能由一个微服务团队维护，优惠券又是另外的团队维护。</p>
-<p><img src="assets/image-20190712131406346.png" alt="image-20190712131406346"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131406346.png" alt="image-20190712131406346"></p>
 <p> 这样的话就无法保证积分扣减了之后，优惠券能否扣减成功。</p>
 <h3 id="resource多个节点（分库分表）"><a href="#resource多个节点（分库分表）" class="headerlink" title="resource多个节点（分库分表）"></a>resource多个节点（分库分表）</h3><p>同样的，互联网发展得太快了，我们的Mysql一般来说装千万级的数据就得进行分库分表，对于一个支付宝的转账业务来说，你给的朋友转钱，有可能你的数据库是在北京，而你的朋友的钱是存在上海，所以我们依然无法保证他们能同时成功。 </p>
-<p><img src="assets/image-20190712131416049.png" alt="image-20190712131416049"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712131416049.png" alt="image-20190712131416049"></p>
 <h1 id="分布式事务解决方案"><a href="#分布式事务解决方案" class="headerlink" title="分布式事务解决方案"></a>分布式事务解决方案</h1><h2 id="全局事务-X-Open-DTP模型与XA规范"><a href="#全局事务-X-Open-DTP模型与XA规范" class="headerlink" title="全局事务 - X/Open DTP模型与XA规范"></a>全局事务 - <strong>X/Open DTP模型与XA规范</strong></h2><p>X/Open DTP(X/Open Distributed Transaction Processing Reference Model) 是X/Open 这个组织定义的一套分布式事务的标准，也就是了定义了规范和API接口，由这个厂商进行具体的实现。这个思想在java 平台里面到处都是。</p>
 <p>X/Open DTP 定义了三个组件： AP，TM，RM：</p>
 <ul>
@@ -262,18 +262,18 @@ var _hmt = _hmt || [];
 </li>
 </ul>
 <p>下面一幅图说明了三者的关系：</p>
-<p><img src="assets/2012101111283859.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/2012101111283859.jpg" alt="img"></p>
 <p>J2EE 规范也包含此分布式事务处理模型的规范，并在所有的 AppServer 中进行实现，J2EE 规范中定义了 TX 协议和 XA 协议，TX 协议定义<strong>应用程序</strong>与<strong>事务管理器</strong>之间的接口，而 XA 协议定义了<strong>事务管理器</strong>与<strong>资源处理器</strong>之间的接口，在过去，大家使用 AppServer，例如：Websphere、Weblogic、Jboss 等配置数据源的时候会看见类似 XADatasource 的数据源，这就是实现了 DTS 的关系型数据库的数据源。企业级开发 JEE 中，关系型数据库、JMS 服务扮演资源管理器的角色，而 EJB 容器则扮演事务管理器的角色。</p>
 <h3 id="XA-协议"><a href="#XA-协议" class="headerlink" title="XA 协议"></a>XA 协议</h3><p>XA是一个分布式事务协议，由Tuxedo提出。XA中大致分为两部分：事务管理器和本地资源管理器。其中本地资源管理器往往由数据库实现，比如Oracle、DB2这些商业数据库都实现了XA接口，而事务管理器作为全局的调度者，负责各个本地资源的提交和回滚。XA实现分布式事务的原理如下：</p>
-<p><img src="assets/285763-20171207115710503-285156614.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/285763-20171207115710503-285156614.png" alt="img"></p>
 <p>XA 协议就是根据<strong>两阶段提交协议（The two-phase commit protocol，2PC）</strong>来保证事务的完整性，除此之外，还可以使用<strong>三阶段提交协议（Three-phase commit protocol）</strong>。</p>
 <h4 id="两阶段提交协议（The-two-phase-commit-protocol，2PC）"><a href="#两阶段提交协议（The-two-phase-commit-protocol，2PC）" class="headerlink" title="两阶段提交协议（The two-phase commit protocol，2PC）"></a>两阶段提交协议（The two-phase commit protocol，2PC）</h4><p>两阶段提交协议（The two-phase commit protocol，2PC）是XA用于在全局事务中协调多个资源的机制。两阶段协议遵循OSI（Open System Interconnection，开放系统互联）/DTP标准，虽然它比标准本身早若干年出现。</p>
 <h4 id="三阶段提交协议（Three-phase-commit-protocol，3PC）"><a href="#三阶段提交协议（Three-phase-commit-protocol，3PC）" class="headerlink" title="三阶段提交协议（Three-phase commit protocol，3PC）"></a>三阶段提交协议（Three-phase commit protocol，3PC）</h4><p>三阶段提交（Three-phase commit），也叫三阶段提交协议（Three-phase commit protocol），是二阶段提交（2PC）的改进版本。</p>
 <h3 id="JTA"><a href="#JTA" class="headerlink" title="JTA"></a>JTA</h3><p>JTA（Java Transaction API）是符合X/Open DTP的一个编程模型，事务管理和资源管理器支架也是用了XA协议。</p>
 <p>JTA事务可以用来实现J2EE中的全局事务。</p>
 <p>Java事务API（JTA：Java Transaction API）和它的同胞Java事务服务（JTS：Java Transaction Service），为J2EE平台提供了分布式事务服务（distributed transaction）的能力。 某种程度上，可以认为JTA规范是XA规范的Java版，其把XA规范中规定的DTP模型交互接口抽象成Java接口中的方法，并规定每个方法要实现什么样的功能。</p>
-<p><img src="assets/Jietu20190712-155832.png" alt="JTA"></p>
-<h2 id="TCC（Try-Confirm-Cancel）"><a href="#TCC（Try-Confirm-Cancel）" class="headerlink" title="TCC（Try-Confirm-Cancel）"></a>TCC（Try-Confirm-Cancel）</h2><p><img src="assets/image-20190712133512383.png" alt="image-20190712133512383"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/Jietu20190712-155832.png" alt="JTA"></p>
+<h2 id="TCC（Try-Confirm-Cancel）"><a href="#TCC（Try-Confirm-Cancel）" class="headerlink" title="TCC（Try-Confirm-Cancel）"></a>TCC（Try-Confirm-Cancel）</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712133512383.png" alt="image-20190712133512383"></p>
 <p>关于TCC（Try-Confirm-Cancel）的概念，最早是由Pat Helland于2007年发表的一篇名为《Life beyond Distributed Transactions:an Apostate’s Opinion》的论文提出。 </p>
 <hr>
 <p>TCC即为Try Confirm Cancel，它属于补偿型分布式事务。顾名思义，TCC实现分布式事务一共有三个步骤：</p>
@@ -303,7 +303,7 @@ var _hmt = _hmt || [];
 <li>执行时间较短的业务</li>
 </ul>
 <h2 id="基于可靠消息服务的分布式事务"><a href="#基于可靠消息服务的分布式事务" class="headerlink" title="基于可靠消息服务的分布式事务"></a>基于可靠消息服务的分布式事务</h2><p>这种实现分布式事务的方式需要通过消息中间件来实现。假设有A和B两个系统，分别可以处理任务A和任务B。此时系统A中存在一个业务流程，需要将任务A和任务B在同一个事务中处理。下面来介绍基于消息中间件来实现这种分布式事务。</p>
-<p><img src="assets/image-20190712134144920.png" alt="image-20190712134144920"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190712134144920.png" alt="image-20190712134144920"></p>
 <ul>
 <li>在系统A处理任务A前，首先向消息中间件发送一条消息</li>
 <li>消息中间件收到后将该条消息持久化，但并不投递。此时下游系统B仍然不知道该条消息的存在。</li>
@@ -576,10 +576,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -592,19 +588,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -652,11 +652,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -664,7 +664,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -684,11 +684,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -720,11 +720,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -732,11 +732,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -756,15 +756,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -808,11 +808,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,15 +824,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -840,11 +836,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -856,11 +856,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

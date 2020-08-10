@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="BackgroundRedis is a TCP server using the client-server model and what is called a Request/Response protocol. This means that usually a request is accomplished with the following steps:  The client se">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/05/09/【Redis】Redis-pipeline/assets/pipeline_iops.png">
-<meta property="og:image" content="http://swsmile.info/2020/05/09/【Redis】Redis-pipeline/assets/image-20200706161507451.png">
-<meta property="og:image" content="http://swsmile.info/2020/05/09/【Redis】Redis-pipeline/assets/image-20200710105651600.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/pipeline_iops.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200706161507451.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710105651600.png">
 <meta property="og:updated_time" content="2020-07-12T06:32:30.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Redis】Redis pipeline">
 <meta name="twitter:description" content="BackgroundRedis is a TCP server using the client-server model and what is called a Request/Response protocol. This means that usually a request is accomplished with the following steps:  The client se">
-<meta name="twitter:image" content="http://swsmile.info/2020/05/09/【Redis】Redis-pipeline/assets/pipeline_iops.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/pipeline_iops.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -242,7 +242,7 @@ var _hmt = _hmt || [];
 <p><strong>IMPORTANT NOTE</strong>: While the client sends commands using pipelining, the server will be forced to queue the replies, using memory. So if you need to send a lot of commands with pipelining, it is better to send them as batches having a reasonable number, for instance 10k commands, read the replies, and then send another 10k commands again, and so forth. The speed will be nearly the same, but the additional memory used will be at max the amount needed to queue the replies for these 10k commands.</p>
 <h1 id="It’s-not-just-a-matter-of-RTT"><a href="#It’s-not-just-a-matter-of-RTT" class="headerlink" title="It’s not just a matter of RTT"></a>It’s not just a matter of RTT</h1><p>Pipelining is not just a way in order to reduce the latency cost due to the round trip time, it actually improves by a huge amount the total operations you can perform per second in a given Redis server. This is the result of the fact that, without using pipelining, serving each command is very cheap from the point of view of accessing the data structures and producing the reply, but it is very costly from the point of view of doing the socket I/O. This involves calling the <code>read()</code> and <code>write()</code> syscall, that means going from user land to kernel land. The context switch is a huge speed penalty.</p>
 <p>When pipelining is used, many commands are usually read with a single <code>read()</code> system call, and multiple replies are delivered with a single <code>write()</code> system call. Because of this, the number of total queries performed per second initially increases almost linearly with longer pipelines, and eventually reaches 10 times the baseline obtained not using pipelining, as you can see from the following graph:</p>
-<p><img src="assets/pipeline_iops.png" alt="Pipeline size and IOPs"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/pipeline_iops.png" alt="Pipeline size and IOPs"></p>
 <h1 id="Pipeline-和-Transaction-的区别"><a href="#Pipeline-和-Transaction-的区别" class="headerlink" title="Pipeline 和 Transaction 的区别"></a>Pipeline 和 Transaction 的区别</h1><ul>
 <li>pipeline的执行会在 client 缓存（这意味着，在pipeline开始执行后，而执行 <code>EXEC</code> 之前，都不会有为了这次 pipeline 而进行的 TCP通信），而 Transaction 的执行会在 redis server缓存；</li>
 <li>请求次数的不一致，multi需要每个命令都发送一次给服务端，pipeline最后一次性发送给服务端，请求次数相对于multi减少</li>
@@ -250,13 +250,13 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">p := client.Pipeline()</span><br><span class="line">p.SAdd(<span class="string">"saddKey"</span>, []<span class="keyword">string</span>&#123;<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>&#125;)</span><br><span class="line"></span><br><span class="line">p.Set(<span class="string">"cache1"</span>, <span class="string">"aabbcc"</span>, <span class="number">0</span>)</span><br><span class="line">cmders, err := p.Exec()</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/image-20200706161507451.png" alt="image-20200706161507451"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200706161507451.png" alt="image-20200706161507451"></p>
 <p>client 将待执行的命令写入到自己的缓冲区（client-buffer）中，最后当调用 <code>EXEC</code> 命令时，（通过 TCP 通讯）一次性发送给 redis server 以执行。</p>
 <p>但是有一种情况是，client 缓冲区（client-buffer）的大小是有限制的（这当然与client 具体的实现也有关系），比如Jedis，限制为8192，超过了，则刷缓存，发送请求到Redis，</p>
 <h3 id="Transaction"><a href="#Transaction" class="headerlink" title="Transaction"></a>Transaction</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; MULTI</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> aaabbbccc 123456</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; <span class="built_in">set</span> cccbbbaaa 987654</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; get aaabbbccc</span><br><span class="line">QUEUED</span><br><span class="line">127.0.0.1:6379&gt; EXEC</span><br><span class="line">1) OK</span><br><span class="line">2) OK</span><br><span class="line">3) <span class="string">"123456"</span></span><br></pre></td></tr></table></figure>
 
 <p>我们总共执行了5条命令，每条命令都会有对应的TCP通讯（每次通讯都会附上这条命令对应的执行内容）：</p>
-<p><img src="assets/image-20200710105651600.png" alt="image-20200710105651600"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200710105651600.png" alt="image-20200710105651600"></p>
 <p>这点其实是相比较 pipeline而言的，在 pipeline中，所有command都会缓存在 client，只有当执行 <code>EXEC</code> 命令时，才会进行TCP 通讯。</p>
 <p>这也意味着，如果执行大量的 transaction，redis server的memory usage会上升（因为有大量未被执行的command 被缓存在 redis server的memory中）；而如果执行大量的 pipeline（而每个pipeline中执行命令数量不多或者这些命令对应执行后的结果的数据量并不大），这时候并不会消耗很多的redis server memory。</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
@@ -512,10 +512,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -528,19 +524,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -588,11 +588,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,7 +600,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -620,11 +620,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,11 +656,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -668,11 +668,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,15 +692,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -744,11 +744,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,15 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -776,11 +772,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -792,11 +792,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

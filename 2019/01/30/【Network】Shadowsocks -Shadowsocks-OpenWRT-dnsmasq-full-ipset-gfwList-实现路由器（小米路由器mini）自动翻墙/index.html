@@ -16,18 +16,18 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="注明：本 blog 仅作为技术研究讨论学习信息安全相关技术，请勿用于任何违法用途！并请严格遵命各国和地区法律！翻墙思路本方案基于gfwlist，gfwlist（ https://github.com/gfwlist/gfwlist ）中记录了已经被gfw封锁的域名（https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.tx">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/%E7%BF%BB%E5%A2%99.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/image-20190130122534579.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/image-20190130155451464.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/image-20190130155551417.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/image-20190527121613223.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/image-20190617160946105.png">
-<meta property="og:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/image-20190130155858755.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/%E7%BF%BB%E5%A2%99.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130122534579.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130155451464.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130155551417.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190527121613223.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190617160946105.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130155858755.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.375Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Network】Shadowsocks + OpenWRT + dnsmasq-full + ipset + gfwList 实现路由器（小米路由器mini）自动翻墙">
 <meta name="twitter:description" content="注明：本 blog 仅作为技术研究讨论学习信息安全相关技术，请勿用于任何违法用途！并请严格遵命各国和地区法律！翻墙思路本方案基于gfwlist，gfwlist（ https://github.com/gfwlist/gfwlist ）中记录了已经被gfw封锁的域名（https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.tx">
-<meta name="twitter:image" content="http://swsmile.info/2019/01/30/【Network】Shadowsocks%20-Shadowsocks-OpenWRT-dnsmasq-full-ipset-gfwList-实现路由器（小米路由器mini）自动翻墙/assets/%E7%BF%BB%E5%A2%99.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/%E7%BF%BB%E5%A2%99.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -221,7 +221,7 @@ var _hmt = _hmt || [];
         <h1 id="注明：本-blog-仅作为技术研究讨论学习信息安全相关技术，请勿用于任何违法用途！并请严格遵命各国和地区法律！"><a href="#注明：本-blog-仅作为技术研究讨论学习信息安全相关技术，请勿用于任何违法用途！并请严格遵命各国和地区法律！" class="headerlink" title="注明：本 blog 仅作为技术研究讨论学习信息安全相关技术，请勿用于任何违法用途！并请严格遵命各国和地区法律！"></a>注明：本 blog 仅作为技术研究讨论学习信息安全相关技术，请勿用于任何违法用途！并请严格遵命各国和地区法律！</h1><h1 id="翻墙思路"><a href="#翻墙思路" class="headerlink" title="翻墙思路"></a>翻墙思路</h1><p>本方案基于gfwlist，gfwlist（ <a href="https://github.com/gfwlist/gfwlist" target="_blank" rel="noopener">https://github.com/gfwlist/gfwlist</a> ）中记录了已经被gfw封锁的域名（<a href="https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt" target="_blank" rel="noopener">https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt</a>）。</p>
 <a id="more"></a> 
 
-<p><img src="assets/%E7%BF%BB%E5%A2%99.png" alt="翻墙"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/%E7%BF%BB%E5%A2%99.png" alt="翻墙"></p>
 <p>为了绕过GFW的DNS污染，访问处于gfwlist中列表的域名时，我们可以借助ss-tunnel通过 Shadowsocks Server  请求国外公共 DNS（如8.8.8.8，4.4.4.4）以获得干净的DNS解析结果。当然，我们也可以在国外或不被GFW投毒的地方架设DNS服务器，通过访问自己的这个DNS服务器，以获得干净的DNS解析结果。</p>
 <p>在访问处于gfwlist中列表的域名时，在获取干净的DNS解析结果后，我们还需要通过ss-redir来与这个目标主机建立Socket连接，以逃避GFW的TCP RST重置。</p>
 <p>gfwlist中的域名站点走代理，不在List中的域名不走代理。本质上依然是根据目标主机的IP来进行判断。dnsmasq-full可以将解析域名得到的IP加到一个ipset中，最终利用这个ipset来判断走不走代理。实际是完成了gfwlist（域名列表）到dnsmasq的ipset规则再到IP地址的转换。</p>
@@ -285,7 +285,7 @@ var _hmt = _hmt || [];
 
 <p>注意，由于dnsmasq默认负责路由器的DNS解析和DHCP分配工作。因此在卸载了dnsmasq后，opkg install 可能会因为无法获得DNS解析工作而无法正常执行。</p>
 <p>一个解决办法可以是，进入OpenWrt的GUI界面，进入[Network] - [Interfaces] - [WAN Edit]，进入[Advanced Settings]，修改<code>Use custom DNS servers</code>为<code>114.114.114.114</code>。</p>
-<p><img src="assets/image-20190130122534579.png" alt="image-20190130122534579"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130122534579.png" alt="image-20190130122534579"></p>
 <p>在路由器的控制台中ping一下baidu.com（<code>ping baidu.com</code>），若可以正常ping通，则说明当前DNS工作正常。opkg install也当然可以正常工作。</p>
 <p>还有一个方法，在网络正常的机器上，执行 ping 到一个源（比如，downloads.openwrt.org或者mirrors.ustc.edu.cn）。在获得其IP后，修改 <code>/etc/opkg/distfeeds.conf</code>将其域名替换为对应IP，以避免无法获得DNS解析而导致的opkg install无法正常执行的情况。</p>
 <h3 id="安装shadowsocks-libev-spec"><a href="#安装shadowsocks-libev-spec" class="headerlink" title="安装shadowsocks-libev-spec"></a>安装shadowsocks-libev-spec</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ opkg install shadowsocks-libev luci-app-shadowsocks</span><br><span class="line">$ opkg install ipset libpthread</span><br><span class="line"><span class="comment"># ChinaDNS在此方案中不会被使用到</span></span><br><span class="line">$ opkg install ChinaDNS luci-app-chinadns</span><br></pre></td></tr></table></figure>
@@ -342,11 +342,11 @@ var _hmt = _hmt || [];
 
 <h3 id="设置默认的DNS"><a href="#设置默认的DNS" class="headerlink" title="设置默认的DNS"></a>设置默认的DNS</h3><p>进入OpenWrt的GUI界面，进入[Network] - [Interfaces] - [WAN Edit]，进入[Advanced Settings]，修改<code>Use custom DNS servers</code>为<code>127.0.0.1</code>。</p>
 <p>这意味着，连接该OpenWrt路由器的所有设备发出的DNS请求都会由该路由器的dnsmasq来响应（当然，前提是设备没有手动去修改默认的DNS服务器IP，而使用路由器默认提供的DNS服务器IP）。</p>
-<p><img src="assets/image-20190130155451464.png" alt="翻墙"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130155451464.png" alt="翻墙"></p>
 <p>在[Network] - [DHCP and DNS]中，设置<code>DNS forwardings</code>为114.114.114.114。注意，此为路由器默认查询的DNS服务器，你可以根据你的实际情况选择一个较快的DNS服务器（在我的情况中，我认为114.114.114.114最快）。</p>
-<p><img src="assets/image-20190130155551417.png" alt="翻墙"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130155551417.png" alt="翻墙"></p>
 <p>当这个配置修改生效后，通过 <code>cat /var/etc/dnsmasq.conf.*</code> 可以看到对应的 dnsmasq 的配置文件也发生了变化，如下图：</p>
-<p><img src="assets/image-20190527121613223.png" alt="image-20190527121613223"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190527121613223.png" alt="image-20190527121613223"></p>
 <h1 id="自动更新gfwlist"><a href="#自动更新gfwlist" class="headerlink" title="自动更新gfwlist"></a>自动更新gfwlist</h1><p>gfwlist2dnsmasq需要通过SSL下载gfwlist，而OpenWrt安装的busybox wget，并不支持SSL，因此我们需要安装<code>libustream-mbedtls</code>、 <code>ca-certificates</code>和<code>ca-bundle</code>。除此之外，gwflist使用BASE64编码，因此<code>base64</code>需要被安装：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ opkg update</span><br><span class="line">$ opkg install libustream-mbedtls coreutils-base64</span><br><span class="line">$ opkg install ca-certificates ca-bundle</span><br></pre></td></tr></table></figure>
 
@@ -366,10 +366,10 @@ var _hmt = _hmt || [];
 <h3 id="dnsmasq配置"><a href="#dnsmasq配置" class="headerlink" title="dnsmasq配置"></a>dnsmasq配置</h3><p><code>dnsmasq --test</code> 查看dnsmasq配置是否正确。</p>
 <p><code>/etc/init.d/dnsmasq restart</code>重启dnsmasq服务。</p>
 <p>使用<code>top</code>查看当前dnsmasq是否启动，且正常使用的配置文件路径。由于默认情况下，Openwrt允许我们通过Luci在界面上配置dnsmasq，因此Luci会自动生成一个dnsmasq配置文件（默认位于/var/etc/dnsmasq.conf.*）。通过<code>top</code>可以看到这个生成的配置文件的准确路径</p>
-<p><img src="assets/image-20190617160946105.png" alt="image-20190617160946105"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190617160946105.png" alt="image-20190617160946105"></p>
 <h3 id="ipset"><a href="#ipset" class="headerlink" title="ipset"></a>ipset</h3><p><code>ipset list gfwlist</code>查看ipset中我们定义的gfwlist中包含的所有记录。</p>
 <h3 id="Shadowsocks"><a href="#Shadowsocks" class="headerlink" title="Shadowsocks"></a>Shadowsocks</h3><h5 id="Shadowsocks是否已经启动"><a href="#Shadowsocks是否已经启动" class="headerlink" title="Shadowsocks是否已经启动"></a>Shadowsocks是否已经启动</h5><p>检查ss是否正常运行<code>netstat -anptl |grep ss|grep LISTEN</code>：</p>
-<p><img src="assets/image-20190130155858755.png" alt="翻墙"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190130155858755.png" alt="翻墙"></p>
 <h5 id="Shadowsocks输出log"><a href="#Shadowsocks输出log" class="headerlink" title="Shadowsocks输出log"></a>Shadowsocks输出log</h5><p>使用-v以让Shadowsocks记录log到指定文件：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/bin/ss-redir -c /etc/shadowsocks.json -b 0.0.0.0 -u -v 1&gt;&gt;/var/<span class="built_in">log</span>/ss-redir &amp;</span><br><span class="line">$ /usr/bin/ss-tunnel -c /etc/shadowsocks.json -b 0.0.0.0 -u -l 5353 -L 8.8.8.8:53 -v 1&gt;&gt;/var/<span class="built_in">log</span>/ss-tunnel.log &amp;</span><br></pre></td></tr></table></figure>
 
@@ -663,10 +663,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -679,19 +675,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,11 +739,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,7 +751,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,11 +771,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -807,11 +807,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -819,11 +819,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -843,15 +843,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -895,11 +895,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -911,15 +911,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -927,11 +923,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -943,11 +943,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

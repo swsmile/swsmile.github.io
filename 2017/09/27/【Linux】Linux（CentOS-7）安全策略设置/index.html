@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="1 开启防火墙注： RedHat RHEL7系统后已经用firewalld服务代替了iptables服务，新的防火墙服务管理命令为firewall-cmd（图形化管理工具firewall-config）。 （1）启动防火墙1$ sudo systemctl start firewalld.service  （2）开机自启动防火墙1$ sudo systemctl enable firewalld.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2017/09/27/【Linux】Linux（CentOS-7）安全策略设置/assets/a71bbe61-7e67-4c54-b374-d87617e75c95.png">
-<meta property="og:image" content="http://swsmile.info/2017/09/27/【Linux】Linux（CentOS-7）安全策略设置/assets/cbca6e2d-d6c1-4044-a523-af7f7c7e468d.png">
-<meta property="og:image" content="http://swsmile.info/2017/09/27/【Linux】Linux（CentOS-7）安全策略设置/assets/9ac59a00-e1d2-4f3a-9877-fd9b24a180ea.png">
-<meta property="og:image" content="http://swsmile.info/2017/09/27/【Linux】Linux（CentOS-7）安全策略设置/assets/07e40d08-9a2d-44b1-8964-34433c141495.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a71bbe61-7e67-4c54-b374-d87617e75c95.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/cbca6e2d-d6c1-4044-a523-af7f7c7e468d.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/9ac59a00-e1d2-4f3a-9877-fd9b24a180ea.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/07e40d08-9a2d-44b1-8964-34433c141495.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Linux】Linux（CentOS 7）安全策略设置">
 <meta name="twitter:description" content="1 开启防火墙注： RedHat RHEL7系统后已经用firewalld服务代替了iptables服务，新的防火墙服务管理命令为firewall-cmd（图形化管理工具firewall-config）。 （1）启动防火墙1$ sudo systemctl start firewalld.service  （2）开机自启动防火墙1$ sudo systemctl enable firewalld.">
-<meta name="twitter:image" content="http://swsmile.info/2017/09/27/【Linux】Linux（CentOS-7）安全策略设置/assets/a71bbe61-7e67-4c54-b374-d87617e75c95.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/a71bbe61-7e67-4c54-b374-d87617e75c95.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -223,9 +223,9 @@ var _hmt = _hmt || [];
 <h2 id="（3）检查防火墙状态"><a href="#（3）检查防火墙状态" class="headerlink" title="（3）检查防火墙状态"></a>（3）检查防火墙状态</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl status firewalld.service</span><br></pre></td></tr></table></figure>
 
 <p>未启动：</p>
-<p><img src="assets/a71bbe61-7e67-4c54-b374-d87617e75c95.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/a71bbe61-7e67-4c54-b374-d87617e75c95.png" alt=""></p>
 <p>启动后：</p>
-<p><img src="assets/cbca6e2d-d6c1-4044-a523-af7f7c7e468d.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/cbca6e2d-d6c1-4044-a523-af7f7c7e468d.png" alt=""></p>
 <p>拒绝一切端口后开启相应端口（iptables先拒绝然后开启对应端口，如80for http，443for https）<br>检查防火墙是否开启</p>
 <a id="more"></a> 
 
@@ -244,7 +244,7 @@ var _hmt = _hmt || [];
 <p>示例，<strong>开放36582端口作为ssh服务：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --zone=public --add-port=36582/tcp --permanent</span><br></pre></td></tr></table></figure>
 
-<p><img src="assets/9ac59a00-e1d2-4f3a-9877-fd9b24a180ea.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/9ac59a00-e1d2-4f3a-9877-fd9b24a180ea.png" alt=""></p>
 <hr>
 <p>以上设置完成后，重启防火墙以使设置立即生效：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ firewall-cmd --reload</span><br></pre></td></tr></table></figure>
@@ -257,7 +257,7 @@ var _hmt = _hmt || [];
 <h2 id="b-禁止Root通过SSH远程登录"><a href="#b-禁止Root通过SSH远程登录" class="headerlink" title="b 禁止Root通过SSH远程登录"></a>b 禁止Root通过SSH远程登录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
 
 <p>将<code>PermitRootLogin yes</code>修改为<code>PermitRootLogin no</code>。</p>
-<p><img src="assets/07e40d08-9a2d-44b1-8964-34433c141495.png" alt=""></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/07e40d08-9a2d-44b1-8964-34433c141495.png" alt=""></p>
 <h2 id="c-重启sshd服务"><a href="#c-重启sshd服务" class="headerlink" title="c 重启sshd服务"></a>c 重启sshd服务</h2><p>重启sshd服务，已使以上设置生效</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl restart sshd</span><br></pre></td></tr></table></figure>
 
@@ -525,10 +525,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -541,19 +537,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -601,11 +601,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,7 +613,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -633,11 +633,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,11 +669,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,11 +681,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,15 +705,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -757,11 +757,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -773,15 +773,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -789,11 +785,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -805,11 +805,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

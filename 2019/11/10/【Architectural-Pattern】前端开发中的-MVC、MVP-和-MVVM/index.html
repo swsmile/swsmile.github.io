@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="1 原始的MVC （Model - View - Controller）MVC （Model - View - Controller）架构是一种当前非常流行的架构模式（Architectural Pattern），被广泛使用于传统的桌面GUI（Graphical user interface）、Web应用和手机移动应用中。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/assets/bg2015020106-3392193.png">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/assets/image-20191110214204312.png">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/assets/mvp.png">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/assets/mvvm.png">
-<meta property="og:image" content="http://swsmile.info/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/assets/image-20191113220456856.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2015020106-3392193.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110214204312.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/mvp.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/mvvm.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191113220456856.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Architectural Pattern】前端框架中的 MVC、MVP 和 MVVM">
 <meta name="twitter:description" content="1 原始的MVC （Model - View - Controller）MVC （Model - View - Controller）架构是一种当前非常流行的架构模式（Architectural Pattern），被广泛使用于传统的桌面GUI（Graphical user interface）、Web应用和手机移动应用中。">
-<meta name="twitter:image" content="http://swsmile.info/2019/11/10/【Architectural-Pattern】前端开发中的-MVC、MVP-和-MVVM/assets/bg2015020106-3392193.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2015020106-3392193.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -226,7 +226,7 @@ var _hmt = _hmt || [];
 <li>2005年，基于<code>Python</code>的<code>Django</code>和基于<code>Ruby</code>的<code>Rails</code>也引入了MVC的概念。</li>
 </ul>
 <p>在最初以<code>Smalltalk</code>实现中MVC概念中，MVC是由<strong>组合模式（Composite Pattern）、策略模式（Strategy Pattern）和观察者模式（Observer Pattern</strong>）三种设计模式组合而成的。</p>
-<p><img src="assets/bg2015020106-3392193.png" alt="bg2015020106"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2015020106-3392193.png" alt="bg2015020106"></p>
 <p>如图，实线代表方法调用，虚线代表事件通知（Event notification），通过观察者模式实现。</p>
 <p><strong>在前端框架的 MVC 中， View 代表UI界面（或者说 DOM），它关注于数据的显示和与用户的交互，Controller 中包含了前端页面的业务逻辑，而 Model中通常会包含 call backend APIs 的逻辑。</strong></p>
 <p>用户的输入操作本质上是传给了 View 层，而 View 会将这个输入操作传递给 Controller。此后可能会有两种情况：</p>
@@ -235,7 +235,7 @@ var _hmt = _hmt || [];
 <li>Controller 不能自己处理，此时，就需要调用 Model。在 Model 中，通常会调用backend APIs。比如，显示一个订单的详细内容。</li>
 </ul>
 <h2 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h2><p>这里有一个可以对数值进行加减操作的组件：上面显示数值，两个按钮可以对数值进行加减操作（这个操作需要实时地更新到 backend 的数据库中），操作后的数值会更新显示。</p>
-<p><img src="assets/image-20191110214204312.png" alt="image-20191110214204312"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191110214204312.png" alt="image-20191110214204312"></p>
 <h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><p>Model层用来存储业务的数据，一旦数据发生变化，Model将会通过观察者模式，通知有关的View。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">myapp.Model = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> val = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.add = <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 这里省略了调用后端 API 以将这个值更新到 DB 中的逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (val &lt; <span class="number">100</span>) val += v;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.sub = <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 这里省略了调用后端 API 以将这个值更新到 DB 中的逻辑</span></span><br><span class="line">        <span class="keyword">if</span> (val &gt; <span class="number">0</span>) val -= v;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.getVal = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 这里省略了调用后端 API 以读取这个值的逻辑</span></span><br><span class="line">        <span class="keyword">return</span> val;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    ／* 观察者模式 *／</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>, </span><br><span class="line">        views = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.register = <span class="function"><span class="keyword">function</span>(<span class="params">view</span>) </span>&#123;</span><br><span class="line">        views.push(view);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.notify = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; views.length; i++) &#123;</span><br><span class="line">            views[i].render(self);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -257,7 +257,7 @@ var _hmt = _hmt || [];
 <p>同时，View 应该委托Controller来调用Model（这样 Model 对于 View 来说就是透明的），而不是Model 与 View 之间存在耦合。</p>
 <p>你会发现，View 和 Controller 是一对一的关系。而事实上，前端的View其实已经具备了独立处理用户事件的能力，当每个事件都需要流经Controller时，Controller会变得<strong>十分臃肿</strong>。</p>
 <p>在Backbone中，Backbone.View和Backbone.Router一起承担了Controller的责任。这就为MVC中controller的衍变埋下了伏笔。这其实是因为在原始的 MVC 中 View 和 Controller 一般是一一对应的，捆绑起来表示一个组件，View 与 Controller 间的过于紧密的连接让Controller的复用性成了问题，如果想多个View共用一个Controller该怎么办呢？这里有一个解决方案：MVP（Model-View-Presenter）。</p>
-<h1 id="2-优化后的MVC-MVP（Model-View-Presenter）"><a href="#2-优化后的MVC-MVP（Model-View-Presenter）" class="headerlink" title="2 优化后的MVC - MVP（Model-View-Presenter）"></a>2 优化后的MVC - MVP（Model-View-Presenter）</h1><p><img src="assets/mvp.png" alt="MVP模式"></p>
+<h1 id="2-优化后的MVC-MVP（Model-View-Presenter）"><a href="#2-优化后的MVC-MVP（Model-View-Presenter）" class="headerlink" title="2 优化后的MVC - MVP（Model-View-Presenter）"></a>2 优化后的MVC - MVP（Model-View-Presenter）</h1><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/mvp.png" alt="MVP模式"></p>
 <p>MVP（Model-View-Presenter）是MVC模式的改良，由IBM的子公司Taligent提出。和MVC的相同之处在于：Controller/Presenter负责业务逻辑，Model管理数据，View负责显示。</p>
 <p>在原始的 MVC 里，View 是可以直接访问 Model 的，但MVP中，View并不能直接访问Model，而是 Presenter 给 View 提供接口，通过Presenter去更新Model，再通过观察者模式更新View。</p>
 <p>与MVC相比，MVP模式通过解耦View和Model，完全分离 View 和 Model 使职责划分更加清晰；由于View不依赖Model，可以将View抽离出来做成组件，它只需要提供一系列接口提供给上层操作。</p>
@@ -281,7 +281,7 @@ var _hmt = _hmt || [];
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">stackPanel1.DataContext = new Student() &#123;</span><br><span class="line">    StudentID=20130501,</span><br><span class="line">    Name=&quot;张三&quot;,</span><br><span class="line">    EntryDate=DateTime.Parse(&quot;2013-09-01&quot;),</span><br><span class="line">    Credit=0.0</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>其中最重要的特性之一就是数据绑定（Data-binding）。没有前后端分离，一个开发人员全搞定，一只手抓业务逻辑、一只手抓数据访问，顺带手拖放几个UI控件，绑定数据源到某个对象或某张表，一步到位。</p>
-<h2 id="MVVM-1"><a href="#MVVM-1" class="headerlink" title="MVVM"></a>MVVM</h2><p><img src="assets/mvvm.png" alt="MVVM模式"></p>
+<h2 id="MVVM-1"><a href="#MVVM-1" class="headerlink" title="MVVM"></a>MVVM</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/mvvm.png" alt="MVVM模式"></p>
 <p>首先，view和model是不知道彼此存在的，同MVP一样，将view和model清晰地分离开来。</p>
 <p>与 MVP 不同的是，MVVM把View和Model的同步逻辑自动化了。以前Presenter负责的View和Model同步不再手动地进行操作，而是交给框架所提供的数据绑定功能进行负责，只需要告诉它View显示的数据对应的是Model哪一部分即可。</p>
 <p> 其次，view是对viewmodel的外在显示，与viewmodel保持同步，viewmodel对象可以看作是view的上下文。view绑定到viewmodel的属性上，如果viewmodel中的属性值变化了，这些新值通过数据绑定会自动传递给view。反过来viewmodel会暴露model中的数据和特定状态给view。 所以，view不知道model的存在，viewmodel和model也觉察不到view。事实上，model也完全忽略viewmodel和view的存在。这是一个非常松散耦合的设计。</p>
@@ -298,7 +298,7 @@ var _hmt = _hmt || [];
 
 <p>整体来看，比MVC/MVP精简了很多，不仅仅简化了业务与界面的依赖，还解决了数据频繁更新（以前用jQuery操作DOM很繁琐）的问题。因为在MVVM中，View不知道Model的存在，ViewModel和Model也察觉不到View，这种低耦合模式可以使开发过程更加容易，提高应用的可重用性。</p>
 <h2 id="数据绑定（Data-Binding）"><a href="#数据绑定（Data-Binding）" class="headerlink" title="数据绑定（Data Binding）"></a>数据绑定（Data Binding）</h2><p>在Vue中，使用了双向绑定技术（Two-Way-Data-Binding），就是View的变化能实时让Model发生变化，而Model的变化也能实时更新到View。</p>
-<img src="assets/image-20191113220456856.png" alt="image-20191113220456856" style="zoom:30%;">
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191113220456856.png" alt="image-20191113220456856" style="zoom:30%;">
 
 <p>不同的MVVM框架中，实现双向数据绑定的技术有所不同。目前一些主流的前端框架实现数据绑定的方式大致有以下几种：</p>
 <ul>
@@ -574,10 +574,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -590,19 +586,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,11 +650,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,7 +662,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -682,11 +682,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -718,11 +718,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -730,11 +730,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -754,15 +754,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,11 +806,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -822,15 +822,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -838,11 +834,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -854,11 +854,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

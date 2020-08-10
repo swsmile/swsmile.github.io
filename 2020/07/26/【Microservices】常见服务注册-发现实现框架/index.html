@@ -16,19 +16,19 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="EurekaEureka是在Java语言上，基于Restful Api开发的服务注册与发现组件，由Netflix开源。遗憾的是，目前Eureka仅开源到1.X版本，2.X版本已经宣布闭源。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/image-20200726175132106.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/image-20200726111312283.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/zkservice.jpg">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/5cd1d22b37597.jpg">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/5cd1d22ba62d5.jpg">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/architecture-20200725235134004.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/435188-20180412214429759-1005871251.png">
-<meta property="og:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/27612-20170625122232991-2069801308-20200725234555675.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200726175132106.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200726111312283.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/zkservice.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/5cd1d22b37597.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/5cd1d22ba62d5.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/architecture-20200725235134004.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/435188-20180412214429759-1005871251.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/27612-20170625122232991-2069801308-20200725234555675.png">
 <meta property="og:updated_time" content="2020-07-26T10:53:17.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Microservices】常见服务注册&#x2F;发现实现框架">
 <meta name="twitter:description" content="EurekaEureka是在Java语言上，基于Restful Api开发的服务注册与发现组件，由Netflix开源。遗憾的是，目前Eureka仅开源到1.X版本，2.X版本已经宣布闭源。">
-<meta name="twitter:image" content="http://swsmile.info/2020/07/26/【Microservices】常见服务注册-发现实现框架/assets/image-20200726175132106.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200726175132106.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -224,7 +224,7 @@ var _hmt = _hmt || [];
 
 <p>Eureka采用的是Server/Client的模式进行设计。Server扮演了服务注册中心的角色，为Client提供服务注册和发现的功能，维护着注册到自身的Client的相关信息，同时提供接口给Client获取到注册表中其他服务的信息。Client将有关自己的服务的信息通过一定的方式登记到Server上，并在正常范围内维护自己信息的一致性，方便其他服务发现自己，同时可以通过Server获取到自己的依赖的其他服务信息，从而完成服务调用。</p>
 <p>它的架构图如下所示：</p>
-<p><img src="assets/image-20200726175132106.png" alt="image-20200726175132106"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200726175132106.png" alt="image-20200726175132106"></p>
 <p>The architecture above depicts how Eureka is deployed at Netflix and this is how you would typically run it. There is <strong>one</strong> eureka cluster per <strong>region</strong> which knows only about instances in its region. There is at the least <strong>one</strong> eureka server per <strong>zone</strong> to handle zone failures.</p>
 <p>Services <strong>register</strong> with Eureka and then send <strong>heartbeats</strong> to renew their leases every 30 seconds. If the client cannot renew the lease for a few times, it is taken out of the server registry in about 90 seconds. The registration information and the renewals are replicated to all the eureka nodes in the cluster. The clients from any zone can look up the <strong>registry</strong> information (happens every 30 seconds) to locate their services (which could be in any zone) and make remote calls.</p>
 <ul>
@@ -240,7 +240,7 @@ var _hmt = _hmt || [];
 <p>Eureka中没有使用任何的数据强一致性算法保证不同集群间的Server的数据一致，仅通过数据拷贝的方式争取注册中心数据的最终一致性，虽然放弃数据强一致性但是换来了Server的可用性，降低了注册的代价，提高了集群运行的健壮性。</p>
 <h1 id="Consul"><a href="#Consul" class="headerlink" title="Consul"></a>Consul</h1><p>Consul是由HashiCorp基于Go语言开发的支持多数据中心分布式高可用的服务发布和注册服务软件，采用Raft算法保证服务的一致性，且支持健康检查。</p>
 <p>Consul采用主从模式的设计，使得集群的数量可以大规模扩展，集群间通过RPC的方式调用(HTTP和DNS)。它的结构图如下所示：</p>
-<p><img src="assets/image-20200726111312283.png" alt="image-20200726111312283"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20200726111312283.png" alt="image-20200726111312283"></p>
 <ul>
 <li>Client：作为一个代理(非微服务实例)，它将转发所有的RPC请求到Server中。作为相对无状态的服务，它不持有任何注册信息。</li>
 <li>Server：作为一个具备扩展功能的代理，它将响应RPC查询、参与Raft选举、维护集群状态和转发查询给Leader等。</li>
@@ -255,7 +255,7 @@ var _hmt = _hmt || [];
 <p>基于Raft算法，Consul提供强一致性的注册中心服务，但是由于Leader节点承担了所有的处理工作，势必加大了注册和发现的代价，降低了服务的可用性。通过Gossip协议，Consul可以很好地监控Consul集群的运行，同时可以方便通知各类事件，如Leader选择发生、Server地址变更等。</p>
 <h1 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h1><p>Zookeeper 最初是由 Yahoo 开源的分布式协调服务，是 Hadoop 和 Hbase 的重要组件，提供了数据/发布订阅、负载均衡、分布式同步等功能。</p>
 <p>Zookeeper也是基于主从架构，搭建了一个可高扩展的服务集群，其服务架构如下：</p>
-<p><img src="assets/zkservice.jpg" alt="ZooKeeper"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/zkservice.jpg" alt="ZooKeeper"></p>
 <ul>
 <li>Leader-Server：Leader负责进行投票的发起和决议，更新系统中的数据状态</li>
 <li>Server：Server中存在两种类型：Follower和Observer。其中Follower接受客户端的请求并返回结果(事务请求将转发给Leader处理)，并在选举过程中参与投票；Observer与Follower功能一致，但是不参与投票过程，它的存在是为了提高系统的读取速度</li>
@@ -263,7 +263,7 @@ var _hmt = _hmt || [];
 </ul>
 <h2 id="Zookeeper-如何实现服务注册-发现"><a href="#Zookeeper-如何实现服务注册-发现" class="headerlink" title="Zookeeper 如何实现服务注册/发现"></a>Zookeeper 如何实现服务注册/发现</h2><p>在具体讨论怎么实现之前先看看 Zookeeper 的几个重要特性。</p>
 <p>Zookeeper 实现了一个类似于文件系统的树状结构：</p>
-<p><img src="assets/5cd1d22b37597.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/5cd1d22b37597.jpg" alt="img"></p>
 <p>这些节点被称为 znode(名字叫什么不重要)，其中每个节点都可以存放一定的数据。</p>
 <p>最主要的是 znode 有四种类型：</p>
 <ul>
@@ -285,7 +285,7 @@ var _hmt = _hmt || [];
 <p>这样我们就可以实时获取服务节点的信息，同时也只需要在第一次获取列表时缓存到本地；也不需要频繁和 Zookeeper 产生交互，只用等待通知更新即可。</p>
 <p>并且不管应用什么原因节点 down 掉后也会在 Zookeeper 中删除该信息。</p>
 <h3 id="效果演示"><a href="#效果演示" class="headerlink" title="效果演示"></a>效果演示</h3><p>这样实现方式就变为这样。</p>
-<p><img src="assets/5cd1d22ba62d5.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/5cd1d22ba62d5.jpg" alt="img"></p>
 <h2 id="Zab协议"><a href="#Zab协议" class="headerlink" title="Zab协议"></a>Zab协议</h2><p>ZooKeeper Atomic Broadcast protocol是专门设计给Zookeeper用于实现分布式系统数据的一致性，是在Paxos算法基础上发展而来。它使用了单一的Leader来接受和处理客户端的所有事务请求，并将服务器数据的状态变更以事务Proposal的形式广播到所有的Server中。同时它保证Leader出现异常时，集群依旧能够正常工作。Zab包含两种基本模式：崩溃恢复和消息广播。</p>
 <ul>
 <li>崩溃恢复：Leader服务器出现宕机，或者因为网络原因导致Leader服务器失去了与过半 Follower的联系，那么就会进入崩溃恢复模式从而选举新的Leader。Leader选举算法不仅仅需要让Leader自己知道其自身已经被选举为Leader，同时还需要让集群中的所有其他服务器也能够快速地感知到选举产生的新的Leader。当选举产生了新的Leader，同时集群中有过半的服务器与该Leader完成了状态同步之后，Zab协议就会退出崩溃恢复模式，进入消息广播模式。</li>
@@ -398,9 +398,9 @@ var _hmt = _hmt || [];
 <li>Zookeeper</li>
 </ul>
 <p>官方推荐 Zookeeper。</p>
-<p><img src="assets/architecture-20200725235134004.png" alt="home"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/architecture-20200725235134004.png" alt="home"></p>
 <p>在Dubbo架构图中，可以看到注册中心（Registry）位于顶端，所有的服务治理相关的操作都围绕它进行。服务提供者（Provider）注册到注册中心，服务消费者（Comsumer）到注册中心订阅，同时，注册中心中的变更也会通知服务消费者。</p>
-<p><img src="assets/435188-20180412214429759-1005871251.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/435188-20180412214429759-1005871251.png" alt="img"></p>
 <p>面对服务消费方，当业务逻辑中需要调用一个服务时，真正调用的其实是 Dubbo 创建的一个 Proxy，该 Proxy 会把调用转化成调用指定的 Invoker（Cluster 将 Directory 中的多个 Invoker 伪装成一个 Invoker，对上层透明，伪装过程包含了容错逻辑，调用失败后，重试另一个（通过 LoadBalance），Invoker 封装了 Provider 地址及 Service 接口信息）。而在这一系列的委托调用的过程里就完成了服务治理的逻辑，最终完成调用。</p>
 <h2 id="Spring-Cloud"><a href="#Spring-Cloud" class="headerlink" title="Spring Cloud"></a>Spring Cloud</h2><p>目前，SpringCloud可以说是最流行的微服务架构，SpingCloud整个体系功能完备，与Spring框架完美契合，开箱即用，极大降低了落地微服务架构的开发成本。在SpringCloud中，也是支持多种注册中心的：</p>
 <ul>
@@ -418,7 +418,7 @@ var _hmt = _hmt || [];
 <li>Eureka Client，服务消费者和服务提供者</li>
 </ul>
 <p>而且，Eureka支持多节点的部署，从而保证高可用。生产环境中，常用的方式是部署两台节点，做成一个P2P的集群。</p>
-<p><img src="assets/27612-20170625122232991-2069801308-20200725234555675.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/27612-20170625122232991-2069801308-20200725234555675.png" alt="img"></p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li><a href="https://juejin.im/post/5bb77923f265da0af3348aa3" target="_blank" rel="noopener">https://juejin.im/post/5bb77923f265da0af3348aa3</a></li>
 <li><a href="https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance" target="_blank" rel="noopener">https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance</a></li>
@@ -680,10 +680,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -696,19 +692,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -756,11 +756,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -768,7 +768,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -788,11 +788,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -824,11 +824,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -836,11 +836,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -860,15 +860,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -912,11 +912,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -928,15 +928,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -944,11 +940,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -960,11 +960,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

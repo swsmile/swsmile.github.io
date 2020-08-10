@@ -16,33 +16,33 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="模式匹配/ 字符串匹配算法字符串匹配字符串匹配问题的形式定义：  文本（Text）是一个长度为 n 的数组 T[1..n]，在下文中，将其对应的字符串称之为”源字符串“； 模式（Pattern）是一个长度为 m 且 m≤n 的数组 P[1..m]，在下文中，将其对应的字符串称之为”模式字符串“； T 和 P 中的元素都属于有限的字母表 Σ 表； 如果 0≤s≤n-m，并且 T[s+1..s+m]">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/032208464871566.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/032215106443194.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190522115853909.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/v2-40b4885aace7b31499da9b90b7c46ed3_hd.jpg">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050103.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050104.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050105.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050106.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050107.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050108.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050107.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190523161900125.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190523162600491.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050110.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050111.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050112.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/bg2013050113.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190523214835309.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190524101943640.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190524101953863.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190524102001792.png">
-<meta property="og:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/image-20190524102009730.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032215106443194.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190522115853909.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-40b4885aace7b31499da9b90b7c46ed3_hd.jpg">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050103.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050104.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050105.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050106.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050107.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050108.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050107.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190523161900125.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190523162600491.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050110.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050111.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050112.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050113.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190523214835309.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524101943640.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524101953863.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524102001792.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524102009730.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.270Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Algorithm】字符串匹配算法 - KMP 算法">
 <meta name="twitter:description" content="模式匹配/ 字符串匹配算法字符串匹配字符串匹配问题的形式定义：  文本（Text）是一个长度为 n 的数组 T[1..n]，在下文中，将其对应的字符串称之为”源字符串“； 模式（Pattern）是一个长度为 m 且 m≤n 的数组 P[1..m]，在下文中，将其对应的字符串称之为”模式字符串“； T 和 P 中的元素都属于有限的字母表 Σ 表； 如果 0≤s≤n-m，并且 T[s+1..s+m]">
-<meta name="twitter:image" content="http://swsmile.info/2019/05/22/【Algorithm】字符串匹配算法-KMP%20算法/assets/032208464871566.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -242,11 +242,11 @@ var _hmt = _hmt || [];
 </ul>
 <a id="more"></a> 
 
-<p><img src="assets/032208464871566.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/032208464871566.png" alt="img"></p>
 <p>比如上图中，目标是找出所有在文本 T = abcabaabcabac 中模式 P = abaa 的所有出现。该模式在此文本中仅出现一次，即在位移 s = 3 处，位移 s = 3 是有效位移。</p>
 <h3 id="常见的字符串匹配算法"><a href="#常见的字符串匹配算法" class="headerlink" title="常见的字符串匹配算法"></a>常见的字符串匹配算法</h3><p>解决字符串匹配的算法包括：朴素算法（Naive Algorithm）、Rabin-Karp 算法、有限自动机算法（Finite Automation）、 Knuth-Morris-Pratt 算法（即 KMP Algorithm）、Boyer-Moore 算法、Simon 算法、Colussi 算法、Galil-Giancarlo 算法、Apostolico-Crochemore 算法、Horspool 算法和 Sunday 算法等。</p>
 <h3 id="字符串匹配算法的步骤"><a href="#字符串匹配算法的步骤" class="headerlink" title="字符串匹配算法的步骤"></a>字符串匹配算法的步骤</h3><p>字符串匹配算法通常分为两个步骤：<strong>预处理（Preprocessing）</strong>和<strong>匹配（Matching）</strong>。所以算法的总运行时间为预处理和匹配的时间的总和。</p>
-<p><img src="assets/032215106443194.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/032215106443194.png" alt="img"></p>
 <p>上图描述了常见字符串匹配算法的预处理和匹配时间。</p>
 <h1 id="Knuth-Morris-Pratt-字符串匹配算法（即-KMP-算法）"><a href="#Knuth-Morris-Pratt-字符串匹配算法（即-KMP-算法）" class="headerlink" title="Knuth-Morris-Pratt 字符串匹配算法（即 KMP 算法）"></a>Knuth-Morris-Pratt 字符串匹配算法（即 KMP 算法）</h1><h3 id="前缀和后缀"><a href="#前缀和后缀" class="headerlink" title="前缀和后缀"></a>前缀和后缀</h3><p>在正式介绍KMP 算法之前，我们先解释一下字符串的前缀和后缀的概念。</p>
 <h5 id="字符串的前缀（prefix）"><a href="#字符串的前缀（prefix）" class="headerlink" title="字符串的前缀（prefix）"></a>字符串的前缀（prefix）</h5><p>如果字符串A和B，存在A=BS，其中S是任意的<strong>非空字符串</strong>，那就称B为A的<strong>前缀</strong>。例如，”Harry”的前缀包括”H”, ”Ha”, ”Har” 和 ”Harr”。</p>
@@ -265,13 +265,13 @@ var _hmt = _hmt || [];
 <li><code>char</code> 行表示将字符串的各个字符从左向右依次排列的结果；</li>
 <li><code>index</code> 行的值表示各字符在字符串的索引位置，比如，第一次出现的字符<code>c</code> 在字符串 “abababca”中的索引为 6。</li>
 </ul>
-<p><img src="assets/image-20190522115853909.png" alt="image-20190522115853909"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190522115853909.png" alt="image-20190522115853909"></p>
 <p>上面的描述很容易理解，我们重点来看看 <code>pmt</code> 行的含义。</p>
 <p><strong>首先需要明确的是，pmt 的值，是对于一个字符串而言的（而不是对于一个字符），即字符串的前缀集合与后缀集合的交集中 最长元素的长度值</strong>。</p>
 <p>例如，对于字符串”aba”，它的前缀集合为{”a”, ”ab”}，后缀集合为{”ba”, ”a”}。两个集合的交集为{”a”}，那么其中长度最长的元素就是字符串”a”了，其长度为1。所以对于”aba”而言，它在pmt表中对应的值就是1。</p>
 <p>再比如，对于字符串”ababa”，它的前缀集合为{”a”, ”ab”, ”aba”, ”abab”}，它的后缀集合为{”baba”, ”aba”, ”ba”, ”a”}， 两个集合的交集为{”a”, ”aba”}，其中最长的元素为”aba”，长度为3。</p>
 <p>回到上面的部分匹配表，我们依次计算字符串 <code>a</code>、<code>ab</code>、<code>aba</code>、<code>abab</code>、<code>ababa</code>、<code>ababab</code>、<code>abababc</code> 和 <code>abababca</code> 的 pmt 值，分别为0、0、1、2、3、4、0和1。<strong>在部分匹配表中，我们将这些字符串的pmt值标记为该字符串中最后一个字符的pmt值</strong>。比如字符串<code>abababc</code> 的 pmt 值为0，该字符串中的最后一个字符为 <code>c</code>，所以将 0 标记成这个字符 <code>c</code> 的 pmt 值。而事实上，在这个表中，字符 <code>c</code> 的pmt值为 0表示的是字符串 <code>abababc</code> 的 pmt 值 为 0 （pmt 的值，只对一个特定的字符串才有意义）。</p>
-<p><img src="assets/v2-40b4885aace7b31499da9b90b7c46ed3_hd.jpg" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/v2-40b4885aace7b31499da9b90b7c46ed3_hd.jpg" alt="img"></p>
 <p><strong>next的值等于当前字符的左边字符的pmt值。比如字符c左边的字符是b，这个字符b的pmt值为4，所以字符c的next值为4。</strong></p>
 <p>因为一个字符串的第一个字符的前面不可能有其他字符，所以就不会存在所谓的前后缀相同元素，因此pmt[0]恒等于0。自然地，next[1]恒等于0。</p>
 <p>我们还规定next[0]恒等于-1。</p>
@@ -280,17 +280,17 @@ var _hmt = _hmt || [];
 <p>因此，我们接下来在回顾朴素的字符串匹配算法之后，指出其不足，并在其基础进行演化。</p>
 </blockquote>
 <p>在朴素的字符串匹配算法（Naive String Matching Algorithm）中，我们首先将串 A （源字符串）与串 B （模式字符串）的首字符对齐，然后逐个判断相对的字符是否相等，如下图所示：</p>
-<p><img src="assets/bg2013050103.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050103.png" alt="img"></p>
 <p>因为字符A与B不匹配，所以模式字符串 “ABCDABD” 右移一个字符，右移后如下所示：</p>
-<p><img src="assets/bg2013050104.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050104.png" alt="img"></p>
 <p>接下来，模式字符串不断右移，直到模式字符串的第一个字符与源字符串中的当前扫描字符相同（情况如下所示）：</p>
-<p><img src="assets/bg2013050105.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050105.png" alt="img"></p>
 <p>接着比较模式字符串和源字符串的下一个字符，还是相同（情况如下所示）：</p>
-<p><img src="assets/bg2013050106.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050106.png" alt="img"></p>
 <p>直到模式字符串中的当前扫描字符，与源字符串中的当前扫描字符不相同为止（下图描述了不相同的情况）：</p>
-<p><img src="assets/bg2013050107.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050107.png" alt="img"></p>
 <p>这时，基于最朴素的字符串匹配思想，我们会继续将模式字符串向右移动一个字符，并将指向模式字符串中字符的指针重置以指向模式字符串的首字符（如下所示）。这样做虽然可行，但是效率很差。</p>
-<p><img src="assets/bg2013050108.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050108.png" alt="img"></p>
 <p>实际上，每当匹配失败时，可以得出两个结论：</p>
 <ul>
 <li><strong>本趟匹配失败；</strong></li>
@@ -337,7 +337,7 @@ var _hmt = _hmt || [];
 </tr>
 </tbody></table>
 <p>回到这个状态：</p>
-<p><img src="assets/bg2013050107.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050107.png" alt="img"></p>
 <p>已知空格与字符 “D” 不匹配时，前面六个字符”ABCDAB”是匹配的。查表可知，最后一个匹配字符B对应的部分匹配值（pmt值）为2，这意味着字符失配前的字符串（即字符串 <code>ABCDAB</code> ）的 pmt 值是 2 。</p>
 <p>我们知道，pmt 的值，表示的是<strong>字符串的前缀集合与后缀集合的交集中 最长元素的长度值</strong>。</p>
 <p>对于字符串 <code>ABCDABD</code>，其前缀集合与后缀集合的交集中的最长的元素是字符串 <code>AB</code>，这自然也意味着：字符串 <code>ABCDABD</code>一定以字符串 <code>AB</code> 开头，也一定以字符串 <code>AB</code> 结尾（如下图所示）。注意，这个字符串 <code>ABCDABD</code>既在源字符串中存在，也在模式字符串中存在。</p>
@@ -347,9 +347,9 @@ var _hmt = _hmt || [];
 <p>上面的这个分析和右移4个字符的过程，就是基于所谓的”利用当每次匹配失败后，得到的结论2“，即”<strong>在模式字符串中，当前匹配失败的字符之前的字符串在源字符串中是能够完全匹配成功的</strong>“。</p>
 <hr>
 <p>你可能又会想，为什么我们可以直接将模式字符串右移 4 个字符，会不会因此而有漏掉匹配的情况呢？比如假设刚才已经匹配的”ABCDAB”是”ABABAB”的情况，这时候，我们应该只将模式字符串右移 2 个字符。</p>
-<p><img src="assets/image-20190523161900125.png" alt="image-20190523161900125"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190523161900125.png" alt="image-20190523161900125"></p>
 <p>事实上，当模式字符串从”ABCDABD”变成了”ABABABD”后，其对应的部分匹配表也会发生改变：</p>
-<p><img src="assets/image-20190523162600491.png" alt="image-20190523162600491"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190523162600491.png" alt="image-20190523162600491"></p>
 <p>最后一个匹配字符B对应的部分匹配值（pmt值）为4，这意味着字符失配前的字符串（即字符串 <code>ABABAB</code> ）的 pmt 值是 4 。因此，在这种情况下，我们只能把模式字符串右移 2 个字符（因为我们需要具体去判断下面这种场景是不是所有的字符串都匹配了）。</p>
 <p>![:Working:Blog Draft:assets:image-20190523161900125 copy](assets/20190523161900125 copy.jpg)</p>
 <hr>
@@ -360,24 +360,24 @@ var _hmt = _hmt || [];
 <hr>
 <p>我们继续回到模式字符串为”ABCDABD”的场景。</p>
 <p>因为 6 - 2 等于4，所以将模式字符串向右移动 4 个字符（移动后如下所示）：</p>
-<p><img src="assets/bg2013050110.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050110.png" alt="img"></p>
 <p>因为空格与Ｃ不匹配，搜索词还要继续往后移。这时，已匹配的字符数为2（”AB”），对应的”部分匹配值”为0。所以，移动位数 = 2 - 0，结果为 2，于是将模式字符串向右移动 2 个字符。</p>
-<p><img src="assets/bg2013050111.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050111.png" alt="img"></p>
 <p>因为空格与A不匹配，继续将模式字符串向右移动 1 个字符。</p>
-<p><img src="assets/bg2013050112.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050112.png" alt="img"></p>
 <p>逐位比较，直到发现C与D不匹配。于是，移动位数 = 6 - 2，继续将模式字符串向右移动 4 个字符。</p>
-<p><img src="assets/bg2013050113.png" alt="img"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/bg2013050113.png" alt="img"></p>
 <p>逐位比较，直到模式字符串的最后一个字符，发现完全匹配，于是搜索完成。</p>
 <h3 id="next数组的计算实现"><a href="#next数组的计算实现" class="headerlink" title="next数组的计算实现"></a>next数组的计算实现</h3><p>我们来看一下如何编程快速求得next数组。其实，求next数组的过程完全可以看成字符串匹配的过程，即以模式字符串为源字符串，以模式字符串的前缀为目标字符串，一旦字符串匹配成功，那么当前字符的next值就是匹配成功的字符串的长度。</p>
 <p>具体来说，从源字符串的索引第1位（而不是第 0 位）开始对自身进行匹配运算。 在任一位置，能匹配的最长长度就是当前扫描字符的next值。如下图所示。</p>
 <blockquote>
 <p>注意，我们规定next[0] 恒等于 -1，而next[1]一定等于0。</p>
 </blockquote>
-<p><img src="assets/image-20190523214835309.png" alt="image-20190523214835309"></p>
-<p><img src="assets/image-20190524101943640.png" alt="image-20190524101943640"></p>
-<p><img src="assets/image-20190524101953863.png" alt="image-20190524101953863"></p>
-<p><img src="assets/image-20190524102001792.png" alt="image-20190524102001792"></p>
-<p><img src="assets/image-20190524102009730.png" alt="image-20190524102009730"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190523214835309.png" alt="image-20190523214835309"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524101943640.png" alt="image-20190524101943640"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524101953863.png" alt="image-20190524101953863"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524102001792.png" alt="image-20190524102001792"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190524102009730.png" alt="image-20190524102009730"></p>
 <p><a href="https://juejin.im/post/5b8f9aed6fb9a05d2e1b75d9" target="_blank" rel="noopener">https://juejin.im/post/5b8f9aed6fb9a05d2e1b75d9</a></p>
 <p><a href="https://blog.csdn.net/v_july_v/article/details/7041827" target="_blank" rel="noopener">https://blog.csdn.net/v_july_v/article/details/7041827</a></p>
 <p><a href="http://www.cnblogs.com/gaochundong/p/boyer_moore_string_matching_algorithm.html" target="_blank" rel="noopener">http://www.cnblogs.com/gaochundong/p/boyer_moore_string_matching_algorithm.html</a></p>
@@ -698,10 +698,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -714,19 +710,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -774,11 +774,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -786,7 +786,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -806,11 +806,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -842,11 +842,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -854,11 +854,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -878,15 +878,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -930,11 +930,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -946,15 +946,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -962,11 +958,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -978,11 +978,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

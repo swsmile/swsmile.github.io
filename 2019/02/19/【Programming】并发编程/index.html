@@ -16,14 +16,14 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="背景一直以来，硬件的发展极其迅速，也有一个很著名的”摩尔定律”，可能会奇怪明明讨论的是并发编程为什么会扯到了硬件的发展，这其中的关系应该是多核CPU的发展为并发编程提供的硬件基础。摩尔定律并不是一种自然法则或者是物理定律，它只是基于认为观测数据后，对未来的一种预测。按照所预测的速度，我们的计算能力会按照指数级别的速度增长，不久以后会拥有超强的计算能力，正是在畅想未来的时候，2004年，Intel宣">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/02/19/【Programming】并发编程/assets/image-20190214225235954.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/19/【Programming】并发编程/assets/image-20190218220709213.png">
-<meta property="og:image" content="http://swsmile.info/2019/02/19/【Programming】并发编程/assets/image-20190214222812636.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190214225235954.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190218220709213.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190214222812636.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.392Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Programming】并发编程（Concurrent Programming）">
 <meta name="twitter:description" content="背景一直以来，硬件的发展极其迅速，也有一个很著名的”摩尔定律”，可能会奇怪明明讨论的是并发编程为什么会扯到了硬件的发展，这其中的关系应该是多核CPU的发展为并发编程提供的硬件基础。摩尔定律并不是一种自然法则或者是物理定律，它只是基于认为观测数据后，对未来的一种预测。按照所预测的速度，我们的计算能力会按照指数级别的速度增长，不久以后会拥有超强的计算能力，正是在畅想未来的时候，2004年，Intel宣">
-<meta name="twitter:image" content="http://swsmile.info/2019/02/19/【Programming】并发编程/assets/image-20190214225235954.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190214225235954.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -261,7 +261,7 @@ var _hmt = _hmt || [];
 <li>将结果写回内存。</li>
 </ol>
 <p>这个过程在多线程下就可能出现如下现象：</p>
-<p><img src="assets/image-20190214225235954.png" alt="image-20190214225235954"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190214225235954.png" alt="image-20190214225235954"></p>
 <p>对于这种组合操作，要保证原子性，最常见的方式是加锁，如 Java 中的synchronized 或 Lock 都可以实现，</p>
 <h1 id="2-可见性（Visibility）"><a href="#2-可见性（Visibility）" class="headerlink" title="2 可见性（Visibility）"></a>2 可见性（Visibility）</h1><p>可见性（Visibility）是指当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</p>
 <p>举一个例子来说明：</p>
@@ -277,7 +277,7 @@ var _hmt = _hmt || [];
 <p>因此，只有当可变且类型为 long 或 double 的变量被声明为 volatile时，原子性才能得到保障。</p>
 <h2 id="锁与可见性"><a href="#锁与可见性" class="headerlink" title="锁与可见性"></a>锁与可见性</h2><p>如下图所示，当线程A 执行 synchronized 块，之后线程B 进入 sychronized 块，且他们都基于同一个锁对象，在线程B 获得锁时，线程A （在未获得锁之前和持有锁的两个过程中）对所有变量的修改，对于线程B 都是可见的。</p>
 <p>换句话说，</p>
-<p><img src="assets/image-20190218220709213.png" alt="image-20190218220709213"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190218220709213.png" alt="image-20190218220709213"></p>
 <h2 id="volatile-变量"><a href="#volatile-变量" class="headerlink" title="volatile 变量"></a><code>volatile</code> 变量</h2><p>当一个字段（field）被声明为 <code>volatile</code> 后，对于这个字段的操作均不会被 Java 编译器重排序。</p>
 <p>由于 <code>volatile</code> 变量不会被缓存在当前执行 CPU 的寄存器（registers）或者缓存（caches）中，对于 <code>volatile</code> 变量的读取，将会返回最后被任何一个线程重改写的那个值。</p>
 <p>值得注意的是，从可见性效果（visibility effects）的角度而言，声明一个 <code>volatile</code> 变量不仅仅只是作用于这个变量本身。事实上，线程A 更新一个 <code>volatile</code> 变量，此后线程B 读取这个变量的值。当线程B 读取这个变量的值后，对于线程A 在更新 <code>volatile</code> 变量之前，对其他的所有变量的修改，线程B 都是可见的。</p>
@@ -293,7 +293,7 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//语句1</span></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="comment">//语句2</span></span><br><span class="line"><span class="keyword">int</span> r = <span class="number">2</span>;</span><br><span class="line"><span class="comment">//语句3</span></span><br><span class="line">a = a + <span class="number">3</span>;</span><br><span class="line"><span class="comment">//语句4</span></span><br><span class="line">r = a * a;</span><br></pre></td></tr></table></figure>
 
 <p> 这段代码有4个语句，那么可能的一个执行顺序是：</p>
-<p><img src="assets/image-20190214222812636.png" alt="image-20190214222812636"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190214222812636.png" alt="image-20190214222812636"></p>
 <p>那么可不可能是这个执行顺序呢： 语句2   语句1    语句4   语句3</p>
 <p>不可能，因为处理器在进行重排序时是会考虑指令之间的<strong>数据依赖性</strong>，如果一个指令Instruction 2必须用到Instruction 1的结果，那么处理器会保证Instruction 1会在Instruction 2之前执行。</p>
 <p>虽然重排序不会影响单个线程内程序执行的结果，但是多线程呢？下面看一个例子：</p>
@@ -589,10 +589,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -605,19 +601,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -665,11 +665,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -677,7 +677,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -697,11 +697,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -733,11 +733,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,11 +745,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -769,15 +769,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -821,11 +821,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -837,15 +837,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -853,11 +849,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -869,11 +869,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>

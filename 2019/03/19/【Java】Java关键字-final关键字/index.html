@@ -16,16 +16,16 @@
 <meta property="og:site_name" content="西维蜀黍 的博客">
 <meta property="og:description" content="final的简介final可以修饰变量，方法和类，用于表示所修饰的内容一旦赋值之后就不会再被改变，比如String类就是一个final类型的类。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://swsmile.info/2019/03/19/【Java】Java关键字-final关键字/assets/image-20190318213235929.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/19/【Java】Java关键字-final关键字/assets/image-20190318213704356.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/19/【Java】Java关键字-final关键字/assets/image-20190318220220022.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/19/【Java】Java关键字-final关键字/assets/image-20190318220535784.png">
-<meta property="og:image" content="http://swsmile.info/2019/03/19/【Java】Java关键字-final关键字/assets/image-20190318220916481.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318213235929.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318213704356.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318220220022.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318220535784.png">
+<meta property="og:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318220916481.png">
 <meta property="og:updated_time" content="2020-07-04T04:32:24.335Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Java】Java关键字-final关键字">
 <meta name="twitter:description" content="final的简介final可以修饰变量，方法和类，用于表示所修饰的内容一旦赋值之后就不会再被改变，比如String类就是一个final类型的类。">
-<meta name="twitter:image" content="http://swsmile.info/2019/03/19/【Java】Java关键字-final关键字/assets/image-20190318213235929.png">
+<meta name="twitter:image" content="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318213235929.png">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
   
@@ -234,7 +234,7 @@ var _hmt = _hmt || [];
 <p>类变量有<strong>两个时机赋初值</strong>，而实例变量则可以有<strong>三个时机赋初值</strong>。</p>
 <p>当final变量未初始化时，系统不会进行隐式初始化，会出现报错。这样说起来还是比较抽象，下面用具体的代码来演示。</p>
 <p>代码涵盖了final修饰变量所有的可能情况。</p>
-<p><img src="assets/image-20190318213235929.png" alt="image-20190318213235929"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318213235929.png" alt="image-20190318213235929"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="comment">// final 实例变量可以在声明时被赋值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> a = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> b;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> d;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> e;</span><br><span class="line">    <span class="comment">// final 类变量可以在声明时就被赋值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> f = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// final 实例变量可以在初始化块中赋值</span></span><br><span class="line">        b = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// final 类变量可以在静态初始化块中被赋值</span></span><br><span class="line">        e = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// final 实例变量不能在静态初始化块中被赋值</span></span><br><span class="line">        b = <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// final 实例变量可以在构造函数中被赋值</span></span><br><span class="line">        c = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在任何位置都不能对已经赋值过的final变量再次赋值</span></span><br><span class="line">        b = <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
@@ -246,7 +246,7 @@ var _hmt = _hmt || [];
 <h2 id="final修饰【局部变量】"><a href="#final修饰【局部变量】" class="headerlink" title="final修饰【局部变量】"></a>final修饰【局部变量】</h2><p>final修饰的局部变量必须由程序员进行显式的初始化。</p>
 <p>如果final变量未进行初始化，必须进行赋值，而且<strong>当且仅有一次</strong>赋值机会，这意味着，如果final局部变量已经进行了初始化，则就不能再次进行赋值（修改），否则会提示编译错误，</p>
 <p>下面用具体的代码演示final局部变量的情况：</p>
-<p><img src="assets/image-20190318213704356.png" alt="image-20190318213704356"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318213704356.png" alt="image-20190318213704356"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> a;</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 由于上面已经进行了一个赋值，因此这里的赋值操作会提示报错！</span></span><br><span class="line">    a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="final修饰【方法参数】"><a href="#final修饰【方法参数】" class="headerlink" title="final修饰【方法参数】"></a>final修饰【方法参数】</h2><p>当一个方法的形参被final修饰的时候，这个参数在该方法内不可以被修改。</p>
@@ -290,15 +290,15 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalExampleParent</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>然后FinalExample继承该父类，当重写test()方法时报错，如下图：</p>
-<p><img src="assets/image-20190318220220022.png" alt="image-20190318220220022"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318220220022.png" alt="image-20190318220220022"></p>
 <p>通过这个现象我们就可以看出来<strong>被final修饰的方法不能够被子类所重写（overwrite）</strong>。</p>
-<h2 id="可以重载（overload）-final方法"><a href="#可以重载（overload）-final方法" class="headerlink" title="可以重载（overload） final方法"></a>可以重载（overload） final方法</h2><p><img src="assets/image-20190318220535784.png" alt="image-20190318220535784"></p>
+<h2 id="可以重载（overload）-final方法"><a href="#可以重载（overload）-final方法" class="headerlink" title="可以重载（overload） final方法"></a>可以重载（overload） final方法</h2><p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318220535784.png" alt="image-20190318220535784"></p>
 <p>上面的代码没有任何编译错误。</p>
 <p>因此，可以得出结论：被final修饰的方法是可以重载（overload）的。</p>
 <h1 id="Final修饰【类】"><a href="#Final修饰【类】" class="headerlink" title="Final修饰【类】"></a>Final修饰【类】</h1><p><strong>当一个类被final修饰时，该类不能被继承</strong>。</p>
 <p>子类继承往往可以重写父类的方法和改变父类属性，会带来一定的安全隐患。因此，当一个类不希望被继承时，就可以使用final修饰。</p>
 <h2 id="例子-2"><a href="#例子-2" class="headerlink" title="例子"></a>例子</h2><p>当一个类继承一个被final修饰的类时，就会报错，如下图：</p>
-<p><img src="assets/image-20190318220916481.png" alt="image-20190318220916481"></p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20190318220916481.png" alt="image-20190318220916481"></p>
 <h2 id="不变类"><a href="#不变类" class="headerlink" title="不变类"></a>不变类</h2><p>不变类的意思是创建该类的实例后，该实例变量是不可改变的。</p>
 <p>不可变类有很多好处，譬如它们的对象是只读的，可以在多线程环境下安全的共享，不用额外的同步开销等等。</p>
 <p>声明一个不可变类，需要满足以下条件：</p>
@@ -616,10 +616,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -632,19 +628,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Debug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -692,11 +692,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -704,7 +704,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,11 +724,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -760,11 +760,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -772,11 +772,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -796,15 +796,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -848,11 +848,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Regular Expression</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -864,15 +864,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -880,11 +876,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -896,11 +896,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
             
             <div class="clearfix"></div>
