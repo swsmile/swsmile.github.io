@@ -6,24 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://swsmile.info">
-  <title>【Cache System】缓存穿透、缓存雪崩与缓存击穿 | 西维蜀黍 的博客</title>
+  <title>【Cache System】缓存穿透（Cache Penetration）、缓存雪崩（Cache Avalanche）与缓存击穿（Cache Breakdown） | 西维蜀黍 的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缓存穿透问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
+  <meta name="description" content="缓存穿透（Cache Penetration）问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层（不一定是DB，可以是任何数据源，比如API）都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
 <meta name="keywords" content="Cache System">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【Cache System】缓存穿透、缓存雪崩与缓存击穿">
+<meta property="og:title" content="【Cache System】缓存穿透（Cache Penetration）、缓存雪崩（Cache Avalanche）与缓存击穿（Cache Breakdown）">
 <meta property="og:url" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/index.html">
 <meta property="og:site_name" content="西维蜀黍 的博客">
-<meta property="og:description" content="缓存穿透问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
+<meta property="og:description" content="缓存穿透（Cache Penetration）问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层（不一定是DB，可以是任何数据源，比如API）都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308.jpg">
 <meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308-6759541.jpg">
 <meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308-6759647.jpg">
 <meta property="og:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308-6759919.jpg">
-<meta property="og:updated_time" content="2020-07-04T04:32:24.286Z">
+<meta property="og:updated_time" content="2020-08-09T10:40:45.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【Cache System】缓存穿透、缓存雪崩与缓存击穿">
-<meta name="twitter:description" content="缓存穿透问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
+<meta name="twitter:title" content="【Cache System】缓存穿透（Cache Penetration）、缓存雪崩（Cache Avalanche）与缓存击穿（Cache Breakdown）">
+<meta name="twitter:description" content="缓存穿透（Cache Penetration）问题缓存穿透是指查询一个根本不存在的数据，缓存层和存储层（不一定是DB，可以是任何数据源，比如API）都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：   缓存层不命中 存储层不命中，所以不将空结果写回缓存 返回空结果">
 <meta name="twitter:image" content="http://swsmile.info/2019/07/08/【Cache-System】缓存穿透、缓存雪崩与缓存击穿/assets/Jietu20190106-151308.jpg">
   
     <link rel="alternative" href="/atom.xml" title="西维蜀黍 的博客" type="application/atom+xml">
@@ -202,7 +202,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      【Cache System】缓存穿透、缓存雪崩与缓存击穿
+      【Cache System】缓存穿透（Cache Penetration）、缓存雪崩（Cache Avalanche）与缓存击穿（Cache Breakdown）
     </h1>
   
 
@@ -215,7 +215,7 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="缓存穿透问题"><a href="#缓存穿透问题" class="headerlink" title="缓存穿透问题"></a>缓存穿透问题</h1><p>缓存穿透是指<strong>查询一个根本不存在的数据</strong>，缓存层和存储层都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：</p>
+        <h1 id="缓存穿透（Cache-Penetration）问题"><a href="#缓存穿透（Cache-Penetration）问题" class="headerlink" title="缓存穿透（Cache Penetration）问题"></a>缓存穿透（Cache Penetration）问题</h1><p>缓存穿透是指<strong>查询一个根本不存在的数据</strong>，缓存层和存储层（不一定是DB，可以是任何数据源，比如API）都不会命中，但是出于容错的考虑，如果从存储层查不到数据则不写入缓存层，如下图所示整个过程分为如下 3 步：</p>
 <p><img src="assets/Jietu20190106-151308.jpg" alt="Jietu20190106-151308"></p>
 <ol>
 <li>缓存层不命中</li>
@@ -231,19 +231,20 @@ var _hmt = _hmt || [];
 <p>缓存空对象会有两个问题：</p>
 <p>第一，空值做了缓存，意味着缓存层中存了更多的键，需要更多的内存空间 ( 如果是攻击，问题更严重 )，比较有效的方法是针对这类数据设置一个较短的过期时间，让其自动剔除。</p>
 <p>第二，缓存层和存储层的数据会有一段时间窗口的不一致，可能会对业务有一定影响。例如过期时间设置为 5 分钟，如果此时存储层添加了这个数据，那此段时间就会出现缓存层和存储层数据的不一致，此时可以利用消息系统或者其他方式清除掉缓存层中的空对象。</p>
-<h3 id="2）布隆过滤器拦截"><a href="#2）布隆过滤器拦截" class="headerlink" title="2）布隆过滤器拦截"></a><strong>2）布隆过滤器拦截</strong></h3><p><img src="assets/Jietu20190106-151308-6759647.jpg" alt="Jietu20190106-151308-6759647"></p>
+<h3 id="2）布隆过滤器（bloom-filter）拦截"><a href="#2）布隆过滤器（bloom-filter）拦截" class="headerlink" title="2）布隆过滤器（bloom filter）拦截"></a><strong>2）布隆过滤器（bloom filter）拦截</strong></h3><p><img src="assets/Jietu20190106-151308-6759647.jpg" alt="Jietu20190106-151308-6759647"></p>
 <p>如上图所示，在访问缓存层和存储层之前，将存在的 key 用布隆过滤器提前保存起来，做第一层拦截。例如： 一个个性化推荐系统有 4 亿个用户 ID，每个小时算法工程师会根据每个用户之前历史行为做出来的个性化放到存储层中，但是最新的用户由于没有历史行为，就会发生缓存穿透的行为，为此可以将所有有个性化推荐数据的用户做成布隆过滤器。如果布隆过滤器认为该用户 ID 不存在，那么就不会访问存储层，在一定程度保护了存储层。</p>
-<h1 id="缓存雪崩问题"><a href="#缓存雪崩问题" class="headerlink" title="缓存雪崩问题"></a><strong>缓存雪崩问题</strong></h1><p>从下图可以很清晰出什么是缓存雪崩：<strong>由于缓存层承载着大量请求，有效的保护了存储层，但是如果缓存层由于某些原因整体不能提供服务，于是所有的请求都会达到存储层，存储层的调用量会暴增，造成存储层也会挂掉的情况。</strong> 缓存雪崩的英文原意是 stampeding herd（奔逃的野牛），指的是缓存层宕掉后，流量会像奔逃的野牛一样，打向后端存储。</p>
+<h1 id="缓存雪崩（Cache-Avalanche）问题"><a href="#缓存雪崩（Cache-Avalanche）问题" class="headerlink" title="缓存雪崩（Cache Avalanche）问题"></a>缓存雪崩（Cache Avalanche）问题</h1><p>Cache avalanche is a scenario where lots of cached data expire at the same time or the cache service is down and all of a sudden all searches of these data will hit DB and cause high load to the DB layer and impact the performance.</p>
 <p><img src="assets/Jietu20190106-151308-6759919.jpg" alt="Jietu20190106-151308-6759919"></p>
-<h2 id="缓存雪崩问题-1"><a href="#缓存雪崩问题-1" class="headerlink" title="缓存雪崩问题"></a>缓存雪崩问题</h2><p>预防和解决缓存雪崩问题，可以从以下三个方面进行着手。</p>
-<h3 id="1）保证缓存层服务高可用性"><a href="#1）保证缓存层服务高可用性" class="headerlink" title="1）保证缓存层服务高可用性"></a>1）保证缓存层服务高可用性</h3><p>和飞机都有多个引擎一样，如果缓存层设计成高可用的，即使个别节点、个别机器、甚至是机房宕掉，依然可以提供服务，例如前面介绍过的 Redis Sentinel 和 Redis Cluster 都实现了高可用。</p>
+<h2 id="缓存雪崩问题"><a href="#缓存雪崩问题" class="headerlink" title="缓存雪崩问题"></a>缓存雪崩问题</h2><p>预防和解决缓存雪崩问题，可以从以下三个方面进行着手。</p>
+<h3 id="1）保证缓存层服务高可用性"><a href="#1）保证缓存层服务高可用性" class="headerlink" title="1）保证缓存层服务高可用性"></a>1）保证缓存层服务高可用性</h3><p>和飞机都有多个引擎一样，如果缓存层设计成高可用的，即使个别节点、个别机器、甚至是机房宕掉，依然可以提供服务，例如 Redis Sentinel 和 Redis Cluster 都实现了高可用。</p>
 <h3 id="2）-为时效时间增加随机值"><a href="#2）-为时效时间增加随机值" class="headerlink" title="2） 为时效时间增加随机值"></a>2） 为时效时间增加随机值</h3><p>一个简单且有效的方案就是将缓存失效时间分散开，比如我们可以在原有的失效时间基础上增加一个随机值，比如1-5分钟随机，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。</p>
-<h3 id="3）依赖隔离组件为后端限流并降级"><a href="#3）依赖隔离组件为后端限流并降级" class="headerlink" title="3）依赖隔离组件为后端限流并降级"></a><strong>3）依赖隔离组件为后端限流并降级</strong></h3><p>无论是缓存层还是存储层都会有出错的概率，可以将它们视同为资源。作为并发量较大的系统，假如有一个资源不可用，可能会造成线程全部 hang 在这个资源上，造成整个系统不可用。降级在高并发系统中是非常正常的：比如推荐服务中，如果个性化推荐服务不可用，可以降级补充热点数据，不至于造成前端页面是开天窗。</p>
+<h3 id="3）依赖-circuit-breaker-组件为后端限流并降级"><a href="#3）依赖-circuit-breaker-组件为后端限流并降级" class="headerlink" title="3）依赖 circuit breaker 组件为后端限流并降级"></a><strong>3）依赖 circuit breaker 组件为后端限流并降级</strong></h3><p>无论是缓存层还是存储层都会有出错的概率，可以将它们视同为资源。作为并发量较大的系统，假如有一个资源不可用，可能会造成线程全部 hang 在这个资源上，造成整个系统不可用。降级在高并发系统中是非常正常的：比如推荐服务中，如果个性化推荐服务不可用，可以降级补充热点数据，不至于造成前端页面是开天窗。</p>
 <p><strong>在实际项目中，我们需要对重要的资源 ( 例如 Redis、 MySQL、 Hbase、外部接口 ) 都进行隔离</strong>，让每种资源都单独运行在自己的线程池中，即使个别资源出现了问题，对其他服务没有影响。但是线程池如何管理，比如如何关闭资源池，开启资源池，资源池阀值管理，这些做起来还是相当复杂的，这里推荐一个 Java 依赖隔离工具 Hystrix(<a href="https://github.com/Netflix/Hystrix)，" target="_blank" rel="noopener">https://github.com/Netflix/Hystrix)，</a></p>
-<h1 id="缓存击穿问题"><a href="#缓存击穿问题" class="headerlink" title="缓存击穿问题"></a>缓存击穿问题</h1><p>对于一些设置了过期时间的key，如果这些key可能会在某些时间点被超高并发地访问，是一种非常“热点”的数据。这个时候，需要考虑一个问题：缓存被“击穿”的问题，缓存击穿和缓存雪崩的区别在于前者针对某一key缓存，后者则是很多key。</p>
-<p>缓存在某个时间点过期的时候，恰好在这个时间点对这个Key有大量的并发请求过来，这些请求发现缓存过期一般都会从后端DB加载数据并回设到缓存，这个时候大并发的请求可能会瞬间把后端DB压垮。</p>
+<h1 id="缓存击穿（Cache-Breakdown）问题"><a href="#缓存击穿（Cache-Breakdown）问题" class="headerlink" title="缓存击穿（Cache Breakdown）问题"></a>缓存击穿（Cache Breakdown）问题</h1><p>Cache breakdown is a scenario where the cached data expires and at the same time there are lots of search on the expired data which suddenly cause the searches to hit DB directly and increase the load to the DB layer dramatically.</p>
+<h2 id="Potential-Solution"><a href="#Potential-Solution" class="headerlink" title="Potential Solution"></a>Potential Solution</h2><p>Normally in this case, there needs to be a lock on the searched key so that other threads need to wait when some thread is trying to search the key and update the cache. After the cache is updated and lock is released, other threads will be able to read the newly cached data.</p>
 <h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
 <li>缓存穿透，缓存击穿，缓存雪崩解决方案分析 - <a href="https://blog.csdn.net/zeb_perfect/article/details/54135506" target="_blank" rel="noopener">https://blog.csdn.net/zeb_perfect/article/details/54135506</a></li>
+<li><a href="https://www.pixelstech.net/article/1586522853-What-is-cache-penetration-cache-breakdown-and-cache-avalanche" target="_blank" rel="noopener">https://www.pixelstech.net/article/1586522853-What-is-cache-penetration-cache-breakdown-and-cache-avalanche</a></li>
 </ul>
 
       
@@ -467,15 +468,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Algorithm Problem</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -523,15 +524,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -571,15 +572,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -587,11 +580,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -639,15 +640,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -656,6 +653,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lucene</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -675,15 +676,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -699,11 +700,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Performance</a>
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -751,19 +752,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">WordPress</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Windows</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -775,11 +776,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+                <a href="javascript:void(0)" class="js-tag color5">hugo</a>
               </li>
             
             <div class="clearfix"></div>
