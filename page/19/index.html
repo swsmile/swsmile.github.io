@@ -191,6 +191,118 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Software-Testing】Postman-深入" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/09/【Software-Testing】Postman-深入/">【Software Testing】Postman 深入</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/09/【Software-Testing】Postman-深入/" class="archive-article-date">
+  	<time datetime="2019-12-09T13:50:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a> 
+
+
+
+<h1 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h1><p>环境变量 (Environment Variable)</p>
+<h1 id="Globals-Global-Variable"><a href="#Globals-Global-Variable" class="headerlink" title="Globals (Global Variable)"></a>Globals (Global Variable)</h1><h1 id="Script"><a href="#Script" class="headerlink" title="Script"></a>Script</h1><h2 id="Pre-request-scripts"><a href="#Pre-request-scripts" class="headerlink" title="Pre-request scripts"></a>Pre-request scripts</h2><p>在遇到有依赖的接口时，比如需要登录或者需要从前一个接口的结果中获取参数时，我们往往需要在该请求前先发送一下所依赖的请求，我们可以在Pre-request script中使用pm.sendRequest实现。</p>
+<p>或者，我们的 API 使用一种在 Postman 中未定义的 Authentication 方式进行 auth（需要基于每次都基于 HTTP body 和 secretToken 计算出一个 signature，并把这个计算出的 signature 放在 HTTP 的 Header 中），这时候，就可以把这个计算 signature 的逻辑放在Pre-request scripts，从而进一步提高我们 API 测试的效率。</p>
+<p>在 Pre-request scripts允许我们写任何的 JavaScript 代码，扩展性极强。</p>
+<h3 id="发送GET请求"><a href="#发送GET请求" class="headerlink" title="发送GET请求"></a>发送GET请求</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> url = <span class="string">'http://115.28.108.130:5000/api/user/getToken/?appid=136425'</span>;</span><br><span class="line"><span class="comment">// 发送get请求</span></span><br><span class="line">pm.sendRequest(url, <span class="function"><span class="keyword">function</span> (<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err ? err : res.text());  <span class="comment">// 控制台打印请求文本</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>可以配合 <code>pm.environment.set(key:value)</code> 来将响应中的数据保存到环境变量中以供本次请求使用。<br>示例（使用请求前脚本获取token并使用）：</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191210194020103.png" alt="image-20191210194020103"></p>
+<h3 id="发送表单格式Post请求"><a href="#发送表单格式Post请求" class="headerlink" title="发送表单格式Post请求"></a>发送表单格式Post请求</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造一个登录请求</span></span><br><span class="line"><span class="keyword">const</span> loginRequest = &#123;</span><br><span class="line">    url: <span class="string">'http://115.28.108.130:5000/api/user/login/'</span>,</span><br><span class="line">    method: <span class="string">"POST"</span>,</span><br><span class="line">    body: &#123;</span><br><span class="line">        mode: <span class="string">'urlencoded'</span>,  <span class="comment">// 模式为表单url编码模式</span></span><br><span class="line">        urlencoded: <span class="string">'name=张三&amp;password=123456'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送请求</span></span><br><span class="line">pm.sendRequest(loginRequest, <span class="function"><span class="keyword">function</span> (<span class="params">err, res</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err ? err : res.text());</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>输出信息可以通过点击Postman菜单栏 -&gt;view-&gt; Show Postman Console，打开控制台查看（先打开控制台，再发送请求）。</p>
+<h3 id="使用HMAC-SHA256"><a href="#使用HMAC-SHA256" class="headerlink" title="使用HMAC SHA256"></a>使用HMAC SHA256</h3><p>核心代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hash = CryptoJS.HmacSHA256(<span class="string">"Message"</span>, <span class="string">"secret"</span>);</span><br><span class="line"><span class="keyword">var</span> hashInBase64 = CryptoJS.enc.Base64.stringify(hash);</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.jokecamp.com/blog/examples-of-creating-base64-hashes-using-hmac-sha256-in-different-languages/#js" target="_blank" rel="noopener">https://www.jokecamp.com/blog/examples-of-creating-base64-hashes-using-hmac-sha256-in-different-languages/#js</a></p>
+<p><a href="https://github.com/acquia/http-hmac-postman/blob/master/src/prerequestscript.js" target="_blank" rel="noopener">https://github.com/acquia/http-hmac-postman/blob/master/src/prerequestscript.js</a></p>
+<p><a href="https://gist.github.com/DinoChiesa/75796b27828cf8e15c91" target="_blank" rel="noopener">https://gist.github.com/DinoChiesa/75796b27828cf8e15c91</a></p>
+<p><a href="https://github.com/acquia/http-hmac-postman" target="_blank" rel="noopener">https://github.com/acquia/http-hmac-postman</a></p>
+<p><a href="https://gist.github.com/DinoChiesa/75796b27828cf8e15c91" target="_blank" rel="noopener">https://gist.github.com/DinoChiesa/75796b27828cf8e15c91</a></p>
+<h1 id="Authorization（授权）-Authentication（认证）"><a href="#Authorization（授权）-Authentication（认证）" class="headerlink" title="Authorization（授权）/ Authentication（认证）"></a>Authorization（授权）/ Authentication（认证）</h1><h2 id="Inheriting-auth"><a href="#Inheriting-auth" class="headerlink" title="Inheriting auth"></a>Inheriting auth</h2><h2 id="Specifying-authorization-details"><a href="#Specifying-authorization-details" class="headerlink" title="Specifying authorization details"></a>Specifying authorization details</h2><h3 id="API-Key"><a href="#API-Key" class="headerlink" title="API Key"></a>API Key</h3><p>可以将一对 key-value添加在 Header 或者Query Params中。</p>
+<img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/image-20191210113915089.png" alt="image-20191210113915089" style="zoom:80%;">
+
+<h3 id="Bearer-token"><a href="#Bearer-token" class="headerlink" title="Bearer token"></a>Bearer token</h3><p>添加之后，Postman 会在 Header 中增加一个 key-value，其中 key 为 authorization，value 为Bearer JpywakNgvqVesTzBSeQ3scZewOj0oP</p>
+<h3 id="Basic-auth"><a href="#Basic-auth" class="headerlink" title="Basic auth"></a>Basic auth</h3><p>Basic authentication involves sending a verified username and password with your request. In the request <strong>Authorization</strong> tab, select <strong>Basic Auth</strong> from the <strong>Type</strong> dropdown list.</p>
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/basic-auth.jpg" alt="Basic Auth"></p>
+<p>Enter your API login details in the <strong>Username</strong> and <strong>Password</strong> fields—for additional security you can store these in variables.</p>
+<p>Click <strong>Preview Request</strong> to see how Postman will append your basic auth details to the request. In the request <strong>Headers</strong>, you will see that the Authorization header is being passed a Base64 encoded string representing your username and password values, appended to the text “Basic “ as follows:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Basic &lt;Base64 encoded username and password&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://d326g9ccfagnrm.cloudfront.net/img/assets/basic-auth-encoded.jpg" alt="Basic Auth Encoded"></p>
+<h3 id="Digest-auth"><a href="#Digest-auth" class="headerlink" title="Digest auth"></a>Digest auth</h3><h3 id="OAuth-1-0"><a href="#OAuth-1-0" class="headerlink" title="OAuth 1.0"></a>OAuth 1.0</h3><h1 id="Mock-Server"><a href="#Mock-Server" class="headerlink" title="Mock Server"></a>Mock Server</h1><h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li>Authorization - <a href="https://learning.getpostman.com/docs/postman/sending-api-requests/authorization/" target="_blank" rel="noopener">https://learning.getpostman.com/docs/postman/sending-api-requests/authorization/</a></li>
+<li>Postman Sandbox API reference - <a href="https://learning.getpostman.com/docs/postman/scripts/postman-sandbox-api-reference/" target="_blank" rel="noopener">https://learning.getpostman.com/docs/postman/scripts/postman-sandbox-api-reference/</a></li>
+<li><a href="https://www.jianshu.com/p/b1b9a049f56a" target="_blank" rel="noopener">https://www.jianshu.com/p/b1b9a049f56a</a></li>
+<li><a href="https://www.jianshu.com/p/9481387c7cd7" target="_blank" rel="noopener">https://www.jianshu.com/p/9481387c7cd7</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Software Testing</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/SoftwareTesting/" class="article-tag-list-link color1">SoftwareTesting</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/09/【Software-Testing】Postman-深入/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Linux】资源使用问题排查" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -827,107 +939,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Python】Basics-特殊变量" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/26/【Python】Basics-特殊变量/">【Python】Basics - 特殊变量（Special Variables）</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/26/【Python】Basics-特殊变量/" class="archive-article-date">
-  	<time datetime="2019-11-26T04:21:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <a id="more"></a> 
-
-<p>类似__xx__，以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，它不是private变量。</p>
-<ul>
-<li><code>__doc__</code> 属性 -  定义文档字符串</li>
-<li><code>__dict__</code> 属性 - 类的属性列表</li>
-<li><code>__class__</code> 属性 - 返回当前类对应的变量</li>
-<li><code>__slots__</code> 属性 - 在运行时对类的实例动态绑定属性和方法</li>
-<li><code>__name__</code>属性 - 返回当前类的类名（以字符串描述）</li>
-</ul>
-<h1 id="slots-属性-在运行时对类的实例动态绑定属性和方法"><a href="#slots-属性-在运行时对类的实例动态绑定属性和方法" class="headerlink" title="__slots__ 属性 - 在运行时对类的实例动态绑定属性和方法"></a><code>__slots__</code> 属性 - 在运行时对类的实例动态绑定属性和方法</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> types <span class="keyword">import</span> MethodType</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_age</span><span class="params">(self, age)</span>:</span></span><br><span class="line">    self.age = age </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">p = P() </span><br><span class="line">p.name = <span class="string">'chenqi'</span></span><br><span class="line"><span class="comment"># 在运行时为这个类的实例绑定一个方法，但仅限于这个类实例（其他类实例仍然没有这个方法）</span></span><br><span class="line">p.set_age = MethodType(set_age, p, P)  </span><br><span class="line"></span><br><span class="line">p.set_age(<span class="number">31</span>)</span><br><span class="line"><span class="keyword">print</span> p.name</span><br><span class="line"><span class="keyword">print</span> p.age</span><br></pre></td></tr></table></figure>
-
-<p>如果想让添加的方法对所有实例都生效，可以绑定到类上：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">P.set_age = MethodType(set_age, None, P)</span><br></pre></td></tr></table></figure>
-
-
-
-<p>最后，<strong>slots</strong>的作用就是限制对类动态绑定的属性范围，例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class P(object):</span><br><span class="line">    __slots__ = (&quot;name&quot;, &quot;age&quot;)</span><br><span class="line">    pass</span><br></pre></td></tr></table></figure>
-
-<p>如上，除了”name”和”age”之外的属性就不能再增加了；</p>
-<p>注意：<strong>slots</strong>属性不会继承给子类，仅在当前类生效。</p>
-<h1 id="class-属性-返回当前类对应的变量"><a href="#class-属性-返回当前类对应的变量" class="headerlink" title="__class__ 属性 - 返回当前类对应的变量"></a><code>__class__</code> 属性 - 返回当前类对应的变量</h1><p>比如可以这样玩：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></span><br><span class="line">   aa = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">def</span> <span class="title">get_current_class_variable</span><span class="params">(self)</span>:</span></span><br><span class="line">      <span class="keyword">return</span> self.__class__</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = A()</span><br><span class="line">class_A_variable = a.get_current_class_variable()</span><br><span class="line">a2 = class_A_variable()</span><br><span class="line"><span class="keyword">print</span> a2.aa</span><br></pre></td></tr></table></figure>
-
-<p>这体现了“在 Python 中一切皆对象“的哲学。</p>
-<h1 id="name-属性-返回当前类的类名（以字符串描述）"><a href="#name-属性-返回当前类的类名（以字符串描述）" class="headerlink" title="__name__属性 - 返回当前类的类名（以字符串描述）"></a><code>__name__</code>属性 - 返回当前类的类名（以字符串描述）</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> A.__name__ <span class="comment"># A</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><p><a href="http://www.liujiangblog.com/course/python/47" target="_blank" rel="noopener">http://www.liujiangblog.com/course/python/47</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python/" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/26/【Python】Basics-特殊变量/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/18/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><a class="page-number" href="/page/21/">21</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><a class="extend next" rel="next" href="/page/20/">Next &raquo;</a>
@@ -1062,18 +1073,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">C#</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1086,11 +1085,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
+                <a href="javascript:void(0)" class="js-tag color3">C#</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Compile</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1154,11 +1165,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color3">Network</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Network</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1166,19 +1177,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
+                <a href="javascript:void(0)" class="js-tag color5">Interview</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
+                <a href="javascript:void(0)" class="js-tag color3">Java EE</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1187,6 +1194,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Network Programming</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1202,11 +1213,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
+                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Lock</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linxu</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1222,11 +1233,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Mattermost</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1246,11 +1257,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">npm</a>
+                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NPM</a>
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1262,6 +1273,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Operating Systems</a>
               </li>
              
@@ -1270,15 +1285,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Performancede</a>
+                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Protobuf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Programming</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1310,19 +1321,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1334,11 +1337,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Vmware</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ZooKeeper</a>
               </li>
              
               <li class="article-tag-list-item">
