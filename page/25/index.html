@@ -191,6 +191,84 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/">【Database】聚集索引（Clustered Index）与非聚集索引（Non-clustered Index）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/" class="archive-article-date">
+  	<time datetime="2019-10-31T13:06:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>DB 索引数据的存储方式 - 聚集索引（Clustered Index）与非聚集索引（Non-clustered Index）</p>
+<h1 id="索引数据的存储方式-聚集索引（聚簇索引，Clustered-Index）"><a href="#索引数据的存储方式-聚集索引（聚簇索引，Clustered-Index）" class="headerlink" title="索引数据的存储方式 - 聚集索引（聚簇索引，Clustered Index）"></a>索引数据的存储方式 - 聚集索引（聚簇索引，Clustered Index）</h1><p><strong>聚集索引（clustered index）</strong>，也称为<strong>聚簇索引</strong>。</p>
+<p>聚簇索引并不是一种单独的索引类型，而是一种<strong>索引数据的存储方式</strong>。</p>
+<p>当表有聚簇索引时，它的行数据实际上存储在索引的叶子页（leaf page）中。因为无法同时把数据行存放在两个不同的地方，所以<strong>一张表只能有一个聚簇索引</strong>。</p>
+        
+          <a class="article-more-a" href="/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Database</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Database/" class="article-tag-list-link color4">Database</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/31/【Database】聚集索引（Clustered-Index）与非聚集索引（Non-clustered-Index）/">Show More >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-【Django】通过-ORM-访问-MySQL，插入-Emoji-报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -495,11 +573,11 @@ var _hmt = _hmt || [];
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">HTTP</a>
         		</li>
       		
 		</ul>
@@ -795,127 +873,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-【Architecture】Design-Database-Schema-Design" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/28/【Architecture】Design-Database-Schema-Design/">【Architecture】Design - Database Schema Design</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/28/【Architecture】Design-Database-Schema-Design/" class="archive-article-date">
-  	<time datetime="2019-10-28T07:57:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Naming"><a href="#Naming" class="headerlink" title="Naming"></a>Naming</h1><ul>
-<li>DB<ul>
-<li><code>lower_case_with_underscores</code> with suffix <code>_db</code>.
-e.g. <code>account_db</code>, <code>company_account_db</code>, <code>gop_txn_db</code>, <code>company_admin_vn_db</code></li>
-<li>Use project code as the prefix.<br>e.g. <code>company_account_db</code>, <code>gop_txn_db</code></li>
-<li>If the database is specific for a region, add <a href="https://en.wikipedia.org/wiki/ISO_3166-1" target="_blank" rel="noopener">region code</a> before <code>_db</code>.
-e.g. <code>company_admin_vn_db</code></li>
-<li>For sharding db, put shard id as suffix after <code>_db</code>, padding to 8 digits, started from 0.<br>e.g. <code>company_account_db_00000000</code>, <code>gop_txn_db_00001000</code>, <code>log_db_00002018</code></li>
-</ul>
-</li>
-<li>Table<ul>
-<li><code>lower_case_with_underscores</code> with suffix <code>_tab</code>. e.g. <code>user_tab</code></li>
-<li>For sharding table, put shard id as suffix after <code>_tab</code>, padding to 8 digits, started from 0.<br>e.g. <code>account_tab_00000000</code>, <code>order_tab_00001000</code>, <code>login_log_tab_00201801</code>, <code>audit_log_tab_20180101</code></li>
-</ul>
-</li>
-<li>Field<ul>
-<li><code>lower_case_with_underscores</code>.
-e.g. order_id, <code>create_time</code></li>
-<li>If the field is a foreign reference to another table, and it is referencing an integer primary key, it should be suffixed with <code>_id</code></li>
-</ul>
-</li>
-<li>Index<ul>
-<li><code>lower_case_with_underscores</code>, joined keys with prefix <code>idx_</code>.
-e.g. <code>idx_order_id</code>, <code>idx_key1_key2</code></li>
-</ul>
-</li>
-<li>Stored Procedure<ul>
-<li><code>lower_case_with_underscores</code> with prefix <code>sp_</code>.
-e.g. <code>sp_execute_topup</code></li>
-</ul>
-</li>
-<li>Function<ul>
-<li><code>lower_case_with_underscores</code> with prefix <code>func_</code>.
-e.g. <code>func_get_uid</code></li>
-</ul>
-</li>
-</ul>
-<p>Avoid from using any <a href="https://dev.mysql.com/doc/refman/5.7/en/keywords.html" target="_blank" rel="noopener">MySQL keywords or reserved words</a> for db / table / field / index names. e.g. don’t use <code>type</code> as field name, can use <code>user_type</code> instead. </p>
-<p>Only use English for naming and comment, avoid to use non-English characters.</p>
-        
-          <a class="article-more-a" href="/2019/10/28/【Architecture】Design-Database-Schema-Design/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Architecture</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ArchitectureDesign</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Architecture/" class="article-tag-list-link color3">Architecture</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ArchitectureDesign/" class="article-tag-list-link color4">ArchitectureDesign</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/28/【Architecture】Design-Database-Schema-Design/">Show More >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/24/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><a class="page-number" href="/page/27/">27</a><span class="space">&hellip;</span><a class="page-number" href="/page/74/">74</a><a class="extend next" rel="next" href="/page/26/">Next &raquo;</a>
@@ -1026,11 +983,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
+                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color4">AWS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1054,6 +1011,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Frontend</a>
               </li>
              
@@ -1066,23 +1031,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Debug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Visual Studio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Data Format</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Cache System</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1122,15 +1079,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
+                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1138,11 +1087,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Golang</a>
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
+                <a href="javascript:void(0)" class="js-tag color4">ELK</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Version Control</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1150,7 +1103,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
+                <a href="javascript:void(0)" class="js-tag color5">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1158,7 +1111,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+                <a href="javascript:void(0)" class="js-tag color4">Hardware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1174,15 +1127,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Software Testing</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">LaTeX</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1198,11 +1155,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
+                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Markdown</a>
+                <a href="javascript:void(0)" class="js-tag color1">macOS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1234,6 +1191,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">NPM</a>
               </li>
              
@@ -1243,10 +1204,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">OpenWrt</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">nvm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1274,11 +1231,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
+                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">RaspbeeryPi</a>
+                <a href="javascript:void(0)" class="js-tag color1">Codis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1298,15 +1255,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">TypeScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
+                <a href="javascript:void(0)" class="js-tag color2">VMware</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1335,6 +1288,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hugo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VPN</a>
               </li>
             
             <div class="clearfix"></div>
